@@ -15,7 +15,9 @@ layout: default
  });
 </script>
 
-<span class="last-update" style="font-style: italic;">Last Update: {{ page.last_update | date: "%B %d, %Y" }}</span>
+{% if page.last_update %}
+    <span class="last-update" style="font-style: italic;">Last Update: {{ page.last_update | date: "%Y-%m-%d %I:%M:%S %p" }}</span>
+{% endif %}
 
 <hr />
 
