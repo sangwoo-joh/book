@@ -26,9 +26,9 @@ author: Sangwoo Joh
 url: "https://sangwoo-joh.github.io" # the base hostname & protocol for your site
 
 # Social (First three Required)
-repo: "https://github.com/sangwoo-joh/wiki"
+repo: "https://github.com/sangwoo-joh/bible"
 github_user: "sangwoo-joh"
-github_repo: "wiki"
+github_repo: "bible"
 github_branch: "master"
 
 plugins:
