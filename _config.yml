@@ -14,37 +14,37 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Docsy Jekyll
-email: your-email@domain.com
-author: Dinosaur Avocado
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+title: Bible
+description: A Very Personal Bible
+email: work.sangwoo.joh@gmail.com
+author: Sangwoo Joh
 
 # Add your baseurl here (your repository) but DO NOT CHANGE THE LINE NUMBER without editing .circleci/circle_urls.sh
-baseurl: "/docsy-jekyll" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 
 # This is mostly for testing
-url: "https://vsoch.github.io" # the base hostname & protocol for your site
+url: "https://sangwoo-joh.github.io" # the base hostname & protocol for your site
 
 # Social (First three Required)
-repo: "https://github.com/vsoch/docsy-jekyll"
-github_user: "vsoch"
-github_repo: "docsy-jekyll"
+repo: "https://github.com/sangwoo-joh/wiki"
+github_user: "sangwoo-joh"
+github_repo: "wiki"
 github_branch: "master"
 
+plugins:
+  - jekyll-org
+
 # Optional
-twitter: vsoch
-linkedin: vsochat
-dockerhub: vanessa
+# twitter: vsoch
+# linkedin: vsochat
+# dockerhub: vanessa
 
 # These options are used to configure the locations of your version history when you want to serve versioned documents
 version_params:
-  version_menu: "Release"
-  version_dir: Archive
-  tocversion_dir: versions
-  versioning: true
+  # version_menu: "Release"
+  # version_dir: Archive
+  # tocversion_dir: versions
+  # versioning: true
 
   # Disable so older versions cannot be searched
   allow_search: true  
@@ -58,7 +58,7 @@ version_params:
     - Previous
 
 # Should there be feedback buttons at the bottom of pages?
-feedback: true
+# feedback: true
 
 # Link to a privacy policy in footer, uncomment and define if wanted
 # privacy: https://domain.com/privacy
@@ -83,7 +83,7 @@ accentColor: red # purple, green, etc.
 themeColor: red # purple, green, blue, orange, purple, grey
 fixedNav: 'true' # true or false
 
-permalink: /:year/:title/
+permalink: pretty
 markdown: kramdown
 exclude: [_site, CHANGELOG.md, LICENSE, README.md, vendor]
 
@@ -106,9 +106,3 @@ defaults:
       type: "pages"
     values:
       layout: "page"
-  -
-    scope:
-      path: "posts"
-      type: "posts"
-    values:
-      layout: "post"

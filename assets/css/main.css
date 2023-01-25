@@ -166,7 +166,7 @@ section {
 body {
     margin: 0;
     font-family: open sans, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #222;
@@ -18615,4 +18615,39 @@ footer {
         margin-bottom: 30px;
     }
     
+}
+
+ul {
+    > li {
+        &::before {
+            position: absolute;
+            margin-left: -1.4em;
+            color: $grey-dk-000;
+            content: "•";
+        }
+    }
+}
+
+.task-list {
+    & {
+        list-style: none;
+    }
+    padding-left: 0;
+}
+
+.task-list-item {
+    display: flex;
+    align-items: center;
+
+    &::before {
+        content: "";
+    }
+}
+
+.task-list-item-checkbox {
+    margin-right: 0.6em;
+}
+
+div.hidden {
+    display: none;
 }

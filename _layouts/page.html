@@ -1,7 +1,27 @@
 ---
 layout: default
 ---
+
+
 {{ content }}
 {% include toc.html %}
 {% include permalinks.html %}
 {% include tags.html %}
+
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+
+<span class="last-update" style="font-style: italic;">Last Update: {{ page.last_update | date: "%B %d, %Y" }}</span>
+
+<hr />
+
+<center>
+  <!-- LikeBtn.com BEGIN -->
+  <span class="likebtn-wrapper" data-theme="review" data-ef_voting="bounce" data-dislike_enabled="false" data-icon_dislike_show="false" data-counter_clickable="true" data-counter_frmt="comma" data-lazy_load="true" data-loader_show="true"></span>
+  <script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+  <!-- LikeBtn.com END -->
+</center>

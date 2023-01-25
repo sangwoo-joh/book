@@ -1,0 +1,20 @@
+---
+layout: page
+---
+
+<h1>{{ page.title }}</h1>
+
+{% assign thislength = page.url | size %}
+{% assign thisdepth = page.url | split: "/" | size | plus: 1 %}
+<!-- This depth: {{ thisdepth }} -->
+<ul>
+    {% for child in site.pages %}
+        {% assign prefix = child.url | slice: 0, thislength %}
+        {% assign depth = child.url | split: "/" | size %}
+        {% if prefix == page.url and thisdepth == depth%}
+            <li><a href="{{ child.url }}">{{ child.title }}</a>
+                <!-- <sub>{{ depth }}</sub> -->
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
