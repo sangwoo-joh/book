@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, theory, python, binary-search]
 title: Upper Bound and Lower Bound
+last_update: 2023-01-25 23:49:13
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # Upper Bound and Lower Bound
 ## Mathematical Definition

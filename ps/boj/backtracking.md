@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, boj, python, backtracking, wip]
 title: Backtracking (WIP)
+last_update: 2023-01-25 23:47:19
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # 백트래킹
  백트래킹 문제는 대충 개념을 이해한채로 막상 문제를 풀려고 그러면

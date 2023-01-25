@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, boj, python, recursion]
 title: Recursion
+last_update: 2023-01-25 23:47:28
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # Recursion
  재귀는 곧 자연수, 귀납적인 정의와 동치다.

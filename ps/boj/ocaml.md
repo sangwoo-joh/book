@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, boj, ocaml]
 title: OCaml Problem Solving
+last_update: 2023-01-25 23:47:40
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # OCaml
 

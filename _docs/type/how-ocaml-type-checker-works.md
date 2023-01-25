@@ -1,6 +1,7 @@
 ---
 layout: page
 title: How OCaml Type Checker Works
+last_update: 2023-01-25 23:47:13
 ---
 
 {: .no_toc }
@@ -25,12 +26,6 @@ title: How OCaml Type Checker Works
  메모리 관리에서 쓰이는 추적 방법과 같은 종류이다. (타입) 일반화는
  노드에는 타입을 어노테이트하고 엣지는 공유된 타입을 나타내도록 표현한
  AST에서 도미네이터를 찾는 일로 볼 수 있다.
-
-
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 ## Introduction
  이 페이지는 원래 광범위하고, 복잡하고, 거의 문서화가 안된 OCaml 타입

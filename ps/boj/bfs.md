@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, boj, python, graph]
 title: Breadth First Search
+last_update: 2023-01-25 23:47:32
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # BFS
 ## Deque

@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, boj, python, stack]
 title: Stack
+last_update: 2023-01-25 23:47:24
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # Stack
 

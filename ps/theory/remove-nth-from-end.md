@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, python, tips, linked-list]
 title: Remove n-th Node from End of a List
+last_update: 2023-01-25 23:50:16
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # Remove n-th from end
 

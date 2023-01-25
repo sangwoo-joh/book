@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, boj, python, string, trie]
 title: Trie
+last_update: 2023-01-25 23:47:36
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # Trie
  대소문자를 구분한다면 52(26+26), 구분하지 않는다면 26 진 트리로 특정

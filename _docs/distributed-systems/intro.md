@@ -2,17 +2,8 @@
 layout: page
 tags: [translation, wip]
 title: 01. Introduction (WIP)
-last_update: 2023-01-25 18:37:40
+last_update: 2023-01-25 23:46:55
 ---
-
-{: .no_toc }
-# Introduction
-
-## Table of Contents
-{: .no_toc .text-delta }
-
- - TOC
-{:toc}
 
  동시성(Concurrency)은 하나의 머신에서 동작한다. 주로 같은 메모리
  공간을 갖는 멀티 쓰레드를 활용하기 때문에 *공유 메모리

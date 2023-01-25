@@ -2,16 +2,10 @@
 layout: page
 tags: [problem-solving, theory, python, binary-search]
 title: Binary Search
+last_update: 2023-01-25 23:49:19
 ---
 
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
-
 # Binary Search
-
 
 ## Binary Search in Rotated Sorted Array
 

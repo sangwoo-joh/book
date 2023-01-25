@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, theory, python, string, palindrome]
 title: Palindrome
+last_update: 2023-01-25 23:50:09
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # 팰린드롬
 

@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, theory, graph]
 title: Depth First Search
+last_update: 2023-01-25 23:47:59
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # DFS
  Flood Fill은 BFS, DFS 둘 다 가능하지만 거리 측정은 BFS만 가능하고

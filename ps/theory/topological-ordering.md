@@ -2,22 +2,11 @@
 layout: page
 tags: [problem-solving, theory, python, graph, cycle]
 title: Topological Ordering
+last_update: 2023-01-25 23:50:03
 ---
 
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
-
-# Cycle Condition
-
-| | `visiting = False` | `visiting = True` |
-| --- | --- | --- |
-| `visited = False` | 아직 방문하지 않음 | **싸이클** |
-| `visited = True` | 불가능한 경우 | 탐색이 끝남 |
-
 # Topological ordering
+
  DFS에서 노드에 대한 방문을 **완료** 했다는 의미는 즉 이 친구는
  Topological Ordering 에서 제일 나중에 방문해야 한다는 뜻이다. 따라서
  방문을 완료한 순서대로 리스트든 큐든 스택이든 차례로 넣으면 이게 곧
@@ -72,7 +61,14 @@ class Graph:
         return order
 ```
 
-# Floyd's Cycle Finding Algorithm, or The Tortoise and The Hare Algorithm
+## Cycle Condition
+
+| | `visiting = False` | `visiting = True` |
+| --- | --- | --- |
+| `visited = False` | 아직 방문하지 않음 | **싸이클** |
+| `visited = True` | 불가능한 경우 | 탐색이 끝남 |
+
+## Floyd's Cycle Finding Algorithm, or The Tortoise and The Hare Algorithm
  단순히 싸이클의 유무만 판별하기 위한 유명한 알고리즘이다. 시간
  복잡도는 O(n)으로 동일하지만 공간 복잡도가 O(1)인 알고리즘이다.
 

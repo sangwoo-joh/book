@@ -2,16 +2,10 @@
 layout: page
 tags: [problem-solving, theory, bitwise]
 title: Bitwise Property
+last_update: 2023-01-25 23:49:01
 ---
 
-{: .no_toc }
 # Bitwise Property
-
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
-
 
 ## 2의 배수 알아내기
 

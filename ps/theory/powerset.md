@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, theory, python, tips, recursion]
 title: Powerset
+last_update: 2023-01-25 23:47:51
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # Powerset
 

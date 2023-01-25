@@ -2,13 +2,8 @@
 layout: page
 tags: [problem-solving, theory, graph]
 title: Breadth First Search
+last_update: 2023-01-25 23:47:44
 ---
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 # BFS
  BFS는 최단 거리를 찾는 데에 쓸 수 있다. 그리고 BFS 코드는 생긴 모습이

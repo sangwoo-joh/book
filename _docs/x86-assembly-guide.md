@@ -2,6 +2,7 @@
 layout: page
 tags: [translation]
 title: x86 Assembly Guide
+last_update: 2023-01-25 23:47:06
 ---
 
 # [x86 어셈블리 가이드](http://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
@@ -18,12 +19,6 @@ title: x86 Assembly Guide
  사용에 좀더 제약이 많고, 등등. 그래서 여기에서는 x86 프로그래밍의
  좀더 현대적인 측면에만 집중해서 x86 프로그래밍에 대해서 기초적인
  부분만 다룰려고 한다.
-
-{: .no_toc }
-## Table of Contents
-{: .no_toc .text-delta }
-- TOC
-{:toc}
 
 ## 레지스터
  현대적인 (즉, 386 이상) x86 프로세서는 여덟 개의 32비트 범용 목적
