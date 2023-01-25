@@ -100,9 +100,3 @@ defaults:
       type: "docs"
     values:
       layout: page
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"

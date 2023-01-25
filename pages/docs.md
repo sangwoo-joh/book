@@ -2,15 +2,25 @@
 layout: page
 title: Documents
 permalink: /docs/
-last_update: 2023-01-25 17:39:50
+last_update: 2023-01-25 23:03:28
 ---
 
 # Documents
 
-<div class="section-index">
-    {% for post in site.docs %}
-    <div class="entry">
-    <h5><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h5>
-    <p>{{ post.description }}</p>
-    </div>{% endfor %}
-</div>
+
+{% assign thislength = page.url | size %}
+{% assign thisdepth = page.url | split: "/" | size | plus: 1 %}
+<!-- This depth: {{ thisdepth }} -->
+
+<ul>
+    {% for child in site.docs %}
+        {% assign prefix = child.url | slice: 0, thislength %}
+        {% assign depth = child.url | split: "/" | size %}
+        {% if prefix == page.url and thisdepth == depth%}
+            <li><a href="{{ child.url | prepend: site.baseurl }}">{{ child.title }}</a>
+                {% if child.description %}<sub>{{ child.description }}</sub>{% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
