@@ -1,0 +1,7 @@
+margin = 80
+break-cases = fit-or-vertical
+break-infix = fit-or-vertical
+break-before-in = fit-or-vertical
+break-sequences = true
+parse-docstrings = true
+let-binding-spacing = sparse
