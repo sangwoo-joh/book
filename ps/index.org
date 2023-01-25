@@ -1,6 +1,0 @@
-#+layout: default
-#+last_update: 2023-01-25 15:00:52
-#+title: Problem Solving
-#+has_children: true
-
-* Problem Solving
