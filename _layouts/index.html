@@ -12,7 +12,7 @@ layout: page
         {% assign prefix = child.url | slice: 0, thislength %}
         {% assign depth = child.url | split: "/" | size %}
         {% if prefix == page.url and thisdepth == depth%}
-            <li><a href="{{ child.url }}">{{ child.title }}</a>
+            <li><a href="{{ site.baseurl }}{{ child.url }}">{{ child.title }}</a>
                 <!-- <sub>{{ depth }}</sub> -->
             </li>
         {% endif %}

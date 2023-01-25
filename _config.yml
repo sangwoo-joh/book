@@ -20,7 +20,7 @@ email: work.sangwoo.joh@gmail.com
 author: Sangwoo Joh
 
 # Add your baseurl here (your repository) but DO NOT CHANGE THE LINE NUMBER without editing .circleci/circle_urls.sh
-baseurl: "" # the subpath of your site, e.g. /blog
+# baseurl: "" # the subpath of your site, e.g. /blog
 
 # This is mostly for testing
 url: "https://sangwoo-joh.github.io" # the base hostname & protocol for your site
