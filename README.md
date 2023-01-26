@@ -2,7 +2,6 @@
 
  Personal engineering bible built on top of [Docsy](https://github.com/vsoch/docsy-jekyll)
 
-## NOTE
+## DISCLAIMER
  
- I made some modifications on my own. These modifications were not made for pull
- requests to the original project.
+ I made some modifications to my own taste. These modifications are not meant to be some contributions to the original project.
