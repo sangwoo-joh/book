@@ -2,7 +2,7 @@
 layout: page
 tags: [problem-solving, python, tips]
 title: Python Tips
-last_update: 2023-01-25 14:58:37
+last_update: 2023-01-29 23:06:45
 ---
 
 # `map`, `filter`
@@ -104,6 +104,18 @@ dq.reverse()  # in-place reverse
 dq.rotate(n=1) == dq.appendleft(dq.pop())
 dq.count(x)
 ```
+
+## OrderedDict
+
+ * 순서를 유지하는 딕셔너리인데, 키 값의 오더링이 아니라 **아이템이 추가된
+   순서**를 보장한다.
+ * 거의 모든 메소드는 딕셔너리와 같고 다음 두 가지 연산이 추가적으로 제공된다.
+   * `popitem(last=True)`: `last` 불리언 값에 따라서 가장 마지막에 추가된 아이템
+     또는 가장 처음에 추가된 아이템을 제거한다.
+   * `move_to_end(key, last=True)`: `key`에 해당하는 맵핑의 순서를 `last` 불리언
+     값에 따라 가장 마지막 또는 가장 처음으로 옮긴다.
+
+ 이런 성질을 이용하면 `OrderedDict`는 LRU 또는 LFU 캐시를 만드는데 쓰일 수 있다.
 
 # Heapq
 
