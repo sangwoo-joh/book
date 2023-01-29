@@ -22,7 +22,7 @@ last_update: 2023-01-25 15:10:13
 </script>
 
 ## Language
- - [x] [Basic Calculators](basic-calculators)
+ - [x] [Basic Calculator](basic-calculator)
  - [x] [Evaluate Reverse Polish Notation](evaluate-reverse-polish-notation)
  - [x] [Parsing A Boolean Expression](parsing-a-boolean-expression)
 
