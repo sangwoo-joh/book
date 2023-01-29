@@ -25,3 +25,5 @@ ruby RUBY_VERSION
 gem "jekyll", ">= 3.9"
 gem "kramdown-parser-gfm", "~> 1.0"
 gem "jekyll-org", ">= 1.1.0"
+
+gem "pygments.rb", "~> 2.3"
