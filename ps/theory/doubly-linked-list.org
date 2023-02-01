@@ -1,5 +1,5 @@
 #+title: Doubly Linked List
-#+last_update: 2023-01-29 23:54:03
+#+last_update: 2023-02-01 15:45:43
 #+layout: page
 #+tags: problem-solving theory linked-list
 
@@ -64,16 +64,16 @@ class DoublyLinkedList:
         node.next = before
         self.size += 1
 
-    def pop(self, node=None):
+    def pop(self, node=None, last=True):
         """
         One of pros of doubly linked list is that it can directly drop certain node. O(1).
-        if node is None, then drop the last one.
+        if node is None, then drop the last one, and if first is true then drop the first one.
         """
         if self.size == 0:
             return
 
         if node is None:
-            node = self.sentinel.prev
+            node = self.sentinel.prev if last else self.sentinel.next
 
         node.prev.next = node.next
         node.next.prev = node.prev
@@ -97,6 +97,62 @@ class DoublyLinkedList:
  리스트의 노드로 가는 맵핑으로 구현되어 있다. 즉, 파이썬의 ~OrderedDict~ 구현은
  다음과 같다.
 
- #+begin_src python
-# TODO: implement OrderdDict
- #+end_src
+#+begin_src python
+class OrderedDict(dict):
+    def __init__(self):
+        self._order = DoublyLinkedList()  # contains order
+        self._map = {}  # random access to the node of d-list
+
+    def __setitem__(self, key, value):
+        if key not in self:
+            self._map[key] = node = Node(key)  # node contains key
+            self._order.append_before(node)
+        dict.__setitem__(self, key, value)
+
+    def __delitem__(self, key):
+        dict.__delitem__(self, key)
+        node = self._map.pop(key)
+        self._order.pop(node)
+
+    def __iter__(self):
+        """
+        Traverse in order
+        """
+        node = self._order.sentinel.next
+        while node is not self._order.sentinel:
+            yield node.data
+            node = node.next
+
+    def __reversed__(self):
+        """
+        Traverse in reverse order
+        """
+        node = self._order.sentinel.next
+        while node is not self._order.sentinel:
+            yield node.data
+            node = node.prev
+
+    def popitem(self, last=True):
+        """
+        Remove and return a (key, value) pair from the dictionary.
+        Pairs are returned in LIFO order if last is true, or FIFO order otherwise.
+        """
+        if not self:
+            raise KeyError('dictionary is empty')
+        node = self._order.pop(last=last)
+        key = node.data
+        del self._map[key]
+        value = dict.pop(self, key)
+        return key, value
+
+    def move_to_end(self, key, last=True):
+        """
+        Move an existing element to the end (or beginning if last is false).
+        """
+        node = self._map[key]
+        self._order.pop(node)
+        if last:
+            self._order.append_after(node)
+        else:
+            self._order.append_before(node)
+#+end_src
