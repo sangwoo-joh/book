@@ -8,6 +8,8 @@
       url: "ps/theory"
     - title: Leetcode
       url: "ps/leetcode"
+    - title: Daily Leetcode
+      url: "ps/leetcode/daily"
 
 - title: "Documents"
   url: "docs"

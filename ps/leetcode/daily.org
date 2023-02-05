@@ -1,0 +1,57 @@
+#+title: Daily Leetcode
+#+last_update: 2023-02-05 23:43:56
+#+layout: page
+#+tags: problem-solving leetcode python
+
+* Daily Leetcode
+
+데일리 문제를 푸는 공간
+
+** [[https://leetcode.com/problems/find-all-anagrams-in-a-string/][Find All Anagrams In A String]]
+<2023-02-05 Sun>
+
+ + 두 문자열의 길이가 다르면 애너그램일 수 없다.
+ + 길이가 같은 두 문자열의 각 글자 수가 같아야 애너그램이다.
+ + p의 글자수를 미리 세 둔 다음 s 안에서 p의 길이만큼의 모든 부분 문자열에
+   대해서 확인해보면 된다. 움직일 때마다 앞에 글자 수를 빼고 뒤에 글자 수를
+   더하는 슬라이딩 윈도우 방식이 훨씬 빠르긴 하지만 그냥 매번 세도 통과하긴
+   한다.
+#+begin_src python
+def findAnagrams(s: str, p: str) -> List[int]:
+    target, sn, pn = Counter(p), len(s), len(p)
+    if pn > sn:
+        return []
+    answer = []
+    for start in range(sn - pn + 1):
+        if target == Counter(s[start:start + pn]):
+            answer.append(start)
+
+    return answer
+#+end_src
+
+#+begin_src python
+def findAnagrams(s: str, p: str) -> List[int]:
+    def idx(char):
+        return ord(char) - ord('a')
+
+    def count(word: str)
+        arr = [0] * 26
+        for char in word:
+            arr[idx(char)] += 1
+        return arr
+
+    target, sn, pn = count(p), len(s), len(p)
+    if sn > pn:
+        return []
+    check, start = count(s[:pn]), 0
+    answer = []
+    while start < sn - pn + 1:
+        if check == count:
+            answer.append(start)
+
+        check[idx(s[start])] -= 1
+        if start + pn < sn:
+            check(idx(s[start + pn])) += 1
+        start += 1
+    return answer
+#+end_src
