@@ -2,8 +2,47 @@
 layout: page
 tags: [problem-solving, python, tips]
 title: Python Tips
-last_update: 2023-01-29 23:06:45
+last_update: 2023-02-11 23:31:17
 ---
+
+# `sum`
+
+ `sum(iterable, /, start=0)` 타입인데, `start`에 `iterable`의 아이템을 하나씩
+ 더해서 리턴하는 함수이다.
+
+ 그래서 `start`에 뭘 넘겨주느냐에 따라서 다양한 `+` 연산을 활용할 수 있다.
+
+ 예를 들면 이중 리스트를 평평하게 할 때 (flatten 연산) 리스트 컴프리헨션으로
+ 헷갈리게 하는 것보다는 다음과 같이 할 수 있다:
+
+```python
+arr = [[1, 2], [3, 4], [4, 5]]
+sum(arr, [])  # yields [1,2,3,4,4,5]
+```
+
+ 이게 되는 이유는 `start`, 즉 accumulator로 쓸 초기값이 빈 리스트이기 때문에
+ 이후 `iterable`의 각 원소마다 적용하는 `+` 연산이 리스트의 concatenation 으로
+ 해석되기 때문이다.
+
+ 하지만 공식 문서에서는 다음과 같이
+
+> For some uses cases, there are good alternatives to `sum()`.... To concatenate
+> a series of iterables, consider using `itertools.chain()`.
+
+ 즉 `iterable`의 시리즈를 합칠거면 `sum()` 쓰지 말고 `itertools.chain()`을
+ 쓰는 것을 추천하고 있다.
+
+# `itertools.chain`
+
+ 별 거 없고 아래 코드와 같다.
+
+```python
+def chain(*iterables):
+    # chain('abc', 'def') --> a b c d e f
+    for it in iterables:
+        for elt in it:
+            yield elt
+```
 
 # `map`, `filter`
  적용할 함수가 먼저 온다. 어떻게 생각하면 되냐면 `map(f, x) --> f(x)`
