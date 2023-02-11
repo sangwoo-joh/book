@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-02-11 13:15:48
+last_update: 2023-02-11 14:50:05
 ---
 
 {: .no_toc }
@@ -145,6 +145,10 @@ last_update: 2023-02-11 13:15:48
  - [x] [Stream of Characters](stream-of-characters)
  - [x] [Subtree of Another Tree](subtree-of-another-tree)
  - [x] [Validate Binary Search Tree](validate-binary-search-tree)
+
+
+## Disjoint Set
+ - [x] [Data Stream As Disjoint Intervals](data-stream-as-disjoint-intervals)
 
 
 ## Heap

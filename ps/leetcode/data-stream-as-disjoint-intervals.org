@@ -1,0 +1,61 @@
+#+title: Data Stream As Disjoint Intervals
+#+last_update: 2023-02-11 14:49:59
+#+layout: page
+#+tags: problem-solving leetcode python disjoint-set
+
+
+* [[https://leetcode.com/problems/data-stream-as-disjoint-intervals/][Data Stream As Disjoint Intervals]]
+
+ + 대놓고 문제에 Disjoint가 있으므로 유니온 파인드를 가져다 써야 한다는 감이
+   온다.
+ + =addNum(int value)= 으로 *정수* 가 하나씩 추가되므로, 추가된 정수 앞 뒤 범위, 즉 =-1= 과 =+1=
+   범위를 봐서 이미 집합이 있으면 그때가 바로 합쳐야 하는 시점이다.
+ + 집합의 대표 원소 뿐만 아니라 그 집합의 *범위* 정보도 같이 저장하자. 그러면
+   다음과 같이 두 범위를 합칠 수 있다: =(두 범위의 시작점 중 최소, 두 범위의 끝점
+   중 최대)=. 이게 동작하는 이유는 모든 범위가 항상 Disjoint 하다는 invariant가
+   성립하기 때문이다.
+ + =getIntervals()= 에서 정렬을 한번 해야하긴 하지만, 평균적으로 입력들이 인터벌로
+   합쳐져있을 것이기 때문에 복잡도가 크지 않다.
+
+#+begin_src python
+class DisjointSet:
+    def __init__(self):
+        self.reps = {}
+        self.itv = {}
+
+    def make_set(self, x):
+        if x in self.reps:
+            return
+        self.reps[x] = x
+        self.itv[x] = (x, x)
+
+    def find(self, x):
+        if x not in self.reps:
+            return None
+        if x != self.reps[x]:
+            self.reps[x] = self.find(self.reps[x])
+        return self.reps[x]
+
+    def union(self, x, y):
+        x, y = self.find(x), self.find(y)
+        if x is None or y is None or x == y:
+            return
+        # merge two intervals here.
+        # invariant: all intervals are disjoint.
+        self.reps[x] = y  # merge x to y
+        itvx, itvy = self.itv[x], self.itv[y]
+        del self.itv[x]
+        self.itv[y] = (min(itvx[0], itvy[0]), max(itvx[1], itvy[1]))
+
+class SummaryRanges:
+    def __init__(self):
+        self.ds = DisjointSet()
+
+    def addNum(self, value: int) -> None:
+        self.ds.make_set(value)
+        self.ds.union(value, value-1)
+        self.ds.union(value, value+1)
+
+    def getIntervals(self) -> List[List[int]]:
+        return sorted(self.ds.itv.values())
+#+end_src
