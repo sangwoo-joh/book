@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-02-11 15:24:14
+last_update: 2023-02-11 20:04:57
 ---
 
 {: .no_toc }
@@ -106,6 +106,7 @@ last_update: 2023-02-11 15:24:14
  - [x] [Valid Parentheses](valid-parentheses)
  - [x] [Find And Replace in String](find-and-replace-in-string)
  - [x] [Longest Palindrome by Concatenating Two Letter Words](longest-palindrome-by-concatenating-two-letter-words)
+ - [x] [Zigzag Conversion](zigzag-conversion)
 
 
 ## Graph

@@ -1,0 +1,51 @@
+#+title: Zigzag Conversion
+#+last_update: 2023-02-11 20:04:55
+#+layout: page
+#+tags: problem-solving leetcode python string
+
+
+* [[https://leetcode.com/problems/zigzag-conversion/][Zigzag Conversion]]
+
+ 지그재그 모양에 현혹되면 안된다. 핵심은 =numRows= 만큼 문자열을 정방향 -> 역방향
+ -> 정방향 -> ... 으로 번갈아가며 (alternate) 훑는 것이다.
+
+** 번갈아가며 배열에 쌓는 방식
+
+번갈아가며 탐색한 결과를 배열에 쌓아서 최종 문자열을 만들 수 있다. 이때 현재
+방향의 탐색이 끝나서 (= 범위를 벗어나서) 방향을 바꿀 때, 반대 방향으로 /두 번/
+가야 한다는 점에 주의하자. 벗어남 -> 역방향으로 한칸 (가장 최근에 추가한 위치)
+-> 역방향으로 한번 더 가야 그 다음 탐색할 위치가 된다.
+
+#+begin_src python
+def convert(s: str, numRows: int) -> str:
+    if numRows == 1:
+        return s
+    rows = [[] for _ in range(numRows)]
+    i, d = 0, 1
+    for char in s:
+        rows[i].append(char)
+        i += d
+        if not (0 <= i < numRows):
+            d = -d
+            i += 2*d
+    rows = [''.join(row) for row in rows]
+    return ''.join(rows)
+#+end_src
+
+** 번갈아가며 문자열을 쌓는 방식
+
+별 건 없고 위의 방식에서 각 행의 탐색을 배열이 아니라 문자열로 쌓는 방식이다.
+이러면 마지막에 ~''.join()~ 을 한 번만 해줘도 된다.
+
+#+begin_src python
+def convert(s: str, numRows: int) -> str:
+    rows = [''] * numRows
+    i, d = 0, 1
+    for char in s:
+        rows[i] += char
+        i += d
+        if not (0 <= i < numRows):
+            d = -d
+            i += 2*d
+    return ''.join(rows)
+#+end_src
