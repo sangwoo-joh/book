@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-02-11 14:50:05
+last_update: 2023-02-11 15:24:14
 ---
 
 {: .no_toc }
@@ -180,7 +180,7 @@ last_update: 2023-02-11 14:50:05
  - [ ] [Minimum Window Subsequence](minimum-window-subsequence)
  - [ ] [House Robber II](house-robber-ii)
  - [ ] [House Robber](house-robber)
- - [ ] [Jump Game](jump-game)
+ - [x] [Jump Game](jump-game)
  - [ ] [Longest Common Subsequence](longest-common-subsequence)
  - [ ] [Race Car](race-car)
  - [ ] [Word Break Problem](word-break-problem)
