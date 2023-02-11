@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-02-11 13:07:09
+last_update: 2023-02-11 13:15:48
 ---
 
 {: .no_toc }
@@ -91,6 +91,7 @@ last_update: 2023-02-11 13:07:09
  - [x] [Delete Operation for Two Strings](delete-operation-for-two-strings)
  - [x] [Design Add and Search Words Data Structure](design-add-and-search-words-data-structure)
  - [x] [Design Search Autocomplete System](design-search-autocomplete-system)
+ - [x] [Find All Anagrams In A String](find-all-anagrams-in-a-string)
  - [x] [Find and Replace Pattern](find-and-replace-pattern)
  - [x] [Longest Common Subsequence](longest-common-subsequence)
  - [x] [Longest Repeating Character Replacement](longest-repeating-character-replacement)
