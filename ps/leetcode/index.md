@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-01-25 15:10:13
+last_update: 2023-02-11 10:41:00
 ---
 
 {: .no_toc }
@@ -122,6 +122,7 @@ last_update: 2023-01-25 15:10:13
  - [x] [Pacific Atlantic Water Flow](pacific-atlantic-water-flow)
  - [x] [Rotting Oranges](rotting-oranges)
  - [x] [Minimum Genetic Mutation](minimum-genetic-mutation)
+ - [x] [Shortest Path With Alternating Colors](shortest-path-with-alternating-colors)
 
 
 ## Tree

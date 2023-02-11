@@ -1,0 +1,40 @@
+#+title: Shortest Path With Alternating Colors
+#+last_update: 2023-02-11 10:40:57
+#+layout: page
+#+tags: problem-solving leetcode python
+
+
+* [[https://leetcode.com/problems/shortest-path-with-alternating-colors/description/][Shortest Path With Alternating Colors]]
+
+ + =red=, =blue= 엣지를 번갈아 가야 한다.
+ + 최단 길이를 구해야 하므로 BFS를 쓴다.
+ + 멀티 소스 BFS를 변형하면 된다. 시작점은 0으로 고정되어 있지만 엣지를 번갈아
+   가야하므로 빨간 점이랑 파란 점에서 동시에 출발한다고 볼 수 있다.
+
+   #+begin_src python
+def shortestAlternatingPaths(n: int, redEdges: List[List[int]], blueEdges: List[List[int]]) -> List[int]:
+    # make both graph first
+    red, blue = defaultdict(set), defaultdict(set)
+    for src, snk in redEdges:
+        red[src].add(snk)
+    for src, snk in blueEdges:
+        blue[src].add(snk)
+
+    answer = [-1] * n
+    q = deque()
+    q.append((0, 0, -1))  # contains a pair of (node, length, color) where -1:red, 1:blue
+    q.append((0, 0, 1))
+    red_visit, blue_visit = {0}, {0}
+
+    while q:
+        node, length, color = q.popleft()
+        answer[node] = length if answer[node] < 0 else min(answer[node], length)
+        graph = blue if color == 1 else red
+        visited = blue_visit if color == 1 else red_visit
+        for neighbor in graph[node]:
+            if neighbor in visited:
+                continue
+            visited.add(neighbor)
+            q.append((neighbor, length + 1, -color))
+    return answer
+   #+end_src
