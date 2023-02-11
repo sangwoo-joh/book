@@ -1,0 +1,49 @@
+#+title: Find Closest Node To Given Two Nodes
+#+last_update: 2023-02-11 20:43:17
+#+layout: page
+#+tags: problem-solving leetcode python graph
+
+
+* [[https://leetcode.com/problems/find-closest-node-to-given-two-nodes/][Find Closest Node To Given Two Nodes]]
+
+ 지문이 좀 헷갈리는데...
+ + 정방향 거리랑 역방향 거리를 각각 찾는다.
+ + 정방향으로 갈 수 있는 노드 집합이랑 역방향으로 갈 수 있는 노드 집합의
+   교집합을 찾는다.
+ + 교집합을 정렬한 순서대로 훑어가면서 해당 조건을 만족하는 노드를 찾는다.
+
+ 가장 헷갈리는 부분은 마지막 /조건을 만족하는 노드/ 를 찾는 부분이다. 지문에
+ 이렇게 되어 있는데: "... such that *maximum* between the distance from =node1= to
+ that node, and from =node2= to that node is *minimized*." 저 중간의 =,= 때문에 "=node1=
+ 까지의 거리는 /최대/ 이면서 =node2= 까지의 거리는 /최소/ "로 이해를 해버려서 계속
+ 틀렸었다. 근데 저 컴마는 사실 큰 의미가 없고 제대로 해석하면 "=node1= 과 =node2=
+ 사이의 거리 중 /최대가 최소가 되도록/ "하는 것이 제대로 된 조건이다.
+
+#+begin_src python
+def closestMeetingNode(edges: List[int], node1: int, node2: int) -> int:
+    reachable1, reachable2 = set(), set()
+    dist1, dist2 = {}, {}
+    def bfs(start, reachable, dist):
+        q = deque()
+        q.append((start, 0))
+        dist[start] = 0
+        reachable.add(start)
+        while q:
+            node, d = q.popleft()
+            succ = edges[node]
+            if succ == -1 or succ in reachable:
+                continue
+            dist[succ] = d + 1
+            q.append((succ, d + 1))
+            reachable.add(succ)
+
+    bfs(node1, reachable1, dist1)
+    bfs(node2, reachable2, dist2)
+    answer, min_dist = -1, float('inf')
+    for node in sorted(reachable1 & reachable2):
+        t = max(dist1[node], dist2[node])
+        if t < min_dist:
+            answer = node
+            min_dist = t
+    return answer
+#+end_src
