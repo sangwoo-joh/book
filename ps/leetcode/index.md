@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-02-11 10:41:00
+last_update: 2023-02-11 13:07:09
 ---
 
 {: .no_toc }
@@ -109,6 +109,7 @@ last_update: 2023-02-11 10:41:00
 
 ## Graph
  - [ ] [Alien Dictionary](alien-dictionary)
+ - [x] [As Far From Land As Possible](as-far-from-land-as-possible)
  - [ ] [The Most Similar Path in a Graph](the-most-similar-path-in-a-graph)
  - [x] [Clone Graph](clone-graph)
  - [x] [Course Schedule](course-schedule)
