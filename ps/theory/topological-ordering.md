@@ -2,7 +2,7 @@
 layout: page
 tags: [problem-solving, theory, python, graph, cycle]
 title: Topological Ordering
-last_update: 2023-02-11 23:34:03
+last_update: 2023-02-12 10:42:07
 ---
 
 # Topological ordering
@@ -61,18 +61,13 @@ def topologicalSort(edges: List[List[int]]) -> List[int]:
 ``` python
 class Graph:
     def __init__(self, n):
-        self.node_map = {}
+        self.node_map = defaultdict(set)
         self.node_set = set(range(n))  # edge가 없는 노드가 있을 수 있음
 
     def add_edge(self, src, snk):
         self.node_set.add(src)
         self.node_set.add(snk)
-
-        sink_set = self.node_map.get(src, None)
-        if sink_set:
-            sink_set.add(snk)
-        else:
-            self.node_map[src] = {snk}
+        sef.node_map[src].add(snk)
 
     def topological_ordering(self):
         visiting = set()
@@ -84,7 +79,7 @@ class Graph:
                 return
 
             visiting.add(node)
-            for succ in self.node_map.get(node, set()):
+            for succ in self.node_map[node]:
                 if succ in visiting:  # 정확히 싸이클 케이스
                     raise TypeError("has cycle")
                 if succ not in visited:  # 아직 방문 완료가 아닐 때에만 추가로 탐색한다
@@ -105,7 +100,7 @@ class Graph:
         return order
 ```
 
-## Cycle Condition
+### Cycle Condition
 
 | | `visiting = False` | `visiting = True` |
 | --- | --- | --- |
