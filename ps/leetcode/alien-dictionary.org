@@ -1,0 +1,132 @@
+#+title: Alien Dictionary
+#+last_update: 2023-02-13 23:08:40
+#+layout: page
+#+tags: problem-solving leetcode python graph
+
+
+* [[https://leetcode.com/problems/alien-dictionary/description/][Alien Dictionary]]
+
+ 전형적인 위상 정렬 문제이다. 단어 순서대로 글자를 비교해가면서, 같은 글자이면
+ 얻을 수 있는 정보가 없지만, 서로 다른 글자인 경우 두 글자 사이에
+ lexicographical order가 있다는 사실을 *딱 한 번* 알 수 있다. 즉, 한 단어에서
+ 하나의 글자 order를 발견했다면 그 이후는 정확한 order를 알 수 없기 때문에 뒤는
+ 버려야 한다.
+
+ 위상 정렬에 관한 내용은 [[../../theory/topological-ordering][Topological Sort]] 에 정리해 뒀다. 두 가지 방법이 있는데
+ 하나는 들어오는 엣지 (in-degree edge) 수를 이용한 방법이고 다른 하나는 DFS를
+ 이용하는 방법이다. 두 방법 모두 공통적으로 다음 두 가지 정보가 필요하다:
+ + 엣지 정보
+ + 중복없는 모든 노드의 정보 (엣지로 이어지지 않은 노드도 필요)
+
+ 따라서 두 방법 모두 그래프를 만드는 과정이 필요하다.
+
+** 단어로 그래프 만들기
+
+모든 단어는 사전식(lexicographically) 정렬되어 있으므로, 순서대로 =i=, =i+1= 번 째
+단어 두 개를 선택한 경우 다음이 성립한다:
++ 단어 =i= 와 =i+1= 각 글자 중에서 *처음으로 다른 두 글자* 가 사전식 순서를 말해준다.
+  이후에 나오는 /모든 글자에 대해서는 어떤 순서도 말할 수 없다/.
++ 만약 단어 =i= 의 길이가 =i+1= 보다 더 길면서 =i= 의 길이 만큼의 글자가 모두 같다면,
+  사전식 정렬이 아니므로 아무것도 알 수 없다. 코너 케이스이므로 손쉽게 에러를
+  리턴한다.
+
+#+begin_src python
+def build_graph(words: List[str]) -> Dict[str, Set[str]], Set[str], Counter:
+    """
+    Build graph from lexicographically sorted word list.
+    Returns edges and (unique) nodes tuple.
+    """
+    nodes = set([char for word in words for char in word])
+    edges = defaultdict(set)
+    indegree = Counter({char: 0 for char in nodes})
+
+    for w1, w2 in zip(words, words[1:]):
+        for c1, c2 in zip(w1, w2):
+            if c1 != c2 and c1 not in edges:
+                edges[c1].add(c2)
+                indegree[c2] += 1
+                break
+        else:
+            if len(w1) > len(w2):
+                raise ValueError
+    return edges, nodes, indegree
+#+end_src
+
++ 여기서 노드는 단어가 아니라 /글자/ 이므로 문자열의 리스트를 풀어서 중복을 없애야
+  한다. 엣지로 연결되지 않은 노드가 있을 수 있으므로 노드 정보가 필요하다.
++ 처음으로 글자가 다른 부분을 발견하면 엣지 정보를 업데이트하고 =break= 하는 것을
+  눈여겨 보자. 이후의 글자에 대해서는 어떤 정보도 얻을 수 없다.
++ 파이썬의 =for ... else= 구문은 =for= 반복문에서 =break= 로 빠져나가지 않으면 =else=
+  브랜치의 구문이 실행된다. 이를 이용하면 두 글자 =w1= 과 =w2= 를 (같은 길이만큼)
+  비교했는데 서로 다른 글자가 없는 경우를 알 수 있다. 이때, 앞의 단어의 길이가
+  더 길면 사전식 정렬이 아니므로 불가능하기 때문에 에러를 던진다.
+
+이제 위의 함수를 이용해서 두 가지 방법으로 위상 정렬을 구현할 수 있다.
+
+** In-degree 엣지를 이용한 위상 정렬
+
+먼저 in-degree 정보를 이용할 수 있다. 어떤 노드의 in-degree가 0이면 그 친구부터
+사전식 순서를 만들어 나갈 수 있다. 일종의 BFS를 하면서 연결된 in-degree들을
+하나씩 지워가면 된다. 이때 주의할 코너 케이스는 만들어낸 정답의 길이가 노드
+수보다 적은 경우인데, 바로 싸이클이 있는 경우이다. 싸이클이 있으면 두 노드의
+in-degree가 모두 1이므로 큐의 초기화에 들어가지 못해서 탐색되지 못한다. 이
+경우만 주의하면 된다.
+
+#+begin_src python
+def alienOrder(words: List[str]) -> str:
+    try:
+        edges, nodes, indegree = build_graph(words)
+    except ValueError:
+        return ""
+    order = []
+    q = deque([c for c in indegree if indegree[c] == 0])
+    while q:
+        node = q.popleft()
+        order.append(node)
+        for neighbor in edges[node]:
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                q.append(neighbor)
+
+    if len(order) < len(nodes):
+        return ""
+
+    return "".join(order)
+#+end_src
+
+** DFS를 이용한 위상 정렬
+
+DFS를 이용한 방법은 =방문 중= 정보와 =방문 완료= 정보를 유지하면서 사전식 순서의
+/마지막/ 부터 쌓은 후 마지막에 뒤집는 방식이다. =방문 중= 인 노드에 또 방문한다는
+것은 그래프에 싸이클이 있다는 의미이므로 역시 사전식 순서가 불가능한 경우이다.
+
+#+begin_src python
+def alienOrder(words: List[str]) -> str:
+    try:
+        edges, nodes, _indegree = build_graph(words)
+    except ValueError:
+        return ""
+
+    order = []
+    visiting, visited = set(), set()
+    def dfs(node):
+        if node in visited:
+            return
+        visiting.add(node)
+        for neighbor in edges[node]:
+            if neighbor in visiting:
+                raise ValueError("Cycle")
+            if neighbor not in visited:
+                dfs(neighbor)
+        visiting.remove(node)
+        visited.add(node)
+        order.append(node)
+
+    try:
+        for node in nodes:
+            dfs(node)
+    except ValueError:
+        return ""
+
+    return "".join(reversed(order))
+#+end_src
