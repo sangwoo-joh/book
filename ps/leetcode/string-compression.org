@@ -1,0 +1,44 @@
+#+title: String Compression
+#+last_update: 2023-03-02 19:47:52
+#+layout: page
+#+tags: problem-solving leetcode python string
+
+
+* [[https://leetcode.com/problems/string-compression/][String Compression]]
+
+코너 케이스가 좀 까다로운 문제였다.
+
+일단 문자열을 제자리 압축하기 위한 인덱스 =i= 와 같은 글자 윈도우를 찾기 위한 =left=
+, =right= 인덱스를 준비한다. 같은 글자인 동안 =right= 를 증가하면, 룹이 끝난
+시점에서 같은 글자 수는 =right - left= 로 손쉽게 구할 수 있다. 이렇게 센 글자 수가
+1개 초과일 때에는 그 숫자(의 문자열) 만큼 제자리에 채워줘야 한다.
+
+주의해야 할 점은 다음과 같다.
+- 윈도우를 늘려갈 때 *반드시 바운드 체크를 먼저* 해줘야 한다. 그래야 Short circuit
+  evaluation에 의해서 인덱스 오버플로우가 안난다.
+- 작업을 다 하고 나면 압축 문자열을 담은 부분을 뺀 나머지 배열을 날려버려야
+  한다. 이게 파이썬만 그런건진 모르겠지만 아무튼 안날리면 통과가 안된다.
+
+#+begin_src python
+def compress(chars: List[str]) -> int:
+    i = 0
+    left, right = 0, 0
+    while right < len(chars):
+        while right < len(chars) and chars[left] == chars[right]:
+            right += 1
+        # now we have chars[left] != chars[right]
+        count = right - left
+        chars[i] = chars[left]
+        left = right
+        i += 1
+
+        if count == 1:
+            # not need to append count
+            continue
+        for digit in str(count):
+            chars[i] = digit
+            i += 1
+    # delete remainder
+    del chars[i:]
+    return i + 1
+#+end_src

@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-02-13 23:09:22
+last_update: 2023-03-02 19:48:07
 ---
 
 {: .no_toc }
@@ -101,6 +101,7 @@ last_update: 2023-02-13 23:09:22
  - [x] [Roman to Integer](roman-to-integer)
  - [x] [Search Suggestions System](search-suggestions-system)
  - [x] [Short Encoding of Words](short-encoding-of-words)
+ - [x] [String Compression](string-compression)
  - [x] [Text Justification](text-justification)
  - [x] [Valid Anagram](valid-anagram)
  - [x] [Valid Parentheses](valid-parentheses)
