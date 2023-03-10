@@ -1,0 +1,79 @@
+#+title: Tips
+#+last_update: 2023-03-10 23:55:31
+#+layout: page
+#+tags: problem-solving cpp
+
+* Tips
+** Comparator
+
+STL로 정렬할 때, 표준 라이브러리는 비교 함수가 ~<~ 연산자 (less) 와 같이
+동작한다고 가정한다. less 의 정의는 다음과 같다.
+1. Irreflexivity(비반사성): ~a < a~ 는 항상 거짓.
+2. Asymmetry(비대칭성): ~a < b~ 이면 ~not (b < a)~.
+3. Transitivity(추이성): ~not (a < b)~ 이고 ~not (b < a)~ 이면 ~a = b~ 이다. ~a = b~
+   이고 ~b = c~ 이면 ~a = c~ 이다 (transitivity of equivalence).
+
+예를 들어 정수 집합을 정렬하기 위한 다음과 같은 less가 있다고 하자.
+
+#+begin_src cpp
+bool operator < (const IntSet& a, const IntSet& b) {
+  if (isProperSubset(a, b))
+    // a가 b의 진부분집합
+    return true;
+  if (isProperSubset(b, a))
+    // 반대로 b가 a의 진부분집합
+    return false;
+  return false;
+}
+#+end_src
+
+이 less가 동작하지 않는 이유는 위의 정의에 부합하지 않기 때문이다. 예를 들어
+{1}, {2}, {2, 3}이 있을 때, 위의 함수는 {2} < {2, 3}만 참이고 나머지는 모두
+거짓으로 계산하는데, 추이성에 따라서 {1} = {2}, {1} = {2, 3} 의 관계가
+되어버린다. 그러면 결과적으로 {1} = {2} = {2, 3} 이라는 요상한게 튀어나온다.
+
+따라서 위의 정의에 부합하게 주의해서 작성해야 한다.
+
+#+begin_src cpp
+bool operator < (const IntSet& a, const InstSet& b) {
+  if (a.size() != b.size())
+    // a와 b의 크기가 다르면 더 작은 쪽이 앞에 와야 한다
+    return a.size() < b.size();
+  // 크기가 같은 경우는 사전순으로 비교한다.
+  return lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+}
+#+end_src
+
+크기가 작은 순으로 앞에 오도록 하고 크기가 같은 경우에만 사전 순으로 비교하면
+모든 것이 해결된다. 또 크기가 작은 순으로 앞에 오게끔 하기 때문에 굳이
+진부분집합 여부를 확인하지 않아도 된다.
+
+
+** Type Promotion
+타입의 크기가 다른 두 변수를 계산할 때 컴파일러가 임의적으로 한 쪽의 타입을
+바꿔서 (주로 큰 쪽에 맞추기 때문에 프로모션) 같은 타입으로 만든 후에 계산을
+한다. 주로 다음 규칙이 적용된다.
+1. 정수랑 실수일 경우 실수로 맞춘다.
+2. 양쪽 다 정수 또는 실수일 경우 더 큰 쪽으로 맞춘다.
+3. 양쪽 다 ~int~ 보다 작은 정수이면 둘다 =int= 로 맞춘다.
+4. 부호 없는 정수형과 부호 있는 정수형이 섞인 경우: 부호 *없는* 정수형으로 맞춘다.
+
+다음 예시를 보자.
+
+#+begin_src cpp
+unsigned char a = 17;
+short b = -18;
+int c = 2;
+unsigned int d = 0;
+
+cout << (a + b) * c + d << endl;
+#+end_src
+
+결과는 =(17 + (-18)) * 2 + 0 = -2= 가 될 것 같지만 실행하면 엄청난 값이 나온다.
+1. =unsigned char= 와 =short= 는 둘 다 =int= 보다 작은 정수형이므로 =int= 로 프로모션
+2. =int= 곱하기 =int= 는 그대로 =int=
+3. =int= 와 =unsigned int= 타입을 계산하므로 부호가 없는 쪽을 따라 =unsigned int= 가
+   최종 타입
+
+따라서 되도록이면 =unsigned= 를 쓰지 말고, 타입을 한 쪽으로 몰아서 생각하는 것이
+좋다.
