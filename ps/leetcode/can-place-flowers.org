@@ -1,0 +1,32 @@
+#+title: Can Place Flowers
+#+last_update: 2023-03-20 15:31:30
+#+layout: page
+#+tags: problem-solving leetcode python greedy
+
+
+* [[https://leetcode.com/problems/can-place-flowers/][Can Place Flowers]]
+
+ 문제 자체는 탐욕법으로 풀리는 문제인데, 코드를 /깔끔/ 하게 정리하는 방법을 배울
+ 수 있어서 기록해둔다.
+
+ 일단 인덱스를 늘려가며 꽃을 둘 수 있는 경우, 즉 양 옆에 꽃이 없는 경우를
+ 찾아내어서 꽃을 직접 심는다. 이때, 왼쪽과 오른쪽 각각 코너 케이스가 있는데,
+ 왼쪽의 경우는 화단의 시작점인 경우이고 오른쪽은 화단의 끝점인 경우이다. 이걸
+ 특수한 케이스로 처리하려면 코드가 복잡해지는데, 에디토리얼에서 가르쳐준 다음
+ 방법이 깔끔했다.
+
+#+begin_src python
+def canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
+    N = len(flowerbed)
+    possible = 0
+    for i in range(N):
+        if flowerbed[i] != 0:
+            continue
+
+        left = (i == 0) or (flowerbed[i - 1] == 0)
+        right = (i == N - 1) or (flowerbed[i + 1] == 0)
+        if left and right:
+            possible += 1
+            flowerbed[i] = 1
+    return possible >= n
+#+end_src

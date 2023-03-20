@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-03-02 19:48:07
+last_update: 2023-03-20 15:31:52
 ---
 
 {: .no_toc }
@@ -177,6 +177,7 @@ last_update: 2023-03-02 19:48:07
  - [x] [Word Search](word-search)
  - [x] [Contains Duplicate](contains-duplicate)
  - [ ] [Campus Bikes](campus-bikes)
+ - [x] [Can Place Flowers](can-place-flowers)
 
 
 ## DP

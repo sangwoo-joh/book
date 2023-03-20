@@ -12,6 +12,7 @@
 - effect-handler
 - garbage-collector
 - graph
+- greedy
 - hash-table
 - heap
 - interval
