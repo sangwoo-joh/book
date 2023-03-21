@@ -1,5 +1,5 @@
 #+title: Mantra
-#+last_update: 2023-01-25 23:21:27
+#+last_update: 2023-03-21 12:05:32
 #+tags: tips
 #+description: 주문을 외워봐
 #+layouge: page
@@ -19,7 +19,7 @@ Speech is silver, silence is golden. - Thomas Carlyle
 
 #+begin_quote
 We don't rise to the level of our expectations; we fall to the level of our
-training. - Archilochos
+training. - Archilochus
 #+end_quote
 
 #+begin_quote
