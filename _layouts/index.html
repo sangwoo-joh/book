@@ -7,8 +7,9 @@ layout: page
 {% assign thislength = page.url | size %}
 {% assign thisdepth = page.url | split: "/" | size | plus: 1 %}
 <!-- This depth: {{ thisdepth }} -->
+{% assign pages = site.pages | sort: "title" %}
 <ul>
-    {% for child in site.pages %}
+    {% for child in pages %}
         {% assign prefix = child.url | slice: 0, thislength %}
         {% assign depth = child.url | split: "/" | size %}
         {% if prefix == page.url and thisdepth == depth%}
