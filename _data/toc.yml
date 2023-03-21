@@ -8,6 +8,8 @@
       url: "ps/theory"
     - title: Leetcode
       url: "ps/leetcode"
+    - title: C++
+      url: "ps/cpp"
 
 - title: "Documents"
   url: "docs"
