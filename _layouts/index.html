@@ -4,6 +4,8 @@ layout: page
 
 <h1>{{ page.title }}</h1>
 
+<h4>Table of Contents</h4>
+
 {% assign thislength = page.url | size %}
 {% assign thisdepth = page.url | split: "/" | size | plus: 1 %}
 <!-- This depth: {{ thisdepth }} -->
