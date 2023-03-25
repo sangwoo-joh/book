@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-03-25 14:30:59
+last_update: 2023-03-25 20:19:45
 ---
 
 {: .no_toc }
@@ -129,6 +129,7 @@ last_update: 2023-03-25 14:30:59
  - [x] [Minimum Genetic Mutation](minimum-genetic-mutation)
  - [x] [Shortest Path With Alternating Colors](shortest-path-with-alternating-colors)
  - [x] [Reorder Routes To Make All Paths Lead To The City Zero](reorder-routes-to-make-all-paths-lead-to-the-city-zero)
+ - [x] [Web Crawler](web-crawler)
 
 
 ## Tree
