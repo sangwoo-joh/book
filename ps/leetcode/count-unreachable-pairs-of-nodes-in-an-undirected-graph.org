@@ -1,0 +1,54 @@
+#+title: Count Unreachable Pairs Of Nodes In An Undirected Graph
+#+last_update: 2023-03-25 14:30:39
+#+layout: page
+#+tags: problem-solving leetcode python disjoint-set
+
+
+* [[https://leetcode.com/problems/count-unreachable-pairs-of-nodes-in-an-undirected-graph/][Count Unreachable Pairs Of Nodes In An Undirected Graph]]
+
+유니온 파인드를 써야한다는 것까지는 접근했고, 컴포넌트 별로 원소를 유지하기까진
+했다. =O(N^2)= 루프를 돌면서 가능한 경우를 세려고 하니 타임아웃이 나더라.
+
+두 가지 방법으로 이를 최적화할 수 있다.
+ 1. 유니온 파인드에서 컴포넌트 원소를 유지하면 유니온 연산이 =O(N*logN)= 이
+    되어버려서 비효율적이다. 노드의 개수가 정해져있으므로, 일단 이어진 노드들을
+    다 합친 다음 전체 노드에 대해서 대표 원소를 꺼내와서 직접 세면 =O(N)= 만에
+    끝낼 수 있다.
+ 2. 가능한 모든 경우를 세는 것도 비슷하다. 노드의 개수가 정해져있으므로,
+    컴포넌트의 크기를 가지고 가능한 쌍의 개수를 구할 때 /남아있는 노드/ 의 수를
+    이용하면 =O(N)= 만에 끝낼 수 있다.
+
+#+begin_src python
+class UnionFind:
+    def __init__(self):
+        self.reps = {}
+
+    def find(self, x):
+        if x not in self.reps:
+            self.reps[x] = x
+
+        if x != self.reps[x]:
+            self.reps[x] = self.find(self.reps[x])
+        return self.reps[x]
+
+    def union(self, x, y):
+        x, y = self.find(x), self.find(y)
+        if x == y:
+            return
+        self.reps[x] = y
+
+def countPairs(n: int, edges: List[List[int]]) -> int:
+    uf = UnionFind()
+    for n1, n2 in edges:
+        uf.union(n1, n2)
+
+    components = Counter()
+    for node in range(n):
+        components[uf.find(node)] += 1
+
+    pairs, remaining = 0, n
+    for c in components.values():
+        pairs += c * (remaining - c)
+        remaining -= c
+    return pairs
+#+end_src

@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-03-25 14:11:44
+last_update: 2023-03-25 14:30:59
 ---
 
 {: .no_toc }
@@ -153,6 +153,7 @@ last_update: 2023-03-25 14:11:44
 
 ## Disjoint Set
  - [x] [Data Stream As Disjoint Intervals](data-stream-as-disjoint-intervals)
+ - [x] [Count Unreachable Pairs Of Nodes In An Undirected Graph](count-unreachable-pairs-of-nodes-in-an-undirected-graph)
 
 
 ## Heap
