@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-03-20 15:31:52
+last_update: 2023-03-25 14:11:44
 ---
 
 {: .no_toc }
@@ -128,6 +128,7 @@ last_update: 2023-03-20 15:31:52
  - [x] [Rotting Oranges](rotting-oranges)
  - [x] [Minimum Genetic Mutation](minimum-genetic-mutation)
  - [x] [Shortest Path With Alternating Colors](shortest-path-with-alternating-colors)
+ - [x] [Reorder Routes To Make All Paths Lead To The City Zero](reorder-routes-to-make-all-paths-lead-to-the-city-zero)
 
 
 ## Tree

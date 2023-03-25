@@ -1,0 +1,35 @@
+#+title: Reorder Routes To Make All Paths Lead To The City Zero
+#+last_update: 2023-03-25 14:17:47
+#+layout: page
+#+tags: problem-solving leetcode python graph
+
+
+* [[https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/][Reorder Routes To Make All Paths Lead To The City Zero]]
+
+풀이가 되게 신박했다.
+
+그래프 탐색을 어떻게 잘 하면 되지 않을까 생각했는데, 방법은 이랬다. 일단 방향
+그래프이므로 원본 그래프의 엣지 방향으로는 1의 가중치를 갖도록 한다. 그러고
+동시에 그 *반대 방향의 엣지에 0의 가중치* 를 가지도록 한다. 그 후에 0부터 모든
+그래프의 노드를 다 탐색하게 되면, 0에서부터 뻗어 나가는 엣지들에는 1의 가중치가,
+0으로 들어오는 엣지들에는 0의 가중치가 매달려 있으므로, 이들을 모두 합한 값이 곧
+리오더가 필요한 루트의 합의 최소 값이 된다. 대체 이런 생각은 어떻게 하는지 ...
+
+#+begin_src python
+def minReorder(n: int, connections: List[List[int]]) -> int:
+    graph = defaultdict(set)
+    for src, snk in connections:
+        graph[src].add((snk, 1))
+        graph[snk].add((src, 0))
+
+    count = 0
+    def dfs(node, prev):
+        nonlocal count
+        for neighbor, weight in graph[node]:
+            if neighbor == prev:
+                continue
+            count += weight
+            dfs(neighbor, node)
+    dfs(0, None)
+    return count
+#+end_src
