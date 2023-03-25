@@ -1,0 +1,34 @@
+#+title: Check Completeness Of A Binary Tree
+#+last_update: 2023-03-25 20:27:25
+#+layout: page
+#+tags: problem-solving leetcode python tree
+
+
+* [[https://leetcode.com/problems/check-completeness-of-a-binary-tree/][Check Completeness Of A Binary Tree]]
+
+트리의 완전함을 어떻게 알고리즘으로 체크할 수 있을지 고민해 볼 수 있는 좋은
+문제였다.
+
+잘 생각해보면 트리를 pre-order, in-order, post-order 중 하나로 순회해서는
+완전함을 체크할 수 없다. 트리를 레벨 순으로 순회하면서 /빠진 노드/ 가 있는지를
+확인해야 한다. 따라서 가장 쉽게는 왼쪽 서브트리 -> 오른쪽 서브트리 방향으로
+BFS를 하면서, 바로 직전에 방문한 노드가 null 이었는지(=빠졌는지)를 체크해야
+한다.
+
+#+begin_src python
+def isCompleteTree(root: Optional[TreeNode]) -> bool:
+    found_none = false
+    q = deque()
+    q.append(root)
+
+    while q:
+        node = q.popleft()
+        if node is None:
+            found_none = True
+        else:
+            if found_none:
+                return False
+            q.append(node.left)
+            q.append(node.right)
+    return True
+#+end_src

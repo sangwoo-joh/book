@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-03-25 20:19:45
+last_update: 2023-03-25 20:27:27
 ---
 
 {: .no_toc }
@@ -138,6 +138,7 @@ last_update: 2023-03-25 20:19:45
  - [x] [Binary Tree Cameras](binary-tree-cameras)
  - [x] [Binary Tree Level Order Traversal](binary-tree-level-order-traversal)
  - [x] [Binary Tree Maximum Path Sum](binary-tree-maximum-path-sum)
+ - [x] [Check Completeness Of A Binary Tree](check-completeness-of-a-binary-tree)
  - [x] [Construct Binary Tree from Preorder and Inorder Traversal](construct-binary-tree-from-preorder-and-inorder-traversal)
  - [x] [Convert Sorted List to BST](convert-sorted-list-to-bst)
  - [x] [Implement Trie](implement-trie)
