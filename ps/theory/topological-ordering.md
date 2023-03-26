@@ -2,10 +2,12 @@
 layout: page
 tags: [problem-solving, theory, python, graph, cycle]
 title: Topological Ordering
-last_update: 2023-02-12 10:42:07
+last_update: 2023-03-26 11:17:27
 ---
 
 # Topological ordering
+ - TODO: Tarjan (numbering -
+   [scc](../../leetcode/critical-connections-in-a-network/)), Kahn (in-degree)
 
  위상 정렬은 주로 어떤 순서를 찾기 위한 방법이다. Directed 그래프에서 각 노드의
  선행 순서를 지키면서 노드를 순서대로 나열하는 것을 뜻한다.
