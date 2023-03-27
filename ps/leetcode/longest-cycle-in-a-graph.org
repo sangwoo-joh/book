@@ -1,0 +1,13 @@
+#+title: Longest Cycle In A Graph
+#+last_update: 2023-03-27 23:27:59
+#+layout: page
+#+tags: problem-solving leetcode python graph cycle
+
+
+* [[https://leetcode.com/problems/longest-cycle-in-a-graph/][Longest Cycle In A Graph]]
+
+** 타잔 알고리즘 (Tarjan's Algorithm)
+
+** 칸의 알고리즘 (Kahn's Algorithm) 활용
+
+*** 최적화
