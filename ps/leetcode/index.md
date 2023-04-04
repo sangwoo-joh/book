@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-03-27 23:26:27
+last_update: 2023-04-04 22:49:01
 ---
 
 {: .no_toc }
@@ -97,6 +97,7 @@ last_update: 2023-03-27 23:26:27
  - [x] [Longest Repeating Character Replacement](longest-repeating-character-replacement)
  - [x] [Longest Substring Without Repeating Characters](longest-substring-without-repeating-characters)
  - [x] [Minimum Window Substring](minimum-window-substring)
+ - [x] [Optimal Partition Of String](optimal-partition-of-string)
  - [x] [Palindromic Substrings](palindromic-substrings)
  - [x] [Roman to Integer](roman-to-integer)
  - [x] [Search Suggestions System](search-suggestions-system)
