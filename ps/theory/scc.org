@@ -1,6 +1,15 @@
 #+title: Strongly Connected Components
-#+last_update: 2023-03-27 23:25:20
+#+last_update: 2023-04-04 22:56:22
 #+layout: page
 #+tags: problem-solving theory graph cycle
 
 * Strongly Connected Components
+
+
+** 코사라주 알고리즘 (Kosaraju's Algorithm)
+
+
+** 타잔 알고리즘 (Tarjan's Algorithm)
+
+
+** 칸의 알고리즘 (Kahn's Algorithm) 활용
