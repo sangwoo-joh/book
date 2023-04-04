@@ -1,13 +1,133 @@
 #+title: Longest Cycle In A Graph
-#+last_update: 2023-03-27 23:27:59
+#+last_update: 2023-04-04 23:09:49
 #+layout: page
 #+tags: problem-solving leetcode python graph cycle
 
 
 * [[https://leetcode.com/problems/longest-cycle-in-a-graph/][Longest Cycle In A Graph]]
 
+** 코사라주 알고리즘 (Kosaraju's Algorithm)
+
+#+begin_src python
+def longestCycle(edges: List[int]) -> int:
+    graph, tgraph = defaultdict(set), defaultdict(set)
+    for src, snk in enumerate(edges):
+        if snk == -1: continue
+        graph[src].add(snk)
+        tgraph[snk].add(src)
+
+    # first dfs
+    visited = set()
+    stack = []
+    def dfs(node):
+        visited.add(node)
+        for succ in graph[src]:
+            if succ in visited: continue
+            dfs(succ)
+        stack.append(succ)
+
+    for node in range(len(edges)):
+        if node in visited: continue
+        dfs(node)
+
+    # second dfs
+    visited.clear()
+    scc, path = [], []
+    def tdfs(node):
+        visited.add(node)
+        path.append(node)
+        for succ in tgraph[node]:
+            if succ in visited: continue
+            tdfs(succ)
+
+    while stack:
+        node = stack.pop()
+        if node in visited: continue
+        path.clear()
+        tdfs(node)
+        scc.append(path[:])
+
+    scc_lengths = [len(c) for c in scc if len(c) != 1]
+    return max(scc_lengths) if scc_lengths else -1
+#+end_src
+
 ** 타잔 알고리즘 (Tarjan's Algorithm)
+
+#+begin_src python
+def longestCycle(edges: List[int]) -> int:
+    graph = defaultdict(set)
+    for src, snk in enumerate(edges):
+        if snk == -1: continue
+        graph[src].add(snk)
+
+    ranks, low_links = {}, {}
+    scc, path = [], []
+    rank = 0
+    def dfs(node):
+        nonlocal rank
+        ranks[node] = rank
+        low_links[node] = rank
+        path.append(node)
+        rank += 1
+
+        for succ in graph[node]:
+            if succ not in ranks:
+                dfs(succ)
+                low_links[node] = min(low_links[node], low_links[succ])
+            elif succ in path:
+                low_links[node] = min(low_links[node], ranks[succ])
+
+        if low_links[node] == ranks[node]:  # cycle
+            c = []
+            while True:
+                top = path.pop()
+                c.append(pop)
+                if top == node: break
+            scc.append(c)
+
+    for node in range(len(edges)):
+        if node in ranks: continue
+        dfs(node)
+
+    scc_lengths = [len(c) for c in scc if len(c) != 1]
+    return max(scc_lengths) if scc_lengths else -1
+#+end_src
 
 ** 칸의 알고리즘 (Kahn's Algorithm) 활용
 
-*** 최적화
+#+begin_src python
+def longestCycle(edges: List[int]) -> int:
+    indegree = Counter()
+    for snk in edges:
+        if snk == -1: continue
+        indegree[snk] += 1
+
+    q = deque()
+    for node in range(len(edges)):
+        if indegree[node] == 0:
+            q.append(node)
+
+    visited = set()
+    while q:
+        node = q.popleft()
+        visited.add(node)
+        succ = edges[node]
+        if succ == -1: continue
+        indegree[succ] -= 1
+        if indegree[succ] == 0:
+            q.append(succ)
+
+    answer = -1
+    for node in range(len(edges)):
+        if node in visited: continue
+        succ = edges[node]
+        size = 1
+        visited.add(node)
+        while succ != node:
+            visited.add(succ)
+            size += 1
+            succ = edges[succ]
+        answer = max(answer, size)
+
+    return answer
+#+end_src
