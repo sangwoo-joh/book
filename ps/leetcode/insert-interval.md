@@ -19,7 +19,7 @@ title: Insert Interval
  범위 리스트가 서로 겹치지 않는 것이 보장되어 있기 때문에, 삽입할
  범위를 기준으로 둘로 나눌 수 있다. 즉,
 
-```
+```python
 left < (newInterval.start, newInterval.end) < right
 ```
 

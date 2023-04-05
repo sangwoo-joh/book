@@ -89,7 +89,7 @@ cur_sum = -1
  partial_sum_loc[cur_sum - k]` 라고 할 때) `w`가 아니라 `w + 1`부터
  `i`까지의 영역이다. 그림으로 나타내면 아래와 같다.
 
-```
+```python
  i: current index
  w = partial_sum_loc[cur_sum - k]
 

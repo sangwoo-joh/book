@@ -4,7 +4,7 @@ tags: [problem-solving, leetcode, python, array]
 title: 3Sum
 <!-- : Problem Solving -->
 <!-- parent: LeetCode -->
-last_update: 2023-01-25 18:27:07
+last_update: 2023-04-05 09:45:50
 ---
 
 # [3Sum](https://leetcode.com/problems/3sum/)
@@ -120,7 +120,7 @@ def threeSum(nums):
  이렇게하고 마지막의 `set()` 연산을 풀면 답을 얻을 수 있지 않을까?
  놀랍게도 다음 반례를 발견하게 된다.
 
-```
+```python
 Input: [-1,0,1,2,-1,-4]
 Expected: [[-1,-1,2], [-1,0,1]]
 Output: [[-1,-1,2], [-1,0,1], [-1,0,1]]

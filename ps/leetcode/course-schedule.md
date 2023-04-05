@@ -21,14 +21,14 @@ title: Course Schedule
 
  샘플 케이스를 보면서 감을 잡자.
 
-```
+```python
 numCourses = 2
 prerequisites = [(1,0)]
 ```
 
  위의 경우, `1 -> 0` 순으로 수업을 들으면 수업을 모두 끝마칠 수 있다.
 
-```
+```python
 numCourses = 2
 prerequisites = [(1,0), (0,1)]
 ```

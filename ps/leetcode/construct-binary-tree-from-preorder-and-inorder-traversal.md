@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, tree]
 title: Construct Binary Tree from Preorder and Inorder Traversal
+last_update: 2023-04-05 09:47:46
 ---
 
 # [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
@@ -37,7 +38,7 @@ title: Construct Binary Tree from Preorder and Inorder Traversal
 
  이해를 위해 구체적인 예시를 살펴보자. 다음과 같은 트리가 있을 때,
 
-```
+```python
            3
            |
   +--------+--------+
@@ -51,7 +52,7 @@ title: Construct Binary Tree from Preorder and Inorder Traversal
 
  입력으로 들어오는 `preorder`와 `inorder`는 다음과 같다.
 
-```
+```python
 preorder: [3, 9, 1, 2, 20, 15, 7]
 inorder: [1, 9, 2, 3, 15, 20, 7]
 ```
@@ -61,7 +62,7 @@ inorder: [1, 9, 2, 3, 15, 20, 7]
  기준으로 왼쪽에 있는 모든 원소는 왼쪽 서브트리이고 오른쪽에 있는 모든
  원소는 오른쪽 서브트리가 된다. 즉,
 
-```
+```python
 inorder: [1, 9, 2,          3,        15, 20, 7  ]
          |               | root  |               |
          |  left subtree |       | right subtree |
@@ -72,7 +73,7 @@ inorder: [1, 9, 2,          3,        15, 20, 7  ]
  왼쪽 서브트리 부분에서 `9`를 찾으면, 이번에도 왼쪽 서브트리와 오른쪽
  서브트리를 알아낼 수 있다.
 
-```
+```python
 inorder: [1,                 9,            2     ]
          |               | root  |               |
          |  left subtree |       | right subtree |

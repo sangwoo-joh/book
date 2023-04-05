@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, array]
 title: Non-decreasing Array
+last_update: 2023-04-05 09:47:29
 ---
 
 # [Non-decreasing Array](https://leetcode.com/problems/non-decreasing-array/)
@@ -37,7 +38,7 @@ title: Non-decreasing Array
 
  예를 들면 입력이 아래와 같을 때:
 
-```
+```python
 [4, 2, 3]
 ```
 
@@ -50,7 +51,7 @@ title: Non-decreasing Array
 
  예를 들어 다음과 같은 경우:
 
-```
+```python
 [2, 5, 3, 4]
 ```
 
@@ -65,7 +66,7 @@ title: Non-decreasing Array
 
  예를 들어 다음 경우:
 
-```
+```python
 [3, 4, 2, 3]
 ```
 
@@ -128,7 +129,7 @@ def checkPossibility(nums):
  좀더 복잡하게 불가능한 경우는 다음과 같다. 이건 말로 설명하기
  어려우니 그림을 보자.
 
-```
+```python
 |
 |        x
 |
@@ -146,7 +147,7 @@ def checkPossibility(nums):
  이제 좀더 복잡한 경우를 생각해보자. 일단 둘 중 하나를 움직일 수 있는
  경우가 있다.
 
-```
+```python
 |                    x
 |        x
 |
@@ -165,7 +166,7 @@ def checkPossibility(nums):
  다음 두 경우는 하나만을 움직일 수 있다.
 
 
-```
+```python
 |                    x
 |        x
 |
@@ -180,7 +181,7 @@ def checkPossibility(nums):
 
  이때는 `nums[i]`를 위로 올려야 한다.
 
-```
+```python
 |
 |        x
 |

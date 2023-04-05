@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, linked-list]
 title: Middle of the Linked List
+last_update: 2023-04-05 09:46:49
 ---
 
 # [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)
@@ -33,7 +34,7 @@ def middleNode(head):
  차이나게 간다. 그러면 두 칸씩 가는 애가 끝에 도달했을 때 한 칸씩 가는
  애가 있는 위치가 중간이 된다. 그림을 보면 좀더 이해가 쉽다. 한 칸씩 가는 애를 `slow`, 두 칸씩 가는 애를 `fast`라고 하면 다음과 같다.
 
-```
+```python
 (홀수)
   | 1 -> 2 -> 3 -> 4 -> 5
 --+----------------------

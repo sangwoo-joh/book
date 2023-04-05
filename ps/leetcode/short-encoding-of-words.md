@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, string, hash-table, trie]
 title: Short Encoding of Words
+last_update: 2023-04-05 09:48:12
 ---
 
 # [Short Encoding of Words](https://leetcode.com/problems/short-encoding-of-words/)
@@ -42,7 +43,7 @@ title: Short Encoding of Words
  심어두자. 그러고 나면 트라이 전체를 탐색하면서, **모든 리프 노드에
  매달린 길이**를 합치면 우리가 원하는 답이 된다. 즉,
 
-```
+```python
      (root of trie)
      /
     /

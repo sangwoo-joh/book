@@ -69,7 +69,7 @@ def num_pairs_of_songs(time):
 
  `time[i] % 60`의 인덱스만 구해보면 다음 상황과 같다.
 
-```
+```python
 time: [30, 20, 150, 90, 40]
 
 remainders: {
@@ -86,7 +86,7 @@ remainders: {
  증가시킨다고 해보자. 그러면 위의 예시에서, `i = 3` 일 때의 상황은
  다음과 같다.
 
-```
+```python
 i:     0 , 1 , 2  , 3 , 4
 time: [30, 20, 150, 90, 40]
 remainders: {

@@ -2,7 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, array, binary-search]
 title: Snapshot Array
-last_update: 2023-01-25 18:29:50
+last_update: 2023-04-05 09:51:58
 ---
 
 # [Snapshot Array](https://leetcode.com/problems/snapshot-array/)
@@ -102,7 +102,7 @@ class SnapshotArray:
  `snap()` -> `set(0, 6)` -> `get(0, 0)` 순으로 호출되었다고
  하자. 그러면 인덱스 0은 다음 상태이다.
 
-```
+```python
 [(-1,0), (-1,5), (0,6)]
 ```
 

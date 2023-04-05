@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, array, interval]
 title: Meeting Rooms
+last_update: 2023-04-05 09:48:00
 ---
 
 # [Meeting Rooms](https://leetcode.com/problems/meeting-rooms/)
@@ -57,7 +58,7 @@ def canAttendMeetings(invertals):
  시작 시간 기준으로 스케쥴링하는 순서이다.
 
 
-```
+```python
  시간    : 1  2  3           7  8      10  11    12               19   20                      30
 ====================================================================================================>
  회의실1 : |-------------(1)------------|   |------------------------(6)------------------------|

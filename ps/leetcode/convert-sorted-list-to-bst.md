@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, tree]
 title: Convert Sorted List to Binary Search Tree
+last_update: 2023-04-05 09:46:55
 ---
 
 # [Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/)
@@ -32,7 +33,7 @@ title: Convert Sorted List to Binary Search Tree
  마침 우리는 *밸런스가 맞춰진* 트리를 복원하는 것이 목표이므로, 이
  성질을 이용해서 중위 순회를 시뮬레이션할 수 있다.
 
-```
+```python
 def inorder(low, high):
     if low > high:
         return None

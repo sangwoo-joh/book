@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, dynamic-programming, lru-cache]
 title: Minimum Difficulty of a Job Schedule
+last_update: 2023-04-05 09:46:14
 ---
 
 # [Minimum Difficulty of a Job Schedule](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
@@ -101,7 +102,7 @@ def min_difficulty(jobDifficulty, d):
  먼저 첫째날 가능한 범위는 `max(a)`와 `max(a, b)`, `max(a, b, c)` 세
  가지이다. 총 5개이고 첫째날이므로, `5 - 3 + 1 = 3`이기 때문이다.
 
-```
+```python
 (a, b, c, d, e)
 -> max(a) -> next(b, c, d, e)
 -> max(a, b) -> next(c, d, e)
@@ -115,7 +116,7 @@ def min_difficulty(jobDifficulty, d):
  하는 것이고, `next(d, e)`는 `(d, e)` 두 가지 업무를 스케쥴링 하는
  것이다. 먼저 `next(b, c, d, e)`를 풀어 생각해보자.
 
-```
+```python
 (a, b, c, d, e)
 -> max(a) -> max(b) -> next(c, d, e) = max(c, d, e)
 -> max(a) -> max(b, c) -> next(d, e) = max(d, e)
@@ -128,7 +129,7 @@ def min_difficulty(jobDifficulty, d):
 
  그럼 이번에는 `next(c, d, e)`를 풀어 생각해보자.
 
-```
+```python
 (a, b, c, d, e)
 -> max(a, b) -> max(c) -> next(d, e) = max(d, e)
 -> max(a, b) -> max(c, d) -> next(e) = max(e)
@@ -136,7 +137,7 @@ def min_difficulty(jobDifficulty, d):
 
  슬슬 중복이 보이고 있음을 알 수 있다. 남은 것도 풀어 생각해보자.
 
-```
+```python
 (a, b, c, d, e)
 -> max(a, b, c) -> max(d) -> next(e) = max(e)
 ```
@@ -144,7 +145,7 @@ def min_difficulty(jobDifficulty, d):
  남은 날짜가 이틀 밖에 안되기 때문에 자명하게 풀린다. 모든 케이스를
  나열하면 다음과 같다.
 
-```
+```python
 (a, b, c, d, e)
 -> *max(a) -> max(b) -> next(c, d, e) = max(c, d, e)
 -> *max(a) -> max(b, c) -> *next(d, e) = max(d, e)

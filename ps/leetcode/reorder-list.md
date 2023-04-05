@@ -2,13 +2,14 @@
 layout: page
 tags: [problem-solving, leetcode, python, linked-list]
 title: Reorder List
+last_update: 2023-04-05 09:46:45
 ---
 
 # [Reorder List](https://leetcode.com/problems/reorder-list/)
 
  링크드 리스트가 주어졌을 때, 다음과 같이 표현할 수 있다.
 
-```
+```python
 Node(0) -> Node(1) -> ... -> Node(n-1) -> Node(n)
 ```
 
@@ -16,7 +17,7 @@ Node(0) -> Node(1) -> ... -> Node(n-1) -> Node(n)
  노드의 포인터만 바꿔야 한다. 리스트를 새로 만들어서도 안되고, 원래의
  리스트를 제자리에서(in-place) 수정해야 한다.
 
-```
+```python
 Node(0) -> Node(n) -> Node(1) -> Node(n-1) -> Node(2) -> Node(n-2) -> ...
 ```
 
@@ -80,7 +81,7 @@ def reorderList(head):
    남아있을 동안만 합치면 된다. 어차피 마지막은 둘다 중간 노드이기
    때문이다.
 
-```
+```python
 (홀수)
 1 -> 2 -> 3 -> 4 -> 5
 n1: 1 -> 2 -> 3

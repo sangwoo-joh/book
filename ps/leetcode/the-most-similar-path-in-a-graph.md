@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, graph]
 title: The Most Similar Path in a Graph
+last_update: 2023-04-05 09:52:00
 ---
 
 # [The Most Similar Path in a Graph](https://leetcode.com/problems/the-most-similar-path-in-a-graph/)
@@ -24,7 +25,7 @@ title: The Most Similar Path in a Graph
 
  **수정 거리**는 다음과 같이 정의된다:
 
-```
+```python
 define editDistance(targetPath, myPath) {
     dis := 0
     a := targetPath.length

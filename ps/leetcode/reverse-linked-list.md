@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, linked-list]
 title: Reverse Linked List
+last_update: 2023-04-05 09:48:15
 ---
 
 
@@ -105,7 +106,7 @@ def reverseList(head):
  해야하고, 구간의 끝 위치(`right`)의 노드는 구간이 시작하기 직전
  노드가 가리키도록 해야한다. 이를 그림으로 나타내면 다음과 같다.
 
-```
+```python
 original:  .. prev.. -> left -> ... -> right -> ..remainings..
 reversed:  .. prev.. -> right -> ... -> left -> ..remainings..
 ```

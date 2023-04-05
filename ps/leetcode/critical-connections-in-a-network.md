@@ -22,7 +22,7 @@ title: Critical Connections in a Network
 
  다음 그림(?)을 보자.
 
-```
+```python
 0 ---- 1 --- 3
  \    /
   \  /
@@ -62,7 +62,7 @@ title: Critical Connections in a Network
 
  위의 그래프를 다시 가져와 봤다.
 
-```
+```python
 0 ---- 1 --- 3
  \    /
   \  /
@@ -74,7 +74,7 @@ title: Critical Connections in a Network
  해보자. 랭크는 `0`부터 시작한다. 일단 `1`에는 랭크가 없는 상태이므로,
  `0`을 랭크로 갖게 된다.
 
-```
+```python
 0 ---- 1(0) --- 3
  \    /
   \  /
@@ -85,7 +85,7 @@ title: Critical Connections in a Network
  `1` 증가한 `1`이 랭크가 된다.
 
 
-```
+```python
 0(1) ---- 1(0) --- 3
  \        /
   \      /
@@ -97,7 +97,7 @@ title: Critical Connections in a Network
  않는다. 따라서 `0` 다음 방문할 노드는 `2`만 남았다. 역시 `1` 증가한
  `2`를 랭크로 업데이트하게 된다.
 
-```
+```python
 0(1) ---- 1(0) --- 3
  \        /
   \      /
@@ -122,7 +122,7 @@ title: Critical Connections in a Network
  "내가 지금 싸이클에 있는가?"를 알 수 있을 것이다. 즉, 아래 그림처럼,
 
 
-```
+```python
 0(1) ---- 1(0) --- 3(3)
  \        /
 0 \      / 0

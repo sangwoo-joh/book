@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, graph, disjoint-set]
 title: Number of Islands I, II
+last_update: 2023-04-05 09:48:06
 ---
 
 # [Number of Islands](https://leetcode.com/problems/number-of-islands/)
@@ -134,7 +135,7 @@ def numIslands(grid):
  다음과 같이 배열(또는 해시테이블)을 이용해서 각 서로소 집합의 대표
  원소(부모)를 기록하는 방법이다. 일종의 트리라고 볼 수 있다.
 
-```
+```python
 function MakeSet(x)
   x.parent := x
 

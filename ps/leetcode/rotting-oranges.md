@@ -2,7 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, graph, simulation]
 title: Rotting Oranges
-last_update: 2023-01-25 18:33:22
+last_update: 2023-04-05 09:45:40
 ---
 
 # [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
@@ -19,7 +19,7 @@ last_update: 2023-01-25 18:33:22
 
  예를 들면 아래와 같은 경우, 총 4분이 필요하다.
 
-```
+```python
 2 1 1      2 2 1      2 2 2      2 2 2     2 2 2
 1 1 0  --> 2 1 0  --> 2 2 0  --> 2 2 0 --> 2 2 0 --> ....
 0 1 1      0 1 1      0 1 1      0 2 1     0 2 2
@@ -41,7 +41,7 @@ last_update: 2023-01-25 18:33:22
  지나간 시간을 누적하면 된다. 위의 4분 예시에서는 다음과 같이 흘러갈
  것이다.
 
-```
+```python
 t   queue
 -----------
 0: [(0, 0), barrier]  # 시작 상태

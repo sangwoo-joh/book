@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, simulation]
 title: Prison Cells After N Days
+last_update: 2023-04-05 09:47:33
 ---
 
 # [Prison Cells After N Days](https://leetcode.com/problems/prison-cells-after-n-days/)
@@ -71,7 +72,7 @@ def prisonAfterNDays(cells, n):
 
  다음과 같은 상황을 생각해보자.
 
-```
+```python
  day_(n)  ->  day_(n-1)  -> .... ->  day_(n-p)
 state_(i) -> state_(i+1) -> .... -> state_(i+p)
 ```

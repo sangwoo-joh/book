@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, array]
 title: Minimum Moves to Equal Array Elements II
+last_update: 2023-04-05 09:47:56
 ---
 
 # [Minimum Moves to Equal Array Elements II](https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/)
@@ -85,7 +86,7 @@ def minMoves2(nums):
  그러면 모든 원소를 `k`로 만들기 위해서 필요한 연산의 수는 다음과 같이
  계산할 수 있다:
 
-```
+```python
 number_of_moves = (k * count_before_k) - sum_before_k + (sum_after_k - (k * count_after_k))
 ```
 
@@ -101,7 +102,7 @@ number_of_moves = (k * count_before_k) - sum_before_k + (sum_after_k - (k * coun
  이제 우리는 이 연산 수를 최소화하는 `k`를 찾으면 된다. 이를 위해서
  양변을 `k`로 미분해보자. 그러면
 
-```
+```python
 number_of_moves/dk = (k * count_before_k)/dk - sum_before_k/dk + sum_after_k/dk - (k * count_after_k)/dk
 
                    = count_before_k - count_after_k

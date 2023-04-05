@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, tree]
 title: Serialize and Deserialize Binary Tree
+last_update: 2023-04-05 09:47:06
 ---
 
 # [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
@@ -75,7 +76,7 @@ def deserialize(data):
    그림을 보면 좀더 이해가 쉽다. 트리의 노드 옆 괄호 안의 숫자는
    `construct` 함수가 재귀적으로 방문하는 순서이다.
 
-```
+```python
 1 -> 2 -> null -> null -> 3 -> 4 -> null -> null -> 5 -> null -> null
 
 
@@ -162,7 +163,7 @@ def deserialize(data):
 
  BFS를 이용한 구축은 아래 그림과 같다.
 
-```
+```python
 1 -> 2 -> 3 -> nil -> nil -> 4 -> 5 -> nil -> nil -> nil -> nil
 
 

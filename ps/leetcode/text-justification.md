@@ -36,7 +36,7 @@ title: Text Justification
 
 ### 예시
 
-```
+```python
 words = ["This", "is", "an", "example", "of", "text", "justification."]
 maxWidth = 16
 output:
@@ -57,7 +57,7 @@ output:
  예시를 보니 조금 이해가 되는 것 같다. 근데 마지막 줄에 만약 단어가
  여러 개 이면 어떨까? 마침 예시가 하나 더 있다.
 
-```
+```python
 words = ["What", "must", "be", "acknowledgement", "shall", "be"]
 maxWidth = 16
 output:

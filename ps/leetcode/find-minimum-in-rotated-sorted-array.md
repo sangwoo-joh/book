@@ -30,7 +30,7 @@ title: Find Minimum in Rotated Sorted Array
  자명하다. 그러면 피벗의 위치를 어떻게 알 수 있을까? 다음 그림을
  생각해보자.
 
-```
+```python
 arr[low], arr[low+1], ..., arr[mid], ..., arr[high-1], arr[high]
 ```
 
@@ -43,7 +43,7 @@ arr[low], arr[low+1], ..., arr[mid], ..., arr[high-1], arr[high]
  이 때는 `mid`와 `high` 사이 어딘가에서 회전이 된 것이다. 즉, 회전하기
  전 원래 모습은 다음과 같을 것이다.
 
-```
+```python
  pivot, ... arr[high], ... arr[low], ... arr[mid], ...
 
  --> rotated --> arr[low], ... arr[mid], ...pivot... arr[high]

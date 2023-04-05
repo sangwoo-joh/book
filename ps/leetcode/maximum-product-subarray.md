@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, array]
 title: Maximum Product Subarray
+last_update: 2023-04-05 09:46:25
 ---
 
 # [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)
@@ -51,7 +52,7 @@ def maxProduct(nums):
 
  좀더 구체적인 예제를 가지고 생각을 해보자.
 
-```
+```python
 [2, 3, -4, 5]
 ```
 
@@ -61,7 +62,7 @@ def maxProduct(nums):
  있다. 따라서 이 중 최대값은 왼쪽에서부터 음수 직전까지를 곱한 `6`이
  된다.
 
-```
+```python
 [2, -3, -4, 5]
 ```
 

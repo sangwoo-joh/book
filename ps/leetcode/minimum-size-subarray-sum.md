@@ -105,7 +105,7 @@ def max_sub_array_sum(nums, target):
 
  다음과 같은 경우를 생각해보자.
 
-```
+```python
 [10, 5, 2, 6], target = 100
 ```
 

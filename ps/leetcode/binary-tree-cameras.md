@@ -49,7 +49,7 @@ title: Binary Tree Cameras
  설치해줘야 한다. 예를 들어, 루트 노드 하나만 있는 경우이거나, 혹은
  아래와 같이 Skewed Tree일 때 이런 케이스가 생긴다:
 
-```
+```python
 ^  O -------------> not monitored ! -> need to install camera
 |   \
 |    O -----------> monitored

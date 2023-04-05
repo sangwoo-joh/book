@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, lru-cache]
 title: Unique Paths
+last_update: 2023-04-05 09:51:59
 ---
 
 # [Unique Paths](https://leetcode.com/problems/unique-paths/)
@@ -22,7 +23,7 @@ title: Unique Paths
  예를 들어, 다음과 같은 `3 x 2` 격자를 생각해보자. 아래 각 튜플은
  격자의 좌표를 나타낸다.
 
-```
+```python
 (1, 1) (1, 2)
 (2, 1) (2, 2)
 (3, 1) (3, 2)
@@ -31,7 +32,7 @@ title: Unique Paths
  `(1, 1)` 에서 출발해서 `(3, 2)`에 도착하는 게 목표다. 그럼 `(3, 2)`로
  올 수 있는 가지 수는 몇 개일까?
 
-```
+```python
 |   |   |
 |   | u |
 | l |l+u|
@@ -46,7 +47,7 @@ title: Unique Paths
  가능한 경우가 1개 뿐이다.
 
 
-```
+```python
 |   | 1 |
 | 1 |   |
 | 1 |   |
@@ -72,7 +73,7 @@ def unique_paths(m, n):
  생각해보면 중복되는 부분이 있음을 알 수 있다. 예를 들어 다음과 같이
  큰 격자가 있을 때,
 
-```
+```python
 |   |   |   |   |   |
 |   |   |   | p | u |
 |   |   |   | l | g |
