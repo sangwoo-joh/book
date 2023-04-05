@@ -1,5 +1,5 @@
 #+title: Tips
-#+last_update: 2023-03-10 23:55:31
+#+last_update: 2023-04-05 22:57:06
 #+layout: page
 #+tags: problem-solving cpp
 
@@ -77,3 +77,29 @@ cout << (a + b) * c + d << endl;
 
 따라서 되도록이면 =unsigned= 를 쓰지 말고, 타입을 한 쪽으로 몰아서 생각하는 것이
 좋다.
+
+** 입출력 최적화
+
+입력과 출력을 직접 처리해야 하는 경우에 할 수 있는 최적화다. C 스타일 입출력과
+C++ 스타일의 스트림 입출력의 동기화를 끊어서 속도를 빠르게 한다. 대신, 입출력을
+할 때 두 가지 스타일 중 하나만 사용해야 한다.
+
+#+begin_src c++
+static auto _ = [](){
+    // turn off sync
+    std::ios::sync_with_stdio(false);
+    // untie in/out streams
+    std::cin.tie(nullptr);
+    return 0;
+}();
+#+end_src
+
+ - ~std::ios::sync_with_stdio~ 는 C 표준 스트림 (~stdin~, ~stdout~)과 C++ 표준 스트림
+   (~std::cin~, ~std::cout~) 사이의 동기화를 끊어서 입출력을 빠르게 한다. 대신 한 쪽
+   스트림만 써야 안꼬인다.
+ - ~std::cin.tie~ 는 ~std::cin~ 과 ~std::cout~ 사이의 동기화를 조절한다. 만약 동기화가
+   되어 있다면 ~std::cin~ 으로 읽기 전에 ~std::cout~ 버퍼가 항상 먼저 비워지고 이를
+   통해 입출력 순서가 유지된다. 동기화를 끄게 되면 이 순서가 보장되지 않기
+   때문에 입력과 출력의 순서가 맞아야 하는 경우에는 쓰면 안된다.
+
+설명을 보면 알겠지만 문제 풀이 수준에서는 대부분 두 동기화를 모두 꺼도 괜찮다.
