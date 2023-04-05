@@ -2,6 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, stack]
 title: Basic Calculators
+last_update: 2023-04-05 09:44:06
 ---
 
 # Basic Calculators
@@ -84,7 +85,7 @@ def eval_(rpn):
  함수가 따로 없으므로 사칙연산과 괄호만 수도 코드로 가져왔다. 참고로,
  이렇게 뭔가 순서를 뒤집거나 하는 데에는 항상 스택이 필수로 쓰인다.
 
-```
+```python
 입력: 중위 표기법 수식의 토큰 리스트
 중간 데이터: 연산자 스택
 출력: 후귀 표기법 수식 큐

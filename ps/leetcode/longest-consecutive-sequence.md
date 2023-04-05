@@ -2,7 +2,7 @@
 layout: page
 tags: [problem-solving, leetcode, python, sorting, hash-table]
 title: Longest Consecutive Sequence.
-last_update: 2023-01-25 18:33:14
+last_update: 2023-04-05 09:44:41
 ---
 
 # [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
@@ -14,7 +14,7 @@ last_update: 2023-01-25 18:33:14
  배열의 길이는 0 ~ 100,000 이고 각 원소의 범위는 $$ -10^9 \sim
  10^9$$이다.
 
-```
+```python
 [100, 4, 200, 1, 3, 2] -> 4
 [0, 3, 7, 2, 5, 8, 4, 6, 0, 1] -> 9
 ```
