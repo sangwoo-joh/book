@@ -1,0 +1,31 @@
+#+title: Brute Force
+#+last_update: 2023-04-05 23:07:11
+#+layout: page
+#+tags: problem-solving cpp brute-force
+
+* Brute Force
+
+** 중첩 반복문 대체하기
+
+n개의 원소에서 m개를 고르는 모든 조합을 찾는 알고리즘을 쌩 반복문으로 짜면 m중
+중첩문이 된다. 하지만 다음과 같이 작업을 쪼개면 재귀로 풀 수 있다.
+ - 원소들의 총 개수(= n)
+ - 더 골라야 할 원소들의 개수
+ - 지금까지 고른 원소들의 번호
+
+#+begin_src c++
+void pick(int n, vector<int>& picked, int to_pick) {
+  // base case: no more to pick
+  if (to_pick == 0) {
+    do_something(picked);
+    return;
+  }
+
+  int smallest = picked.empty() ? 0 : picked.back() + 1;
+  for (int next = smallest; next < n; next++) {
+    picked.push_back(next);
+    pick(n, picked, to_pick - 1);
+    picked.pop_back();
+  }
+}
+#+end_src
