@@ -1,5 +1,5 @@
 #+title: Brute Force
-#+last_update: 2023-04-05 23:07:11
+#+last_update: 2023-04-05 23:30:15
 #+layout: page
 #+tags: problem-solving cpp brute-force
 
@@ -27,5 +27,32 @@ void pick(int n, vector<int>& picked, int to_pick) {
     pick(n, picked, to_pick - 1);
     picked.pop_back();
   }
+}
+#+end_src
+
+* 보글 게임
+
+#+begin_src c++
+const int dx[8] = {-1, -1, -1, 1, 1, 1, 0, 0};
+const int dy[8] = {-1, 0, 1, -1, 0, 1, -1, 1};
+
+bool has_word(int y, int x, const string& word) {
+  if (!in_range(y, x)) {
+    return false;
+  }
+  if (board[y][x] != word[0]) {
+    return false;
+  }
+  if (word.size() == 1) {
+    return true;
+  }
+
+  for (int dir = 0; dir < 8; dir++) {
+    int ny = y + dy[dir], nx = x + dx[dir];
+    if (has_word(ny, nx, word.substr(1))) {
+      return true;
+    }
+  }
+  return false;
 }
 #+end_src
