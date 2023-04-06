@@ -2,13 +2,14 @@
 layout: page
 tags: [problem-solving, theory, disjoint-set]
 title: Disjoint Set
+last_update: 2023-04-06 10:34:00
 ---
 
 # 서로소 집합
 
  위키피디아 구현은 다음과 같다.
 
-```
+```python
 function MakeSet(x)
   x.parent := x
 
