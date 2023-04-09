@@ -2,7 +2,7 @@
 layout: page
 tags: [problem-solving, theory, python, graph, cycle]
 title: Topological Ordering
-last_update: 2023-04-09 23:33:54
+last_update: 2023-04-09 23:53:46
 ---
 
 # Topological Ordering
@@ -62,10 +62,14 @@ def topologicalSort(nodes: List[int], edges: List[List[int]]) -> List[int]:
     return ordering
 ```
 
- 근데 이 방법은 싸이클이 있으면 제대로 된 위상 정렬을 해내지 못한다. 정확히는,
- 싸이클의 모든 노드는 in-degree가 0인 노드가 존재하지 않기 때문에, BFS를 하면서
- 만난 노드의 수가 전체 노드의 수보다 항상 적게 된다. 즉, **싸이클을 아예 만나지
- 못한다.** 이런 성질을 이용해서 싸이클만 남겨서 SCC를 찾아내는 것도 가능하다.
+ 이 알고리즘의 특징은 다음과 같다.
+ 1. 그래프에 싸이클이 있으면 제대로 된 위상 정렬을 해내지 못한다. 정확히 말하면
+    싸이클에 속한 모든 노드는 무슨 짓을 해도 in-degree가 0이 될 수 없으므로
+    싸이클의 노드를 **아예 만나지 못한다**. 참고로 이런 성질을 이용해서 아예
+    싸이클만 남긴 다음 SCC를 수집하는 방법도 있다.
+ 2. 위상 정렬이 존재한다면, 알고리즘이 in-degree가 0인 노드부터 방문하도록
+    동작하기 때문에 항상 **위상 정렬의 순서대로** 그래프를 탐색하게 된다.
+    바꿔말하면 정렬 결과를 뒤집지 않아도 된다.
 
 
 ## Toplogical Ordering with DFS
