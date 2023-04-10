@@ -1,5 +1,5 @@
 #+title: Bitwise Property
-#+last_update: 2023-04-10 12:33:26
+#+last_update: 2023-04-10 14:53:31
 #+layout: page
 #+tags: problem-solving theory bitwise cpp
 
@@ -85,4 +85,99 @@ x = 16;
 
 즉, =x= 가 2의 제곱수라면 =x & (x - 1) = 0= 이 됨을 알 수 있다.
 
-**
+** 집합 표현하기
+
+N개의 비트를 가지고 집합을 표현할 수 있다. i번째 원소가 집합에 속해있는지 여부는
+i번째 비트가 0인지 1인지 여부로 표현한다. 정수는 32비트 또는 64비트 크기 이므로
+N이 이 범위에 속할 때에만 가능하다.
+
+구체적인 예시를 위해 N = 20이라고 하자. 즉 0부터 19까지 총 20개의 원소가
+가능하다.
+
+*** 다 켠 경우
+N개의 원소를 다 선택한 경우를 상수로 미리 선언해두자. 일일이 1을 채워넣은
+바이너리 수식을 써줘도 되지만 간단히 다음과 같이 1을 N만큼 쉬프트한 다음 1을
+빼줘도 된다. 괄호 치는거 꼭 잊지말자.
+
+#+begin_src C++
+const int full = 0b0000'0000'0000'1111'1111'1111'1111'1111; // 20 1s
+// or
+const int full = (1 << 20) - 1;
+#+end_src
+
+*** 원소 추가
+#+begin_src c++
+picked = picked | (1 << i);
+#+end_src
+
+1을 왼쪽으로 i만큼 시프트하면 i번째 비트만 1인 정수가 되고 이 결과를 이때까지
+선택한 =picked= 에 OR로 합치면 항상 이 원소가 추가되게 된다.
+
+*** 원소 포함 여부 확인 (membership)
+#+begin_src c++
+if (picked & (1 << i)) {
+  // i-th element is contained ...
+}
+#+end_src
+
+역시 i번째 비트만 1인 정수를 이때까지 선택한 =picked= 와 AND 연산을 하면 i번째
+원소의 포함 여부를 알 수 있다.
+
+*** 원소 삭제
+삭제가 좀 트리키하다. i번째 원소를 삭제한다는 것은 i번째 원소의 비트를 끄고,
+/나머지 비트/ 는 다 살려둬야 한다. i번째 원소는 항상 0으로, 나머지 원소는 항상 1로
+만드는 것이다.
+
+#+begin_src c++
+picked = picked & ~(1 << i);
+#+end_src
+
+i번째 비트만 *꺼지고* 나머지 비트는 전부 *켜진* 정수를 =picked= 와 AND 연산하면 우리가
+원하는 것을 달성할 수 있다.
+
+*** 원소 토글
+i번째 비트가 켜져있다면 끄고, 꺼져있다면 켜는 연산인 토글 연산이 종종 유용하다.
+XOR 연산이 정확히 이것을 해준다.
+
+#+begin_src c++
+picked = picked ^ (1 << i);
+#+end_src
+
+*** 집합 연산
+#+begin_src c++
+int added = a | b;         // 합집합
+int intersection = a & b;  // 교집합
+int removed = a & ~b;      // a에서 b를 뺀 차집합
+int toggled = a ^ b;       // a와 b 중 한 쪽에만 포함된 집합 (여집합)
+#+end_src
+
+*** 집합 크기
+집합의 크기 (Cardinality)를 쉽게 구하는 방법은 딱히 없다. 그냥 일일이 비트를
+확인해서 켜진 개수를 세야한다.
+
+#+begin_src c++
+int cardinality(int a) {
+  if (a == 0) return 0;
+  return (a % 2) + cardinality(a / 2);
+}
+#+end_src
+
+모듈러 연산과 나누기 연산은 비싸니까 어떻게 비트로 좀 쪼개면 다음과 같다.
+
+#+begin_src c++
+int cardinality(int a) {
+  if (a == 0) return 0;
+  return (a & 1) + cardinality(a >> 1);
+}
+#+end_src
+
+더 최적화할 수 있는 방법이 많지만 굉장히 어렵다고 한다.
+
+다행히도 컴파일러가 몇몇 비트 연산과 관련된 내장 함수를 제공한다.
+
+#+begin_src c++
+int card = __builtin_popcount(picked);  // gcc/g++
+int card = __popcnt(picked);            // Visual C++
+#+end_src
+
+*** 최소 원소 찾기
