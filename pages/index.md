@@ -1,11 +1,10 @@
 ---
 layout: page
 permalink: /
-last_update: 2023-03-27 18:12:35
+last_update: 2023-05-08 15:31:40
 ---
 
 # Bible
 
- This is my personal engineering bible.
-
-![bing-ai-engineering-book](assets/img/frontend.jpeg)
+ The name may seem a little bit gigantic, but I hope this will be my engineering
+ bible which I write for life.
