@@ -23,6 +23,7 @@
 - lru-cache
 - memory-model
 - multi-core
+- note
 - ocaml
 - palindrome
 - parallelism
@@ -33,6 +34,7 @@
 - simulation
 - sorting
 - stack
+- statistics
 - string
 - theory
 - tips
