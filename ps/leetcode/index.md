@@ -2,7 +2,7 @@
 layout: page
 title: LeetCode
 has_toc: false
-last_update: 2023-04-04 22:49:01
+last_update: 2023-09-06 15:06:21
 ---
 
 {: .no_toc }
@@ -81,6 +81,7 @@ last_update: 2023-04-04 22:49:01
  - [x] [Reorder List](reorder-list)
  - [x] [Reverse Linked List II](reverse-linked-list#reverse-linked-list-ii)
  - [x] [Reverse Linked List](reverse-linked-list)
+ - [x] [Split Linked List In Parts](split-linked-list-in-parts)
 
 ## String
  - [x] [Encode and Decode Strings](encode-and-decode-strings)
