@@ -64,7 +64,7 @@ version_params:
 # Link to a privacy policy in footer, uncomment and define if wanted
 # privacy: https://domain.com/privacy
 
-google-analytics: G-J0C68FHJ6L
+google-analytics: G-63ZZVFHP73
 # Image and (square) dimension for logo (don't start with /)
 # If commented, will use material hat theme
 logo: "assets/img/logo.png"
