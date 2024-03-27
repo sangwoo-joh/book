@@ -2,7 +2,7 @@
 #+last_update: 2023-03-21 12:05:32
 #+tags: tips
 #+description: 주문을 외워봐
-#+layouge: page
+#+layout: page
 
 * Mantra
  #+begin_quote
