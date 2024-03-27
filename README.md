@@ -1,6 +1,6 @@
-# Bible :latin_cross:
+# Book :book:
 
- Personal engineering bible built on top of [Docsy](https://github.com/vsoch/docsy-jekyll)
+ Engineering book built on top of [Docsy](https://github.com/vsoch/docsy-jekyll)
 
 ## DISCLAIMER
  

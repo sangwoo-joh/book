@@ -14,8 +14,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Bible
-description: A Very Personal Engineering Bible
+title: Book
+description: Engineering Book
 email: work.sangwoo.joh@gmail.com
 author: Sangwoo Joh
 
@@ -27,9 +27,9 @@ author: Sangwoo Joh
 # the base hostname & protocol for your site
 
 # Social (First three Required)
-repo: "https://github.com/sangwoo-joh/bible"
+repo: "https://github.com/sangwoo-joh/book"
 github_user: "sangwoo-joh"
-github_repo: "bible"
+github_repo: "book"
 github_branch: "master"
 
 plugins:
