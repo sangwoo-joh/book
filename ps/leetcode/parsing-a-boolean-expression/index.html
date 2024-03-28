@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Parsing a Boolean Expression</title>
+<meta property="og:title" content="Parsing a Boolean Expression" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Parsing a Boolean Expression">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Parsing a Boolean Expression"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/parsing-a-boolean-expression.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/parsing-a-boolean-expression/">Parsing a Boolean Expression</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="parsing-a-boolean-expression"><a href="https://leetcode.com/problems/parsing-a-boolean-expression/">Parsing a Boolean Expression</a></h1>
+<p>문자열로 주어진 불리언 표현식 <code class="language-plaintext highlighter-rouge">expression</code>을 평가해서 결과를 구하자.</p>
+<p>표현식은 다음으로 구성된다:</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">"t"</code>: 참
+ <li><code class="language-plaintext highlighter-rouge">"f"</code>: 거짓
+ <li><code class="language-plaintext highlighter-rouge">"!(expr)"</code>: 논리적 NOT. 피연산자는 1개이다.
+ <li><code class="language-plaintext highlighter-rouge">"&amp;(expr1,expr2,...)"</code>: 논리적 AND, 괄호 안의 피연산자는 2개 이상일
+수 있다.
+ <li><code class="language-plaintext highlighter-rouge">"|(expr1,expr2,...)"</code>: 논리적 OR, 괄호 안의 피연산자는 역시 2개
+이상이다.
+</ul>
+<p>표현식의 길이 범위는 \(1 \sim 2 \times 10 ^4\) 이고 표현식은 오직
+ <code class="language-plaintext highlighter-rouge">'(', ')', ',', '!', '&amp;', '|', 't', 'f'</code> 글자로만 구성된다. 항상
+ 유효한 표현식이 입력으로 들어옴이 보장된다.</p>
+<h2 id="폴린드-표기법-혹은-전위-표기법---polish-notation-or-prefix-notation">폴린드 표기법, 혹은 전위 표기법 - Polish Notation, or Prefix Notation</h2>
+<p>문법이 주어진 형태부터가 <a href="https://en.wikipedia.org/wiki/Polish_notation">폴란드
+ 표기법</a>이다. 적당히
+ 컴마만 무시한 다음 폴란드 표기법의 정의에 따라 스택을 이용해서 파싱과
+ 동시에 평가하면 될 것 같다.</p>
+<p>먼저 표현식을 토큰 리스트로 짜르는 함수를 구현하자. 얘는 컴마를
+ 무시한다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">expr</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tok</span> <span class="o">!=</span> <span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">tokens</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tokens</span>
+</code></pre></div></div>
+<p>이렇게 구한 토큰 배열은 이미 그 자체로 폴란드 표기법이라고 할 수
+ 있다. 이제 이걸 스택을 이용해서 적당히 파싱하는 함수를 만들자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+    <span class="n">CONST</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">t</span><span class="sh">'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
+    <span class="n">OPS</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">!</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">&amp;</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">|</span><span class="sh">'</span><span class="p">}</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">CONST</span><span class="p">:</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">CONST</span><span class="p">[</span><span class="n">tok</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">OPS</span><span class="p">:</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tok</span> <span class="o">==</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">operands</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">while</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">bool</span><span class="p">):</span>
+                <span class="n">operands</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+            <span class="n">op</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="sh">'</span><span class="s">!</span><span class="sh">'</span><span class="p">:</span>
+                <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="ow">not</span> <span class="n">operands</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="sh">'</span><span class="s">&amp;</span><span class="sh">'</span><span class="p">:</span>
+                <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">all</span><span class="p">(</span><span class="n">operands</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="sh">'</span><span class="s">|</span><span class="sh">'</span><span class="p">:</span>
+                <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">any</span><span class="p">(</span><span class="n">operands</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+</code></pre></div></div>
+<p>이전에 했던 역폴란드 표기법의 <code class="language-plaintext highlighter-rouge">parse</code> + <code class="language-plaintext highlighter-rouge">eval</code>함수와 거의 유사하지만,
+ 여기서는 굳이 두 스텝을 나눌 필요가 없어서 곧바로 평가하고
+ 있다. 괄호의 시작은 무시해도 되고, 만약 괄호의 끝에 도달했다면,
+ 스택에서 첫번째 연산자를 만나기 전까지 추가된 모든 값(불리언)은
+ 피연산자이고, 피연산자 바로 다음에 있는게 바로 연산자가 된다. 이때
+ 유효한 표현식만 들어옴이 보장되므로 굳이 <code class="language-plaintext highlighter-rouge">!</code> 연산자를 평가할 때
+ 피연산자 개수를 체크해주지 않아도 된다. <code class="language-plaintext highlighter-rouge">&amp;</code>와 <code class="language-plaintext highlighter-rouge">|</code>의 경우 파이썬의
+ <code class="language-plaintext highlighter-rouge">all</code>과 <code class="language-plaintext highlighter-rouge">any</code>를 이용해서 피연산자 전체에 대해서 빠르게 평가할 수
+ 있다.</p>
+<p>그러면 실제 구현은 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">parseBoolExpr</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">parse</span><span class="p">(</span><span class="nf">tokenize</span><span class="p">(</span><span class="n">expression</span><span class="p">))</span>
+</code></pre></div></div>
+<h2 id="해킹">해킹</h2>
+<p>그런데 위의 풀이 방법을 보면 알겠지만, 애초에 들어오는 표현식 자체가
+ 항상 유효한 폴란드 표기법임이 보장되기 때문에, 다음과 같은 해킹이
+ 가능하다:</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">!(expr)</code> -&gt; <code class="language-plaintext highlighter-rouge">not (expr)</code>로 바꿈
+ <li><code class="language-plaintext highlighter-rouge">&amp;(exprs)</code> -&gt; <code class="language-plaintext highlighter-rouge">all([exprs])</code>로 바꿈
+ <li><code class="language-plaintext highlighter-rouge">|(exprs)</code> -&gt; <code class="language-plaintext highlighter-rouge">any([exprs])</code>로 바꿈
+</ul>
+<p>파이썬에서도 리스트 구분자는 <code class="language-plaintext highlighter-rouge">,</code> 이기 때문에, 이렇게 바꾼 식은 그
+ 자체로 유효한 파이썬 표현식이 되고, 곧바로 파이썬의 <code class="language-plaintext highlighter-rouge">eval</code>을 먹일 수
+ 있다 (…). 이때 한 가지 해킹으로, <code class="language-plaintext highlighter-rouge">!</code>의 경우 <code class="language-plaintext highlighter-rouge">not (expr)</code>로 바꾸면
+ 안의 <code class="language-plaintext highlighter-rouge">expr</code>이 복잡한 식인 경우 유효하지 않은 파이썬 표현식이 될 수
+ 있으므로, <code class="language-plaintext highlighter-rouge">not (expr) == not any([expr]) == not all([expr])</code> 임을
+ 이용해서 <code class="language-plaintext highlighter-rouge">not &amp;</code> 또는 <code class="language-plaintext highlighter-rouge">not |</code>으로 바꾸는 해킹을 하면 된다. 또한 닫힌
+ 괄호도 잘 바꿔주는 것을 잊지 말자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">parseBoolExpr</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="n">hacked</span> <span class="o">=</span> <span class="n">expression</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">t</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">True</span><span class="sh">'</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">f</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">False</span><span class="sh">'</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">!</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">not &amp;</span><span class="sh">'</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">&amp;(</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">all([</span><span class="sh">'</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">|(</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">any([</span><span class="sh">'</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">])</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">eval</span><span class="p">(</span><span class="n">hacked</span><span class="p">)</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 06:33:46 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Graph Valid Tree</title>
+<meta property="og:title" content="Graph Valid Tree" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Graph Valid Tree">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Graph Valid Tree"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/graph-valid-tree.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/graph-valid-tree/">Graph Valid Tree</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="graph-valid-tree"><a href="https://leetcode.com/problems/graph-valid-tree/">Graph Valid Tree</a></h1>
+<p><code class="language-plaintext highlighter-rouge">0</code>부터 <code class="language-plaintext highlighter-rouge">n-1</code>까지 레이블링 된 <code class="language-plaintext highlighter-rouge">n</code> 개의 노드가 있는 그래프가
+ 있다. 엣지 정보를 담은 <code class="language-plaintext highlighter-rouge">edges</code> 가 주어지고, <code class="language-plaintext highlighter-rouge">edges[i] = (a_i, b_i)</code>는
+ 노드 <code class="language-plaintext highlighter-rouge">a_i</code>와 <code class="language-plaintext highlighter-rouge">b_i</code> 사이에 무향 엣지가 있음을 나타낸다.</p>
+<p><code class="language-plaintext highlighter-rouge">n</code>과 <code class="language-plaintext highlighter-rouge">edges</code>가 주어졌을 때, 이 그래프가 유효한 트리를 만들어내는지를
+ 확인하자.</p>
+<h2 id="valid-tree">Valid Tree?</h2>
+<p>문제를 정확하게 이해하기 위해서 정의를 살펴볼 필요가 있다. <em>유효한
+ 트리</em>의 정의가 뭘까? 위키피디아를 찾아보면 여러가지가 있는데,
+ 눈여겨볼 것은 다음과 같다:</p>
+<ul>
+ <li>트리는 무향 그래프이다.
+ <li>트리는 <a href="https://en.wikipedia.org/wiki/Connectivity_(graph_theory)#Connected_vertices_and_graphs">연결
+그래프</a>이다. 즉,
+트리의 <strong>모든</strong> 노드는 연결되어 있다.
+ <li>트리는 싸이클이 없다.
+</ul>
+<p>여기서 무향 그래프를 제외한 나머지를 확인하는 것이 바로 이 문제의
+ 핵심이 된다. 이 중에서 싸이클을 판단하는 것은 잠깐 뒤로 미뤄두고,
+ <em>연결 그래프</em>의 의미를 좀더 살펴보자. 어떤 그래프가 연결 그래프라면
+ 이건 대체 무엇을 뜻할까? 모든 노드가 연결되어 있다는 말은 곧 모든
+ 노드 사이에는 경로(path)가 있다는 뜻이고, 이건 다르게 말해서 <code class="language-plaintext highlighter-rouge">n</code>개의
+ 노드를 갖는 그래프가 트리라면 여기에는 <strong>정확하게 <code class="language-plaintext highlighter-rouge">n-1</code>개의 엣지</strong>가
+ 있다는 것을 뜻한다. <code class="language-plaintext highlighter-rouge">n-1</code>개보다 적으면 뭔가 연결 안된 노드가 있는
+ 거고, <code class="language-plaintext highlighter-rouge">n-1</code>개 보다 많으면 <em>무조건</em> 싸이클이 있다는 것이다. 그러므로
+ 일단 이것부터 제외할 수 있다.</p>
+<h2 id="disjoint-set">Disjoint Set</h2>
+<p>그럼 싸이클은 어떻게 찾으면 될까? <a href="/algorithm/tips#condition-of-cycle">Condition of
+ Cycle</a>에서 했던 것처럼,
+ <code class="language-plaintext highlighter-rouge">visited</code>와 <code class="language-plaintext highlighter-rouge">visiting</code>을 유지하면서 DFS를 돌리는 것은 어떨까?
+ 아쉽게도 이 방법은 <em>유향</em> 그래프에서만 먹힌다. 우리는 트리, 즉 무향
+ 그래프를 갖고 있기 때문에 일반적인 그래프 순회로 판단하기는 조금
+ 까다롭다. 추가로 부모 노드를 쌓아가면서 확인하는 방법이 가능하지만,
+ 여기서는 다른 방법을 써보자.</p>
+<p>어떤 무향 그래프에 싸이클이 있다는 사실을 어떻게 다르게 표현할 수
+ 있을까? 다음 싸이클이 있는 엣지를 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</code></pre></div></div>
+<p>첫번째 엣지에서 노드 <code class="language-plaintext highlighter-rouge">0</code>과 <code class="language-plaintext highlighter-rouge">1</code>이 연결된다. 두번째에서 노드 <code class="language-plaintext highlighter-rouge">1</code>과
+ <code class="language-plaintext highlighter-rouge">2</code>가 연결된다. 여기까지오면 <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code>가 하나로 연결된
+ 상태다. 여기에 추가로 <code class="language-plaintext highlighter-rouge">2</code>와 <code class="language-plaintext highlighter-rouge">0</code>을 연결하는 순간 싸이클이 생긴다.</p>
+<p>다르게 표현하면 이렇다. 먼저 노드 <code class="language-plaintext highlighter-rouge">0</code>과 <code class="language-plaintext highlighter-rouge">1</code>이 하나의 집합에
+ 속한다. 그리고 <code class="language-plaintext highlighter-rouge">(1, 2)</code>가 들어오면 노드 <code class="language-plaintext highlighter-rouge">2</code>가 <code class="language-plaintext highlighter-rouge">1</code>이 속해있던 집합에
+ 추가된다. 마지막으로 <code class="language-plaintext highlighter-rouge">(2, 0)</code>을 추가하려는 순간, <code class="language-plaintext highlighter-rouge">2</code>와 <code class="language-plaintext highlighter-rouge">0</code>이 이미
+ 같은 집합에 속해있음을 알게 되고, 이게 곧 싸이클이 된다.</p>
+<p>여기까지 오면 눈치챌 수 있다: 이 문제는 서로소 집합으로 풀 수
+ 있다. 즉, 무향 그래프에서, 모든 엣지 정보를 서로소 집합에 추가하면서,
+ 만약 <code class="language-plaintext highlighter-rouge">union</code> 연산을 할 때 두 집합이 이미 같은 집합에 속하면 (= 두
+ 집합의 대표 원소가 같으면), 싸이클이 발생한 것이다.</p>
+<p>따라서 구현할 알고리즘의 아이디어는 다음과 같다.</p>
+<ol>
+ <li>연결 그래프의 조건인 “엣지 개수가 <code class="language-plaintext highlighter-rouge">n-1</code>개인가?”를 먼저 확인한다.
+ <li>모든 엣지의 노드를 서로소 집합에 추가하면서, 이미 같은 집합에 속해
+있는 경우가 하나라도 발견되면 바로 <code class="language-plaintext highlighter-rouge">False</code>를 리턴한다.
+ <li>위의 1, 2 검사를 모두 통과하면 비로소 <code class="language-plaintext highlighter-rouge">True</code>를 리턴한다.
+</ol>
+<p>코드는 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">IdentityDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__missing__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+            <span class="n">self</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">.</span><span class="nc">IdentityDict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">self</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">px</span> <span class="o">==</span> <span class="n">py</span><span class="p">:</span>
+            <span class="c1"># cycle is detected
+</span>            <span class="k">raise</span> <span class="nb">TypeError</span>
+
+        <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">px</span><span class="p">]</span> <span class="o">=</span> <span class="n">py</span>
+
+<span class="k">def</span> <span class="nf">is_valid_tree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="n">dset</span> <span class="o">=</span> <span class="nc">DisjointSet</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">snk</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">dset</span><span class="p">.</span><span class="nf">union</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">snk</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+<ul>
+ <li>연결 그래프 검사를 하고 나면, 사실상 모든 노드에 대해서 이미
+<code class="language-plaintext highlighter-rouge">make_set</code> 함수를 호출했다고 가정해도 된다. 즉, 모든 노드는 이미
+하나의 서로소 집합(= 스스로가 스스로의 대표원소)을 이룬다. 이걸
+좀더 편하게 하기 위한 트릭으로 <code class="language-plaintext highlighter-rouge">IdentityDict</code>를 만들었다. <code class="language-plaintext highlighter-rouge">dict</code>를
+상속받아서 <code class="language-plaintext highlighter-rouge">__missing__</code> 메소드를 제공하면, <code class="language-plaintext highlighter-rouge">dict[x]</code>를 할 때
+<code class="language-plaintext highlighter-rouge">KeyError</code> 예외가 발생한 순간 <code class="language-plaintext highlighter-rouge">__missing__</code>을 호출해서 디폴트 값을
+처리한다. 종종 쓰이는 테크닉이다.
+ <li><a href="/leetcode/number-of-islands#optimized-disjoint-set">섬의 개수를 세던
+문제</a>처럼
+개수를 셀 필요는 없지만, 여기에 쓰인 최적화인 경로 압축은
+적용해뒀다.
+ <li><code class="language-plaintext highlighter-rouge">union</code>을 시도할 때 이미 같은 집합을 합치려는 시도가 발견되면
+<code class="language-plaintext highlighter-rouge">TypeError</code>를 발생시키도록 했다. 그냥 리턴으로 처리해도
+된다. 바깥에서 이걸 호출할 때에만 잘 처리해주면 된다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=graph ">graph</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=tree ">tree</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=cycle ">cycle</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=disjoint-set ">disjoint-set</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

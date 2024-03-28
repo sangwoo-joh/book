@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Breadth First Search</title>
+<meta property="og:title" content="Breadth First Search" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Breadth First Search">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Breadth First Search"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/boj/bfs.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/boj/">Boj</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/boj/bfs/">Breadth First Search</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="bfs">BFS</h1>
+<h2 id="deque">Deque</h2>
+<p>파이썬에는 <code class="language-plaintext highlighter-rouge">collections</code> 패키지 안에 <code class="language-plaintext highlighter-rouge">deque</code>가 있으므로 다음
+ 인터페이스를 숙지해야 한다.</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">deque()</code>: 생성자
+ <li><code class="language-plaintext highlighter-rouge">deque.append(x)</code>: 끝
+ <li><code class="language-plaintext highlighter-rouge">deque.appendleft(x)</code>: 앞
+ <li><code class="language-plaintext highlighter-rouge">deque.pop()</code>: 끝
+ <li><code class="language-plaintext highlighter-rouge">deque.popleft()</code>: 앞
+</ul>
+<p>따라서, “큐”의 Functionality를 얻으려면 <code class="language-plaintext highlighter-rouge">append()</code>와 <strong>popleft()</strong>를
+ 써야한다. <code class="language-plaintext highlighter-rouge">pop()</code>을 써버리면 스택과 다름없다.</p>
+<h2 id="연관-키워드">연관 키워드</h2>
+<p>길 찾기, 최소 경로 찾기,</p>
+<h2 id="정석">정석</h2>
+<ol>
+ <li>큐, 집합 초기화
+ <li>시작 지점을 하나 잡아서, 큐와 집합에 둘다 넣는다.
+ <li>큐가 빌 때까지 다음을 반복한다:
+   <ol>
+     <li>앞에서 하나 pop 한다.
+     <li>pop한 원소에서 갈 수 있는 다음 지점을 전부 훑어본다.
+     <li>다음 지점이 <em>집합에 없으면</em> (즉, 방문하지 않았으면), 큐와
+집합에 둘다 넣는다.
+   </ol>
+</ol>
+<p>BFS에서 주의해야 할 부분은 루프 안에서 큐에 다음 지점을 <strong>넣기 전에</strong>
+ 방문 체크를 해야한다는 점이다. 꺼내서 방문 체크 해도 말은 되지만
+ 이러면 시간 복잡도가 터진다.</p>
+<h2 id="1926번-그림"><a href="https://www.acmicpc.net/problem/1926">1926번: 그림</a></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="n">readline</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nf">line</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">graph</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">line</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
+
+<span class="n">visited</span><span class="p">,</span> <span class="n">max_area</span><span class="p">,</span> <span class="n">total_count</span> <span class="o">=</span> <span class="nf">set</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+    <span class="n">visited</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="ow">in</span> <span class="p">((</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="ow">and</span> <span class="n">graph</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+                <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+                <span class="n">area</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">area</span>
+
+<span class="c1"># check all
+</span><span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">graph</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="n">total_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">max_area</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_area</span><span class="p">,</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">total_count</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">max_area</span><span class="p">)</span>
+</code></pre></div></div>
+<p>위의 클래식을 잘 고려해서 bfs를 짜면 된다. 파이써닉하게 짠 부분은 (1)
+ 방문 체크할 때 내장 해쉬셋과 내장 튜플을 곧바로 이용한 점, (2) 다음
+ 지점을 구할 때 상하좌우 다음 좌표를 곧바로 튜플로 계산한 것, 그리고
+ (3) 다음 지점의 바운드 체크를 할 때 체인 비교 연산자를 쓴 것이다.</p>
+<p>한 그림의 어느 지점에서 시작하던지 간에 <code class="language-plaintext highlighter-rouge">bfs</code>가 호출되고 나면 그
+ 그림의 모든 좌표를 방문하게 되므로 처음 방문할 때 <code class="language-plaintext highlighter-rouge">total_count</code>를
+ 늘리면 된다.</p>
+<p>그림의 크기는 <code class="language-plaintext highlighter-rouge">bfs</code>에서 큐에 넣을 때마다, 혹은 방문했다고 기록할
+ 때마다 크기가 1씩 증가하므로 이 사실을 이용해서 계속 누적해 나아가면
+ 된다.</p>
+<h2 id="2178번-미로-탐색"><a href="https://www.acmicpc.net/problem/2178">2178번: 미로 탐색</a></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
+<span class="n">board</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">board</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">())</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="n">q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+
+<span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+    <span class="n">cy</span><span class="p">,</span> <span class="n">cx</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">((</span><span class="n">cy</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">cx</span><span class="p">),</span> <span class="p">(</span><span class="n">cy</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cx</span><span class="p">),</span> <span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">cx</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">cx</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">board</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">0</span><span class="sh">'</span> <span class="ow">or</span> <span class="n">path</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">path</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">cy</span><span class="p">][</span><span class="n">cx</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+<p>최단 경로를 구할 때 BFS를 활용할 수 있다. 방문 체크를 집합으로 하지
+ 않고, 원래의 맵과 똑같은 사이즈의 맵을 만든 뒤 여기에 경로를 기록하면
+ 된다. 이런 문제에서는 보통 시작점은 주어지기 때문에, 이 경로 맵에는
+ 시작점으로부터 해당 위치까지의 경로를 계속 기록하면 된다. 그러면
+ BFS의 특성 상 경로 맵을 다 채우고 나면 시작점으로부터 모든 점까지의
+ 최단 경로를 알 수 있다.</p>
+<p>이를 위해서 <code class="language-plaintext highlighter-rouge">path</code>를 만들 때, 파이썬에서는 위와 같이 <code class="language-plaintext highlighter-rouge">range</code>를
+ 이용해서 만들어줘야 한다. 그냥 곱 연산으로 <code class="language-plaintext highlighter-rouge">[[0] * m] * n</code> 처럼
+ 만들면, 처음 <code class="language-plaintext highlighter-rouge">m</code> 만큼은 깊은 복사가 일어나지만 이후 이 리스트를
+ <code class="language-plaintext highlighter-rouge">n</code>만큼 곱할 때에는 얕은 복사가 일어나기 때문에 제대로 된 경로를
+ 계산하지 못한다.</p>
+<p>이 점만 주의하면 나머지는 Trivial 하다.</p>
+<h2 id="7576번-토마토"><a href="https://www.acmicpc.net/problem/7576">7576번: 토마토</a></h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">load</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">().</span><span class="nf">split</span><span class="p">()</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nf">load</span><span class="p">())</span>
+<span class="n">box</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">box</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">load</span><span class="p">())</span>
+
+<span class="n">ripes</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="n">path</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+<span class="n">q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">box</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="sh">'</span><span class="s">-1</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">box</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">ripes</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+            <span class="n">path</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="ow">in</span> <span class="p">((</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">box</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">0</span><span class="sh">'</span> <span class="ow">and</span> <span class="n">path</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+            <span class="n">path</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">ripes</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="k">if</span> <span class="n">ripes</span> <span class="o">!=</span> <span class="n">total</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">elapsed</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">elapsed</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">elapsed</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">elapsed</span><span class="p">)</span>
+</code></pre></div></div>
+<p>문제를 잘 읽어보면 BFS로 시뮬레이션 할 수 있음을 알 수 있다. 익은
+ 토마토부터 시작해서 모든 경로의 최단 거리를 구하고 그 중 가장 큰 값이
+ 답이다. 마찬가지로 시작점이 여러 개일 수 있는데, 이것도 미리 구해서
+ 큐에 넣어두면 된다.</p>
+<p>주의해야 할 한 가지는, 익지 않는 토마토 체크(일종의 Reachability
+ 체크)를 따로 해줘야 한다는 점이다. 여기서는 그냥 손쉽게 전체 토마토
+ 개수랑 익은 토마토 개수를 구해서 비교했다.</p>
+<h2 id="4179번-불"><a href="https://www.acmicpc.net/problem/4179">4179번: 불!</a></h2>
+<p>지훈이가 옮겨다닐 때 불을 끌 수 없다는 강력한 제약 조건 덕분에 BFS 두
+ 번 돌려서 풀 수 있는 문제다. 즉, 시작 지점이 두 개인 BFS이면서 동시에
+ 서로 영향을 주지 않는다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">load</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">()</span>
+<span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nf">load</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
+<span class="n">labyrinth</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">labyrinth</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">load</span><span class="p">())</span>
+
+<span class="n">fire_q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+<span class="n">fire_map</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span>
+<span class="n">jihun_q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+<span class="n">jihun_run</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span>
+
+<span class="c1"># 일단 불과 지훈이를 찾아야 한다.
+</span><span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">labyrinth</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">J</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">jihun_q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+            <span class="n">jihun_run</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">labyrinth</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">F</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">fire_q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+            <span class="n">fire_map</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># 먼저 불을 시뮬레이션 한다.
+</span><span class="k">while</span> <span class="n">fire_q</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">fire_q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="ow">in</span> <span class="p">((</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">r</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="n">c</span> <span class="ow">and</span> <span class="n">labyrinth</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">!=</span> <span class="sh">'</span><span class="s">#</span><span class="sh">'</span> <span class="ow">and</span> <span class="n">fire_map</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">fire_q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+            <span class="n">fire_map</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="n">fire_map</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="c1"># 지훈이를 달리게 하면서 시간을 기록한다.
+</span><span class="n">escaped_time</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="k">while</span> <span class="n">jihun_q</span><span class="p">:</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">jihun_q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+    <span class="n">this_turn</span> <span class="o">=</span> <span class="n">jihun_run</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="ow">in</span> <span class="p">((</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">ny</span> <span class="o">&gt;=</span> <span class="n">r</span> <span class="ow">or</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">nx</span> <span class="o">&gt;=</span> <span class="n">c</span><span class="p">:</span>
+            <span class="c1"># 범위 밖으로 빠져나온 건 탈출에 성공했다는 얘기다.
+</span>            <span class="n">escaped_time</span> <span class="o">=</span> <span class="n">this_turn</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">labyrinth</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">#</span><span class="sh">'</span> <span class="ow">or</span> <span class="n">jihun_run</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># 갈 수 없는 길이거나, 이미 더 빨리 올 수 있으면 다음으로
+</span>            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">fire_map</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">this_turn</span> <span class="o">&lt;</span> <span class="n">fire_map</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]:</span>
+            <span class="c1"># case 1: 불이 아예 못오거나
+</span>            <span class="c1"># case 2: 이번 턴에 불 보다 빨리 갈 수 있어야 갈 수 있다.
+</span>            <span class="n">jihun_run</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="n">this_turn</span>
+            <span class="n">jihun_q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">escaped_time</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">escaped_time</span> <span class="k">if</span> <span class="n">escaped_time</span> <span class="k">else</span> <span class="sh">"</span><span class="s">IMPOSSIBLE</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>따라서, 먼저 불을 BFS로 시뮬레이션해서 불이 퍼져나가는 시간을 전부
+ 기록한 다음, 지훈이를 조심스럽게 달리게 하면 된다. 불을 퍼뜨리는 것은
+ 일반적인 BFS라서 그냥 하면 되고, 지훈이는 다음 턴에 달릴 때 다음과
+ 같은 조건을 살펴봐야 한다.</p>
+<ul>
+ <li>탈출 성공: 미로 범위 바깥으로 나가게 되면 탈출 성공이다.
+ <li>탈출 시간: 지훈이가 BFS로 옮겨다니는 시간을 기록해뒀다면,
+빠져나가는 순간의 시간은 <code class="language-plaintext highlighter-rouge">직전 위치의 시간 + 1</code>이다.
+ <li>옮겨갈 수 있는 위치: 불이 아예 못오는 경우도 고려해야 한다. 불과
+지훈이가 벽으로 분리되어 있는 경우가 해당한다.
+</ul>
+<h2 id="1697번-숨바꼭질"><a href="https://www.acmicpc.net/problem/1697">1697번: 숨바꼭질</a></h2>
+<p>이게 BFS인가? 싶은데 문제를 잘 읽어보면 결국 시뮬레이션으로 최단
+ 거리를 구하는 문제로 환원할 수 있어서 BFS를 적용해볼 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+    <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+    <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">after</span> <span class="ow">in</span> <span class="p">(</span><span class="n">now</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">now</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">now</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">after</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">after</span> <span class="o">&gt;</span> <span class="mi">100000</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">after</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">time</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">after</span> <span class="ow">in</span> <span class="n">time</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">time</span><span class="p">[</span><span class="n">after</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">bfs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">))</span>
+</code></pre></div></div>
+<ul>
+ <li>코너 케이스 하나를 잘 고려해야 한다. 시작부터 수빈이랑 동생이 같은
+지점에 있으면 0초만에 찾을 수 있다.
+ <li>움직일 수 있는 범위가 0과 100000 사이인데, 수빈이가 이 범위를
+벗어나도록 움직이면 최단 시간 안에 동생을 찾을 수 없으므로 제외해야
+한다. 그리고 이렇게 제외를 해야 수빈이가 움직이는 시간에 대한
+기록을 덜 해서 메모리 초과가 나지 않는다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=boj ">boj</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=graph ">graph</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 11:47:32 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

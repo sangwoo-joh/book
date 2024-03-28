@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Lwt in 5 Minutes</title>
+<meta property="og:title" content="Lwt in 5 Minutes" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Lwt in 5 Minutes">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lwt in 5 Minutes"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/lwt/nutshell.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/lwt/">Lwt</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/lwt/nutshell/">Lwt in 5 Minutes</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="lwt-in-5-minutes"><a href="https://ocsigen.org/tuto/latest/manual/lwt">Lwt in 5 minutes</a></h1>
+<h2 id="원칙">원칙</h2>
+<p>Lwt 라이브러리는 협력형 쓰레드를 구현한다. 협력형 쓰레드는 선점형
+ 쓰레드에서 겪게 되는 대부분의 이슈를 해결해준다. Lwt를 이용하면
+ 데드락의 위험이 거의 없고 락도 거의 필요없다. Lwt 쓰레드는 심지어
+ <code class="language-plaintext highlighter-rouge">Js_of_ocaml</code>로 컴파일된 자바스크립트 프로그램에서도 쓰일 수
+ 있다(왜냐면 Promise랑 거의 유사하기 때문에).</p>
+<p>Lwt는 대부분의 프로그램이 키, 소켓에서 읽어 들일 데이터, 마우스
+ 이벤트 등 입력을 기다리는데 대부분의 시간을 쓴다는 사실에
+ 근거한다. 임의의 시점에 쓰레드 사이를 스위치해버리는 선점형 쓰레드와
+ 달리, Lwt는 이런 기다리는 시간을 <em>협력 포인트(cooperation points)</em>로
+ 이용한다. 즉, <code class="language-plaintext highlighter-rouge">read</code> 함수처럼 블로킹을 하지 않고, Lwt는 계속할 준비가
+ 되어 있는 준비된 쓰레드 중 하나를 재개(resume) 시킨다. 우리가 해야 할
+ 일은 각 블로킹 함수의 협력형 버전을 사용하는 것이다. 예를 들면
+ <code class="language-plaintext highlighter-rouge">Unit.sleep</code> 대신 <code class="language-plaintext highlighter-rouge">Lwt_unix.sleep</code>, <code class="language-plaintext highlighter-rouge">Unix.read</code> 대신
+ <code class="language-plaintext highlighter-rouge">Lwt_unix.read</code>를 호출하는 것이다. 계산 중 하나가 오랜 시간이
+ 걸린다면, <code class="language-plaintext highlighter-rouge">Lwt_main.yield</code>를 호출해서 직접 협력 포인트를 삽입하는
+ 것도 가능하다.</p>
+<h2 id="promises">Promises</h2>
+<p>Lwt는 <code class="language-plaintext highlighter-rouge">'a Lwt.t</code> 타입으로 프로미스를 정의한다. 예를 들어, 다음 함수</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">f</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="kt">int</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">t</span>
+</code></pre></div></div>
+<p>는 <code class="language-plaintext highlighter-rouge">int</code>의 프로미스를 곧바로 리턴하는데, 즉 뭔가 계산이 끝나기만
+ 한다면 결국에는 하나의 정수 값을 가진다는 의미이다.</p>
+<p>다음 코드는 <code class="language-plaintext highlighter-rouge">f ()</code>의 계산을 (비동기적으로) 시작한다. 코드가 협력
+ 포인트에 도달하면 (예를 들어 정수 값이 네트워크를 통해 요청되거나
+ 하는 등), 프로그램은 계속 진행되어 <code class="language-plaintext highlighter-rouge">print_endline "hello"</code>를
+ 수행하고, 데이터를 사용할 수 있을 때 이후의 협력 포인트에서 재개된다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">g1</span> <span class="bp">()</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="n">p</span> <span class="o">=</span> <span class="n">f</span> <span class="bp">()</span> <span class="k">in</span>
+    <span class="n">print_endline</span> <span class="s2">"hello"</span>
+</code></pre></div></div>
+<h2 id="bind-프로미스의-값을-사용하기">Bind: 프로미스의 값을 사용하기</h2>
+<p>프로미스가 완료되고 나면 함수를 사용하도록 하는 것이 가능하다. 다음
+ 함수를 이용하면 된다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">Lwt</span><span class="p">.</span><span class="n">bind</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">b</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">b</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">t</span>
+</code></pre></div></div>
+<p>예를 들면 <code class="language-plaintext highlighter-rouge">Lwt.bind p h</code>는 프로미스 <code class="language-plaintext highlighter-rouge">p</code>의 리턴 값을 알게 되자마자 이
+ 값을 이용해서 함수 <code class="language-plaintext highlighter-rouge">h</code>를 호출한다. 표현식 <code class="language-plaintext highlighter-rouge">(Lwt.bind p h)</code> 역시
+ 프로미스 타입이라서 완료하는데 시간이 걸릴 수 있다. 함수 <code class="language-plaintext highlighter-rouge">h</code>는 반드시
+ 프로미스를 리턴해야 한다.</p>
+<p>값으로부터 완료된 프로미스를 생성하기 위해서는 <code class="language-plaintext highlighter-rouge">Lwt.return</code> 함수를
+ 쓰면 된다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">g2</span> <span class="bp">()</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="n">p</span> <span class="o">=</span> <span class="n">f</span> <span class="bp">()</span> <span class="k">in</span>
+    <span class="nn">Lwt</span><span class="p">.</span><span class="n">bind</span> <span class="n">p</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">print_int</span> <span class="n">i</span><span class="p">;</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">return</span> <span class="bp">()</span><span class="p">)</span>
+</code></pre></div></div>
+<p>위 코드에서 함수 <code class="language-plaintext highlighter-rouge">g2</code>는 함수 <code class="language-plaintext highlighter-rouge">f</code>를 호출해서 프로미스를
+ 생성한다. 그러고나서 (협력적인 방식으로) 결과를 기다리고, 그 결과를
+ 출력한다. <code class="language-plaintext highlighter-rouge">g2 ()</code>는 <code class="language-plaintext highlighter-rouge">unit Lwt.t</code> 타입이다.</p>
+<h2 id="문법-확장">문법 확장</h2>
+<p>문법 확장도 가능하다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="n">i</span> <span class="o">=</span> <span class="n">f</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="o">...</span>
+</code></pre></div></div>
+<p>이는 아래 코드와 동일하다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">Lwt</span><span class="p">.</span><span class="n">bind</span> <span class="p">(</span><span class="n">f</span> <span class="bp">()</span><span class="p">)</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="o">...</span><span class="p">)</span>
+</code></pre></div></div>
+<h2 id="예시">예시</h2>
+<h3 id="매-초마다-tic를-영원히-출력하지만-프로그램의-나머지-부분은-블로킹-되지-않는-함수">매 초마다 “tic”를 영원히 출력하지만 프로그램의 나머지 부분은 블로킹 되지 않는 함수</h3>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">tic</span> <span class="bp">()</span> <span class="o">=</span>
+    <span class="n">print_endline</span> <span class="s2">"tic"</span><span class="p">;</span>
+    <span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">Lwt_unix</span><span class="p">.</span><span class="n">sleep</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span> <span class="k">in</span>
+    <span class="n">tic</span> <span class="bp">()</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">Lwt_unix.sleep</code>을 <code class="language-plaintext highlighter-rouge">Lwt_js.sleep</code>으로 바꾸면 브라우저에서
+ 실행할 수 있다.</p>
+<h3 id="동시성-쓰레드를-시작하고-각각의-결과를-기다리기">동시성 쓰레드를 시작하고 각각의 결과를 기다리기</h3>
+<p>아래 타입의 두 협력 쓰레드가 있다고 하자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">f</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">t</span>
+<span class="k">val</span> <span class="n">g</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">t</span>
+</code></pre></div></div>
+<p>다음 코드는 <code class="language-plaintext highlighter-rouge">f ()</code>와 <code class="language-plaintext highlighter-rouge">g ()</code>를 차례로 호출한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">f</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">g</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="o">...</span>
+</code></pre></div></div>
+<p>다음 코드는 <code class="language-plaintext highlighter-rouge">f ()</code>와 <code class="language-plaintext highlighter-rouge">g ()</code>를 동시에 시작하고, 계속하기 전에 두
+ 쓰레드가 모두 종료될 때까지 기다린다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">f</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">g</span> <span class="bp">()</span> <span class="k">in</span>
+<span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">p1</span> <span class="k">in</span>
+<span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">p2</span> <span class="k">in</span>
+<span class="o">...</span>
+</code></pre></div></div>
+<p>쓰레드를 분리(detach)하려면 다음과 같이 쓰는 것을 추천한다. 그래야
+ 예외를 적절히 잡을 수 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">Lwt</span><span class="p">.</span><span class="n">async</span> <span class="p">(</span><span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="bp">()</span><span class="p">)</span>
+</code></pre></div></div>
+<p>아래와 같이 쓰지 말자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ignore</span> <span class="p">(</span><span class="n">f</span> <span class="bp">()</span><span class="p">)</span>
+</code></pre></div></div>
+<h3 id="순차적인-리스트-매핑과-동시적인-리스트-매핑">순차적인 리스트 매핑과 동시적인 리스트 매핑</h3>
+<p>다음 <code class="language-plaintext highlighter-rouge">map</code> 함수는 모든 리스트 원소에 대해서 모든 계산을 동시에
+ 진행한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">map</span> <span class="n">f</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">return</span> <span class="bp">[]</span>
+    <span class="o">|</span> <span class="n">v</span> <span class="o">::</span> <span class="n">r</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">t</span> <span class="o">=</span> <span class="n">f</span> <span class="n">v</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">rt</span> <span class="o">=</span> <span class="n">map</span> <span class="n">f</span> <span class="n">r</span> <span class="k">in</span>
+        <span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="n">v'</span> <span class="o">=</span> <span class="n">t</span> <span class="k">in</span>
+        <span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="n">l'</span> <span class="o">=</span> <span class="n">rt</span> <span class="k">in</span>
+        <span class="nn">Lwt</span><span class="p">.</span><span class="n">return</span> <span class="p">(</span><span class="n">v'</span> <span class="o">::</span> <span class="n">l'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>반면에 아래 함수는 다음번 계산을 시작하기 전에 지금 계산하고 있는
+ 것이 완료될 때까지 기다려야 한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">map_serial</span> <span class="n">f</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nn">Lwt</span><span class="p">.</span><span class="n">return</span> <span class="bp">[]</span>
+    <span class="o">|</span> <span class="n">v</span> <span class="o">::</span> <span class="n">r</span> <span class="o">-&gt;</span>
+        <span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="n">v'</span> <span class="o">=</span> <span class="n">f</span> <span class="n">v</span> <span class="k">in</span>
+        <span class="k">let</span><span class="o">%</span><span class="n">lwt</span> <span class="n">l'</span> <span class="o">=</span> <span class="n">map_serial</span> <span class="n">f</span> <span class="n">r</span> <span class="k">in</span>
+        <span class="nn">Lwt</span><span class="p">.</span><span class="n">return</span> <span class="p">(</span><span class="n">v'</span> <span class="o">::</span> <span class="n">l'</span><span class="p">)</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=ocaml ">ocaml</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=concurrency ">concurrency</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=parallelism ">parallelism</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=cooperative-multitasking ">cooperative-multitasking</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

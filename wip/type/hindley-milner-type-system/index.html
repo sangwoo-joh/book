@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Hindley-Milner Type System</title>
+<meta property="og:title" content="Hindley-Milner Type System" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Hindley-Milner Type System">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hindley-Milner Type System"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/type/hindley-milner-type-system.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/type/">Type</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/type/hindley-milner-type-system/">Hindley-Milner Type System</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="힌들리-밀너-타입-시스템">힌들리-밀너 타입 시스템</h1>
+<p>람다 대수에 매개변수 다형성 (Parametric Polymorphism)을 구현한
+ 전형적인 타입 시스템이다. J. Roger Hindley에 의해 처음 연구되었고
+ 이후에 Robin Milner에 의해 재발견되었다. Luis Damas가 나중에 박사
+ 학위 논문에서 증명했다.</p>
+<p>HM의 뛰어난 성질 중 놀라운 점은 완전성(completeness)과 가장 일반적인
+ 타입 (Most General Type; 또는 Principal Type이라고 함)을 프로그래머의
+ 도움(타입 어노테이션) 없이 추론할 수 있는 능력이다. 알고리즘 W를 통해
+ 실제로 효율적인 타입 추론 방법을 구현할 수 있으며 이론적으로는 높은
+ 복잡도를 갖고 있지만 아주 큰 코드베이스에서도 잘 동작한다. HM은
+ 함수형 언어에서 자주 사용된다. HM은 ML 프로그래밍 언어의 타입
+ 시스템의 일부로 최초 구현되었다. 그 이후로 하스켈의 타입 클래스처럼
+ 다양한 방법으로 확장되었다.</p>
+<h2 id="소개">소개</h2>
+<p>타입 추론 방법으로써, HM은 타입이 전혀 적혀있지 않은 프로그램의 변수,
+ 표현식, 함수의 타입을 추론(연역; deduce)할 수 있다. 범위에 민감하기
+ 때문에, 소스 코드의 작은 부분의 타입을 추론하는 것에 한정되지 않고
+ 완전한 프로그램이나 모듈에서 추론하는 것도 가능하다. 또한 매개변수
+ 타입에 대응할 수 있기 때문에, 수많은 함수형 프로그래밍 언어의 타입
+ 시스템의 핵심이다.</p>
+<p>단순 타입 람다 대수를 위한 타입 추론 알고리즘의 기원은 1958년 Haskell
+ Curry와 Robert Feys까지 거슬러 간다. 1969년에는 J. Roger Hindley가 이
+ 타입 추론이 항상 가장 일반적인 타입(프린시펄 타입)을 추론한다는 것을
+ 증명한다. 1978년에는 Robin Milner가 Hindley의 작업과는 독립적으로
+ 동일한 알고리즘인 알고리즘 W를 만들었다. 1982년에 Luis Damas는 마침내
+ 밀너의 알고리즘이 완전하다는 것을 증명하고 이를 확장하여 다형성을
+ 추가하였다.</p>
+<h3 id="단형성과-다형성">단형성과 다형성</h3>
+<p>단순 타입 람다 대수에서는 타입 T는 하나의 원자 타입 상수이거나 <code class="language-plaintext highlighter-rouge">T -&gt;
+ T</code> 형태의 함수 타입이다. 이런 타입을 <em>단형성(monomorphic)</em>이라고
+ 한다. 산술 계산에 사용된 타입이 대표적이다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3        : Number
+add 3 4  : Number
+add      : Number -&gt; Number -&gt; Number
+</code></pre></div></div>
+<p>이와 반대로, 타입이 없는 람다 대수는 완전히 타입 중립적이고 많은
+ 함수들이 모든 타입의 아규먼트에 유효하게 적용될 수 있다. 항등
+ 함수(Identity function)가 대표적이다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id = \x. x
+</code></pre></div></div>
+<p>다형성(polymorphism)이란 일반적으로 어떤 연산이 하나 이상의 타입의
+ 값을 받아들인다는 뜻인데, 위 예시의 다형성에서는 매개변수화 되어
+ 있다. 단어 뜻 그대로 <em>타입 스킴(Type Schemes)</em>이라는 용어를 쓰기도
+ 하는데, 다형성의 매개변수적 특성을 강조한다. 추가적으로 상수는
+ 양화된(Quantified) 타입 변수와 함께 타입되기도 한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cons :  forall a. a -&gt; List a -&gt; a
+nil  :  forall a. List a
+id   :  forall a. a -&gt; a
+</code></pre></div></div>
+<p>다형 타입은 타입 변수의 일관적인 대입을 통해 단형 타입이 될 수도
+ 있다. 단형 인스턴스의 예시는 다음과 같다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id'  : String -&gt; String
+nil' : List Number
+</code></pre></div></div>
+<p>좀더 일반적으로, 타입은 타입 변수를 포함하고 있을 때 다형성을 가지고,
+ 그렇지 않으면 단형성을 갖는다.</p>
+<p>단형 타입만을 지원하는 파스칼이나 C에서 사용된 타입 시스템과는
+ 반대로, HM은 매개변수 다형성을 위해 태어났다. C++와 같은 이후에 나온
+ 언어는 다른 형태의 다형성에 집중하고 있는데 객체 지향
+ 프로그래밍에서의 서브 타이핑과 오버로딩이다. 서브 타이핑은 HM과
+ 호환될 수 없는 반면, 오버로딩의 변종들은 하스켈의 HM 기반 타입
+ 시스템에서 사용할 수 있다.</p>
+<h3 id="let-다형성">Let-다형성</h3>
+<p>단순 타입 람다 대수를 위한 타입 추론을 다형성을 갖도록 확장할 때,
+ 언제 값의 인스턴스를 추론해야 하는지를 정의해야 한다. 이상적으로는
+ 묶인(bound) 변수는 모두 허용되어야 할 것 같다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(\ id. .... (id 3)  .... (id "text") ...  ) (\ x. x)
+</code></pre></div></div>
+<p>안타깝지만, 다형 타입 람다 대수에서의 타입 추론은 결정
+ 불가능(Undecidable)이다. 대신, HM은 다음과 같은 형태의 <em>Let-다형성</em>을
+ 제공한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let id = \ x. x
+  in ... (id 3) ... (id "text") ...
+</code></pre></div></div>
+<p>문법의 표현식을 확장해서 변수가 묶이는 메커니즘을 제한한다. 오직
+ <code class="language-plaintext highlighter-rouge">let</code> 생성자로 묶인 값만이 인스턴스화의 대상이 되는데, 이것이 곧
+ 다형성이며, 람다 추상화 안의 매개변수는 단형성으로 취급된다.</p>
+<h2 id="힌들리-밀너-타입-시스템-1">힌들리-밀너 타입 시스템</h2>
+<p>타입 시스템은 표현식, 타입 등에 대한 언어를 수정하는 문법 규칙을 통해
+ 형식적으로(formally) 설명할 수 있다. 여기서는 너무 형식적으로
+ 설명하진 않는다. 그 후 타입 규칙을 통해 어떻게 표현식과 타입이
+ 연관되는지를 정의한다.</p>
+<h3 id="문법">문법</h3>
+<p>타입될 표현식은 람다 대수를 <code class="language-plaintext highlighter-rouge">let</code> 표현식으로 확장한 것과 정확히
+ 일치한다. 괄호는 표현식의 모호함을 해결하는데 쓰인다. 함수 적용은
+ 왼쪽부터 묶이며 추상화나 <code class="language-plaintext highlighter-rouge">let</code> 생성자보다 우선순위가 높다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e = x                    variable
+  | e1 e2                application
+  | \x. e                abstraction
+  | let x = e1 in e2     let-binding
+</code></pre></div></div>
+<p>타입은 문법적으로 모노 타입과 폴리 타입으로 나뉘어진다.</p>
+<h4 id="모노-타입">모노 타입</h4>
+<p>모노 타입은 항상 구체적인 타입을 지정한다. 모노 타입 <code class="language-plaintext highlighter-rouge">t</code>는
+ 문법적으로는 터미널로 표현된다.</p>
+<p>모노 타입의 예시는 타입 상수인 <code class="language-plaintext highlighter-rouge">int</code>나 <code class="language-plaintext highlighter-rouge">string</code>, 그리고 매개변수화
+ 타입인 <code class="language-plaintext highlighter-rouge">Map (Set string) int</code> 등이 있다. 후자의 타입은 타입 함수의
+ 적용의 한 예시로, 집합 \(\{Map^2, Set^1, string^0, int^0,
+ \rightarrow^2\}\) (윗첨자는 타입 매개변수의 개수를 뜻함)의
+ 원소이다. 타입 함수 C의 완전한 집합은 HM에서 <em>반드시</em> 함수 타입인
+ \(\rightarrow^2\)를 포함해야 한다는 것만 빼면 임의로 만들 수 있다. 예를 들면
+ 정수를 문자열로 맵핑하는 함수는 <code class="language-plaintext highlighter-rouge">int -&gt; string</code> 타입을
+ 갖는다. 여기서도 괄호를 이용해서 타입 표현식의 모호함을 없앨 수
+ 있다. 타입 함수의 적용은 중위 화살표 연산자 <code class="language-plaintext highlighter-rouge">-&gt;</code>보다 우선 순위가
+ 높으므로 우측부터 묶인다.</p>
+<p>타입 변수는 모노 타입으로 취급된다. 모노 타입을 단형 타입과 헷갈릴 수
+ 있는데, 단형 타입은 타입 변수가 없고 오직 터미널만 허용한다.</p>
+<p>두 모노 타입이 동일한 터미널을 가지면 같다.</p>
+<h4 id="폴리-타입">폴리 타입</h4>
+<p><em>폴리 타입</em>, 또는 <em>타입 스킴</em>은 0개 이상의 보편 양화사(Universal
+ Quantifier, \(\forall\))를 통해 묶인 타입 변수를 포함하는
+ 타입이다. 예를 들면 \(\forall a. a \rightarrow a\)과 같이.</p>
+<p>폴리 타입 \(\forall a. a \rightarrow a\)을 갖는 함수는, 같은 타입을
+ 갖는 모든 값을 스스로에게 맵핑할 수 있고, 항등 함수가 이 타입을
+ 갖는다.</p>
+<p>또 다른 예시로, \(\forall a. (Set\,a) \rightarrow int\) 는 모든
+ 타입의 유한 집합을 받아서 정수로 맵핑하는 함수의 타입이다. 집합의
+ 기수를 계산하는 함수가 이 타입을 갖는다.</p>
+<p>양화사는 오직 최상위 레벨에서만 나타날 수 있다. 예를 들어, 타입 \(\forall a. a \rightarrow \forall a. a\) 는 제외된다. 또한 정의에 따라
+ 모노 타입은 폴리 타입에 포함되는데, 따라서 타입은 일반적인 형태인 \(\forall a_1. ... \forall a_n. \tau, n \ge 0\)를 갖는다. 이때 \(\tau\)는 모노 타입이다.</p>
+<p>폴리 타입의 동일함은 양화의 순서와 양화된 변수의 이름을 바꾸는(알파
+ 변환) 일에 달려 있다. 게다가 모노 타입에 나타나지 않는 양화된 변수는
+ 버릴 수 있다.</p>
+<h4 id="컨텍스트와-타이핑">컨텍스트와 타이핑</h4>
+<p>여전히 서로소인 두 부분을 의미있게 합칠려면, 세 번째 부분이 필요하다:
+ 바로 컨텍스트이다. 문법적으로, 컨텍스트는 <code class="language-plaintext highlighter-rouge">x: a</code> 쌍의 리스트로, 대입,
+ 가정, 또는 바인딩이라고 부른다. 각각의 쌍이 뜻하는 것은 값의 변수
+ <code class="language-plaintext highlighter-rouge">x</code>는 타입 <code class="language-plaintext highlighter-rouge">a</code>를 갖는다는 것이다. 여기까지 세 가지 부분을 합치면
+ <em>타이핑 판단</em>이라는 것을 할 수 있는데, \(\Gamma \vdash e: a\)의
+ 형태이며, 이는 “어떤 가정 \(\Gamma\) 하에 표현식 <code class="language-plaintext highlighter-rouge">e</code>는 타입 <code class="language-plaintext highlighter-rouge">a</code>를
+ 갖는다”를 말한다.</p>
+<h4 id="자유-타입-변수">자유 타입 변수</h4>
+<p>타입 \(\forall a_1. ... \forall a_n. \tau\) 에서, 심볼 \(\forall\)은 타입 변수 \(a_i\)를 모노 타입 \(\tau\) 에 묶는(바인딩)
+ 양화사이다. 변수 \(a_i\) 는 <em>양화되었다</em>고 하며, \(\tau\) 안에서
+ 등장하는 모든 양화된 타입 변수는 <em>묶였다(bound)</em>고 하고, \(\tau\)
+ 안에 묶이지 않은 모든 타입 변수는 <em>자유롭다(free)</em>고 한다. 폴리
+ 타입에서의 양화사 \(\forall\)과 더불어 타입 변수는 컨텍스트를
+ 통해서도 묶일 수 있다. 이런 변수는 타입 상수처럼
+ 행동한다. 마지막으로, 타입 변수는 타이핑 도중에 안묶여도 괜찮은데,
+ 이런 경우 암묵적으로 모두 양화된 것으로 본다.</p>
+<p>묶인 타입 변수와 안묶인(자유) 타입 변수의 존재는 프로그래밍
+ 언어에서는 흔하지 않다. 때때로 모든 타입 변수는 암묵적으로 모두
+ 양화된 것으로 취급된다. 예를 들면, 프롤로그에서는 자유 변수가 있는
+ 클로즈는 없다. 하스켈에서처럼, 모든 타입 변수는 암묵적으로 양화되어
+ 등장하는데, 즉 하스켈 타입 <code class="language-plaintext highlighter-rouge">a -&gt; a</code>는 \(\forall a. a \rightarrow a\)를 뜻한다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 06:26:31 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

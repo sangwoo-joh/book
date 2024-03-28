@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Tips</title>
+<meta property="og:title" content="Tips" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Tips">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tips"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/cpp/tips.org" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/cpp/">Cpp</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/cpp/tips/">Tips</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	      <h1 id="tips">Tips</h1>
+<h2 id="tips--comparator">Comparator</h2>
+<p>STL로 정렬할 때, 표준 라이브러리는 비교 함수가 <code>&lt;</code> 연산자 (less) 와 같이
+  동작한다고 가정한다. less 의 정의는 다음과 같다.</p>
+<ol>
+ <li>Irreflexivity(비반사성): <code>a &lt; a</code> 는 항상 거짓.
+ <li>Asymmetry(비대칭성): <code>a &lt; b</code> 이면 <code>not (b &lt; a)</code>.
+ <li>Transitivity(추이성): <code>not (a &lt; b)</code> 이고 <code>not (b &lt; a)</code> 이면 <code>a = b</code> 이다. <code>a = b</code>
+    이고 <code>b = c</code> 이면 <code>a = c</code> 이다 (transitivity of equivalence).
+</ol>
+<p>예를 들어 정수 집합을 정렬하기 위한 다음과 같은 less가 있다고 하자.</p>
+<div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IntSet</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">IntSet</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isProperSubset</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// a가 b의 진부분집합</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isProperSubset</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// 반대로 b가 a의 진부분집합</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>이 less가 동작하지 않는 이유는 위의 정의에 부합하지 않기 때문이다. 예를 들어
+  {1}, {2}, {2, 3}이 있을 때, 위의 함수는 {2} &lt; {2, 3}만 참이고 나머지는 모두
+  거짓으로 계산하는데, 추이성에 따라서 {1} = {2}, {1} = {2, 3} 의 관계가
+  되어버린다. 그러면 결과적으로 {1} = {2} = {2, 3} 이라는 요상한게 튀어나온다.</p>
+<p>따라서 위의 정의에 부합하게 주의해서 작성해야 한다.</p>
+<div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IntSet</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">InstSet</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+<span class="w">    </span><span class="c1">// a와 b의 크기가 다르면 더 작은 쪽이 앞에 와야 한다</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// 크기가 같은 경우는 사전순으로 비교한다.</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">lexicographical_compare</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+<p>크기가 작은 순으로 앞에 오도록 하고 크기가 같은 경우에만 사전 순으로 비교하면
+  모든 것이 해결된다. 또 크기가 작은 순으로 앞에 오게끔 하기 때문에 굳이
+  진부분집합 여부를 확인하지 않아도 된다.</p>
+<h2 id="tips--type-promotion">Type Promotion</h2>
+<p>타입의 크기가 다른 두 변수를 계산할 때 컴파일러가 임의적으로 한 쪽의 타입을
+  바꿔서 (주로 큰 쪽에 맞추기 때문에 프로모션) 같은 타입으로 만든 후에 계산을
+  한다. 주로 다음 규칙이 적용된다.</p>
+<ol>
+ <li>정수랑 실수일 경우 실수로 맞춘다.
+ <li>양쪽 다 정수 또는 실수일 경우 더 큰 쪽으로 맞춘다.
+ <li>양쪽 다 <code>int</code> 보다 작은 정수이면 둘다 <code>int</code> 로 맞춘다.
+ <li>부호 없는 정수형과 부호 있는 정수형이 섞인 경우: 부호 <b>없는</b> 정수형으로 맞춘다.
+</ol>
+<p>다음 예시를 보자.</p>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">17</span><span class="p">;</span>
+<span class="kt">short</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-18</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+<p>결과는 <code>(17 + (-18)) * 2 + 0 = -2</code> 가 될 것 같지만 실행하면 엄청난 값이 나온다.</p>
+<ol>
+ <li><code>unsigned char</code> 와 <code>short</code> 는 둘 다 <code>int</code> 보다 작은 정수형이므로 <code>int</code> 로 프로모션
+ <li><code>int</code> 곱하기 <code>int</code> 는 그대로 <code>int</code>
+ <li><code>int</code> 와 <code>unsigned int</code> 타입을 계산하므로 부호가 없는 쪽을 따라 <code>unsigned int</code> 가
+    최종 타입
+</ol>
+<p>따라서 되도록이면 <code>unsigned</code> 를 쓰지 말고, 타입을 한 쪽으로 몰아서 생각하는 것이
+  좋다.</p>
+<h2 id="tips---------">입출력 최적화</h2>
+<p>입력과 출력을 직접 처리해야 하는 경우에 할 수 있는 최적화다. C 스타일 입출력과
+  C++ 스타일의 스트림 입출력의 동기화를 끊어서 속도를 빠르게 한다. 대신, 입출력을
+  할 때 두 가지 스타일 중 하나만 사용해야 한다.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](){</span>
+<span class="w">    </span><span class="c1">// turn off sync</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// untie in/out streams</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="n">nullptr</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}();</span>
+</pre></div>
+<ul>
+ <li><code>std::ios::sync_with_stdio</code> 는 C 표준 스트림 (<code>stdin</code>, <code>stdout</code>)과 C++ 표준 스트림
+    (<code>std::cin</code>, <code>std::cout</code>) 사이의 동기화를 끊어서 입출력을 빠르게 한다. 대신 한 쪽
+    스트림만 써야 안꼬인다.
+ <li><code>std::cin.tie</code> 는 <code>std::cin</code> 과 <code>std::cout</code> 사이의 동기화를 조절한다. 만약 동기화가
+    되어 있다면 <code>std::cin</code> 으로 읽기 전에 <code>std::cout</code> 버퍼가 항상 먼저 비워지고 이를
+    통해 입출력 순서가 유지된다. 동기화를 끄게 되면 이 순서가 보장되지 않기
+    때문에 입력과 출력의 순서가 맞아야 하는 경우에는 쓰면 안된다.
+</ul>
+<p>설명을 보면 알겠지만 문제 풀이 수준에서는 대부분 두 동기화를 모두 꺼도 괜찮다.</p>
+<h2 id="tips---------">람다 인라이닝</h2>
+<p>여러 번 쓰이는 짧은 불변식 체크 로직은 함수로 빼면 좋다. 그런데 문제에 따라서 이
+  함수가 클로저면 편한 경우가 많아서 (예를 들어 그래프 탐색에서 맵 정보나 방문
+  정보를 공유하기 편함), 람다로 몽땅 캡쳐해서 쓰면 좋다. 그런데 람다는 (일반
+  함수와 마찬가지로) 기본적으로 인라인이 안된다. 최적화 플래그를 킨다면 인라인이
+  되겠지만 최적화 플래그를 못 키는 경우에는 다음 어트리뷰트 문법을 사용하면 좋다.</p>
+<div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">always_inline</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">visited</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">map</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p><code>__attribute__</code> 의 위치에 주의하자. 함수 선언이라면 리턴 타입 뒤에 와야 하지만
+  람다식의 경우 파라미터 뒤에 와야 한다.</p>
+<h2 id="tips---------------">원형 큐 마이크로 최적화</h2>
+<p>원형 큐가 필요한 경우 정말 복잡한 데이터가 아니라면 <code>std::queue&lt;&gt;</code> 를 가져다 쓰기
+  보다는 그냥 배열과 <code>head</code>, <code>tail</code> 인덱스를 유지하는게 훨씬 편하다. 이때 인덱스가
+  오버플로우났을 때 다시 0으로 만드는 방법은 세 가지가 있다.</p>
+<ol>
+ <li>모듈러 연산 <code>head = (head + 1) % SIZE</code> : 모듈러는 나누기 연산과 비슷한 비용이
+    들어가서 별로 좋지 않다.
+ <li>매번 오버플로우 검사하기 <code>head++; if (head == SIZE) head = 0;</code> : 그나마 이게
+    모듈러보단 낫지만 그래도 매번 분기문이 들어가기 때문에 최적이라고 할 순 없다.
+</ol>
+<p>그리고 마지막 세 번째 방법은 한정된 경우에서만 쓸 수 있는 트릭인데 바로 비트
+  연산을 이용하는 것이다 (사실 대부분의 마이크로 최적화는 비트 연산을 가지고
+  요리조리 하다가 나오는 것 같다). 모듈러는 아예 쳐다봐서도 안되고, 분기문도
+  되도록 피하고 싶으면 고려해보자.</p>
+<p>먼저 <code>SIZE</code> 를 적당히 늘려서 2의 배수로 만든다. 그러면 이 값은 항상 <code>0b10000...00</code>
+  의 비트를 갖게 된다. 우리가 하고 싶은 것은 헤드나 테일 인덱스가 이 값을 넘치는
+  순간 값을 다시 0으로 초기화 하고 싶은 것이다. 이를 조금 다르게 표현하면, <code>SIZE</code>
+  에서 1이 있는 곳을 제외한 나머지 오른쪽 부분을 <b>지워버리면</b> 된다. (<a href="../../theory/bitwise">참조</a>) 따라서
+  <code>SIZE - 1</code> 과 And 연산을 하면 된다.</p>
+<div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="c1">// 적당히 문제 조건 보다 큰 값으로</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MASK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">...</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">head</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">tail</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="n">head</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="n">head</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">MASK</span><span class="p">;</span>
+
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="n">tail</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="n">tail</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">MASK</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=cpp ">cpp</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-07 05:18:27 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Prison Cells After N Days</title>
+<meta property="og:title" content="Prison Cells After N Days" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Prison Cells After N Days">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Prison Cells After N Days"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/prison-cells-after-n-days.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/prison-cells-after-n-days/">Prison Cells After N Days</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="prison-cells-after-n-days"><a href="https://leetcode.com/problems/prison-cells-after-n-days/">Prison Cells After N Days</a></h1>
+<p>8명을 수용할 수 있는 독방이 있다. 누가 들어가있거나(1) 비어있다(0).</p>
+<p>하루가 지날 때마다 다음 규칙이 적용된다:</p>
+<ul>
+ <li>어떤 방 양 옆에 두 개의 인접한 방이 있는데 이 두 개가 모두 차있거나
+비어있으면, 그 방은 누가 들어온다.
+ <li>아니면 방이 빈다.
+</ul>
+<p>참고로 독방은 1차원 배열로 들어오기 때문에 양 끝에 있는 두 방은 양
+ 옆의 인접한 방이 없다.</p>
+<p><code class="language-plaintext highlighter-rouge">n</code> 일 후의 독방 상태를 구해보자.</p>
+<h2 id="문제-파악">문제 파악</h2>
+<p>문제가 대체 뭔 말인지 이해하는 데에도 연습이 필요하다는 걸 깨닫게
+ 해준 문제다.</p>
+<p>일단 조건에 따라 방의 상태가 바뀌기 때문에 시뮬레이션을 해야 할
+ 것이다. 그런데 문제의 조건을 보면 <code class="language-plaintext highlighter-rouge">n</code>이 최대 <code class="language-plaintext highlighter-rouge">10^9</code>까지 가능하기
+ 때문에, 최대 이 날짜만큼 그냥 시뮬레이션하게 되면 엄청 느리다.</p>
+<p>따라서 우리가 집중해야 하는 것은 <strong>방의 개수가 8개</strong> 밖에 안된다는
+ 점이다. 거기에 누가 들어있으면 1, 비었으면 0이기 때문에 방 하나가
+ 가질 수 있는 상태는 두 개밖에 안된다. 그러므로 며칠이 지나든 간에,
+ 전체 독방이 가질 수 있는 상태의 개수는 <code class="language-plaintext highlighter-rouge">2^8</code> = 256개 로 많지 않다.</p>
+<p>따라서, 시뮬레이션을 하긴 할 건데, 가능한 상태가 256개 밖에 안되므로
+ <strong>무조건</strong> 중복된 상태가 나오게 된다. 즉, 일단 최대 256개 만큼의
+ 상태를 다 겪고 나면 그 다음부터는 반복이다. 그러므로 이 반복을 없애는
+ 것이 이 문제 풀이의 핵심이다.</p>
+<h2 id="시뮬레이션--빨리감기">시뮬레이션 + 빨리감기</h2>
+<p>일단 다음 날짜로 진행하는 시뮬레이션을 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">next_day</span><span class="p">(</span><span class="n">cells</span><span class="p">):</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">ret</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">ret</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span>
+</code></pre></div></div>
+<ul>
+ <li>양 옆에 방이 있고 두 방의 상태가 같아야만 누가 들어올(1) 수
+있다. 즉, 어떤 상태에서 시작하든 간에 다음 날 양 끝에 있는 방 두
+개는 항상 비게 된다(<code class="language-plaintext highlighter-rouge">ret = [0]</code> 부분과 마지막 <code class="language-plaintext highlighter-rouge">ret.append(0)</code>).
+</ul>
+<p>그러면 빨리감기 없는 무식한 시뮬레이션을 다음과 같이 구현할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">prisonAfterNDays</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="nf">next_day</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cells</span>
+</code></pre></div></div>
+<p>물론 이대로 해도 작은 입력에 대해서는 잘 동작할 것이다. 하지만 앞서
+ 생각했듯 상태의 개수가 256개 밖에 안되기 때문에, 큰 입력에 대해서는
+ 이전에 했던 계산을 계속 중복할 것이다. 엄청난 비효율이다.</p>
+<p>그럼 날짜를 하루 씩 진행하다가, 이전에 이미 겪었던 상태를 또 겪게
+ 되는 순간 빨리감기를 하면 된다.</p>
+<p>다음과 같은 상황을 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nf">day_</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="o">-&gt;</span>  <span class="nf">day_</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="o">-&gt;</span> <span class="p">....</span> <span class="o">-&gt;</span>  <span class="nf">day_</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+<span class="nf">state_</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">state_</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">....</span> <span class="o">-&gt;</span> <span class="nf">state_</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div></div>
+<p>상태가 중복된다는 것은 결국 어떤 주기(period)가 있다는 뜻이다. 위에서
+ 우리는 날짜를 <code class="language-plaintext highlighter-rouge">n</code>에서 하루씩 빼면서 다음 날을 시뮬레이션 하고
+ 있었다. 따라서 어떤 주기 <code class="language-plaintext highlighter-rouge">p</code>에 대해서 위 그림과 같이 날짜와 상태가
+ 진행될 것이다.</p>
+<p>따라서, 각 상태마다 날짜를 해시테이블에 기록해두면, 나중에 그 상태가
+ 처음으로 또 발견되는 순간 주기를 알 수 있다. 위 그림으로 설명하면
+ <code class="language-plaintext highlighter-rouge">state_(i)</code>에 대해서 <code class="language-plaintext highlighter-rouge">n</code> 값을 저장하고 있다가, 이거랑 중복되는 상태인
+ <code class="language-plaintext highlighter-rouge">state_(i+p)</code>가 처음으로 나오면 이전의 날짜에서 이 날의 날짜를 빼주면
+ 주기를 구할 수 있다. 즉, <code class="language-plaintext highlighter-rouge">n - (n - p) = p</code>이다.</p>
+<p>주기를 알아 내고 나면 빨리감기는 모듈러 연산으로 쉽게 가능하다. 즉
+ 전체 <code class="language-plaintext highlighter-rouge">n</code> 일 만큼을 진행해야 하는데 주기가 <code class="language-plaintext highlighter-rouge">p</code>이면 <code class="language-plaintext highlighter-rouge">p * (n//p)</code> 만큼의
+ 날짜는 일일이 시뮬레이션 해도 의미없으므로 곧 <code class="language-plaintext highlighter-rouge">n % p</code> 만큼만 더
+ 시뮬레이션 하면 된다.</p>
+<p>여기서 날짜를 진행할 때 0일부터 시작해서 <code class="language-plaintext highlighter-rouge">n</code>일 까지 가는 것보다는
+ <code class="language-plaintext highlighter-rouge">n</code>을 하루 씩 까먹는게 좋다. 왜냐하면 주기를 발견한 순간 남은 날짜를
+ 모듈러 연산으로 줄여버리는 편이 더 쉽기 때문이다. 주기를 반복해서
+ 목표한 <code class="language-plaintext highlighter-rouge">n</code>일에 가깝게 날짜를 증가시키는 계산은 생각해내기가 더
+ 어렵다.</p>
+<p>아무튼 이 아이디어를 코드로 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">prisonAfterNDays</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nf">tuple</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>  <span class="c1"># key must be hashable
+</span>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+            <span class="n">states</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>  <span class="c1"># state_(i) = day_(n)
+</span>        <span class="k">else</span><span class="p">:</span>
+            <span class="n">period</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-</span> <span class="n">n</span>  <span class="c1"># day_(n) - day_(n-p) = p
+</span>            <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="n">period</span>
+
+        <span class="c1"># if there is still some days, then proceed
+</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">cells</span> <span class="o">=</span> <span class="nf">next_day</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cells</span>
+</code></pre></div></div>
+<ul>
+ <li>상태를 기록하기 위해서 딕셔너리(해시테이블)을 썼다. 이때 딕셔너리의
+키는 해싱 가능해야 하는데 리스트는 해싱할 수 없기 때문에, 독방을
+튜플로 바꿔서 키로 사용한다.
+ <li>지금 상태가 이전에 한번도 만난적 없으면 현재 날짜를 기록한다. 위
+그림에서 <code class="language-plaintext highlighter-rouge">state_(i) = day_(n)</code>에 해당한다.
+ <li>만약 지금 상태를 이전에도 본 적이 있다면 곧바로 주기를 계산할 수
+있다. 위 그림에서 <code class="language-plaintext highlighter-rouge">state_(i+p) = day_(n-p)</code>에 해당한다. 이전
+날짜에서 지금 날짜를 빼주면 주기가 된다.
+ <li>주기를 구하고 나면 남은 주기는 하루씩 진행할 필요 없이 바로 나머지
+연산을 때려버릴 수 있다.
+ <li>이러고 나서도 남은 날짜가 있으면 이건 하루씩 진행한다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=simulation ">simulation</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-05 09:47:33 AM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

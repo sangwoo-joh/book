@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Minimum Difficulty of a Job Schedule</title>
+<meta property="og:title" content="Minimum Difficulty of a Job Schedule" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Minimum Difficulty of a Job Schedule">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Minimum Difficulty of a Job Schedule"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/minimum-difficulty-of-a-job-schedule.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/minimum-difficulty-of-a-job-schedule/">Minimum Difficulty of a Job Schedule</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="minimum-difficulty-of-a-job-schedule"><a href="https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/">Minimum Difficulty of a Job Schedule</a></h1>
+<p><code class="language-plaintext highlighter-rouge">d</code> 일의 기간 안에 업무 일정을 스케쥴링 하려고 한다. 업무는 서로
+ 의존적이다. 즉, <code class="language-plaintext highlighter-rouge">i</code> 번째 업무를 하려면 모든 <code class="language-plaintext highlighter-rouge">0 &lt;= j &lt; i</code> 인 <code class="language-plaintext highlighter-rouge">j</code>
+ 업무들이 완료되어야 한다.</p>
+<p>매일 하루에 최소한 하나의 업무는 끝내야 한다. 업무 스케쥴의 총
+ 난이도는 <code class="language-plaintext highlighter-rouge">d</code> 일 동안의 난이도의 합과 같다. 하루의 난이도는 그 날
+ 완료할 업무의 난이도 중 가장 높은 난이도와 같다.</p>
+<p>업무 난이도 목록 <code class="language-plaintext highlighter-rouge">jobDifficulty</code>랑 기간 <code class="language-plaintext highlighter-rouge">d</code>가 주어진다. <code class="language-plaintext highlighter-rouge">i</code> 번째
+ 업무의 난이도는 <code class="language-plaintext highlighter-rouge">jobDifficulty[i]</code> 이다.</p>
+<p>가능한 업무 스케쥴링의 총 난이도 중 <strong>최소</strong>의 난이도를
+ 구하자. 불가능하면 <code class="language-plaintext highlighter-rouge">-1</code>을 리턴한다.</p>
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">jobDifficulty = [6, 5, 4, 3, 2, 1]</code> 이고 <code class="language-plaintext highlighter-rouge">d = 2</code> 라고
+ 하자. 가능한 최소의 난이도는 <code class="language-plaintext highlighter-rouge">7</code>이 되는데, 그 이유는 첫날 <code class="language-plaintext highlighter-rouge">(2, 3, 4,
+ 5, 6)</code> 총 다섯 작업을 완료하고 다음날 <code class="language-plaintext highlighter-rouge">1</code>의 작업을 하면 된다.</p>
+<p>반면 <code class="language-plaintext highlighter-rouge">jobDifficulty = [9, 9, 9]</code> 이고 <code class="language-plaintext highlighter-rouge">d = 4</code>이면, 가능한 스케쥴링이
+ 없기 때문에 <code class="language-plaintext highlighter-rouge">-1</code>이다.</p>
+<h2 id="다이나믹-프로그래밍">다이나믹 프로그래밍</h2>
+<p>접근 방법이 선뜻 떠오르지 않는 문제였다. 일단 예시를 보면 가장
+ 간단하게 처리할 수 있는 케이스가 하나있는데, 바로 스케쥴링이 불가능한
+ 경우다. 업무의 개수가 일정보다 작으면 일정마다 업무 1개를 할당할 수
+ 없기 때문에 불가능하다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">min_difficulty</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+<p>그 다음은 어떻게 접근해야할까?</p>
+<p>이 문제는 결국 다음과 같다:</p>
+<blockquote>
+ <p>주어진 리스트를 <code class="language-plaintext highlighter-rouge">d</code>개로 나눌건데, 각 부분의 최대 값의 전체 합이
+최소가 되게 한다.</p>
+</blockquote>
+<p>그럼 Brute Force를 생각해보면, 가능한 모든 부분을 다 만들어본 다음에,
+ 각 부분의 최대값들의 합이 최소가 되는 값을 구하면 된다. 예를 들어
+ <code class="language-plaintext highlighter-rouge">(a, b, c, d)</code>의 업무가 있고 이걸 3일에 나눠서 스케쥴링 하는 문제를
+ 생각해보자. 이는 곧, 이 4개의 업무를 3개로 나누면서 해당 조건을
+ 만족하게끔 하는거다.</p>
+<p>먼저 첫째날에 가능한 경우를 생각해보자. 주어진 업무가 <strong>순서대로</strong>
+ 진행되어야 하므로, 갑자기 <code class="language-plaintext highlighter-rouge">c</code> 를 하거나 할 순 없다. 따라서 첫째날은
+ 항상 <code class="language-plaintext highlighter-rouge">a</code> 부터 가능한데, 이는 곧 인덱스 <code class="language-plaintext highlighter-rouge">0</code>부터를 뜻한다. 그럼 첫째날
+ 가능한 업무의 인덱스 범위는 어디까지일까? 총 3일에 걸쳐 해야하므로
+ 첫째날에 4개의 모든 업무를 해버리면 안된다. 따라서 최소 이틀에 하나
+ 씩 할 양, 즉 <code class="language-plaintext highlighter-rouge">(d - 1)</code> 만큼의 양은 보장해줘야 한다. 즉 인덱스의
+ 범위는 <code class="language-plaintext highlighter-rouge">len(jobDifficulty) - (d - 1) - 1</code>까지 이다.</p>
+<p>이걸 토대로 Brute Force를 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">min_difficulty</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="n">d</span><span class="p">:</span>
+            <span class="c1"># no more division is possible.
+</span>            <span class="c1"># return the maximum among all remainings
+</span>            <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">[</span><span class="n">idx</span><span class="p">:])</span>
+
+        <span class="n">min_diff</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">inf</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># accum minimum sum of each day's difficulties
+</span>        <span class="n">day_diff</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># accum day's possible maximum difficulty
+</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span> <span class="o">+</span> <span class="n">day</span><span class="p">)):</span>
+            <span class="n">day_diff</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">day_diff</span><span class="p">,</span> <span class="n">jobDifficulty</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">min_diff</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_diff</span><span class="p">,</span> <span class="n">day_diff</span> <span class="o">+</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">min_diff</span>
+
+    <span class="k">return</span> <span class="nf">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">idx</code>는 지금 날짜에 배치 가능한 업무의 <strong>시작 인덱스</strong>
+이다. 여기부터 시작해서 가능한 업무의 인덱스 범위 사이 중에서 가장
+큰 난이도를 찾아야 한다. 이때 <code class="language-plaintext highlighter-rouge">1</code>일 차에서 시작해서 <code class="language-plaintext highlighter-rouge">d</code>까지
+진행하기 때문에, <code class="language-plaintext highlighter-rouge">len(jobDifficulty) - d + day</code> 까지의 범위가 되고
+<code class="language-plaintext highlighter-rouge">range</code>를 썼기 때문에 마지막 <code class="language-plaintext highlighter-rouge">- 1</code>은 생략된다. 가능한 범위를
+확인하면서 최대값을 누적하고, 동시에 합의 최소값을 누적한다. 이때
+합의 최소는 현재 난이도 + 다음 날짜들의 난이도 합 중 최소가 된다.
+ <li><code class="language-plaintext highlighter-rouge">day</code>가 마지막 날이 되버리면, 남은 업무를 더 이상 쪼갤 수 없기
+때문에 이때 가능한 난이도는 현재 인덱스부터 끝까지 중에서 최대
+값이다.
+</ul>
+<p>당연하지만, 이렇게 무식하게 짜면 복잡도가 엄청나다. 그렇다면 과연
+ 여기에 중복되는 문제가 있을까? <code class="language-plaintext highlighter-rouge">(a, b, c, d, e)</code> 를 3일로 나누는
+ 예시를 생각해보자.</p>
+<p>먼저 첫째날 가능한 범위는 <code class="language-plaintext highlighter-rouge">max(a)</code>와 <code class="language-plaintext highlighter-rouge">max(a, b)</code>, <code class="language-plaintext highlighter-rouge">max(a, b, c)</code> 세
+ 가지이다. 총 5개이고 첫째날이므로, <code class="language-plaintext highlighter-rouge">5 - 3 + 1 = 3</code>이기 때문이다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이 두 가지 경우에 대해서 다음 이틀 동안의 스케쥴을 구하는 함수를
+ 퉁쳐서 <code class="language-plaintext highlighter-rouge">next</code>라고 하면 위 그림과 같다. 첫번째 <code class="language-plaintext highlighter-rouge">next(b, c, d, e)</code>는
+ <strong>이틀</strong> 동안 <code class="language-plaintext highlighter-rouge">(b, c, d, e)</code> 네 가지 업무를 스케쥴링하는 것이고,
+ 두번째 <code class="language-plaintext highlighter-rouge">next(c, d, e)</code>는 이틀동안 <code class="language-plaintext highlighter-rouge">(c, d, e)</code> 세 가지 업무를 스케쥴링
+ 하는 것이고, <code class="language-plaintext highlighter-rouge">next(d, e)</code>는 <code class="language-plaintext highlighter-rouge">(d, e)</code> 두 가지 업무를 스케쥴링 하는
+ 것이다. 먼저 <code class="language-plaintext highlighter-rouge">next(b, c, d, e)</code>를 풀어 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이틀을 쪼개야 하므로 가능한 경우는 위 그림과 같다. 이때 마지막 날에는
+ 남은 날짜가 하루 뿐 (즉, day가 <code class="language-plaintext highlighter-rouge">d</code>가 됨)이기 때문에, <code class="language-plaintext highlighter-rouge">dfs</code> 콜의 base
+ case에 해당한다.</p>
+<p>그럼 이번에는 <code class="language-plaintext highlighter-rouge">next(c, d, e)</code>를 풀어 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+<p>슬슬 중복이 보이고 있음을 알 수 있다. 남은 것도 풀어 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+<p>남은 날짜가 이틀 밖에 안되기 때문에 자명하게 풀린다. 모든 케이스를
+ 나열하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="o">*</span><span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">next</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="o">*</span><span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="nf">next</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="o">*</span><span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="nf">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="o">*</span><span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="nf">next</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="o">*</span><span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="nf">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">max</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">*</span><span class="nf">next</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+<p>중복되는 케이스에는 <code class="language-plaintext highlighter-rouge">*</code>를 찍어놨다. 이 작은 케이스에서도 중복 계산이
+ 꽤 많이 발생함을 알 수 있다. 따라서, 여기서도 메모아이제이션을
+ 활용하면 복잡도를 확 줄일 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+
+<span class="k">def</span> <span class="nf">min_difficulty</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="nd">@cache</span>
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="n">d</span><span class="p">:</span>
+            <span class="c1"># no more division is possible.
+</span>            <span class="c1"># return the maximum among all remainings
+</span>            <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">[</span><span class="n">idx</span><span class="p">:])</span>
+
+        <span class="n">min_diff</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">inf</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># accum minimum sum of each day's difficulties
+</span>        <span class="n">day_diff</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># accum day's possible maximum difficulty
+</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">jobDifficulty</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span> <span class="o">+</span> <span class="n">day</span><span class="p">)):</span>
+            <span class="n">day_diff</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">day_diff</span><span class="p">,</span> <span class="n">jobDifficulty</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">min_diff</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_diff</span><span class="p">,</span> <span class="n">day_diff</span> <span class="o">+</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">min_diff</span>
+
+    <span class="k">return</span> <span class="nf">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+<h1 id="번외-구간-평균의-합-중에서-가장-큰-합-구하기">번외: 구간 평균의 합 중에서 가장 큰 합 구하기</h1>
+<p>Largest Sum of Averages 를 아주 유사한 접근으로 풀 수 있다. 숫자 배열
+ <code class="language-plaintext highlighter-rouge">A</code>를 <code class="language-plaintext highlighter-rouge">K</code> 개의 그룹으로 쪼갤 때, “점수”는 각 그룹의 평균의
+ 합이다. 이때 가장 큰 합은 뭘까?</p>
+<p>위의 DFS 접근이 결국 인덱스마다 상태(최대값)을 구하고 이 상태로부터
+ 가능한 다음 상태(난이도의 합) 중에서 최소 값을 구하는 문제였다면, 이
+ 문제는 인덱스마다 상태(평균값)을 구하고 이로부터 가능한 다음
+ 상태(점수의 합) 중에서 최대 값을 구하는 문제이다. 거의 유사하게 풀 수
+ 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+<span class="kn">from</span> <span class="n">statistics</span> <span class="kn">import</span> <span class="n">mean</span>
+
+<span class="k">def</span> <span class="nf">largest_score</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">K</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="nd">@cache</span>
+    <span class="k">def</span> <span class="nf">seg_mean</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">mean</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">])</span>
+
+    <span class="nd">@cache</span>
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">K</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nf">seg_mean</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+        <span class="n">max_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">K</span> <span class="o">+</span> <span class="n">k</span><span class="p">):</span>
+            <span class="n">max_sum</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_sum</span><span class="p">,</span> <span class="nf">seg_mean</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">max_sum</span>
+    <span class="k">return</span> <span class="nf">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+ <li>평균 값을 구하기 위해서 <code class="language-plaintext highlighter-rouge">statistics</code> 모듈의 <code class="language-plaintext highlighter-rouge">mean</code> 함수를
+활용했다. 그리고 매 구간마다 평균 값을 계속 계산할 필요는 없기
+때문에, 이 값도 메모아이즈한다.
+ <li>여기서도 매번 최대 <code class="language-plaintext highlighter-rouge">len(A) - K + k</code> 까지의 범위가 가능하다. 그리고
+범위가 늘어갈 때마다 시작 인덱스는 <code class="language-plaintext highlighter-rouge">idx</code> 그대로인 채로 끝 구간만
+변하므로, <code class="language-plaintext highlighter-rouge">seg_mean</code> 함수를 십분 활용 가능하다.
+ <li>한 가지 주의할 점은, 평균 값을 계산할 때 <code class="language-plaintext highlighter-rouge">start</code>은 인덱스지만
+<code class="language-plaintext highlighter-rouge">end</code>는 인덱스가 아니라 파이썬의 <code class="language-plaintext highlighter-rouge">range</code> 형식과 같이 마지막 다음
+위치를 가리키므로, 매 범위마다 <code class="language-plaintext highlighter-rouge">seg_mean</code>을 호출할 때 <code class="language-plaintext highlighter-rouge">(idx, i)</code>가
+아니라 <code class="language-plaintext highlighter-rouge">(idx, i+1)</code> 범위에 대해서 호출해야 한다는 점이다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=dynamic-programming ">dynamic-programming</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=lru-cache ">lru-cache</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-05 09:46:14 AM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

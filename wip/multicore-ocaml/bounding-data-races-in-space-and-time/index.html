@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Bounding Data Races in Space and Time</title>
+<meta property="og:title" content="Bounding Data Races in Space and Time" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Bounding Data Races in Space and Time">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bounding Data Races in Space and Time"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/multicore-ocaml/bounding-data-races-in-space-and-time.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/multicore-ocaml/">Multicore ocaml</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/multicore-ocaml/bounding-data-races-in-space-and-time/">Bounding Data Races in Space and Time</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="1-introduction">1. Introduction</h1>
+<p>현대 CPU와 컴파일러는 프로그램을 공격적으로 최적화한다. 이런 최적화는
+ 순차적인 프로그램(sequential programs)을 빠르게 만들지만, 병렬
+ 프로그램(parallel program)에서는 놀라운 행동을 관찰하게 만든다. 이런
+ 최적화에서 득을 보기 위해서, C++나 자바같은 메인스트림 언어들은
+ 프로그램이 관찰할 수도 있는 이러한 <em>느슨한 행동(relaxted
+ behaviour)</em>을 명세하는 복잡한 메모리 모델을 채택하고 있다. 하지만,
+ 이런 모델은 곧바로 프로그램을 작성하기 어렵다.</p>
+<p>이런 모델이 프로그래머에게 제공하는 기본적인 추론 도구는 <em>데이터 경쟁
+ 없음 정리(data-race-freedom theorems; DRF)</em>이다. 프로그래머는
+ 비원자적 변수에 동시에 접근하는 (동시에 읽는 것은 제외됨) <em>데이터
+ 경쟁(data races)</em>을 피하기 위해서 쓰레드 사이의 동기화에 쓰이는 모든
+ 변수를 <em>원자적(atomic)</em>이라고 표시해야 한다. 대신, DRF 정리는 어떤
+ 느슨한 행동도 관찰할 수 없음을 보장해준다. 정리하면, <em>DRF 프로그램은
+ 순차적인 의미(sequential semantics)를 갖는다</em>.</p>
+<p>프로그램이 데이터 경쟁에서 자유롭지 못할 때, 그런 모델은 프로그램의
+ 행동에 대해서 아주 적은 보장을 해주거나 아니면 아무것도 보장해주지
+ 않는다. 이것은 언어의 구성 요소를 잘못 사용하면 보통 <em>정의되지 않은
+ 행동(undefined behaviour)</em>을 초래하는 불안전한 언어(unsafe
+ languages)를 설명하는데 잘 맞는다. 즉, 데이터 경쟁 역시 하나의
+ 오사용으로 보면, 이것은 꽤 자연스럽다. 반면에, 안전한 언어는 버그가
+ 있는 프로그램일지라도 잘 정의된 의미(well-defined semantics)를
+ 제공하기 위해 최선을 다한다. 이런 의미는 <em>합성적(compositional)</em>일
+ 것으로 기대되는데, 그래야 프로그램이 그 프로그램의 구성 요소 중
+ 일부가 버그를 갖고 있어도 부분을 이해함으로써 전체를 이해할 수 있기
+ 때문이다.</p>
+<p>데이터 경쟁에 약한 의미(weak semantics)가 주어지는 것은 이런 합성적
+ 성질을 위태롭게 만든다. 안전한 언어에서는, 만약 <code class="language-plaintext highlighter-rouge">f()</code>이 올바른 정답을
+ 리턴하더라도 <code class="language-plaintext highlighter-rouge">f() + g()</code>가 틀린 답을 리턴한다면, <code class="language-plaintext highlighter-rouge">g</code>에 버그가 있다고
+ 결론지을 수 있다. 데이터 경쟁에 대한 약한 의미는 이런 성질을 위태롭게
+ 하는데, <code class="language-plaintext highlighter-rouge">g</code>가 올바르더라도 <code class="language-plaintext highlighter-rouge">f</code> 안의 데이터 경쟁에 의해서 틀린 답을
+ 내놓을 수도 있기 때문이다.</p>
+<p>이 연구에서는 메모리를 공유하는 병렬 프로그램(shared-memory parallel
+ programs)에 대한 새로운 의미를 제안하여, 데이터 경쟁이 있음에도
+ 강력한 의미를 보장하게 해준다.</p>
+<ul>
+ <li>먼저 <em>지역적 DRF(local DRF)</em> 성질을 도입하여, 데이터 경쟁이
+존재하는 상황에서도 동시성 프로그램에 대한 합성적인 추론을
+가능하게 해준다.
+ <li>간단한 small-step operational semantics와 함께 메모리 모델을
+제안하고, 이 모델이 지역적 DRF를 가지고 있음을 증명하고, 동등한
+axiomatic model을 제안한다.
+ <li>이 메모리 모델이 많은 일반적인 컴파일러 최적화를 지원하며, x86과
+ARMv8 아키텍쳐 모두에서 안전한 compilation scheme을 제공한다는
+것을 보이고, OCaml에서의 효율성의 증거를 보인다.
+</ul>
+<h1 id="2-reasoning-beyond-data-race-freedom">2. Reasoning beyond data-race freedom</h1>
+<p>먼저 <em>전역적 DRF(global DRF)</em> 성질인:</p>
+<blockquote>
+ <p>데이터 경쟁에서 자유로운 프로그램은 순차적인 의미를 갖는다.</p>
+</blockquote>
+<p>에서, 더 강한 <em>지역적 DRF</em> 성질인:</p>
+<blockquote>
+ <p>프로그램의 데이터 경쟁이 없는 모든 부분은 순차적인 의미를 갖는다.</p>
+</blockquote>
+<p>를 제안한다.</p>
+<p>전역적 DRF와 지역적 DRF의 차이점을 설명하기 위해서, 순차적인
+ 프로그램과 지역적 DRF가 없어서 예상치못한 결과를 뱉는 멀티 쓰레드
+ 프로그램 몇 가지를 소개할 것이다.</p>
+<h2 id="21-bounding-data-races-in-space">2.1. Bounding data races in space</h2>
+<p>지역적 DRF로 가기 위한 첫 번째 단계는 <em>데이터 경쟁이 영향을 미치는
+ 공간을 제한해서(bounding data races in space)</em>, 하나의 변수에 대한
+ 데이터 경쟁이 다른 변수에 접근하는데 영향을 미치지 않도록 보장하는
+ 것이다.</p>
+<p>C++ 메모리 모델은 데이터 경쟁에서 자유로운 프로그램에 대해서만 의미를
+ 주기 때문에, 원칙적으로 C++ 메모리 모델은 이런 성질을 갖지
+ 않는다. 하지만, 어떻게 타당한 구현에서 이런 성질을 갖는 것이
+ 실패하는지는 분명하지 않기 때문에, 예시를 들고 왔다.</p>
+<h3 id="example-1">Example 1.</h3>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span>
+</code></pre></div></div>
+<ul>
+ <li><strong>가정</strong>: <code class="language-plaintext highlighter-rouge">a</code>나 <code class="language-plaintext highlighter-rouge">b</code>에 다른 쓰레드가 접근하지 않는다.
+ <li><strong>예상 결과</strong>: <code class="language-plaintext highlighter-rouge">b = a + 10</code>
+ <li><strong>가능한 결과</strong>: <code class="language-plaintext highlighter-rouge">b != a + 10</code> (C++)
+</ul>
+<h4 id="설명">설명</h4>
+<p>다음과 같은 멀티 쓰레드 프로그램을 생각해보자. <code class="language-plaintext highlighter-rouge">c</code>는 비원자적인 전역
+ 변수이다.</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>                         <span class="o">||</span>
+<span class="p">...</span>  <span class="n">some</span> <span class="n">computation</span> <span class="p">...</span>           <span class="o">||</span>  <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>                         <span class="o">||</span>
+</code></pre></div></div>
+<p>여기서 … 부분의 계산이 순수, 즉 사이드 이펙트가 없다고
+ 하자. 컴파일러는 <code class="language-plaintext highlighter-rouge">a</code>가 두 번 읽히는 사이에 <code class="language-plaintext highlighter-rouge">a</code>가 수정되지 않는다는
+ 것을 알고, <code class="language-plaintext highlighter-rouge">a + 10</code>을 굳이 두 번 계산할 필요가 없다는 것을 알고 첫
+ 번째 쓰레드를 다음과 같이 최적화할 수 있다:</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span> <span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+<span class="p">...</span> <span class="n">some</span> <span class="n">computation</span> <span class="p">...</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</code></pre></div></div>
+<p>… 부분의 계산에서 레지스터가 부족하다면 <code class="language-plaintext highlighter-rouge">a + 10</code>의 결과를 저장해둔
+ 임시 변수 <code class="language-plaintext highlighter-rouge">t</code>가 레지스터에서 방출될 수 있다. <code class="language-plaintext highlighter-rouge">t</code>의 결과는 <code class="language-plaintext highlighter-rouge">c</code>에
+ 저장되기 때문에, 똑똑한 레지스터 할당자(register allocator)는 새로운
+ 스택 슬롯을 할당하기 보다는 <code class="language-plaintext highlighter-rouge">t</code>를 <code class="language-plaintext highlighter-rouge">c</code>로 재활용할 수 있다<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>:</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>                         <span class="o">||</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>                              <span class="o">||</span>
+<span class="p">...</span>  <span class="n">some</span> <span class="n">computation</span> <span class="p">...</span>           <span class="o">||</span>  <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>                              <span class="o">||</span>
+</code></pre></div></div>
+<p>하지만, 이렇게 최적화된 프로그램에서는, <code class="language-plaintext highlighter-rouge">c = a + 10</code>과 <code class="language-plaintext highlighter-rouge">c = 1</code> 사이에
+ 데이터 경쟁이 생기고 <code class="language-plaintext highlighter-rouge">c</code>가 이상한 값을 가질 수 있다. 프로그래머의
+ 관점으로는, <code class="language-plaintext highlighter-rouge">a</code>에 동시 쓰기(concurrent write)가 없었는데도 불구하고
+ 같은 <code class="language-plaintext highlighter-rouge">a</code>에서 두 번 읽었는데 서로 다른 값을 관찰하게 된다! 실제로, 두
+ 쓰레드가 <code class="language-plaintext highlighter-rouge">c</code>에 동시에쓰는 것이 유일한 데이터 경쟁이고, 첫 번째
+ 쓰레드(의 원본 코드)에서는 <code class="language-plaintext highlighter-rouge">c</code>를 읽지 않았다.</p>
+<p>변수 하나에 대한 데이터 경쟁이 다른 변수를 읽는 결과에 영향을 미치는
+ 일은 컴파일러 최적화가 경쟁이 있는 C++ 프로그램에 줄 수 있는 최악의
+ 영향은 아니다. Boehm의 연구에서는 다른 예시도 있지만, 이 예시 하나면
+ 데이터 경쟁이 영향을 미치는 공간을 제한하는 일이 중대한 성질임을
+ 보이기에 충분하며, 타당한 C++ 구현은 이 성질이 없다는 것도 알았다.</p>
+<h2 id="22-bounding-data-races-in-time">2.2 Bounding data races in time</h2>
+<p>C++와는 반대로, 자바 메모리 모델은 데이터 경쟁이 있더라도 허용되는
+ 행동을 제한한다. 특히, 변수를 읽어서 리턴하는 값은 반드시 같은 변수에
+ 쓰여진 무언가여야 하는데, 덕분에 데이터 경쟁이 영향을 미치는 공간이
+ 제한된다.</p>
+<p>하지만, 자바의 데이터 경쟁이 영향을 미치는 <em>시간은 제한되어 있지
+ 않다(not bounded in time)</em>: 아래의 예시와 같이, 과거에 발생한 데이터
+ 경쟁이 이후의 접근에 영향을 줘서 비순차적인 행동을 가지도록 할 수
+ 있다. 어떤 두 개의 접근이 <em>동시에 발생(happen concurrently)</em>한다는
+ 것은, 메모리 모델에 의해 정의되는 순서를 사용해서 정의되는 <em>이전에
+ 발생(happens-before)</em>을 이용해서 두 쓰레드가 서로 이전에 발생하지
+ 않았다고 정의한다. 그러니까 아무런 동기화 없이 서로 다른 쓰레드에서
+ 발생하는 두 개의 접근이라는 뜻이다.</p>
+<h3 id="example-2">Example 2.</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+</code></pre></div></div>
+<ul>
+ <li><strong>가정</strong>: <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">c</code>에 대해서 동시에 발생하는 접근이 없다.
+ <li><strong>예상 결과</strong>: <code class="language-plaintext highlighter-rouge">b = c</code>
+ <li><strong>가능한 결과</strong>: <code class="language-plaintext highlighter-rouge">b != c</code> (C++, 자바)
+</ul>
+<h4 id="설명-1">설명</h4>
+<p>다음과 같은 프로그램을 생각해보자. <code class="language-plaintext highlighter-rouge">flag</code>는 초기값이 <code class="language-plaintext highlighter-rouge">false</code>인 원자적
+ 불리언 변수(자바의 <code class="language-plaintext highlighter-rouge">volatile</code>)이다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>                              <span class="o">||</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>                        <span class="o">||</span> <span class="n">f</span> <span class="o">=</span> <span class="n">flag</span><span class="o">;</span>
+                                    <span class="o">||</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+                                    <span class="o">||</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">f</code>가 <code class="language-plaintext highlighter-rouge">true</code>가 되었다고 해보자. 그러면 <code class="language-plaintext highlighter-rouge">flag</code>가 <code class="language-plaintext highlighter-rouge">volatile</code>이기 때문에
+ <code class="language-plaintext highlighter-rouge">flag</code>에 대한 읽고 쓰기는 서로 동기화되고, 따라서 <code class="language-plaintext highlighter-rouge">a</code>에 값을 쓰는
+ 일(<code class="language-plaintext highlighter-rouge">a = 1</code>과 <code class="language-plaintext highlighter-rouge">a = 2</code>)은 서로 경쟁 상태에 있지만 <code class="language-plaintext highlighter-rouge">a</code>에서 값을 읽는 일
+ 이전에 발생하게 된다.</p>
+<p>이런 상황에서, 다음과 같은 가정이 성립한다: <code class="language-plaintext highlighter-rouge">a</code>에서 값을 읽는 일과
+ 동시에 발생하는 <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">c</code>에 대한 접근이 없다. 하지만, 자바는 <code class="language-plaintext highlighter-rouge">b =
+ 1</code>, <code class="language-plaintext highlighter-rouge">c = 2</code>인 결과를 허용하는데, 두 개의 읽기(<code class="language-plaintext highlighter-rouge">b = a</code>와 <code class="language-plaintext highlighter-rouge">c = a</code>)가
+ 서로 다른 쓰기(<code class="language-plaintext highlighter-rouge">a = 1</code>과 <code class="language-plaintext highlighter-rouge">a = 2</code>)에서 읽는 것을 서용하기
+ 때문이다. 구체적으로는, 컴파일러가 <code class="language-plaintext highlighter-rouge">c = a</code>는 최적화하지 않고 <code class="language-plaintext highlighter-rouge">b =
+ a</code>를 <code class="language-plaintext highlighter-rouge">b = 2</code>로 최적화하면 발생할 수 있다. 이런 상황은 별칭(aliasing)
+ 때문에 발생할 수 있는데, 만약 첫 번째 읽기 <code class="language-plaintext highlighter-rouge">b = a</code>만 <code class="language-plaintext highlighter-rouge">a = 2</code>로 쓰여진
+ 곳과 같은 위치라는 것을 정적으로 알는 경우에 그렇다. 자바 8과 9
+ 버전에서 이 행동을 초래하는 구체적인 예시는 부록의 기술 보고서에
+ 있음.</p>
+<p>따라서, 자바의 데이터 경쟁은 <em>시간에 얽매이지(bounded in time)</em>
+ 않는데, 메모리 모델이 과거에 일어난 데이터 경쟁으로 인해서 일관되지
+ 않은 값을 리턴하는 것을 읽는 것을 허용하기 때문이다. 놀랍게도, 이런
+ 비순차적인 행동은 미래의 데이터 경쟁 때문에 나타나기도 하는데, 다음
+ 예시를 보자.</p>
+<h3 id="example-3">Example 3.</h3>
+<p><code class="language-plaintext highlighter-rouge">class C { int x; }</code> 라는 정의가 이전에 있다고 가정하자.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">C</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="no">C</span><span class="o">();</span> <span class="n">c</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+</code></pre></div></div>
+<ul>
+ <li><strong>가정</strong>: <code class="language-plaintext highlighter-rouge">a</code>에 다른 접근은 없다.
+ <li><strong>예상 결과</strong>: <code class="language-plaintext highlighter-rouge">a = 42</code>
+ <li><strong>가능한 결과</strong>: <code class="language-plaintext highlighter-rouge">a != 42</code> (C++, 자바)
+</ul>
+<h4 id="설명-2">설명</h4>
+<p>여기서, <code class="language-plaintext highlighter-rouge">c</code>는 새로 할당되었고 아직 다른 쓰레드가 참조하지 않기
+ 때문에, 과거에 <code class="language-plaintext highlighter-rouge">c.x</code>에 데이터 경쟁이 발생할 수 없다는 것을 알 수
+ 있다. 따라서, 이 코드 조각은 프로그램의 나머지 부분에 존재하는 데이터
+ 경쟁과 상관없이 항상 <code class="language-plaintext highlighter-rouge">a</code>에 <code class="language-plaintext highlighter-rouge">42</code>를 쓴다고 상상할 수 있다.</p>
+<p>하지만 실제로 이 이후의 데이터 경쟁 때문에 <code class="language-plaintext highlighter-rouge">a</code>가 <code class="language-plaintext highlighter-rouge">42</code>가 아닌 다른
+ 값을 갖는 것이 가능하다. 다음 코드를 보면:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">C</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="no">C</span><span class="o">();</span>                      <span class="o">||</span>
+<span class="n">c</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span>                           <span class="o">||</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>                            <span class="o">||</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>                              <span class="o">||</span> <span class="n">g</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="mi">7</span><span class="o">;</span>
+</code></pre></div></div>
+<p>첫 번째 쓰레드가 <code class="language-plaintext highlighter-rouge">c.x</code>에서 값을 읽고 <code class="language-plaintext highlighter-rouge">g</code>에 값을 쓰는데, 이때 이 두
+ 오브젝트의 위치가 다르기 때문에, 자바의 메모리 모델은 이 순서를
+ 바꾸는 것을 허용한다. 그래서 <code class="language-plaintext highlighter-rouge">g = c</code>가 먼저 실행되고, 그 사이 두 번째
+ 쓰레드가 <code class="language-plaintext highlighter-rouge">g.x</code>에 <code class="language-plaintext highlighter-rouge">7</code>을 쓰고, 다시 첫 번째 쓰레드가 <code class="language-plaintext highlighter-rouge">a = c.x</code>로 값을
+ 읽게 되면, <code class="language-plaintext highlighter-rouge">a</code>는 <code class="language-plaintext highlighter-rouge">42</code>가 아니라 <code class="language-plaintext highlighter-rouge">7</code>이 된다.</p>
+<p>따라서, 지역적 DRF를 제공한다는 것은 곧 읽기의 순서가 나중에 있을
+ 쓰기와 뒤섞이면 안된다는 것을 뜻하고, 이는 컴파일러 최적화와 느슨한
+ 동작을 허용하는 (weakly-ordered) 하드웨어에서의 컴파일에 제약을 주게
+ 된다. 이 제약으로 인한 성능 비용이 어느 정도인지 나중에 살펴볼
+ 것이다.</p>
+<h2 id="23-global-and-local-drf">2.3 Global and Local DRF</h2>
+<p>지역적 DRF 성질이란, 데이터 경쟁의 영향이 공간적으로 또 시간적으로
+ 제한되는 것을 말한다. 다른 변수의 데이터 경쟁, 과거의 데이터 경쟁,
+ 또는 미래의 데이터 경쟁이 어떤 변수에 접근하는 일에 영향을 주지 않는
+ 것이다. 특히, 다음과 같은 직관적인 성질이 성립한다:</p>
+<blockquote>
+ <p>만약 같은 쓰레드가 어떤 위치 <code class="language-plaintext highlighter-rouge">a</code>에서 값을 두 번 읽을 때, 동시에
+<code class="language-plaintext highlighter-rouge">a</code>에 값을 다른 쓰레드가 없다면, 두 번 읽은 값은 같은 값이다.</p>
+</blockquote>
+<p>섹션 3에서 operational semantics를 소개한 뒤, 섹션 4에서 메모리
+ 모델에 대한 지역적 DRF 정리를 형식적으로(formally) 기술한다. 자세한
+ 증명은 부록에 있다. 지역적 DRF 정리 덕분에 이전에 소개한 예시들이
+ 예상되는 행동을 한다는 것을 증명할 수 있었다.</p>
+<p>표준적인 전역적 DRF 정리를 이용하면 앞의 세 가지 예시들이 프로그램
+ 실행 도중의 어떤 시간에 어떤 변수에도 데이터 경쟁이 없다는 아주
+ 강력한 가정 하에서만 예상되는 행동을 한다는 것을 증명할 수 있다. 반면
+ 지역적 DRF는 프로그램의 다른 부분에 데이터 경쟁이 있어도 괜찮다는 더
+ 일반적인 가정 하에 같은 결과를 증명할 수 있게 해준다.</p>
+<h1 id="3-a-simple-operational-model">3. A Simple Operational Model</h1>
+<hr />
+<div class="footnotes" role="doc-endnotes">
+ <ol>
+   <li id="fn:1" role="doc-endnote">
+     <p>레지스터 할당 내내 메모리의 내용에 대한 정보를 유지해야 하는 노력이 필요하기 때문에, 이것은 일반적으로 구현되는 최적화는 아니지만, LLVM 최적화의 하나로 제안되었다. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+ </ol>
+</div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=ocaml ">ocaml</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=translation ">translation</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=multi-core ">multi-core</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

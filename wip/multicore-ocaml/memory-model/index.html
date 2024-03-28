@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Memory Model</title>
+<meta property="og:title" content="Memory Model" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Memory Model">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Memory Model"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/multicore-ocaml/memory-model.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/multicore-ocaml/">Multicore ocaml</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/multicore-ocaml/memory-model/">Memory Model</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="ocaml-메모리-모델">OCaml 메모리 모델</h1>
+<p><code class="language-plaintext highlighter-rouge">ref</code>를 읽을 때 어떻게 될까? 싱글 쓰레드 코드에서는 “뭐가 됐든 가장
+ 최근에 쓴 값”을 읽는게 너무 당연하지만, 복잡한 동기화가 필요한 멀티
+ 쓰레드 코드에서는 “가장 최근”에 대한 정확한 정의가 어려워진다.</p>
+<p>여기서는 이런 미묘한 부분을 어떻게 피하는지, 그리고 “가장 최근”이
+ 복잡한 개념이 아닌 상황에서 직관적인 동기화 코드를 어떻게
+ 작성하는지를 설명한다. 후자는 세부적인 내용을 살펴봐야 하지만,
+ 대부분은 저수준의 동기화 라이브러리를 작성하거나 컴파일러를 해킹해야
+ 하는 사람에게 유용한 내용이다 (만약 어플리케이션 코드를 짜는데 이런
+ 저수준의 세부 사항에 의존하고 있다면, 뭔가 잘못하고 있는 거다).</p>
+<h2 id="happens-before">Happens-before</h2>
+<p><code class="language-plaintext highlighter-rouge">ref</code>에서 값을 읽거나 값을 쓰는 것 같은 프로그램의 실행 흐름(trace),
+ 또는 일련의 <strong>이벤트</strong>를 고려하면 실행 중인 OCaml 프로그램과 메모리
+ 사이의 상호 작용을 이해할 수 있다 (여기서는 <code class="language-plaintext highlighter-rouge">ref</code>를 “수정 가능한
+ 메모리 위치”와 같은 의미로 사용한다. 즉, 가변 레코드 필드와 가변
+ 오브젝트 멤버는 전부 <code class="language-plaintext highlighter-rouge">ref</code>다). 각각의 <em>이벤트</em>는 소스 코드의 읽기와
+ 쓰기 연산에 대응하지만, 소스 코드의 특정 연산은 실행할 때마다 매번
+ 새로운 이벤트를 생성한다.</p>
+<p>싱글 쓰레드 프로그램이 생성하는 이벤트의 순서를 <strong>프로그램 순서</strong>라고
+ 한다. 멀티 쓰레드 프로그램에서는, 여전히 프로그램 순서를 얘기하긴
+ 하지만, 더 이상 total order가 아니다. 이벤트는 서로 다른 두 쓰레드가
+ 생성하는데, 이 이벤트끼리는 프로그램 순서 상 서로 이전/이후라고 말할
+ 수 없다.</p>
+<p>프로그램 순서는 소스 코드 안의 연산이 작성된 순서를 나타내지만,
+ 반드시 그 이벤트가 발생하는 순서를 명시하지는 않는다. 이벤트는 <em>그
+ 순서가 바뀔 수 있고 (reorder)</em>, 컴파일러와 CPU에 의해서 합쳐지거나
+ 최적화될 수 있다. 신뢰 가능한 순서는 <strong>happens-before</strong>라는
+ relation으로 명시될 수 있다. 만약 이벤트 <code class="language-plaintext highlighter-rouge">e1</code>이 이벤트 <code class="language-plaintext highlighter-rouge">e2</code>보다
+ <strong>먼저 생긴다면(happens-before)</strong>, 어떤 쓰레드도 <code class="language-plaintext highlighter-rouge">e1</code> 없이 <code class="language-plaintext highlighter-rouge">e2</code><em>만</em>
+ 관측할 수 없다. 이것을 <code class="language-plaintext highlighter-rouge">e1</code>가 <code class="language-plaintext highlighter-rouge">e2</code> <strong>이후에
+ 발생(happens-after)</strong>한다고 한다. 만약 서로가 각각 먼저 생길 수
+ 있다면 (happens-before the other), 이들 이벤트들은 <strong>동시에
+ 발생(happen concurrently)</strong>한다고 한다. Happens-before 관계는
+ 추이적(transitive; <code class="language-plaintext highlighter-rouge">e1 -&gt; e2</code> 이고 <code class="language-plaintext highlighter-rouge">e2 -&gt; e3</code> 라면 <code class="language-plaintext highlighter-rouge">e1 -&gt; e3</code>)이고
+ 비반사관계(어떤 이벤트도 스스로보다 먼저 발생하지 않는다. 즉 <code class="language-plaintext highlighter-rouge">\forall
+ e. ~(e -&gt; e)</code>)이다.</p>
+<p>동기화를 위한 API는 일반적으로 happens-before 관계를 명시한다. 예를
+ 들면, 뮤텍스는 한 쓰레드의 <code class="language-plaintext highlighter-rouge">Lock</code> 연산이 <code class="language-plaintext highlighter-rouge">Unlock</code> 연산 이전에
+ 발생(happens-before)하고, <code class="language-plaintext highlighter-rouge">Unlock</code> 연산이 그 다음 쓰레드의 <code class="language-plaintext highlighter-rouge">Lock</code>
+ 연산 이전에 발생(happens-before)하도록 명시한다. 여기서
+ happens-before 관계는 <code class="language-plaintext highlighter-rouge">refs</code>와 아토믹 참조 <code class="language-plaintext highlighter-rouge">Atomic.t</code>로 명시된다.</p>
+<p>여기서는 채널과 같은 고수준 동기화에 대해서는 얘기하지
+ 않는다. 하지만, 아토믹과 관련하여 보장되는 내용은 고수준의 동기화를
+ 구현하는데 충분하다.</p>
+<h2 id="읽기-쓰기-그리고-경쟁-상태">읽기, 쓰기, 그리고 경쟁 상태</h2>
+<p>가장 기본적인 happens-before 보장(guarantee)은 특정 <code class="language-plaintext highlighter-rouge">ref</code>에 대한 싱글
+ 쓰레드의 접근에 관한 내용이다.</p>
+<blockquote>
+ <p><code class="language-plaintext highlighter-rouge">e1</code>과 <code class="language-plaintext highlighter-rouge">e2</code>가 프로그램 순서의 이벤트이고 (즉 같은 쓰레드에 의해서
+순서대로 실행되고) 같은 <code class="language-plaintext highlighter-rouge">ref</code>에 접근하고 둘 다 읽기 연산이 아닐 때,
+그러면 <code class="language-plaintext highlighter-rouge">e1</code>이 <code class="language-plaintext highlighter-rouge">e2</code>에 선행(happens-before)한다.</p>
+</blockquote>
+<p>다음과 같은 프로그램을 생각해보자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="o">.</span> <span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">0</span> <span class="k">in</span>
+<span class="mi">2</span><span class="o">.</span> <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="o">!</span><span class="n">r</span> <span class="k">in</span>
+<span class="mi">3</span><span class="o">.</span> <span class="n">r</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="mi">4</span><span class="o">.</span> <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="o">!</span><span class="n">r</span> <span class="k">in</span>
+<span class="mi">5</span><span class="o">.</span> <span class="k">let</span> <span class="n">c</span> <span class="o">=</span> <span class="o">!</span><span class="n">r</span> <span class="k">in</span>
+<span class="o">...</span>
+</code></pre></div></div>
+<p>1, 2, 3 라인은 순서대로 발생한다. 메모리 모델 측면에서 보자면 라인
+ 1에서는 참조를 초기화하기 때문에 “쓰기” 연산으로 취급된다. 라인 3은
+ 라인 4, 5에 선행하지만, 라인 4와 5는 둘 다 읽기 연산이므로 동시에
+ 발생한다.</p>
+<p>읽기 이벤트 <code class="language-plaintext highlighter-rouge">r</code>이 발생하면, 그 메모리 위치에 대한 어떤 쓰기 이벤트
+ <code class="language-plaintext highlighter-rouge">w</code>에 의해 쓰여진 값을 읽는다. 초기화도 역시 쓰기 연산이다. 이때
+ <em>어떤 쓰기 이벤트</em>의 값인지는 다음과 같은 규칙에 의해 정해진다.</p>
+<blockquote>
+ <p>만약 같은 <code class="language-plaintext highlighter-rouge">ref</code>에 대해서 어떤 쓰기 연산 <code class="language-plaintext highlighter-rouge">w</code>가 어떤 읽기 연산 <code class="language-plaintext highlighter-rouge">r</code>에
+선행하고, 다른 모든 쓰기 연산 <code class="language-plaintext highlighter-rouge">w'</code>는 <code class="language-plaintext highlighter-rouge">w</code>에 선행하거나 <code class="language-plaintext highlighter-rouge">r</code>에
+후행한다면, <code class="language-plaintext highlighter-rouge">r</code>은 <code class="language-plaintext highlighter-rouge">w</code>가 쓴 값을 읽는다.</p>
+</blockquote>
+<p>이 규칙은 항상 적용되지는 않는다. <code class="language-plaintext highlighter-rouge">w</code>가 없을 수 있다: 예를 들면,
+ <code class="language-plaintext highlighter-rouge">r</code>과 동시에 발생하는 쓰기 이벤트가 있을 수 있고, 또는 <code class="language-plaintext highlighter-rouge">r</code>에
+ 선행하면서 동시에 발생하는 두 개의 쓰기 이벤트가 있을 수 있다. 이
+ 규칙이 읽기 이벤트에 적용되지 않을 때, 우리는 이를 <strong>데이터 경쟁(data
+ race)</strong>라고 한다.</p>
+<p>프로그램은 아래에서 설명할 아토믹과 같은 동기화를 통해 데이터 경쟁을
+ 피해야 한다. C++ 메모리 모델과는 달리, 이 메모리 모델은 데이터 경쟁이
+ 있는 상태에서도 상대적으로 강한 보장을 준다. 하지만, 프로그램은
+ 여전히 경쟁을 피하기 위해서 노력해야 한다: 이 모델이 보장하는
+ 내용(아래의 “Coherence and data races” 참조)은, 데이터 경쟁이
+ 프로그램을 작성하는 어떤 합리적인 방법이라는 것이 아니라, 데이터
+ 경쟁에 의해 발생하는 피해를 제한하기 위해 존재한다. 예를 들면, OCaml
+ 메모리 모델에서, 특정 <code class="language-plaintext highlighter-rouge">ref</code>에 대한 데이터 경쟁은 오직 그 <code class="language-plaintext highlighter-rouge">ref</code>에 대한
+ 미래의 읽기 이벤트들이 이상한 결과를 읽도록 할 뿐, 전체 프로그램이
+ C++처럼 정의되지 않은 동작(Undefined Behaviour; UB)을 일으키도록 하는
+ 것이 아니다.</p>
+<p>이 규칙은 하나의 쓰레드에 의해 사용되는 메모리 참조에 대해서 예상
+ 가능한 동작을 보장하는데 충분하다. 위의 예시 프로그램에서, 라인 2의
+ 읽기는 라인 1의 초기화 (쓰기)에 의해 쓰여진 값을 읽을
+ 것이다. 왜냐하면, 다른 쓰기 연산(라인 3)은 라인 2(읽기)에 후행하기
+ 때문이다. 비슷하게, 라인 4와 5의 읽기는 라인 3에서 쓰여진 값을 읽을
+ 것인데, 다른 쓰기 연산(라인 1)이 라인 3(쓰기)에 선행하기 때문이다.</p>
+<h2 id="atomics">Atomics</h2>
+<p>위의 규칙이 싱글 쓰레드가 접근하는 <code class="language-plaintext highlighter-rouge">ref</code>에 대해서 합리적인 동작을
+ 보장하는 반면, 멀티 쓰레드 환경에서는 잘 동작하지 않는다. 예를 들어,
+ 아래의 관용적인 메시지 전달 코드를 보자. <code class="language-plaintext highlighter-rouge">message</code>는 <code class="language-plaintext highlighter-rouge">0</code>으로 초기화
+ 된 <code class="language-plaintext highlighter-rouge">int ref</code>이고 <code class="language-plaintext highlighter-rouge">flag</code>는 <code class="language-plaintext highlighter-rouge">false</code>로 초기화된 <code class="language-plaintext highlighter-rouge">bool ref</code> 이다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thread</span> <span class="mi">1</span><span class="o">:</span>
+<span class="mi">1</span><span class="o">.</span> <span class="n">message</span> <span class="o">:=</span> <span class="mi">42</span>
+<span class="mi">2</span><span class="o">.</span> <span class="n">flag</span> <span class="o">:=</span> <span class="bp">true</span>
+
+<span class="n">thread</span> <span class="mi">2</span><span class="o">:</span>
+<span class="mi">3</span><span class="o">.</span> <span class="k">let</span> <span class="n">seen</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span> <span class="k">in</span>
+<span class="mi">4</span><span class="o">.</span> <span class="k">let</span> <span class="n">value</span> <span class="o">=</span> <span class="o">!</span><span class="n">message</span> <span class="k">in</span>
+<span class="mi">5</span><span class="o">.</span> <span class="k">if</span> <span class="n">seen</span> <span class="k">then</span> <span class="n">print_int</span> <span class="n">value</span>
+</code></pre></div></div>
+<p>이 프로그램에는 데이터 경쟁이 있다. 라인 3에서 <code class="language-plaintext highlighter-rouge">flag</code>를 읽는 부분이
+ 문제다. 왜냐하면 라인 2에서 값을 쓰는 부분과 동시에 발생하기
+ 때문이다. 라인 4에서 <code class="language-plaintext highlighter-rouge">message</code>를 읽는 부분도 비슷하게 라인 1의 쓰기
+ 부분과 경쟁 상태에 있다. 만약 라인 3의 읽기 연산이 라인 2의 쓰기
+ 연산을 읽고, 라인 4의 읽기 연산이 <code class="language-plaintext highlighter-rouge">message</code>의 초기화 결과를 읽으면,
+ 이 프로그램은 <code class="language-plaintext highlighter-rouge">0</code>을 출력할 수도 있다.</p>
+<p>더 구체적으로, 이렇게 되는 이유는 다양하다. 예를 들어, 2번 쓰레드가
+ <code class="language-plaintext highlighter-rouge">message</code>에 먼저 접근한다고 하자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thread</span> <span class="mi">2</span><span class="o">:</span>
+<span class="k">let</span> <span class="n">old</span> <span class="o">=</span> <span class="o">!</span><span class="n">message</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">seen</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">value</span> <span class="o">=</span> <span class="o">!</span><span class="n">message</span> <span class="k">in</span>
+<span class="k">if</span> <span class="n">seen</span> <span class="k">then</span> <span class="n">print_int</span> <span class="n">value</span>
+</code></pre></div></div>
+<p>컴파일러는 <code class="language-plaintext highlighter-rouge">message</code>를 읽는 두 번쨰 연산을 지우는 최적화를 수행할
+ 수도 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thread</span> <span class="mi">2</span><span class="o">:</span>
+<span class="k">let</span> <span class="n">old</span> <span class="o">=</span> <span class="o">!</span><span class="n">message</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">seen</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span> <span class="k">in</span>
+<span class="k">let</span> <span class="n">value</span> <span class="o">=</span> <span class="n">old</span> <span class="k">in</span>
+<span class="k">if</span> <span class="n">seen</span> <span class="k">then</span> <span class="n">print_int</span> <span class="n">value</span>
+</code></pre></div></div>
+<p>이제 이 프로그램은 <code class="language-plaintext highlighter-rouge">seen = true</code>이지만 <code class="language-plaintext highlighter-rouge">value = 0</code>인 상태가 될 수
+ 있다.</p>
+<p>심지어 최적화 없이 실행되더라도, weakly ordered 머신인 ARM이나
+ PowerPC에서 실행된다면 이 프로그램은 <code class="language-plaintext highlighter-rouge">0</code>을 출력할 수 있다. 이
+ 머신들은 <code class="language-plaintext highlighter-rouge">flag</code>와 <code class="language-plaintext highlighter-rouge">message</code>에서 읽고 쓰는 연산의 순서를 지들 마음대로
+ 바꿀 수 있다.</p>
+<p>메모리 모델의 관점에서, 이런 (<code class="language-plaintext highlighter-rouge">0</code>을 출력하는 것과 같은) 나쁜 동작이
+ 허용되는 이유는 쓰레드 1과 쓰레드 2의 연산들 사이에 happens-before
+ 관계가 <strong>없기</strong> 때문이다. 필요한 동기화를 제공하기 위해서 아토믹을
+ 써야 한다. 프로그램을 다시 짜서 <code class="language-plaintext highlighter-rouge">flag</code>를 <code class="language-plaintext highlighter-rouge">Atomic.t</code>로 만들자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thread</span> <span class="mi">1</span><span class="o">:</span>
+<span class="mi">1</span><span class="o">.</span> <span class="n">message</span> <span class="o">:=</span> <span class="mi">42</span>
+<span class="mi">2</span><span class="o">.</span> <span class="nn">Atomic</span><span class="p">.</span><span class="n">set</span> <span class="n">flag</span> <span class="bp">true</span>
+
+<span class="n">thread</span> <span class="mi">2</span><span class="o">:</span>
+<span class="mi">3</span><span class="o">.</span> <span class="k">let</span> <span class="n">seen</span> <span class="o">=</span> <span class="nn">Atomic</span><span class="p">.</span><span class="n">get</span> <span class="n">flag</span> <span class="k">in</span>
+<span class="mi">4</span><span class="o">.</span> <span class="k">let</span> <span class="n">value</span> <span class="o">=</span> <span class="o">!</span><span class="n">message</span> <span class="k">in</span>
+<span class="mi">5</span><span class="o">.</span> <span class="k">if</span> <span class="n">seen</span> <span class="k">then</span> <span class="n">print_int</span> <span class="n">value</span>
+</code></pre></div></div>
+<p>이 프로그램은 <em>절대로</em> <code class="language-plaintext highlighter-rouge">0</code>을 출력할 수 없다: 아무것도 출력하지 않을
+ 수는 있지만, 출력한다면 그 값은 항상 <code class="language-plaintext highlighter-rouge">42</code>이다. 이렇게 되는 이유는
+ 아토믹과 관련한 두 가지 규칙 때문인데, 하나는 다음과 같이 싱글
+ 쓰레드에서의 happens-before를 명시하는 내용이고:</p>
+<blockquote>
+ <p>아토믹에 선행하는 프로그램 순서의 모든 것은 아토믹에 선행하고,
+아토믹에 후행하는 프로그램 순서의 모든 것은 아토믹에 후행한다.</p>
+</blockquote>
+<p>다른 하나는 쓰레드 사이의 happens-before를 명시하는 내용이다:</p>
+<blockquote>
+ <p>같은 아토믹 참조에 대해서 <em>둘 다 읽기가 아닌</em> 모든 두 개의 이벤트에
+대해서, 둘 중 하나는 다른 하나에 선행한다.</p>
+</blockquote>
+<p>첫 번째 규칙에 의해서, 라인 1은 라인 2에 선행하고, 라인 3은 라인 4에
+ 선행한다 (싱글 쓰레드). 두 번째 규칙에 의해서, 라인 2와 3 중 하나는
+ 다른 하나에 선행 한다 (멀티 쓰레드). 만약 2가 3에 선행하면, 1은 4에
+ 선행해야 하므로 프로그램은 <code class="language-plaintext highlighter-rouge">42</code>를 출력한다. 반대의 경우 (즉 3이 2에
+ 선행하면), 3은 <code class="language-plaintext highlighter-rouge">false</code>를 읽게 되고 프로그램은 아무것도 출력하지
+ 않는다.</p>
+<p>특정 아토믹 참조에 대한 이벤트는 happens-before에 의해서 전순서를
+ 갖기 때문에, 아토믹에 대한 데이터 경쟁은 발생할 수 없음을 알아두자.</p>
+<h2 id="다른-메모리-모델과의-비교">다른 메모리 모델과의 비교</h2>
+<p>이 모델은 데이터 경쟁이 있을 때의 동작을 명시한다. 이는 C++와는
+ 다르고 자바와는 같다.</p>
+<p>이 모델의 아토믹 참조는 자바의 <code class="language-plaintext highlighter-rouge">volatile</code> 변수나 C++의 <code class="language-plaintext highlighter-rouge">seq_cst</code>
+ 아토믹과 비슷하지만, OCaml 아토믹은 아토믹이 아닌 변수의 순서를
+ 바꾸는 것과 관련해서 더 강한 성질을 갖고 있다. 예를 들어, 다음
+ 프로그램을 보자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">thread</span> <span class="mi">1</span><span class="o">:</span>
+<span class="nn">Atomic</span><span class="p">.</span><span class="n">set</span> <span class="n">x</span> <span class="mi">1</span>
+<span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="o">!</span><span class="n">y</span>
+
+<span class="n">thread</span> <span class="mi">2</span><span class="o">:</span>
+<span class="n">y</span> <span class="o">:=</span> <span class="mi">1</span>
+<span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="nn">Atomic</span><span class="p">.</span><span class="n">get</span> <span class="n">x</span>
+</code></pre></div></div>
+<p>OCaml 에서는, <code class="language-plaintext highlighter-rouge">x</code>에 접근하는 두 아토믹 중 하나는 다른 하나에
+ 선행한다. 만약 <code class="language-plaintext highlighter-rouge">set</code>이 먼저 발생하면 <code class="language-plaintext highlighter-rouge">b = 1</code>이 된다. <code class="language-plaintext highlighter-rouge">get</code>이 먼저
+ 발생하면 <code class="language-plaintext highlighter-rouge">y</code>에 값을 대입하는 연산이 <code class="language-plaintext highlighter-rouge">get</code>에 선행하고, 이는 <code class="language-plaintext highlighter-rouge">set</code>에
+ 선행하고, 이는 <code class="language-plaintext highlighter-rouge">y</code>에서 값을 읽는 연산에 선행하기 때문에, <code class="language-plaintext highlighter-rouge">a = 1</code>이
+ 된다. 하지만, 자바와 C++ 모두에서는 <code class="language-plaintext highlighter-rouge">a = b = 0</code>이 가능하다.</p>
+<h2 id="인과-causality">인과 (Causality)</h2>
+<p><strong>인과 공리 (Causality axiom)</strong>는 다음과 같다:</p><pre><code class="language-herd">acyclic(hb | po | rf)
+</code></pre>
+<p>위는 <a href="http://diy.inria.fr/doc/herd.html">herd7</a>라는 메모리 모델
+ 시뮬레이터 도구의 문법이다. 이 공리는 모든 로드-버퍼링 동작을
+ 금지하여 C++와 자바가 겪는 “갑자기 튀어나온 이상한 값” 문제를
+ 제거한다. <code class="language-plaintext highlighter-rouge">hb</code>는 happens-before 관계이고, <code class="language-plaintext highlighter-rouge">po</code>는 프로그램 순서이고,
+ <code class="language-plaintext highlighter-rouge">rf</code>는 <code class="language-plaintext highlighter-rouge">reads-from</code> 관계(<code class="language-plaintext highlighter-rouge">r</code>이 <code class="language-plaintext highlighter-rouge">w</code>가 쓴 값을 읽으면 <code class="language-plaintext highlighter-rouge">w rf
+ r</code>)이다. <code class="language-plaintext highlighter-rouge">|</code>는 합(union) 연산이다. <code class="language-plaintext highlighter-rouge">acyclic</code>은 관계에 대해 체크하려는
+ 성질 이름으로, 여기서는 싸이클이 없어야 한다는 뜻이다.</p>
+<p><code class="language-plaintext highlighter-rouge">hb | po | rf</code>에 싸이클이 없도록 요구하는 것은 C++에서 “갑자기
+ 튀어나온 이상한 값(out-of-thin-air values)” 문제를 해결하기 위해서
+ 제안되었지만, ARM과 PowerPC와 같은 weakly-ordered 머신에서 차후에
+ 오는 쓰기(store) 연산이 이전의 읽기(load) 연산에 의존성을 갖게 되어서
+ 수많은 의미없는 브랜치를 삽입해야 하기 때문에, 성능 문제로
+ 거절되었다. 하지만 OCaml에서는 이런 성능과 관련한 트레이드 오프가
+ 다음 두 가지 이유로 인해 받아들일 수 있는 수준이라고 보여진다.</p>
+<ul>
+ <li>OCaml에서 대부분의 읽기(load) 연산은 값이 변하지 않는
+위치(immutable locations)에 대한 것이므로, 추가적인 브랜치를 삽입할
+필요가 없다.
+ <li>멀티코어 OCaml의 가비지 콜렉터 디자인은 이미 읽기 연산에 대한
+배리어에 대해서 브랜치를 갖고 있기 때문에, 필요한 브랜치는 대부분
+이미 (이걸로 인해) 존재한다.
+</ul>
+<h2 id="coherence-and-data-races">Coherence and data races</h2>
+<p><strong>일관 공리(Coherence axiom)</strong>는 다음과 같다:</p><pre><code class="language-herd">acyclic(co | rf | fr | (hb &amp; loc))
+</code></pre>
+<p><code class="language-plaintext highlighter-rouge">co</code>는 <strong>coherence order</strong>로, 주어진 모든 메모리 위치에 대한 쓰기
+ 연산의 전순서이다. <code class="language-plaintext highlighter-rouge">fr</code>은 <strong>from-reads</strong> 관계이고 <code class="language-plaintext highlighter-rouge">rf^(-1); co</code>로
+ 정의된다. <code class="language-plaintext highlighter-rouge">loc</code>는 같은 위치에 대한 이벤트이다.</p>
+<p>이 공리의 뜻은 만약 아토믹이 아닌 위치에 대해서 데이터 경쟁이
+ 있더라도, 경쟁 중인 쓰기 중 하나는 반드시 경쟁을 이기게 되고 해당
+ 메모리 위치의 값은 궁극적으로는 안정화된다는 뜻이다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=ocaml ">ocaml</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=memory-model ">memory-model</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=translation ">translation</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

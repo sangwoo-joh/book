@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Critical Connections in a Network</title>
+<meta property="og:title" content="Critical Connections in a Network" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Critical Connections in a Network">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Critical Connections in a Network"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/critical-connections-in-a-network.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/critical-connections-in-a-network/">Critical Connections in a Network</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="critical-connections-in-a-network"><a href="https://leetcode.com/problems/critical-connections-in-a-network/">Critical Connections in a Network</a></h1>
+<p><code class="language-plaintext highlighter-rouge">n</code>개의 서버가 있고 <code class="language-plaintext highlighter-rouge">0</code>부터 <code class="language-plaintext highlighter-rouge">n-1</code>까지 번호가 매겨져있다. 서버끼리는
+ 연결되어 있을 수 있는데 이 정보가 <code class="language-plaintext highlighter-rouge">connections</code>에 담겨 있고
+ <code class="language-plaintext highlighter-rouge">connections[i] = (a, b)</code> 이면 <code class="language-plaintext highlighter-rouge">a</code>서버와 <code class="language-plaintext highlighter-rouge">b</code>서버가 연결되어 있다는
+ 의미이다. 서버끼리 직접 연결되든 간접적으로 연결되든 네트워크를 통해
+ 연결될 수 있다.</p>
+<p>서버 간 연결 중에서, 만약 연결이 끊긴다면 다른 어떤 서버에 더 이상
+ 연결할 수 없게 되는 연결을 <em>Critical Connection</em>이라고 한다.</p>
+<p>네트워크 정보가 주어졌을 때 네트워크 안의 모든 Critical Connection을
+ 구하자. 어떤 순서든 상관없다.</p>
+<h2 id="문제의-이해">문제의 이해</h2>
+<p>문제만 읽어선 이게 대체 뭔 소리인가 싶었다. 이런건 예시를 봐야 한다.</p>
+<p>다음 그림(?)을 보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span> <span class="o">----</span> <span class="mi">1</span> <span class="o">---</span> <span class="mi">3</span>
+ \    <span class="o">/</span>
+  \  <span class="o">/</span>
+    <span class="mi">2</span>
+</code></pre></div></div>
+<p>점점 아스키 아트가 늘어가는 기분이다. 아무튼 위와 같은 네트워크가
+ 주어졌을 때, 크리티컬 커넥션은 어디일까? 잘 보면 <code class="language-plaintext highlighter-rouge">(1, 3)</code>을
+ 끊어버리면 <code class="language-plaintext highlighter-rouge">3</code>은 그 어디와도 연결될 수 없게 된다. 그럼 대체 이 연결은
+ 뭘까? 그래프에 익숙하다면 <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code>는 싸이클을 형성하고 있다는
+ 것을 알 수 있다.</p>
+<p>즉, 이 문제는 주어진 그래프의 모든 엣지들 중에서, <strong>싸이클이 아닌</strong>
+ 엣지를 찾는 문제로 환원할 수 있다.</p>
+<h2 id="싸이클-찾기">싸이클 찾기</h2>
+<p>그래프의 싸이클은 DFS와 연관이 깊다. 그런데 보통은 <code class="language-plaintext highlighter-rouge">visited</code>에 추가로
+ <code class="language-plaintext highlighter-rouge">visiting</code>을 둬서, 싸이클의 존재 여부를 판단하는 문제가
+ 대부분이었다. 여기서는 <strong>모든</strong> 싸이클을 찾아야 하는데 어떻게
+ 해야할까?</p>
+<p>싸이클을 좀더 유식한 말로는 SCC(Strongly Connected Components)라고
+ 부르기도 한다. 정확한 수학적인 정의는 유향/무향 그래프에 따라 좀 다른
+ 것 같긴 한데.. 암튼 여기서는 어차피 무향 그래프니까 같은 거라고
+ 생각하자. SCC 안에 있는 모든 노드끼리는 서로 직/간접적으로 닿을 수
+ 있다(Reachable). 따라서, SCC를 구하는 알고리즘을 조금 변형하면,
+ 우리가 원하는 “SCC가 <strong>아닌</strong>” 엣지만 판변할 수 있다.</p>
+<h2 id="타잔-알고리즘-변형">타잔 알고리즘 변형</h2>
+<p>SCC를 구하는 알고리즘 중에는 그 유명한 <a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm">타잔의
+ 알고리즘</a>이
+ 있다. 여기서는 이걸 조금 변경해서 문제를 풀어보려고 한다.</p>
+<p>기본은 DFS다. 단, <code class="language-plaintext highlighter-rouge">visited</code>나 <code class="language-plaintext highlighter-rouge">visiting</code>을 기록하진 않고, 노드의
+ <em>랭크</em>를 기록한다고 생각하자. 여기서 랭크는 방문한 순서 정도로
+ 이해하면 된다.</p>
+<p>위의 그래프를 다시 가져와 봤다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span> <span class="o">----</span> <span class="mi">1</span> <span class="o">---</span> <span class="mi">3</span>
+ \    <span class="o">/</span>
+  \  <span class="o">/</span>
+    <span class="mi">2</span>
+</code></pre></div></div>
+<p>일단 그래프는 특별히 <em>루트</em>라고 불릴만 한 게 없으므로, 어떤
+ 노드에서든 DFS를 시작할 수 있다. 여기서는 <code class="language-plaintext highlighter-rouge">1</code>에서 시작한다고
+ 해보자. 랭크는 <code class="language-plaintext highlighter-rouge">0</code>부터 시작한다. 일단 <code class="language-plaintext highlighter-rouge">1</code>에는 랭크가 없는 상태이므로,
+ <code class="language-plaintext highlighter-rouge">0</code>을 랭크로 갖게 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span> <span class="o">----</span> <span class="mi">1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">---</span> <span class="mi">3</span>
+ \    <span class="o">/</span>
+  \  <span class="o">/</span>
+    <span class="mi">2</span>
+</code></pre></div></div>
+<p>다음으로 노드 <code class="language-plaintext highlighter-rouge">0</code>을 방문하게 되었다. 랭크가 없으므로, 이전 랭크보다
+ <code class="language-plaintext highlighter-rouge">1</code> 증가한 <code class="language-plaintext highlighter-rouge">1</code>이 랭크가 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">----</span> <span class="mi">1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">---</span> <span class="mi">3</span>
+ \        <span class="o">/</span>
+  \      <span class="o">/</span>
+      <span class="mi">2</span>
+</code></pre></div></div>
+<p>다음으로 방문할 노드를 고를 때, 한 가지 원칙이 있다: <strong>부모</strong> 노드는
+ 방문하지 않는다. 즉, <code class="language-plaintext highlighter-rouge">0</code>을 방문하기 이전 부모 노드인 <code class="language-plaintext highlighter-rouge">1</code>은 방문하지
+ 않는다. 따라서 <code class="language-plaintext highlighter-rouge">0</code> 다음 방문할 노드는 <code class="language-plaintext highlighter-rouge">2</code>만 남았다. 역시 <code class="language-plaintext highlighter-rouge">1</code> 증가한
+ <code class="language-plaintext highlighter-rouge">2</code>를 랭크로 업데이트하게 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">----</span> <span class="mi">1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">---</span> <span class="mi">3</span>
+ \        <span class="o">/</span>
+  \      <span class="o">/</span>
+     <span class="mi">2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+<p>다음으로 방문할 노드는 <code class="language-plaintext highlighter-rouge">1</code>밖에 없다. 그런데 여기서 싸이클이 발생하게
+ 된다! 어떻게 아냐고? 노드 <code class="language-plaintext highlighter-rouge">1</code>에 <strong>이미 랭크가 있고</strong>, 그 랭크가 지금
+ 노드의 랭크인 <code class="language-plaintext highlighter-rouge">2</code>보다 <strong>작거나 같기</strong> 때문이다. 즉, 우리는 항상 다음
+ 노드를 방문할 때마다 랭크를 증가시키기만 했는데, 랭크가 역전되었다는
+ 것은 이미 이전에 방문한 노드라는 뜻이다.</p>
+<p>만약 그냥 싸이클이 있는지만 찾는거라면 이쯤에서 종료해도
+ 된다. 익셉션을 날리든 리턴을 해버리든 하면 만사 오케이다. 하지만
+ 여기서는 <strong>모든</strong> SCC를 찾아야 하기 때문에, 여기서 끝내면 안되고 그
+ 다음 SCC도 찾아야 한다. 어떻게 해야할까?</p>
+<p>DFS를 재귀적으로 구현하면, 다음 노드를 방문 후에 다시 돌아온다는
+ 사실을 활용할 수 있다. 싸이클을 찾게 되면 랭크가 역전하게 되고, 이
+ 역전된 랭크가 곧 싸이클 안에서의 랭크 최소값이 된다. 이 최소값을 재귀
+ 호출 완료할 때 리턴하면, 각 노드의 랭크와 이 최소 랭크를 비교해서
+ “내가 지금 싸이클에 있는가?”를 알 수 있을 것이다. 즉, 아래 그림처럼,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">----</span> <span class="mi">1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">---</span> <span class="mi">3</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+ \        <span class="o">/</span>
+<span class="mi">0</span> \      <span class="o">/</span> <span class="mi">0</span>
+     <span class="mi">2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+<p>노드 <code class="language-plaintext highlighter-rouge">1</code> 방문 -&gt; 노드 <code class="language-plaintext highlighter-rouge">0</code> 방문 -&gt; 노드 <code class="language-plaintext highlighter-rouge">2</code> 방문 -&gt; 노드 <code class="language-plaintext highlighter-rouge">0</code>을 다시
+ 방문하게 되면서 싸이클임을 알게 되고, 최소 랭크인 <code class="language-plaintext highlighter-rouge">0</code>을 리턴 -&gt; <code class="language-plaintext highlighter-rouge">2</code>의
+ 랭크인 <code class="language-plaintext highlighter-rouge">2</code>와 비교해서 더 작으므로 싸이클이고, 다시 <code class="language-plaintext highlighter-rouge">0</code>을 리턴 -&gt;
+ <code class="language-plaintext highlighter-rouge">0</code>의 랭크인 <code class="language-plaintext highlighter-rouge">1</code>보다 작으므로 싸이클이고, 다시 <code class="language-plaintext highlighter-rouge">0</code>을 리턴 -&gt; <code class="language-plaintext highlighter-rouge">1</code>의
+ 랭크인 <code class="language-plaintext highlighter-rouge">0</code>과 같으므로 싸이클이고, 다음 탐색 계속 -&gt; …</p>
+<p>이런 느낌이 된다. 이를 구현해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span> <span class="nf">critical_connections</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">connections</span><span class="p">):</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">snk</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+        <span class="n">graph</span><span class="p">[</span><span class="n">src</span><span class="p">].</span><span class="nf">add</span><span class="p">(</span><span class="n">snk</span><span class="p">)</span>
+        <span class="n">graph</span><span class="p">[</span><span class="n">snk</span><span class="p">].</span><span class="nf">add</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">edges</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="nf">min</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">snk</span><span class="p">),</span> <span class="nf">max</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">snk</span><span class="p">)))</span>
+
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ranks</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">ranks</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+
+        <span class="n">ranks</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+
+        <span class="n">min_rank</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="c1"># skip parent
+</span>            <span class="k">if</span> <span class="n">ranks</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ranks</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">rr</span> <span class="o">=</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rr</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">:</span>
+                <span class="c1"># if current rank is less than or equals to recursive rank,
+</span>                <span class="c1"># the edge (node, neighbor) must be a part of scc
+</span>                <span class="n">edges</span><span class="p">.</span><span class="nf">remove</span><span class="p">((</span><span class="nf">min</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">),</span> <span class="nf">max</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)))</span>
+
+            <span class="c1"># update min_rank
+</span>            <span class="n">min_rank</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_rank</span><span class="p">,</span> <span class="n">rr</span><span class="p">)</span>
+        <span class="c1"># if you want to group all SCC, uncomment below:
+</span>        <span class="c1"># ranks[node] = min_rank
+</span>        <span class="k">return</span> <span class="n">min_rank</span>
+
+    <span class="nf">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">edges</span>
+</code></pre></div></div>
+<ul>
+ <li>그래프를 나타내기 위해서 <code class="language-plaintext highlighter-rouge">defaultdict(set)</code>을 사용했다. OCaml로
+PS할 때에도 자주 쓰던 테크닉이다. 그래프는 Set의 Hash Table이다.
+ <li>여기서는 SCC에 속하지 않는 <em>엣지</em>를 알아야 하기 때문에, 그래프의
+모든 엣지를 <code class="language-plaintext highlighter-rouge">edges</code>에 담아둔다. <code class="language-plaintext highlighter-rouge">min</code>, <code class="language-plaintext highlighter-rouge">max</code>를 이용해서
+normalize하는 것을 잊지 말자.
+ <li>노드의 랭크를 초기화할 때 <code class="language-plaintext highlighter-rouge">[None] * n</code>으로 했다. 리스트 안에 들어간
+값이 상수라서 다행히 업데이트가 전파되진 않는다. 만약 <code class="language-plaintext highlighter-rouge">[[]] * n</code>이
+필요한 경우였다면 모든 업데이트가 공유되어 버리니 주의하자.
+ <li>DFS의 base case가 달라졌다. 원래는 <code class="language-plaintext highlighter-rouge">visited</code> 체크를 해야하지만,
+여기서는 단순히 “이미 계산한 랭크가 있나?” -&gt; “있다면 그걸
+리턴하자”가 된다.
+ <li><code class="language-plaintext highlighter-rouge">r</code>은 지금 방문하는 노드 <code class="language-plaintext highlighter-rouge">node</code>의 랭크이고, 그 다음 방문할 랭크의
+최소 랭크 후보는 <code class="language-plaintext highlighter-rouge">r+1</code>이다.
+ <li>바로 직전에 방문한 부모 노드를 확인하는 로직을 주의하자. 일단
+계산한 랭크가 있어야 되고 (<code class="language-plaintext highlighter-rouge">ranks[neighbor]</code>), 이 값이 지금
+랭크보다 1 작아야 한다(<code class="language-plaintext highlighter-rouge">ranks[neighbor] == r - 1</code>).
+ <li>부모가 아니라면, DFS 탐색을 해서 이른바 Recursive Rank를
+계산한다. 이 값이 지금 랭크보다 <strong>작거나 같으면</strong>, 지금 탐색 중인
+엣지는 싸이클에 속한다. 따라서 전체 엣지에서 삭제해준다.
+ <li>이 DFS는 최종적으로 <strong>최소 랭크</strong>를 리턴해야 하므로, <code class="language-plaintext highlighter-rouge">min_rank</code>를
+업데이트해주고 이를 리턴한다.
+</ul>
+<p>처음에는 <code class="language-plaintext highlighter-rouge">ranks</code>를 전부 <code class="language-plaintext highlighter-rouge">min_rank</code>로 업데이트 해야 하지 않나? 라고
+ 생각했는데, 여기서는 싸이클이 <strong>아닌</strong> 엣지를 구하는게 목표라서 굳이
+ 그럴 필요가 없었다. 만약 다른 문제에서, 예를 들어 모든 SCC를 구하라
+ 하는 문제가 나온다면, <code class="language-plaintext highlighter-rouge">min_rank</code>를 리턴하기 직전에 <code class="language-plaintext highlighter-rouge">ranks[node] =
+ min_rank</code>로 적절히 업데이트 해주고, <code class="language-plaintext highlighter-rouge">ranks</code> 전체를 훑으면서 같은
+ 랭크를 가진 노드끼리 그룹화하면 된다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=graph ">graph</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=cycle ">cycle</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

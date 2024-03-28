@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Find Median from Data Stream</title>
+<meta property="og:title" content="Find Median from Data Stream" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Find Median from Data Stream">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Find Median from Data Stream"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/find-median-from-data-stream.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/find-median-from-data-stream/">Find Median from Data Stream</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="find-median-from-data-stream"><a href="https://leetcode.com/problems/find-median-from-data-stream/">Find Median from Data Stream</a></h1>
+<p>배열에서 <strong>중앙값(median)</strong>이란 정렬된 배열의 중간에 위치한
+ 값이다. 배열 사이즈가 홀수면 정중앙의 값이고, 짝수이면 중간의 두 값의
+ 평균값이다.</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">[2,3,4]</code>의 중앙값은 <code class="language-plaintext highlighter-rouge">3</code>
+ <li><code class="language-plaintext highlighter-rouge">[2,3]</code>의 중앙값은 <code class="language-plaintext highlighter-rouge">(2+3)/2 = 2.5</code>
+</ul>
+<p>데이터가 스트림처럼 계속 들어오는 상황에서 중앙값을 찾는 쿼리를
+ 처리해주는 <code class="language-plaintext highlighter-rouge">MedianFinder</code> 클래스를 구현하자.</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">MedianFinder()</code> 생성자는 오브젝트를 초기화한다.
+ <li><code class="language-plaintext highlighter-rouge">void addNum(int num)</code>은 정수 <code class="language-plaintext highlighter-rouge">num</code>을 데이터 스트림에 추가한다.
+ <li><code class="language-plaintext highlighter-rouge">double findMedian()</code>은 지금까지 추가된 스트림에서 중앙값을
+계산한다. 오차 범위 \(10^{-5}\) 까지는 허용된다.
+</ul>
+<p><code class="language-plaintext highlighter-rouge">num</code>의 값은 -100,000~100,000 사이이고, <code class="language-plaintext highlighter-rouge">findMedian()</code> 함수가 불리기
+ 전에 최소 한번의 <code class="language-plaintext highlighter-rouge">addNum</code> 함수가 호출됨이 보장된다. 최대 \(5 \times
+ 10^4\) 만큼의 함수 호출이 이뤄진다.</p>
+<h2 id="정렬">정렬</h2>
+<p>가장 먼저 떠오르는 방법은 AVL트리나 레드블랙트리 같은 BST에 데이터
+ 스트림을 계속 보관하고 중앙값 쿼리가 올 때마다 이 트리로부터 중간
+ 위치의 원소를 가져오는 방법이다. 하지만, 아쉽게도 파이썬의 표준
+ 라이브러리에는 이런 Self-Adjusting 트리가 없다.</p>
+<p>그럼 다음으로 생각할 수 있는 방법은, 그냥 무작정 배열에 넣다가 중앙값
+ 쿼리 요청이 올 때마다 매번 정렬하는 것이다. 파이썬의 정렬은 <a href="https://d2.naver.com/helloworld/0315536">팀
+ 정렬</a>로 구현되어 있는데,
+ 삽입 정렬과 병합 정렬을 합친 하이브리드 정렬이다. 실제로는 <a href="https://github.com/python/cpython/blob/976dec9b3b35fddbaa893c99297e0c54731451b5/Objects/listsort.txt">더 복잡한
+ 구현</a>이
+ 되어있지만, 아무튼 리얼 월드 데이터를 정렬하는데 엄청나기 최적화되어
+ 있어서, 이렇게 매번 정렬하면 이론적인 복잡도는 O(KNlogN) (K는 함수
+ 호출 횟수)이겠지만 생각보다는 괜찮을지도 모른다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MedianFinder</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">addNum</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">findMedian</span><span class="p">():</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nf">return </span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+<p>실제로 매우 느리긴 하지만 통과하긴 한다.</p>
+<h2 id="힙">힙</h2>
+<p>그러면 더 최적화된 방법은 뭘까? 정확히는 어떤 데이터 구조를 쓰면 이걸
+ 최적화할 수 있을까? 한 가지 방법은 들어오는 데이터 스트림, 즉 정수의
+ 배열을 두 묶음으로 나눠 생각하는 것이다. 우리는 정렬된 배열의 중간
+ 원소에만 관심이 있다. 그러면 이 중간 원소를 기준으로 왼쪽 절반과
+ 오른쪽 절반을 따로 관리하면 어떨까? 구체적으로는, 힙을 이용해서, 왼쪽
+ 절반은 죄다 최대힙에 넣고, 오른쪽 절반은 최소힙에다 넣으면, 양쪽 힙의
+ Top에 있는 값을 이용해서 중앙값을 구할 수 있을 것 같다.</p>
+<p>이 아이디어를 좀더 구체화해서, 정확한 Invariant를 이끌어내보자.</p>
+<ol>
+ <li>최소힙의 크기는 최대힙과 같거나, 정확히 하나 더 크다. (반대여도
+상관없다)
+ <li>최대힙의 최대원소는 최소힙의 최소원소보다 작거나 같다. 즉, Top의
+원소끼리 순서가 보장된다.
+</ol>
+<p>이렇게 하면 (정렬된) 배열의 중간값은 이 두 힙으로부터 구할 수
+ 있다. 만약 배열의 크기가 홀수라면 최소힙에(최대힙을 더 크게한 경우는
+ 최대힙에), 짝수라면 최소힙과 최대힙의 Top원소의 평균값을 구하면
+ 된다. O(logN)의 복잡도가 든다.</p>
+<p>추가하는 작업은 조금 까다롭다. 두 Invariant를 유지하도록 해야하기
+ 때문이다. 단순하게 하려면 먼저 둘 중 한 곳에 원소를 추가하고 1을
+ 확인한 후에 2를 확인하면 된다. 만약 2가 깨졌다면, 두 힙의 Top 값을
+ 서로 뒤바꿔준다. 숫자를 하나씩 힙에 추가하기 때문에, 한 번만 숫자를
+ 바꿔도 2의 Invariant가 유지된다. 이 역시 O(logN)의 복잡도가 드므로,
+ 총 함수 횟수에 대해서 O(KlogN)의 복잡도가 든다. 정렬 방법과 비교해
+ N이 빠진 만큼 아주 빠를 것으로 기대한다.</p>
+<p>이 아이디어를 구현해보자. 파이썬의 <code class="language-plaintext highlighter-rouge">heapq</code> 라이브러리는 기본적으로는
+ 배열을 기준으로 동작하며, 최소힙만을 구현하기 때문에 최대힙의 경우
+ 부호를 뒤집어서 키 값으로 주면 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">heapq</span>
+<span class="k">class</span> <span class="nc">MedianFinder</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">addNum</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="c1"># invariant 1
+</span>        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">)</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">):</span>
+            <span class="n">heapq</span><span class="p">.</span><span class="nf">heappush</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">num</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">heapq</span><span class="p">.</span><span class="nf">heappush</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>
+
+        <span class="c1"># invariant 2
+</span>        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">left</span> <span class="ow">and</span> <span class="n">self</span><span class="p">.</span><span class="n">right</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">topl</span><span class="p">,</span> <span class="n">topr</span> <span class="o">=</span> <span class="n">heapq</span><span class="p">.</span><span class="nf">heappop</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">),</span> <span class="n">heapq</span><span class="p">.</span><span class="nf">heappop</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+            <span class="n">heapq</span><span class="p">.</span><span class="nf">heappush</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">topr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">topr</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">heapq</span><span class="p">.</span><span class="nf">heappush</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">topl</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">topl</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">def</span> <span class="nf">findMedian</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">)</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">):</span>
+            <span class="nf">return </span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">right</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">left</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">left</code>는 최대힙, <code class="language-plaintext highlighter-rouge">right</code>는 최소힙이다. <code class="language-plaintext highlighter-rouge">heapq</code>는 기본적으로
+최소힙이므로 <code class="language-plaintext highlighter-rouge">left</code>에 값을 넣을 때 키 값으로 <code class="language-plaintext highlighter-rouge">-num</code>을 줬다. 힙에
+들어가는 데이터의 타입을 맞추기 위해서 <code class="language-plaintext highlighter-rouge">right</code>에도 튜플을 추가한다.
+ <li>한 가지 주의할 점은 Invariant 2를 확인할 때 최대힙과 최소힙이
+비어있는지를 같이 확인해야 한다는 점이다. 문제의 조건에
+<code class="language-plaintext highlighter-rouge">findMedian</code>이 호출되기 전에 최소 1번의 <code class="language-plaintext highlighter-rouge">addNum</code>이 호출된다고
+나와있기 때문에 둘 중 하나는 비어있을 수도 있다.
+ <li>왼쪽 절반을 하나 더 크게 유지하고 있기 때문에 배열이 홀수인 경우는
+왼쪽의 Top이 중앙값이다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=heap ">heap</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

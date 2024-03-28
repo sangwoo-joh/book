@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Palindrome</title>
+<meta property="og:title" content="Palindrome" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Palindrome">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Palindrome"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/theory/palindrome.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/theory/">Theory</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/theory/palindrome/">Palindrome</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="팰린드롬">팰린드롬</h1>
+<p>팰린드롬이란 어떤 시퀀스가 앞으로 가나 뒤로 가나 똑같은 시퀀스를 것을
+ 말한다. 예를 들면 <code class="language-plaintext highlighter-rouge">토마토</code> 라던가 <code class="language-plaintext highlighter-rouge">racecar</code> 같은 거다. 어떤 문자열이
+ 팰린드롬인지 아닌지는 이 성질을 이용해서 <code class="language-plaintext highlighter-rouge">text == text[::-1]</code>로
+ 확인할 수 있다.</p>
+<p>그럼 어떤 문자열에서 <strong>가장 긴 팰린드롬</strong>을 찾으려면 어떻게 할 수
+ 있을까? 브루트 포스로는 해당 문자열의 모든 길이의 <a href="/python/short-tips#어떤-문자열의-길이-k인-모든-부분-문자열-생성하기">부분 문자열을
+ 생성</a>한
+ 다음, 위의 성질을 이용해서 일일이 다 체크하면 된다. 이러면 복잡도가
+ 터지겠지만. 따라서 조금 더 똑똑한 방법은 다음 성질을 이용한다.</p>
+<p>일단 문자열을 뒤집는 연산은 시간과 공간 복잡도 모두 <code class="language-plaintext highlighter-rouge">O(n)</code>이 걸리므로
+ 이걸 하면 안된다. 팰린드롬인지 아닌지를 확인하는 좀더 빠른 방법은
+ 다음과 같다: 어떤 인덱스를 기준으로, <strong>앞 뒤로 동시에 포인터</strong>를
+ 이동하는데, 이때 두 포인터 위치의 원소가 같을 때에만 이동한다. 즉,
+ 팰린드롬의 <strong>중심</strong>이 될 것 같은 인덱스부터 앞 뒤를 동시에 보면서
+ 팰린드롬 여부를 확인하는 것이다. 이때 중요한 것은 팰린드롬의 길이가
+ <strong>짝수</strong>인 경우도 고려해줘야 하기 때문에, 중심 인덱스 하나를 받는
+ 것이 아니라 앞 뒤 인덱스를 다 받되 <code class="language-plaintext highlighter-rouge">(i, i)</code>와 <code class="language-plaintext highlighter-rouge">(i, i+1)</code>을 넘겨줘야
+ 한다. 즉, <code class="language-plaintext highlighter-rouge">aba</code>와 <code class="language-plaintext highlighter-rouge">abba</code>를 모두 고려해야 한다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">max_length_from_center</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">forward</span><span class="p">,</span> <span class="n">backward</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">string</span> <span class="ow">or</span> <span class="n">backward</span> <span class="o">&lt;</span> <span class="n">forward</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">num_of_palindrome</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 모든 팰린드롬 개수를 세고 싶을 때는 여기서 셀 수 있다.
+</span>    <span class="k">while</span> <span class="n">forward</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">backward</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="ow">and</span> <span class="n">string</span><span class="p">[</span><span class="n">forward</span><span class="p">]</span> <span class="o">==</span> <span class="n">string</span><span class="p">[</span><span class="n">backward</span><span class="p">]:</span>
+        <span class="n">forward</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">backward</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">num_of_palindrome</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="nf">return </span><span class="p">(</span><span class="n">backward</span> <span class="o">-</span> <span class="n">forward</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># or, return num_of_palindrome for the number of palindromes found
+</span></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">forward</code>는 문자열의 앞쪽, 즉 <code class="language-plaintext highlighter-rouge">0</code>번 인덱스를 향해 감소하는
+ 인덱스이고, <code class="language-plaintext highlighter-rouge">backward</code>는 문자열의 끝쪽, 즉 <code class="language-plaintext highlighter-rouge">len(string)</code>을 향해
+ 증가하는 인덱스이다.</p>
+<p><code class="language-plaintext highlighter-rouge">while</code> 루프는 유효한 팰린드롬의 조건을 만족하는 동안 계속
+ 돈다. 따라서, 해당 루프를 빠져나온 순간의 <code class="language-plaintext highlighter-rouge">forward</code>와 <code class="language-plaintext highlighter-rouge">backward</code> 값은
+ 가장 긴 팰린드롬의 시작과 끝 인덱스가 <strong>아니라</strong>, <code class="language-plaintext highlighter-rouge">(시작 - 1)</code>과
+ <code class="language-plaintext highlighter-rouge">(끝 + 1)</code> 인덱스임에 주의하자. 따라서 가장 긴 팰린드롬의 길이를
+ 구하려면, <code class="language-plaintext highlighter-rouge">(끝 + 1) - (시작 - 1) = 끝 - 시작 + 2</code>가 되므로 여기서 1을
+ 빼주면 길이가 된다. 따라서 <code class="language-plaintext highlighter-rouge">backward - forward - 1</code>이 우리가 원하는
+ 길이이다.</p>
+<p>이렇게 만든 함수를 이용하면 다음과 같이 짝수/홀수 길이의 팰린드롬을
+ 모두 고려해서 어떤 문자열의 부분 문자열 중 가장 긴 팰린드롬을 구할 수
+ 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">string</span> <span class="ow">or</span> <span class="nf">len</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sh">''</span>
+
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">string</span><span class="p">)):</span>
+        <span class="n">cand</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="nf">max_length_from_center</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                   <span class="nf">max_length_from_center</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">cand</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">cand</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">cand</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">string</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">start</code>와 <code class="language-plaintext highlighter-rouge">end</code>는 모두 인덱스이다. 현재 인덱스 <code class="language-plaintext highlighter-rouge">i</code>를 중심으로
+ 하는 가장 긴 팰린드롬의 길이를 찾고나면, 이 길이로부터 팰린드롬의
+ 시작과 끝 인덱스를 위와 같이 구할 수 있다. 예를 들어 길이가 홀수인
+ 5라면 시작 인덱스는 <code class="language-plaintext highlighter-rouge">i - 2</code>, 끝 인덱스는 <code class="language-plaintext highlighter-rouge">i + 2</code>가 되는 것이고,
+ 길이가 짝수인 6이라면 <code class="language-plaintext highlighter-rouge">(i-2, i+3)</code>이 된다. 즉, 현재 인덱스 <code class="language-plaintext highlighter-rouge">i</code>로 부터
+ 가장 긴 팰린드롬을 구할 때 앞 뒤 포인터를 <code class="language-plaintext highlighter-rouge">(i, i+1)</code>로 설정했기
+ 때문에, 길이를 구하고 나면 시작 인덱스에서 빼줄 때에 <code class="language-plaintext highlighter-rouge">(길이 - 1) //
+ 2</code> 만큼을 빼서 인덱스를 구하는 것이다.</p>
+<p>근데 이렇게하면 사실 복잡도는 꽤 비싸다. 팰린드롬의 최대 길이가
+ 문자열 길이만큼일 수 있기 때문에, 실제 복잡도는 <code class="language-plaintext highlighter-rouge">O(n^2)</code>이
+ 된다. 앞에서 구한 팰린드롬 정보를 활용해서 동적 프로그래밍으로 이를
+ 구하는 <a href="https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm">Manacher의
+ 알고리즘</a>을
+ 이용하면 <code class="language-plaintext highlighter-rouge">O(n)</code> 복잡도를 달성할 수 있지만 아직 이건 이해하지 못했다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=theory ">theory</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=string ">string</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=palindrome ">palindrome</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 11:50:09 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

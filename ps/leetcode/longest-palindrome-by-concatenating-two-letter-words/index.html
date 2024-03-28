@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Longest Palindrome by Concatenating Two Letter Words</title>
+<meta property="og:title" content="Longest Palindrome by Concatenating Two Letter Words" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Longest Palindrome by Concatenating Two Letter Words">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Longest Palindrome by Concatenating Two Letter Words"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/longest-palindrome-by-concatenating-two-letter-words.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/longest-palindrome-by-concatenating-two-letter-words/">Longest Palindrome by Concatenating Two Letter Words</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="longest-palindrome-by-concatenating-two-letter-words"><a href="https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/">Longest Palindrome by Concatenating Two Letter Words</a></h1>
+<p><strong>두 글자</strong>로 이뤄진 단어 목록 <code class="language-plaintext highlighter-rouge">words</code>가 주어진다.</p>
+<p>이 단어 목록에서 단어를 골라서 이어붙였을 때 만들 수 있는 <strong>가장 긴
+ 팰린드롬</strong>의 길이를 구하자. 각각의 단어는 <strong>최대 한번</strong> 사용될 수
+ 있다.</p>
+<ul>
+ <li>단어 목록의 크기는 1~100,000
+ <li>각 단어는 항상 두 글자임이 보장되고 소문자 알파벳만 포함한다.
+</ul>
+<h2 id="정직한-접근">정직한 접근</h2>
+<ul>
+ <li>두 종류의 단어가 중요하다.
+   <ul>
+     <li>같은 글자로만 이뤄진 단어: <code class="language-plaintext highlighter-rouge">aa</code>, <code class="language-plaintext highlighter-rouge">bb</code>와 같은 것들. 얘네는
+팰린드롬의 중간에도 올 수 있고, 짝수 개인 경우 양 옆에도 붙일 수
+있다.
+     <li>단어와 거꾸로된 단어의 쌍: <code class="language-plaintext highlighter-rouge">(lr, rl)</code>과 같은 쌍들. 얘네는 양 끝에
+하나씩 이어붙여서 팰린드롬을 만들 수 있다. 길이만 구하면 되므로
+순서는 상관없다.
+   </ul>
+ <li>일단 두 종류의 단어 개수를 따로 센다. 각각 <code class="language-plaintext highlighter-rouge">same</code>, <code class="language-plaintext highlighter-rouge">pair</code>라고 하자.
+ <li><code class="language-plaintext highlighter-rouge">same</code>의 개수 중 홀수인 친구는 그 중 하나를 빼서 팰린드롬의
+중간으로 쓸 수 있다.
+ <li>나머지 <code class="language-plaintext highlighter-rouge">same</code>은 짝수 개 만큼만 써서 팰린드롬을 만들 수 있다.
+ <li><code class="language-plaintext highlighter-rouge">pair</code>는 만드는 방법에 따라 만약 <code class="language-plaintext highlighter-rouge">lr</code>과 <code class="language-plaintext highlighter-rouge">rl</code>이 둘 다 들어있다면,
+그리고 짝이 맞을 때에만 갯수를 세었다면, 그냥 <code class="language-plaintext highlighter-rouge">pair</code>의 개수 곱하기
+글자 수(= 2) 만큼 더하면 된다.
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">longestPalindrome</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="n">word_counts</span> <span class="o">=</span> <span class="nc">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="n">same</span><span class="p">,</span> <span class="n">pair</span> <span class="o">=</span> <span class="nc">Counter</span><span class="p">(),</span> <span class="nc">Counter</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">rev</span> <span class="o">=</span> <span class="n">word</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">same</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">word_counts</span><span class="p">[</span><span class="n">rev</span><span class="p">]</span> <span class="ow">and</span> <span class="n">word_counts</span><span class="p">[</span><span class="n">word</span><span class="p">]:</span>
+            <span class="n">pair</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">pair</span><span class="p">[</span><span class="n">rev</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">word_counts</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">word_counts</span><span class="p">[</span><span class="n">rev</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">same</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">same</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="n">same</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">break</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">same</span><span class="p">:</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="n">same</span><span class="p">[</span><span class="n">word</span><span class="p">]</span>
+        <span class="n">answer</span> <span class="o">+=</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">cnt</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="nf">else </span><span class="p">(</span><span class="n">cnt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">:</span>
+        <span class="n">answer</span> <span class="o">+=</span> <span class="n">pair</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+<h2 id="좀더-나은-접근">좀더 나은 접근</h2>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">Counter</code>로 단어 개수를 세었기 때문에 직접 이 갯수를 훑는게 더
+효율적이다. <code class="language-plaintext highlighter-rouge">words</code>보다 크기가 작을 것이기 때문이다.
+ <li>단지 중간에 올 수 있는 단어가 있는지만을 확인하기 위해서 루프를
+돌리기 보다는 한 번에 할 수 있으면 좋겠다. 따라서, 홀수인 경우에는
+플래그를 하나 세워두면서 값을 하나 깐 다음, 마지막에 플래그를
+확인하고 더할 수 있다.
+ <li>단어 목록이든 <code class="language-plaintext highlighter-rouge">Counter</code>든, 항상 같은 순서로 단어를 확인하도록
+강제할 수 있다. 예를 들어, 단어는 항상 두 글자이므로 <code class="language-plaintext highlighter-rouge">word[0] &lt;
+word[1]</code> (또는 <code class="language-plaintext highlighter-rouge">word[0] &gt; word[1]</code>) 인 경우에만 팰린드롬인 경우를
+확인한다고 하자. 그러면 자연스럽게 앞의 <code class="language-plaintext highlighter-rouge">pair</code> 경우를 한 번만
+확인해도 된다.
+ <li>순서가 강제되어서 <code class="language-plaintext highlighter-rouge">pair</code>를 확인할 때에는, <code class="language-plaintext highlighter-rouge">pair</code>를 이루는 두 단어의
+개수 중 <strong>더 적은 쪽</strong>의 개수가 팰린드롬의 크기를 결정한다.
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">longestPalindrome</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="n">word_counts</span> <span class="o">=</span> <span class="nc">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">has_center</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">word_counts</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">answer</span> <span class="o">+=</span> <span class="p">((</span><span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">count</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">has_center</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">pair</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">answer</span> <span class="o">+=</span> <span class="mi">4</span> <span class="o">*</span> <span class="nf">min</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">word_counts</span><span class="p">[</span><span class="n">pair</span><span class="p">])</span>
+    <span class="nf">return </span><span class="p">(</span><span class="n">answer</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">has_center</span> <span class="k">else</span> <span class="n">answer</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=string ">string</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

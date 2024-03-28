@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Python Tips</title>
+<meta property="og:title" content="Python Tips" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Python Tips">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python Tips"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/python-tips.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/python-tips/">Python Tips</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="sum"><code class="language-plaintext highlighter-rouge">sum</code></h1>
+<p><code class="language-plaintext highlighter-rouge">sum(iterable, /, start=0)</code> 타입인데, <code class="language-plaintext highlighter-rouge">start</code>에 <code class="language-plaintext highlighter-rouge">iterable</code>의 아이템을 하나씩
+ 더해서 리턴하는 함수이다.</p>
+<p>그래서 <code class="language-plaintext highlighter-rouge">start</code>에 뭘 넘겨주느냐에 따라서 다양한 <code class="language-plaintext highlighter-rouge">+</code> 연산을 활용할 수 있다.</p>
+<p>예를 들면 이중 리스트를 평평하게 할 때 (flatten 연산) 리스트 컴프리헨션으로
+ 헷갈리게 하는 것보다는 다음과 같이 할 수 있다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="nf">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="p">[])</span>  <span class="c1"># yields [1,2,3,4,4,5]
+</span></code></pre></div></div>
+<p>이게 되는 이유는 <code class="language-plaintext highlighter-rouge">start</code>, 즉 accumulator로 쓸 초기값이 빈 리스트이기 때문에
+ 이후 <code class="language-plaintext highlighter-rouge">iterable</code>의 각 원소마다 적용하는 <code class="language-plaintext highlighter-rouge">+</code> 연산이 리스트의 concatenation 으로
+ 해석되기 때문이다.</p>
+<p>하지만 공식 문서에서는 다음과 같이</p>
+<blockquote>
+ <p>For some uses cases, there are good alternatives to <code class="language-plaintext highlighter-rouge">sum()</code>…. To concatenate
+a series of iterables, consider using <code class="language-plaintext highlighter-rouge">itertools.chain()</code>.</p>
+</blockquote>
+<p>즉 <code class="language-plaintext highlighter-rouge">iterable</code>의 시리즈를 합칠거면 <code class="language-plaintext highlighter-rouge">sum()</code> 쓰지 말고 <code class="language-plaintext highlighter-rouge">itertools.chain()</code>을
+ 쓰는 것을 추천하고 있다.</p>
+<h1 id="itertoolschain"><code class="language-plaintext highlighter-rouge">itertools.chain</code></h1>
+<p>별 거 없고 아래 코드와 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">chain</span><span class="p">(</span><span class="o">*</span><span class="n">iterables</span><span class="p">):</span>
+    <span class="c1"># chain('abc', 'def') --&gt; a b c d e f
+</span>    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">iterables</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">elt</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">elt</span>
+</code></pre></div></div>
+<h1 id="map-filter"><code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">filter</code></h1>
+<p>적용할 함수가 먼저 온다. 어떻게 생각하면 되냐면 <code class="language-plaintext highlighter-rouge">map(f, x) --&gt; f(x)</code>
+ 라고 생각하면 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+<span class="nf">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+</code></pre></div></div>
+<h1 id="pow"><code class="language-plaintext highlighter-rouge">pow</code></h1>
+<p>세 번째 파라미터 <code class="language-plaintext highlighter-rouge">mod</code>를 넘겨주는게 직접 계산하는 것보다 효율적임.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">pow</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span> <span class="o">==</span> <span class="nf">pow</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="o">%</span> <span class="n">mod</span>
+</code></pre></div></div>
+<h1 id="sorted-sort"><code class="language-plaintext highlighter-rouge">sorted</code>, <code class="language-plaintext highlighter-rouge">.sort()</code></h1>
+<p><code class="language-plaintext highlighter-rouge">sorted</code>는 새로운 시퀀스를 만들어서 정렬하고, <code class="language-plaintext highlighter-rouge">sort</code>는 제자리
+ 정렬이다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+<span class="n">seq</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+</code></pre></div></div>
+<p>둘 다 정렬 비교에 쓰일 <code class="language-plaintext highlighter-rouge">key</code> 함수를 named parameter로 넘겨줄 수 있다.</p>
+<h1 id="all-any"><code class="language-plaintext highlighter-rouge">all</code>, <code class="language-plaintext highlighter-rouge">any</code></h1>
+<p>모든 시퀀스 안의 원소를 <strong>전부 다</strong> 평가한 다음, \(\forall\) 또는
+ \(\exists\) 를 계산한다. 문제는 모든 원소를 전부 다 평가하기 때문에
+ Short-Circuit 최적화의 혜택을 받지 못해서 <code class="language-plaintext highlighter-rouge">any</code>는 대부분의 경우 훨씬
+ 느리다. <code class="language-plaintext highlighter-rouge">all</code>이 필요한게 아니거나 모든 원소가 평가될 게 아니라면
+ <code class="language-plaintext highlighter-rouge">any</code>는 되도록 쓰지말자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">all</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">])</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="nf">all</span><span class="p">([])</span> <span class="o">==</span> <span class="bp">True</span>
+
+<span class="nf">any</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="nf">any</span><span class="p">([])</span> <span class="o">==</span> <span class="bp">False</span>
+</code></pre></div></div>
+<h1 id="string">String</h1>
+<p>별의 별 희한한 것까지 다 표준 라이브러리 함수로 들어있어서 구현하긴 편하다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">str</span><span class="p">.</span><span class="nf">isalpha</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">isdecimal</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">isdigit</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">isalnum</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">isnumeric</span><span class="p">()</span>
+<span class="nb">str</span><span class="p">.</span><span class="nf">islower</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">isupper</span><span class="p">()</span>
+<span class="nb">str</span><span class="p">.</span><span class="nf">lower</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">swapcase</span><span class="p">()</span>
+<span class="nb">str</span><span class="p">.</span><span class="nf">lstrip</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">rstrip</span><span class="p">(),</span> <span class="nb">str</span><span class="p">.</span><span class="nf">strip</span><span class="p">()</span>
+<span class="sh">"</span><span class="s">abc d asdf</span><span class="sh">"</span><span class="p">.</span><span class="nf">partition</span><span class="p">(</span><span class="sh">'</span><span class="s">d</span><span class="sh">'</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="sh">"</span><span class="s">abc </span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">q</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s"> asdf</span><span class="sh">"</span><span class="p">)</span>
+<span class="nb">str</span><span class="p">.</span><span class="nf">count</span><span class="p">(</span><span class="n">substring</span><span class="p">)</span>
+<span class="nb">str</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">substring</span><span class="p">)</span>
+</code></pre></div></div>
+<h1 id="collections">collections</h1>
+<h2 id="defaultdict">defaultdict</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="n">dl</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="n">dl</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># not exception!
+</span><span class="nf">print</span><span class="p">(</span><span class="n">dl</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># also not exception! shows []
+</span>
+<span class="n">di</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">di</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># not exception!
+</span><span class="nf">print</span><span class="p">(</span><span class="n">di</span><span class="p">[</span><span class="mi">100</span><span class="p">])</span>  <span class="c1"># also not exception! shows 0
+</span></code></pre></div></div>
+<h2 id="counter">Counter</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sh">"</span><span class="s">aabbcacaa</span><span class="sh">"</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nc">Counter</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># Counter({'a':5, 'b':2, 'c':2})
+</span><span class="n">c</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># get count of the element, None if not exists -&gt; 5
+</span><span class="n">c</span><span class="p">.</span><span class="nf">elements</span><span class="p">()</span>  <span class="c1"># ['a', ..., 'b', .. 'c']
+</span><span class="n">c</span><span class="p">.</span><span class="nf">keys</span><span class="p">()</span>  <span class="c1"># ['a', 'b', 'c']
+</span><span class="n">c</span><span class="p">.</span><span class="nf">values</span><span class="p">()</span>  <span class="c1"># [5, 2, 2]
+</span><span class="n">c</span><span class="p">.</span><span class="nf">items</span><span class="p">()</span>  <span class="c1"># [('a', 5), ('b', 2), ('c', 2)]
+</span><span class="n">c</span><span class="p">.</span><span class="nf">most_common</span><span class="p">()</span>  <span class="c1"># return a list of n most common elements and their counts
+</span><span class="n">c</span><span class="p">.</span><span class="nf">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># top most common elements as list, so [('a', 5)]
+</span></code></pre></div></div>
+<h2 id="deque">Deque</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="n">dq</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+<span class="n">dq</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">dq</span><span class="p">.</span><span class="nf">appendleft</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">dq</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+<span class="n">dq</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+<span class="n">dq</span><span class="p">.</span><span class="nf">reverse</span><span class="p">()</span>  <span class="c1"># in-place reverse
+</span><span class="n">dq</span><span class="p">.</span><span class="nf">rotate</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">dq</span><span class="p">.</span><span class="nf">appendleft</span><span class="p">(</span><span class="n">dq</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+<span class="n">dq</span><span class="p">.</span><span class="nf">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+<h2 id="ordereddict">OrderedDict</h2>
+<ul>
+ <li>순서를 유지하는 딕셔너리인데, 키 값의 오더링이 아니라 <strong>아이템이 추가된
+순서</strong>를 보장한다.
+ <li>거의 모든 메소드는 딕셔너리와 같고 다음 두 가지 연산이 추가적으로 제공된다.
+   <ul>
+     <li><code class="language-plaintext highlighter-rouge">popitem(last=True)</code>: <code class="language-plaintext highlighter-rouge">last</code> 불리언 값에 따라서 가장 마지막에 추가된 아이템
+또는 가장 처음에 추가된 아이템을 제거한다.
+     <li><code class="language-plaintext highlighter-rouge">move_to_end(key, last=True)</code>: <code class="language-plaintext highlighter-rouge">key</code>에 해당하는 맵핑의 순서를 <code class="language-plaintext highlighter-rouge">last</code> 불리언
+값에 따라 가장 마지막 또는 가장 처음으로 옮긴다.
+   </ul>
+</ul>
+<p>이런 성질을 이용하면 <code class="language-plaintext highlighter-rouge">OrderedDict</code>는 LRU 또는 LFU 캐시를 만드는데 쓰일 수 있다.</p>
+<h1 id="heapq">Heapq</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">heapq</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span> <span class="p">....</span> <span class="n">some</span> <span class="nb">list</span><span class="p">]</span>
+<span class="n">heapq</span><span class="p">.</span><span class="nf">heapify</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>  <span class="c1"># make l as heap in-place
+</span><span class="n">heapq</span><span class="p">.</span><span class="nf">heappush</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="n">heapq</span><span class="p">.</span><span class="nf">heappop</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="n">heapq</span><span class="p">.</span><span class="nf">nlargest</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="o">==</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span>
+<span class="n">heapq</span><span class="p">.</span><span class="nf">nsmallest</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="o">==</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span>
+</code></pre></div></div>
+<h1 id="random">Random</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">random</span>
+
+<span class="n">random</span><span class="p">.</span><span class="nf">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">...])</span>  <span class="c1"># pick random item
+</span><span class="n">random</span><span class="p">.</span><span class="nf">shuffle</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>  <span class="c1"># shuffle l in-place
+</span><span class="n">random</span><span class="p">.</span><span class="nf">uniform</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># pick random **float x** in a &lt;= x &lt;= b
+</span></code></pre></div></div>
+<h1 id="bisect">Bisect</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">bisect</span>
+
+<span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_left</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_right</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">bisect</span><span class="p">.</span><span class="nf">bisect</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+<hr />
+<h1 id="어떤-문자열의-길이-k인-모든-부분-문자열-생성하기">어떤 문자열의 길이 <code class="language-plaintext highlighter-rouge">k</code>인 모든 부분 문자열 생성하기</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">all_substrings</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nf">set</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+<ul>
+ <li>파이썬의 슬라이스를 이용해서 특정 인덱스 <code class="language-plaintext highlighter-rouge">i</code>부터 길이 <code class="language-plaintext highlighter-rouge">k</code> 만큼의
+부분 문자열을 <code class="language-plaintext highlighter-rouge">str[i:i + k]</code>로 표현할 수 있다. 인터벌 <code class="language-plaintext highlighter-rouge">[i, i+k)</code>를
+의미하므로 <code class="language-plaintext highlighter-rouge">i+k</code> 인덱스는 포함하지 않는다.
+ <li>시작 인덱스 범위를 계산하기 위해서 <code class="language-plaintext highlighter-rouge">range</code>를 이용하는데 이때
+<code class="language-plaintext highlighter-rouge">range(start, end)</code> 역시 <code class="language-plaintext highlighter-rouge">[start, end)</code> 인터벌을 의미하기 때문에
+<code class="language-plaintext highlighter-rouge">end</code>를 포함하지 않는다. 따라서 <code class="language-plaintext highlighter-rouge">end</code>를 <code class="language-plaintext highlighter-rouge">len(text)-k+1</code>로 해야
+<code class="language-plaintext highlighter-rouge">len(text) - k</code> 까지의 인덱스를 생성해내고, 따라서 <code class="language-plaintext highlighter-rouge">str[i:i+k]</code>에서
+<code class="language-plaintext highlighter-rouge">str[len(text)-k:len(text)-k+k]</code>가 되고 슬라이스의 <code class="language-plaintext highlighter-rouge">end</code>가
+<code class="language-plaintext highlighter-rouge">len(text)</code>가 되어 오버플로우가 나지 않는다.
+ <li>이렇게 생성한 부분 문자열 시퀀스를 다시 집합으로 감싸서 중복을
+제거한다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=tips ">tips</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-02-11 11:31:17 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

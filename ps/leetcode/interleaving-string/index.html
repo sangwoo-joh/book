@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Interleaving String</title>
+<meta property="og:title" content="Interleaving String" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Interleaving String">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Interleaving String"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/interleaving-string.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/interleaving-string/">Interleaving String</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="interleaving-string"><a href="https://leetcode.com/problems/interleaving-string/">Interleaving String</a></h1>
+<p>문자열 세 개 <code class="language-plaintext highlighter-rouge">s1</code>, <code class="language-plaintext highlighter-rouge">s2</code>, <code class="language-plaintext highlighter-rouge">s3</code>가 주어진다. 이때, <code class="language-plaintext highlighter-rouge">s1</code>과 <code class="language-plaintext highlighter-rouge">s2</code>의 글자를
+ <strong>서로 사이에 끼워서(interleaving)</strong> <code class="language-plaintext highlighter-rouge">s3</code>를 만들 수 있는지 없는지
+ 판별하자.</p>
+<p>두 문자열 <code class="language-plaintext highlighter-rouge">s</code>와 <code class="language-plaintext highlighter-rouge">t</code>를 <strong>서로 사이에 끼우는</strong> 연산은 다음 조건을
+ 만족하는 <strong>비지 않은</strong> 부분 문자열로 나눠지는 것을 의미한다:</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">s = s1 + s2 + ... + sn</code>
+ <li><code class="language-plaintext highlighter-rouge">t = t1 + t2 + ... + tm</code>
+ <li><code class="language-plaintext highlighter-rouge">| n - m | &lt;= 1</code>
+ <li><strong>서로 사이에 끼운</strong> 문자열은 <code class="language-plaintext highlighter-rouge">s1 + t1 + s2 + t2 + ...</code> 이거나
+<code class="language-plaintext highlighter-rouge">t1 + s1 + t2 + s2 + ...</code> 이다.
+</ul>
+<p>참고로 <code class="language-plaintext highlighter-rouge">a + b</code>는 문자열 <code class="language-plaintext highlighter-rouge">a</code>와 <code class="language-plaintext highlighter-rouge">b</code>를 잇는 것이다.</p>
+<p><code class="language-plaintext highlighter-rouge">s1</code>과 <code class="language-plaintext highlighter-rouge">s2</code>의 길이는 0 ~ 100 사이이고 <code class="language-plaintext highlighter-rouge">s3</code>는 0 ~ 200 사이이다. 모두
+ 알파벳 소문자만 담고 있다.</p>
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">s1 = aabcc</code>, <code class="language-plaintext highlighter-rouge">s2 = dbbca</code>, <code class="language-plaintext highlighter-rouge">s3 = aadbbcbcac</code>라고
+ 하자. 이때, <code class="language-plaintext highlighter-rouge">s1</code>을 <code class="language-plaintext highlighter-rouge">aa</code>, <code class="language-plaintext highlighter-rouge">bc</code>, <code class="language-plaintext highlighter-rouge">c</code> 로, <code class="language-plaintext highlighter-rouge">s2</code>를 <code class="language-plaintext highlighter-rouge">dbbc</code>, <code class="language-plaintext highlighter-rouge">a</code>로 나눈 다음
+ <code class="language-plaintext highlighter-rouge">s1</code>부터 번갈아 끼우면 <code class="language-plaintext highlighter-rouge">aa + dbbc + bc + a + c = s3</code>가 되므로 정답은
+ 참이다.</p>
+<h2 id="동적-프로그래밍은-완전-탐색부터">동적 프로그래밍은 완전 탐색부터</h2>
+<p>일단 단순히 각 문자열에 있는 글자 개수를 세서 비교하는 접근은
+ 안된다. 부분 문자열의 <strong>순서</strong>가 중요하고, 또 <code class="language-plaintext highlighter-rouge">s1</code>과 <code class="language-plaintext highlighter-rouge">s2</code>가 서로
+ 번갈아 나와야 하기 때문이다.</p>
+<p>가장 먼저 완전 탐색 알고리즘부터 생각해보자. 일단 기저 조건으로, 각
+ 문자열의 글자 수가 아니라 문자열의 길이가 맞지 않으면 불가능하다. 즉
+ <code class="language-plaintext highlighter-rouge">|s1| + |s2| != |s3|</code>인 경우는 아예 인터리빙 자체가 불가능하다.</p>
+<p>그럼 이제 문자열 길이가 맞춰진 경우를 생각해보자. <code class="language-plaintext highlighter-rouge">s1</code>, <code class="language-plaintext highlighter-rouge">s2</code>, <code class="language-plaintext highlighter-rouge">s3</code>에
+ 대해서 각각 지금 어느 부분의 글자를 탐색하고 있는지를 알기 위해서 세
+ 인덱스 <code class="language-plaintext highlighter-rouge">i1</code>, <code class="language-plaintext highlighter-rouge">i2</code>, <code class="language-plaintext highlighter-rouge">i3</code>를 유지하자. 먼저 <code class="language-plaintext highlighter-rouge">s1</code>이 먼저 나오는 경우부터
+ 생각해보자. <code class="language-plaintext highlighter-rouge">s1[i1]</code>의 글자가 <code class="language-plaintext highlighter-rouge">s3[i3]</code>와 같은 경우에 다음 둘 중
+ 하나를 진행할 수 있다:</p>
+<ul>
+ <li>만약 또 <code class="language-plaintext highlighter-rouge">s1[i1 + 1]</code>이 <code class="language-plaintext highlighter-rouge">s3[i1 + 1]</code>과 같다면, 계속 같을 때 까지
+이어나간다.
+ <li><code class="language-plaintext highlighter-rouge">s2[i2]</code>가 <code class="language-plaintext highlighter-rouge">s3[i + 1]</code>과 같다면, 이번에는 <code class="language-plaintext highlighter-rouge">s2</code>를 선택해서
+이어나간다.
+</ul>
+<p><code class="language-plaintext highlighter-rouge">s2</code>가 먼저 나오는 경우도 위와 비슷하다. 즉, 만약 <code class="language-plaintext highlighter-rouge">i1</code>, <code class="language-plaintext highlighter-rouge">i2</code> 모두
+ 0부터 시작하여 <code class="language-plaintext highlighter-rouge">s1</code>과 <code class="language-plaintext highlighter-rouge">s2</code>를 번갈아 재귀적으로 확인한다면, 모든
+ 경우의 수를 확인할 수 있다.</p>
+<p>이렇게 계속 이어나간다면, 언제 탐색이 종료될까? <code class="language-plaintext highlighter-rouge">s1</code>이든 <code class="language-plaintext highlighter-rouge">s2</code>든 한쪽
+ 문자열의 끝에 도달한 경우일 것이다. 예를 들어 <code class="language-plaintext highlighter-rouge">i1</code>이 <code class="language-plaintext highlighter-rouge">s1</code>의 끝에
+ 도달했다면, 남은 것은 다음을 확인하는 것이다: <code class="language-plaintext highlighter-rouge">s2</code>에 대해서 <code class="language-plaintext highlighter-rouge">i2</code>
+ 이후의 부분문자열이, <code class="language-plaintext highlighter-rouge">s3</code>에 대해서 <code class="language-plaintext highlighter-rouge">i3</code> 이후의 부분문자열과
+ 같은지. 즉, <code class="language-plaintext highlighter-rouge">i1</code>은 더 이상 매칭이 불가능하니, 남은 모든 기운(?)을
+ 써서 <code class="language-plaintext highlighter-rouge">s2</code>의 남은 부분문자열과 <code class="language-plaintext highlighter-rouge">s3</code>의 남은 부분문자열이 같기를 바라는
+ 것이다.</p>
+<p>말로 설명하니 뭔가 꼬이는 것 같은데, 코드로 나타내면 아래와 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">isInterleave</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">len</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span> <span class="o">!=</span> <span class="nf">len</span><span class="p">(</span><span class="n">s3</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">i3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i1</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">s1</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">s2</span><span class="p">[</span><span class="n">i2</span><span class="p">:]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">i2</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">s2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">s1</span><span class="p">[</span><span class="n">i1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">:]</span>
+
+        <span class="nf">return </span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">]</span> <span class="ow">and</span> <span class="nf">check</span><span class="p">(</span><span class="n">i1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> \
+            <span class="ow">or</span> <span class="p">(</span><span class="n">s2</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">]</span> <span class="ow">and</span> <span class="nf">check</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="nf">check</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">check</code> 함수가 앞에서 설명한 재귀적인 확인을 한다. 기저 조건은 <code class="language-plaintext highlighter-rouge">i1</code>
+ 또는 <code class="language-plaintext highlighter-rouge">i2</code>가 끝에 도달했을 때 이다. 앞에서 미리 글자 수가 다른 경우를
+ 걸러내기 때문에, <code class="language-plaintext highlighter-rouge">i1</code> 또는 <code class="language-plaintext highlighter-rouge">i2</code>가 끝에 도달했을 때 <code class="language-plaintext highlighter-rouge">s2[i2:]</code> 또는
+ <code class="language-plaintext highlighter-rouge">s1[i1:]</code>은 남은 <code class="language-plaintext highlighter-rouge">s3[i3:]</code> 부분문자열과 항상 길이가 같음이 보장된다.</p>
+<p>교묘한 부분은 재귀를 타고들어가는 부분이다. <code class="language-plaintext highlighter-rouge">s1[i1] == s3[i3]</code>, 즉
+ 지금 <code class="language-plaintext highlighter-rouge">s1</code>의 부분문자열의 일부가 먼저 나올 수 있는 상황이라면, <code class="language-plaintext highlighter-rouge">i1</code>과
+ <code class="language-plaintext highlighter-rouge">i3</code>를 동시에 하나씩 진행한다. <code class="language-plaintext highlighter-rouge">s2</code>의 경우도 비슷하다. 이렇게하면 (1)
+ <code class="language-plaintext highlighter-rouge">s1</code>와 <code class="language-plaintext highlighter-rouge">s2</code>가 번갈아 올 수 있는 모든 경우를 확인하면서 (2) 둘 중
+ 하나가 끝에 도달했을 때 나머지를 전부 확인하는, 문제의 조건을
+ 만족하게 된다.</p>
+<p>당연하지만, 이렇게하면 복잡도가 지수적이라서 터진다. <code class="language-plaintext highlighter-rouge">s1</code>의 길이를
+ <code class="language-plaintext highlighter-rouge">n</code>, <code class="language-plaintext highlighter-rouge">s2</code>의 길이를 <code class="language-plaintext highlighter-rouge">m</code>이라고 했을 때, <code class="language-plaintext highlighter-rouge">s3</code>의 길이는 <code class="language-plaintext highlighter-rouge">n + m</code>이 되고
+ 모든 <code class="language-plaintext highlighter-rouge">s3</code>의 각 글자에 대해서 <code class="language-plaintext highlighter-rouge">s1</code> 또는 <code class="language-plaintext highlighter-rouge">s2</code> 두 가지 경우가
+ 가능하므로, 시간 복잡도는 \(O(2 ^ {n + m})\)이 된다.</p>
+<h3 id="메모아이제이션">메모아이제이션</h3>
+<p>그럼 복잡도를 낮출 수 있는 방법을 찾아보자. 재귀가 일어날 때, <code class="language-plaintext highlighter-rouge">i3</code>는
+ 항상 증가하지만 <code class="language-plaintext highlighter-rouge">i1</code>와 <code class="language-plaintext highlighter-rouge">i2</code>는 둘 중 하나만 증가한다. 따라서 잘
+ 생각해보면, <code class="language-plaintext highlighter-rouge">i3</code>가 1 증가하면, <code class="language-plaintext highlighter-rouge">i1</code>이 1 증가하기 전과 <code class="language-plaintext highlighter-rouge">i2</code>가 1
+ 증가하기 전 모두를 살펴보게 된다. 그림으로 그리면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">i3</span>   <span class="o">|</span> <span class="mi">0</span> <span class="o">-----------&gt;</span> <span class="mi">1</span> <span class="o">----------&gt;</span> <span class="mi">2</span> <span class="o">---------------&gt;</span> <span class="mi">3</span>
+<span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>      <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+         <span class="o">|</span>                            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+         <span class="o">|</span>             <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>         <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+         <span class="o">|</span>                            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>즉, <code class="language-plaintext highlighter-rouge">i3 = 3</code> 일 때, <code class="language-plaintext highlighter-rouge">(i1, i2)</code>는 꽤 많이 중복된다: <code class="language-plaintext highlighter-rouge">(1, 2)</code>가 세번,
+ <code class="language-plaintext highlighter-rouge">(2, 1)</code>도 세번. 따라서, <code class="language-plaintext highlighter-rouge">s3</code>(<code class="language-plaintext highlighter-rouge">i3</code>)를 기준으로 생각해보면, <code class="language-plaintext highlighter-rouge">s1</code>과
+ <code class="language-plaintext highlighter-rouge">s2</code>의 일부를 <em>반드시</em> 중복해서 보게 된다. 입력 문자열이 변하지 않기
+ 때문에 이 반복되는 부분은 <code class="language-plaintext highlighter-rouge">i3</code>의 값에 상관없이 변하지 않는다. 따라서
+ <strong>최적 부분구조(optimal substructure)</strong>를 가지고 있다고 판단할 수
+ 있고, 이를 캐싱해서 속도를 높일 수 있다.</p>
+<p><code class="language-plaintext highlighter-rouge">i1</code>, <code class="language-plaintext highlighter-rouge">i2</code> 페어에 대해서 기존에 결과를 빠르게 돌려주면 되므로, 다음과
+ 같이 메모아이제이션을 하면 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">isInterleave</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">):</span>
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">i3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i1</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">s1</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">s2</span><span class="p">[</span><span class="n">i2</span><span class="p">:]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">i2</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">s2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">s1</span><span class="p">[</span><span class="n">i1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">:]</span>
+        <span class="nf">if </span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">memo</span><span class="p">[(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)]</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">]</span> <span class="ow">and</span> <span class="nf">check</span><span class="p">(</span><span class="n">i1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">i3</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> \
+            <span class="ow">or</span> <span class="p">(</span><span class="n">s2</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span> <span class="o">==</span> <span class="n">s3</span><span class="p">[</span><span class="n">i3</span><span class="p">]</span> <span class="ow">and</span> <span class="nf">check</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i3</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">memo</span><span class="p">[(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">res</span>
+        <span class="k">return</span> <span class="n">res</span>
+    <span class="k">return</span> <span class="nf">check</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이를 통해 시간과 공간 복잡도 모두 <code class="language-plaintext highlighter-rouge">O(nm)</code>의 솔루션을 얻을 수 있다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=string ">string</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=dynamic-programming ">dynamic-programming</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  
