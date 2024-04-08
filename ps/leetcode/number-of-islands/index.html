@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Number of Islands I, II</title>
+<meta property="og:title" content="Number of Islands I, II" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Number of Islands I, II">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Number of Islands I, II"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/number-of-islands.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/number-of-islands/">Number of Islands I, II</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="number-of-islands"><a href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a></h1>
+<p>m x n 2D 그리드가 지도로 주어진다. <code class="language-plaintext highlighter-rouge">1</code>은 땅이고 <code class="language-plaintext highlighter-rouge">0</code>은 물일 때, 섬의
+ 개수를 세는 문제다.</p>
+<p>여기서 <strong>섬</strong>은 가로/세로로 인접해서 연결된 땅이 물로 둘러 쌓여 있는
+ 것을 의미하는데, 지도 바깥은 전부 물이라고 가정하면 된다.</p>
+<h2 id="dfs">DFS</h2>
+<p>전형적인 그래프 탐색 문제다. 파이썬으로 DFS는 특히 쉽게 구현할 수
+ 있어서 여기서는 DFS로 구현해본다.</p>
+<p>전체 지도를 돌다가 땅을 만나는 순간 섬의 개수를 하나 증가하고, 곧바로
+ 그 땅으로부터 DFS를 시작해서 모든 땅을 다 <em>탐색</em>하면 된다. 이후
+ 만나는 땅 중에서 이전 땅에서 이미 <em>탐색</em> 된 땅은 같은 섬에 속하게
+ 되고, 탐색 안된 땅은 <em>다른 섬</em>이기 때문에 또 DFS를 호출하게 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">numIslands</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">visited</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)]:</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="nf">dfs</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="nf">dfs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">num</span>
+</code></pre></div></div>
+<ul>
+ <li>파이썬의 튜플은 해싱 가능하기 때문에 set에 곧바로 넣을 수
+있다. 해당 좌표가 이미 탐색이 끝났는지 여부를 쉽게 체크할 수 있다.
+ <li>범위 연산을 할 때 <code class="language-plaintext highlighter-rouge">x &gt;= 0 and x &lt; m</code>과 같이 <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> 연산을 해도 되지만
+위에서 처럼 Pythonic 하게 적을 수도 있다. 더 잘 읽힌다.
+ <li>원래 DFS 재귀 함수 안에서 다음 노드를 방문하기 전에 방문 여부
+(visited) 를 체크해주면 된다. 여기서는 바깥에서 추가로 한번 더 방문
+여부를 체크하는데 그 이유는 섬의 개수를 세기 위해서다. 어떤 섬의
+땅에 첫 발을 내딛는 순간 섬의 개수가 하나 증가하고 그 섬에 속한
+모든 땅을 방문한 것으로 기록하기 때문에, 이후 노드 중 이미 방문
+기록된 노드는 이전 DFS 에서 섬으로 카운트 된 땅이다.
+</ul>
+<h2 id="bfs">BFS</h2>
+<p>BFS로도 구현해보았다. DFS와 마찬가지로 첫 땅을 밟는 순간 섬 개수를
+ 늘리고, 인접한 모든 땅(섬)을 방문으로 기록한다.</p>
+<p>collections 모듈에 deque가 있으니 이걸 쓰면 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="k">def</span> <span class="nf">numIslands</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">visited</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+        <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+        <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+            <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">cx</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="o">-</span><span class="mi">1</span><span class="p">)]:</span>
+                <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">visited</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+                    <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">1</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="nf">bfs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">num</span>
+</code></pre></div></div>
+<h1 id="number-of-islands-ii"><a href="https://leetcode.com/problems/number-of-islands-ii/">Number of Islands II</a></h1>
+<p>위 문제를 살짝 비튼 문제다.</p>
+<p><code class="language-plaintext highlighter-rouge">m x n</code> 2D 그리드의 <em>사이즈</em>가 주어진다. 처음에 <strong>모든</strong> 그리드는
+ <code class="language-plaintext highlighter-rouge">0</code>, 즉 물이다.</p>
+<p>각 단계마다 물을 땅으로 바꾸는 조작(<code class="language-plaintext highlighter-rouge">0 -&gt; 1</code>)을 할 수 있다. 위치 배열
+ <code class="language-plaintext highlighter-rouge">positions</code>가 입력으로 같이 들어오는데, <code class="language-plaintext highlighter-rouge">positions[i] = (r_i, c_i)</code>
+ 이고 <code class="language-plaintext highlighter-rouge">(r_i, c_i)</code> 위치의 물을 땅으로 바꾼다. 그리고 이 작업은 <code class="language-plaintext highlighter-rouge">i</code>
+ 번째 단계에 수행되어야 한다.</p>
+<p>이때, 각 단계마다 조작을 수행한 후의 <strong>땅의 개수</strong>를 구하자. 즉, 답은
+ 땅의 개수를 담은 리스트가 될 것이다.</p>
+<ul>
+ <li>` 1 &lt;= m, n, positions.length &lt;= 10^4`
+</ul>
+<h2 id="disjoint-set-or-union-find">Disjoint Set or Union Find</h2>
+<p>가장 단순한 방법은, 매 단계마다 땅을 추가한 다음 위에서 구현한 <em>섬의
+ 개수를 구하는 함수</em>를 호출해서 정답 리스트에 쌓아 나가면 된다. 단,
+ 이렇게하면 매 단계마다 <code class="language-plaintext highlighter-rouge">O(n^2)</code>의 검사가 필요하기 때문에, 아주
+ 비효율적이다.</p>
+<p>여기서 <strong>서로소 집합</strong>을 떠올릴 수 있어야 한다.</p>
+<p><em>섬</em>은 연결된 땅의 집합을 뜻한다. 이때, 어떤 땅이 두 개 이상의 섬에
+ 속하는 것은 불가능하다. 즉, 다시 말하면 모든 섬은 <strong>공통 원소(같은
+ 위치의 땅)가 없다</strong>. 이렇게 상호 배타적인 부분 집합들로 나눠진
+ 원소들에 대한 정보를 저장/조작하는 자료구조가 바로 서로소 집합이다.</p>
+<p>즉, 이 문제를 풀기 위한 알고리즘을 설명하면 대략 이렇다.</p>
+<ol>
+ <li>섬의 정보를 저장하기 위한 서로소 집합을 만든다.
+ <li>각 <code class="language-plaintext highlighter-rouge">positions</code> 마다, 땅을 추가하고, 서로소 집합에 추가한다.
+ <li>추가된 땅의 4방향 중 땅이 있는 모든 곳은 <em>합친다(Union)</em>.
+ <li>그 후에 서로소 집합에 있는 모든 섬의 개수를 기록한다.
+</ol>
+<p>서로소 집합만 떠올리고, 구현한다면, 생각보다 쉽게 풀리는 문제다.</p>
+<h3 id="optimized-disjoint-set">Optimized Disjoint Set</h3>
+<p><a href="https://ko.wikipedia.org/wiki/%EC%84%9C%EB%A1%9C%EC%86%8C_%EC%A7%91%ED%95%A9_%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0">서로소
+ 집합</a>이
+ 필요하다는 걸 알았으니 구현해보자. 가장 단순하게 구현하는 방법은
+ 다음과 같이 배열(또는 해시테이블)을 이용해서 각 서로소 집합의 대표
+ 원소(부모)를 기록하는 방법이다. 일종의 트리라고 볼 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="nc">MakeSet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span><span class="p">.</span><span class="n">parent</span> <span class="p">:</span><span class="o">=</span> <span class="n">x</span>
+
+<span class="n">function</span> <span class="nc">Find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">x</span><span class="p">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">x</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="nc">Find</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">parent</span><span class="p">)</span>
+
+<span class="n">function</span> <span class="nc">Union</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="n">xRoot</span> <span class="p">:</span><span class="o">=</span> <span class="nc">Find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">yRoot</span> <span class="p">:</span><span class="o">=</span> <span class="nc">Find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+  <span class="n">xRoot</span><span class="p">.</span><span class="n">parent</span> <span class="p">:</span><span class="o">=</span> <span class="n">yRoot</span>
+</code></pre></div></div>
+<p>위키피디아에 있는 수도 코드를 가져왔다. <code class="language-plaintext highlighter-rouge">MakeSet</code>은 <code class="language-plaintext highlighter-rouge">x</code> 하나로
+ 이루어진 서로소 집합을 만드는 연산이다. <code class="language-plaintext highlighter-rouge">Find</code>는 <code class="language-plaintext highlighter-rouge">x</code>가 속한 서로소
+ 집합의 대표 원소, 즉 앞서 말한 트리의 루트 노드를 찾는
+ 연산이다. <code class="language-plaintext highlighter-rouge">Union</code>은 <code class="language-plaintext highlighter-rouge">x</code>와 <code class="language-plaintext highlighter-rouge">y</code>를 같은 서로소 집합에 속하게 만드는
+ 연산이다.</p>
+<p>근데 이렇게 나이브하게 구현하면 트리에서 Skewed Tree가 발생하는 것과
+ 같은 이치로, 점점 균형이 깨질 것이다. 그러면 각 연산의 복잡도가
+ <code class="language-plaintext highlighter-rouge">O(n)</code>에 수렴한다. 좋지 않다.</p>
+<p>이를 위해 두 가지 최적화 방법이 있는데,</p>
+<ol>
+ <li>Union by Rank: Rank를 기록해서, <code class="language-plaintext highlighter-rouge">Union</code> 연산을 할 때 항상 더 작은
+길이의 트리를 더 큰 길이의 트리에 합치는 방법이다.
+ <li>Path Compression: <code class="language-plaintext highlighter-rouge">Find</code> 연산을 할 때마다, 모든 속한 원소의 부모를
+하나의 대표 원소를 가리키게 하는 방법이다.
+</ol>
+<p>몇 가지 실험을 해보니까, Union by Rank는 (적어도 파이썬 구현에
+ 한해서는) 크게 재미를 보지 못했다. 일단 랭크를 저장하기 위해서
+ 데이터가 추가로 필요하고, 매 연산마다 랭크를 찾아서 비교해야 하기
+ 때문인 것 같다. 반면 경로 압축은 엄청난 효과를 보았기 때문에 여기서는
+ 경로 압축만을 적용해서 최적화된 서로소 집합을 만들 것이다.</p>
+<p>아, 그리고 그전에 한 가지 더 필요한 작업이 있다. 위의 수도 코드에서는
+ <code class="language-plaintext highlighter-rouge">Find</code>나 <code class="language-plaintext highlighter-rouge">Union</code>에 파라미터로 넘어가는 원소들은 항상 그 전에
+ <code class="language-plaintext highlighter-rouge">MakeSet</code>으로 원소 하나 짜리 집합을 만들 필요가 있었다. 그런데
+ 여기서는 <em>섬의 개수</em>를 세는 연산을 효율적으로 하기 위해서,
+ <code class="language-plaintext highlighter-rouge">MakeSet</code>이 호출될 때 개수를 하나 늘리고, <code class="language-plaintext highlighter-rouge">Union</code> 에서 서로 다른
+ 서로소 집합끼리 합쳐질 때 개수를 하나 줄인다. 이렇게하면 개수를 셀
+ 때마다 전체 데이터를 다 훑지 않아도(즉, <code class="language-plaintext highlighter-rouge">Find(x) == x</code> 검사) 된다.</p>
+<p>이제 여기까지 왔으니 서로소 집합 연산을 위한 클래스를 구현해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">_data</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">_count</span>
+
+    <span class="k">def</span> <span class="nf">make_set</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">parentx</span><span class="p">,</span> <span class="n">parenty</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">self</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">parentx</span> <span class="o">!=</span> <span class="n">parenty</span><span class="p">:</span>
+            <span class="c1"># decrease connected counts
+</span>            <span class="n">self</span><span class="p">.</span><span class="n">_count</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">_data</span><span class="p">[</span><span class="n">parentx</span><span class="p">]</span> <span class="o">=</span> <span class="n">parenty</span>
+</code></pre></div></div>
+<ul>
+ <li>개수를 캐싱하기 위해서 <code class="language-plaintext highlighter-rouge">_count</code> 변수도 유지한다. <code class="language-plaintext highlighter-rouge">__len__</code>은 단순히
+이 값을 리턴해서 <code class="language-plaintext highlighter-rouge">O(1)</code>을 유지한다.
+ <li><code class="language-plaintext highlighter-rouge">find</code> 연산을 경로 압축으로 최적화했다. <code class="language-plaintext highlighter-rouge">x</code>의 부모가 <code class="language-plaintext highlighter-rouge">x</code>가 아니면
+<code class="language-plaintext highlighter-rouge">x</code>의 루트까지 타고 올라가서 루트를 부모로 업데이트 한다.
+ <li><code class="language-plaintext highlighter-rouge">union</code>은 랭크 최적화는 진행하지 않았다. 대신 합치려는 두 서로소
+집합이 다를 때 개수도 함께 줄인다.
+</ul>
+<p>그러면 이렇게 만든 서로소 집합으로 다음과 같이 문제를 풀 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">num_islands_2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">positions</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dset</span> <span class="o">=</span> <span class="nc">DisjointSet</span><span class="p">()</span>
+    <span class="n">lands</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+        <span class="n">dset</span><span class="p">.</span><span class="nf">make_set</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="n">lands</span><span class="p">.</span><span class="nf">add</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="ow">in</span> <span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="nf">if </span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span> <span class="ow">in</span> <span class="n">lands</span><span class="p">:</span>
+                <span class="n">dset</span><span class="p">.</span><span class="nf">union</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>
+
+        <span class="n">answer</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">dset</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+<ul>
+ <li>지금까지 땅으로 바뀐 위치를 기록하기 위해서 <code class="language-plaintext highlighter-rouge">lands</code>를
+만들어뒀다. 이게 필요한 이유는, 현재 단계에서 연산을 한 다음
+4방향을 살필 때 이게 땅인지 아닌지를 빠르게 판단하기 위해서다. <code class="language-plaintext highlighter-rouge">m x
+n</code> 그리드를 직접 만들어도 된다.
+ <li>현재 단계의 위치를 땅으로 만든 후 (<code class="language-plaintext highlighter-rouge">dset.make_set</code>, <code class="language-plaintext highlighter-rouge">lands.add</code>),
+4방향의 <strong>땅</strong> 위치를 Union 한다. 이때, <code class="language-plaintext highlighter-rouge">lands</code> 를 기록하고 있기
+때문에 굳이 <code class="language-plaintext highlighter-rouge">0 &lt;= nx &lt; m</code> 또는 <code class="language-plaintext highlighter-rouge">0 &lt;= ny &lt; n</code>를 확인할 필요는 없다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=graph ">graph</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=disjoint-set ">disjoint-set</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-05 09:48:06 AM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

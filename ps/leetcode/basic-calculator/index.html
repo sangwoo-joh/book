@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Basic Calculators</title>
+<meta property="og:title" content="Basic Calculators" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Basic Calculators">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Basic Calculators"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/basic-calculator.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/basic-calculator/">Basic Calculators</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="basic-calculators">Basic Calculators</h1>
+<ul>
+ <li><a href="https://leetcode.com/problems/basic-calculator/">Basic Calculator</a>
+ <li><a href="https://leetcode.com/problems/basic-calculator-ii/">Basic Calculator II</a>
+ <li><a href="https://leetcode.com/problems/basic-calculator-iii/">Basic Calculator III</a>
+</ul>
+<p>수식을 표현하는 문자열을 평가하고 그 결과 값을 구하는 문제들이다.</p>
+<p>정수 나눗셈은 버림하여 정수로 계산한다.</p>
+<p>모든 수식이 유효한 수식이라고 가정해도 된다. 수식을 계산하는 과정에서
+ 생기는 모든 중간 결과와 최종 결과 값은 32비트 정수 범위 안에 포함됨이
+ 보장된다.</p>
+<p>문자열 수식을 곧바로 평가할 수 있는 파이썬의 <code class="language-plaintext highlighter-rouge">eval()</code>같은거 쓰지말고
+ 정정당당하게 계산하자.</p>
+<h2 id="역폴란드-표기법-또는-후위-표기법---reverse-polish-notation-or-postifx-notation">역폴란드 표기법, 또는 후위 표기법 - Reverse Polish Notation, or Postifx Notation</h2>
+<p>Basic Calculator 문제들은 모두 하나의 궁극적인 솔루션이
+ 존재한다. 중위 표기법으로 들어오는 수식을 <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">역폴란드
+ 표기법</a>으로
+ 바꾼 후에 스택 머신을 통해 계산하는 것이다.</p>
+<p>중위 표기법은 사람이 쓰고 이해하기에는 직관적이고 편리하지만,
+ 기계적으로 처리하기에는 모호한 부분이 많다.</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">1 + 2 * 3</code>과 같은 수식은 <code class="language-plaintext highlighter-rouge">(1 + 2) * 3</code> 또는 <code class="language-plaintext highlighter-rouge">1 + (2 * 3)</code>으로
+해석될 수 있는 모호함이 있다. 이를 해결하기 위해서 괄호나 연산자
+우선순위가 도입되지만, 기계적으로 처리하기 귀찮다.
+ <li>반면 RPN으로는 위의 첫 번째 수식은 <code class="language-plaintext highlighter-rouge">1 2 + 3 *</code>으로, 두 번째 수식은
+<code class="language-plaintext highlighter-rouge">1 2 3 * +</code>으로 표기되기 때문에 모호함이 없다.
+ <li>또한 RPN은 스택 머신을 통해 평가하기가 매우 쉽다. RPN 토큰을
+훑으면서 숫자(피연산자)는 스택에 넣는다. 연산자를 만나면 스택에서
+피연산자를 꺼내서 계산(평가)한 후 다시 스택에 넣으면 된다. 모든
+수식을 다 훑고 나면 스택에 있는 값이 바로 계산 결과가 된다. 참고로
+많은 가상 머신들이 스택 머신 모델을 사용하고 있다.
+</ul>
+<p>그래서, 일단 수식이 RPN으로 들어왔다고 가정하면, 이 수식을 평가하는
+ 함수는 매우 자명하다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">eval_</span><span class="p">(</span><span class="n">rpn</span><span class="p">):</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">rpn</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">tok</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">binary_operators</span><span class="p">:</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">binary_operator</span><span class="p">[</span><span class="n">tok</span><span class="p">](</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">unary_operators</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">unary_operator</span><span class="p">[</span><span class="n">tok</span><span class="p">](</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+</code></pre></div></div>
+<ul>
+ <li>이항 연산과 단항 연산을 구분하고 있는 점을 눈여겨보자. 단항 연산의
+예는 <code class="language-plaintext highlighter-rouge">-</code>가 있다. 다만, <code class="language-plaintext highlighter-rouge">-</code> 토큰만으로는 이항 연산 <code class="language-plaintext highlighter-rouge">-</code>와 단항 연산
+<code class="language-plaintext highlighter-rouge">-</code>를 구분하기 힘들기 때문에, 전처리(파싱) 단계에서 이 둘을
+구분하도록 하는 것이 좋다.
+ <li>이항 연산의 경우, 피연산자의 순서에 주목하자. 스택(메모리)은
+FILO이므로 꺼내는 순서의 역순으로 함수에 넘겨줘야 한다. <code class="language-plaintext highlighter-rouge">+</code>나 <code class="language-plaintext highlighter-rouge">*</code>는
+교환법칙(Commutative Law)가 성립하기 때문에 상관없지만, <code class="language-plaintext highlighter-rouge">-</code>와 <code class="language-plaintext highlighter-rouge">/</code>는
+교환법칙이 성립하지 않기 때문에 이 순서를 틀리면 결과가 어그러진다.
+</ul>
+<hr />
+<p>이렇게 RPN을 가정한 평가 함수를 만들고 나면, 남은 작업은 입력으로
+ 들어온 중위 표기법 수식을 후위 표기법으로 바꾸는 것 뿐이다. 킹갓
+ 다익스트라님께서 이미 알고리즘을 만들고 증명해두셨으니 우리는 이걸
+ 가져다 쓰면 된다. 바로 <a href="https://en.wikipedia.org/wiki/Shunting_yard_algorithm">차량기지 알고리즘(Shunting yard
+ algorithm)</a>이다. 알고리즘이
+ 동작하는 (중간에 연산자를 넣어뒀다가 다시 꺼내는) 방식이 차량 기지가
+ 동작하는 방식을 닮아서 이름붙여졌다고 한다.</p>
+<p>위키 문서의 방법을 거의 그대로 가져다 코드로 쓰면 된다. 여기서는
+ 함수가 따로 없으므로 사칙연산과 괄호만 수도 코드로 가져왔다. 참고로,
+ 이렇게 뭔가 순서를 뒤집거나 하는 데에는 항상 스택이 필수로 쓰인다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">입력</span><span class="p">:</span> <span class="n">중위</span> <span class="n">표기법</span> <span class="n">수식의</span> <span class="n">토큰</span> <span class="n">리스트</span>
+<span class="n">중간</span> <span class="n">데이터</span><span class="p">:</span> <span class="n">연산자</span> <span class="n">스택</span>
+<span class="n">출력</span><span class="p">:</span> <span class="n">후귀</span> <span class="n">표기법</span> <span class="n">수식</span> <span class="n">큐</span>
+
+<span class="k">while</span> <span class="n">토큰이</span> <span class="n">아직</span> <span class="n">남아있는</span> <span class="n">동안</span><span class="p">:</span>
+    <span class="n">토큰을</span> <span class="n">읽는다</span><span class="p">.</span>
+    <span class="n">match</span> <span class="n">토큰</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="n">숫자</span> <span class="o">-&gt;</span> <span class="n">출력</span> <span class="n">큐에</span> <span class="n">넣는다</span><span class="p">.</span>
+    <span class="o">|</span> <span class="n">연산자</span> <span class="n">o1</span> <span class="o">-&gt;</span>
+        <span class="nf">while </span><span class="p">(</span><span class="n">연산자</span> <span class="n">스택</span> <span class="n">꼭대기에</span> <span class="n">여는</span> <span class="n">괄호가</span> <span class="n">아닌</span> <span class="n">연산자</span> <span class="n">o2가</span> <span class="n">있고</span>
+            <span class="o">&amp;&amp;</span> <span class="n">o2가</span> <span class="n">o1보다</span> <span class="n">우선순위가</span> <span class="n">높거나</span>
+            <span class="o">||</span> <span class="n">둘의</span> <span class="n">우선순위가</span> <span class="n">같고</span> <span class="n">o1이</span> <span class="n">왼쪽</span> <span class="n">결합인</span> <span class="n">동안</span><span class="p">):</span>
+            <span class="n">연산자</span> <span class="n">스택에서</span> <span class="n">o2를</span> <span class="n">팝해서</span> <span class="n">출력</span> <span class="n">큐에</span> <span class="n">넣는다</span><span class="p">.</span>
+        <span class="n">o1을</span> <span class="n">연산자</span> <span class="n">스택에</span> <span class="n">넣는다</span><span class="p">.</span>
+    <span class="o">|</span> <span class="n">여는</span> <span class="n">괄호</span> <span class="o">-&gt;</span> <span class="n">연산자</span> <span class="n">스택에</span> <span class="n">넣는다</span><span class="p">.</span>
+    <span class="o">|</span> <span class="n">닫는</span> <span class="n">괄호</span> <span class="o">-&gt;</span>
+        <span class="k">while</span> <span class="n">연산자</span> <span class="n">스택의</span> <span class="n">꼭대기가</span> <span class="n">여는</span> <span class="n">괄호가</span> <span class="n">아닌</span> <span class="n">동안</span><span class="p">:</span>
+            <span class="n">연산자</span> <span class="n">스택에서</span> <span class="n">연산자를</span> <span class="n">팝해서</span> <span class="n">출력</span> <span class="n">큐에</span> <span class="n">넣는다</span><span class="p">.</span>
+        <span class="n">여는</span> <span class="n">괄호를</span> <span class="n">팝해서</span> <span class="n">버린다</span><span class="p">.</span>
+
+<span class="k">while</span> <span class="n">연산자</span> <span class="n">스택에</span> <span class="n">연산자가</span> <span class="n">남아</span> <span class="n">있는</span> <span class="n">동안</span><span class="p">:</span>
+    <span class="n">연산자를</span> <span class="n">팝해서</span> <span class="n">출력</span> <span class="n">큐에</span> <span class="n">넣는다</span><span class="p">.</span>
+</code></pre></div></div>
+<p>전체적인 알고리즘의 모습은 이것과 동일하다. 즉, 토큰을 읽어서, 토큰의
+ 종류에 따라 연산자 스택을 적절히 이용해서 우선순위에 맞게 후위
+ 표기법으로 바꾼다.</p>
+<p>여기서 위키에서 다루지 않는 내용이 바로 <strong>단항 연산자</strong>의
+ 경우이다. 예를 들어, <code class="language-plaintext highlighter-rouge">- 3 + 5</code>는 후위 표기법으로 바꾸면 <code class="language-plaintext highlighter-rouge">3 - 5 +</code>가
+ 되는데, 이는 <code class="language-plaintext highlighter-rouge">-</code>가 단항 연산자이기 때문이다. 그럼 단항 연산자는
+ 어떻게 처리하면 될까? 먼저 어떤 경우에 단항 연산자인지를 생각해보면
+ 다음 세 가지 케이스밖에 없다는 것을 알 수 있다.</p>
+<ol>
+ <li>중위 표기법 토큰 스트림의 가장 처음에 나온다. e.g. <code class="language-plaintext highlighter-rouge">-1</code>
+ <li>다른 연산자 바로 다음에 나온다. e.g. <code class="language-plaintext highlighter-rouge">1 + -1</code>
+ <li>여는 괄호 바로 다음에 나온다. e.g. <code class="language-plaintext highlighter-rouge">(-1)</code>
+</ol>
+<p>그럼 단항 연산자 일때는 어떻게 하면 될까? 그냥 바로 연산자 스택에
+ 넣으면 된다. 예를 들어, 1의 경우는 <code class="language-plaintext highlighter-rouge">-</code>가 스택에 들어가고, <code class="language-plaintext highlighter-rouge">1</code>이 큐에
+ 쌓이고, 그 후 마지막 <code class="language-plaintext highlighter-rouge">while</code> 루프에서 스택에 있는 단항 연산자가 큐에
+ 들어가 정상적인 <code class="language-plaintext highlighter-rouge">1 - </code>가 된다. 3의 경우도 자명하다.</p>
+<p>2의 경우는 두 가지 더 고려해야 할 것이 있는데, (1) 단항 연산자와 이항
+ 연산자를 구분해야하고 (2) 두 연산자의 우선순위를 비교해야 한다. 단항
+ 연산자의 우선순위는 어떻게 될까? 자연스럽게, 우리는 단항 연산자의
+ 우선순위가 더 높음을 안다. 따라서 (2)는 해결된다. (1)을 위해서, 위의
+ 세 가지 케이스일 때, 연산자 스택에 그냥 <code class="language-plaintext highlighter-rouge">-</code>를 넣으면 안되고 이것이
+ 단항 연산자임을 알리기 위한 특별한 토큰을 넣어야 한다. 여기서는
+ <code class="language-plaintext highlighter-rouge">u-</code>로 표기하겠다. 이러면 (1)과 (2)는 해결된다. 그러면 계속해서 2의
+ 경우를 살펴보자. 루프를 몇 번 거치고 나면 출력 큐는 <code class="language-plaintext highlighter-rouge">1 1</code>이고
+ 스택에는 <code class="language-plaintext highlighter-rouge">[+, u-]</code>가 들어간다. 그러면 마지막 <code class="language-plaintext highlighter-rouge">while</code> 루프를 통해 <code class="language-plaintext highlighter-rouge">1 1
+ u- +</code>가 되고 이는 우리가 원하는 올바른 후위 표기법이다.</p>
+<p>이 아이디어를 코드로 구현해서 중위 표기법 수식을 파싱하여 RPN 수식의
+ 리스트로 돌려주는 함수를 작성하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">infix_exp</span><span class="p">):</span>
+    <span class="n">binary_operators</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">+</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">-</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">*</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">/</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">precedences</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">'</span><span class="s">+</span><span class="sh">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">-</span><span class="sh">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">*</span><span class="sh">'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="sh">'</span><span class="s">/</span><span class="sh">'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">u-</span><span class="sh">'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">rpn</span><span class="p">,</span> <span class="n">opstack</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">lexer</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sa">r</span><span class="sh">"</span><span class="s">[-+*/()]|\d+</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">lexer</span><span class="p">.</span><span class="nf">findall</span><span class="p">(</span><span class="n">infix_exp</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tok</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tok</span><span class="p">.</span><span class="nf">isdigit</span><span class="p">():</span>
+            <span class="n">rpn</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">int</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">tok</span> <span class="o">==</span> <span class="sh">'</span><span class="s">-</span><span class="sh">'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">tokens</span><span class="p">[</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">binary_operators</span> <span class="o">+</span> <span class="p">[</span><span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">]):</span>
+            <span class="n">opstack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s">u-</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">binary_operators</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">opstack</span> <span class="ow">and</span> <span class="n">opstack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span> <span class="ow">and</span> <span class="n">precedences</span><span class="p">[</span><span class="n">opstack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">&gt;=</span> <span class="n">precedences</span><span class="p">[</span><span class="n">tok</span><span class="p">]:</span>
+                <span class="n">rpn</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">opstack</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+            <span class="n">opstack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tok</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">opstack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># tok == ')'
+</span>            <span class="k">while</span> <span class="n">opstack</span><span class="p">:</span>
+                <span class="n">top</span> <span class="o">=</span> <span class="n">opstack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">top</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">rpn</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">opstack</span><span class="p">:</span>
+        <span class="n">rpn</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">opstack</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">rpn</span>
+</code></pre></div></div>
+<ul>
+ <li>입력이 문자열이기 때문에 이를 토큰으로 쪼개기 위해서 파이썬의
+<code class="language-plaintext highlighter-rouge">re</code>를 이용해 정규식으로 쪼개었다. 정규식 사용법은
+<a href="../../theory/regexp">여기</a>를 참조하자.
+ <li>단항 연산자의 처리를 위해서 토큰의 인덱스가 필요하다.
+</ul>
+<hr />
+<p>이렇게 두 가지를 얻었다:</p>
+<ul>
+ <li>중위 표기법 수식 문자열을 후위 표기법 토큰 리스트로 변환하는 함수
+<code class="language-plaintext highlighter-rouge">parse</code>
+ <li>후위 표기법 토큰 리스트를 평가하고 결과 값을 계산하는 함수 <code class="language-plaintext highlighter-rouge">eval_</code>
+</ul>
+<p>그러면, 모든 Basic Calculator 문제는 다음 두 줄로 풀린다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">rpn</span> <span class="o">=</span> <span class="nf">parse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">eval_</span><span class="p">(</span><span class="n">rpn</span><span class="p">)</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=stack ">stack</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-05 09:44:06 AM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

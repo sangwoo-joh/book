@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Search in Rotated Sorted Array</title>
+<meta property="og:title" content="Search in Rotated Sorted Array" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Search in Rotated Sorted Array">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Search in Rotated Sorted Array"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/search-in-rotated-sorted-array.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="search-in-rotated-sorted-array"><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a></h1>
+<p>유니크한 값만 담긴 정렬된 정수 배열이 주어진다. 그런데 이 배열이 어떤
+ 피벗 인덱스를 기준으로 <em>회전</em>되어 있을수 있다. 예를 들어, <code class="language-plaintext highlighter-rouge">[0, 1, 2,
+ 4, 5, 6, 7]</code> 배열이 피벗 인덱스 3에서 회전된다면 <code class="language-plaintext highlighter-rouge">[4, 5, 6, 7, 0, 1,
+ 2]</code>가 된다.</p>
+<p>이렇게 회전된 배열이 들어왔을 때, <code class="language-plaintext highlighter-rouge">target</code> 값의 인덱스를 찾자. 만약
+ <code class="language-plaintext highlighter-rouge">target</code>이 없다면 <code class="language-plaintext highlighter-rouge">-1</code>을 리턴하자.</p>
+<p>알고리즘의 복잡도는 반드시 \(O (\log n)\) 을 만족해야 한다.</p>
+<p>배열의 크기는 1~5,000 사이이고 배열의 값은 모두 유니크함이 보장된다.</p>
+<h2 id="이분-탐색의-다양한-쓰임새">이분 탐색의 다양한 쓰임새</h2>
+<p>이것과 유사한 문제로 <a href="../find-minimum-in-rotated-sorted-array">회전 정렬된 배열에서 최소값
+ 찾기</a>가 있다. 이것과 유사한
+ 방법을 사용하면 될 것 같다.</p>
+<p>일단 위의 방법으로 회전 정렬된 배열의 최소 값의 위치를 찾았다고
+ 해보자. 그러면 다음과 같은 방법이 가능해보인다.</p>
+<ul>
+ <li>해당 인덱스가 최소라는 것은 해당 인덱스가 피벗 인덱스라는 뜻이고,
+그러면 이 피벗으로부터 다시 배열을 회전해서 정렬된 원래 배열을
+원복할 수 있다. 단, 이렇게하면 배열을 원복하는데 <code class="language-plaintext highlighter-rouge">O(N)</code>의 시간 및
+공간 복잡도를 소모하게 되어서 문제의 조건을 위배하긴 한다.
+ <li>피벗 인덱스를 기준으로 왼쪽과 오른쪽이 각각 오름차순으로 정렬되어
+있다. 따라서, 피벗 왼쪽 범위에다 한번, 오른쪽 범위에다 한번 각각
+이분 탐색을 해서 값을 찾는 방법도 있다.
+ <li>피벗을 기준으로 회전되어 있기 때문에, 모듈러 연산을 활용하면 중앙
+인덱스를 구할 수 있을 것 같기도 하다.
+</ul>
+<p>그러면 일단 하나씩 해보자. 피벗을 구하는 함수는 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">find_pivot</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">while</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">high</span><span class="p">]:</span>
+            <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span>
+    <span class="k">return</span> <span class="n">low</span>
+</code></pre></div></div>
+<ul>
+ <li>중앙 원소가 끝 값보다 큰 경우, 중앙과 끝 사이 어딘가에서
+회전되었다고 생각할 수 있다. 즉, <code class="language-plaintext highlighter-rouge">nums[low] ... nums[mid] .. pivot
+.. nums[high]</code> 이다. 그러므로 범위 시작 값을 <code class="language-plaintext highlighter-rouge">mid+1</code>로 업데이트
+한다.
+ <li>그 반대의 경우는 범위 끝 값을 <code class="language-plaintext highlighter-rouge">mid</code>로 땡긴다.
+</ul>
+<hr />
+<p>이렇게 피벗은 구할 수 있고, 이제 이걸로 문제를 풀어보자.</p>
+<h3 id="회전된-배열-복원하기">회전된 배열 복원하기</h3>
+<p>피벗 위치를 알면 원래 배열을 어떻게 복원할 수 있을까? 파이썬에서는
+ 슬라이스 연산을 지원하기 때문에 아주 수월하게 다음과 같이 할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">bisect</span>
+<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="nf">find_pivot</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="p">:]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[:</span><span class="n">pivot</span><span class="p">]</span>
+    <span class="n">bi</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_left</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bi</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">bi</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+        <span class="nf">return </span><span class="p">(</span><span class="n">bi</span> <span class="o">+</span> <span class="n">pivot</span><span class="p">)</span> <span class="o">%</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+<ul>
+ <li>피벗을 구한 뒤 원래 배열 <code class="language-plaintext highlighter-rouge">orig</code>를 복원해서 여기서 탐색한다. 단,
+탐색 결과의 인덱스는 <strong>원본 배열 기준</strong>이므로, 이를 다시 회전한
+배열 기준으로 돌려줘야 한다. 따라서, <code class="language-plaintext highlighter-rouge">(bi + pivot) % len(nums)</code>를
+계산해야 피벗을 기준으로 회전한 인덱스를 돌려줄 수 있다.
+ <li>정렬된 배열에서 이분 탐색을 할 때에는 직접 바이너리 서치를 구현하기
+보다는 <code class="language-plaintext highlighter-rouge">bisect.bisect_left</code>를 활용하는 것이 좋다. 이분 탐색을 버그
+없이 제대로 구현하기가 어렵다는 것은 <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm#Implementation_issues">역사적으로도 증명된
+사실</a>이기
+때문이다. 자세한 내용은 <a href="../../theory/bisect">Upper Bound &amp; Lower
+Bound</a>에 정리해두었다.
+</ul>
+<h3 id="이분-탐색-두번하기">이분 탐색 두번하기</h3>
+<p>위의 방법은 쉽긴 하지만 배열을 복원하는데 쓰이는 O(N) 때문에 복잡도를
+ 만족하지 못한다.</p>
+<p>피벗 위치를 기준으로 배열을 둘로 쪼갠다면, 쪼개진 두 배열도 각각
+ 정렬되어 있기 때문에, 여기다가 바로 이분 탐색을 해보는 것도 좋을 것
+ 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="nf">find_pivot</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_left</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pivot</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_left</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">pivot</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">pivot</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">left</span>
+    <span class="k">elif</span> <span class="n">pivot</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">right</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+<ul>
+ <li>역시 여기서도 <code class="language-plaintext highlighter-rouge">bisect.bisect_left</code>를 활용하는 것이 좋다. 추가적인
+입력으로 이분 탐색을 진행할 범위를 입력할 수 있는데, 이때 범위는
+<code class="language-plaintext highlighter-rouge">[low, high)</code>의 형태이고 피벗 인덱스는 배열의 최소값이 있는 인덱스
+이므로 위와 같이 호출하면 된다.
+</ul>
+<h3 id="똑똑하게-이분탐색-한번만-하기">똑똑하게 이분탐색 한번만 하기</h3>
+<p>피벗을 구하고 나면 사실 두 번 이분 탐색할 필요 없이 찾을려는 값이
+ 있는 위치의 범위를 다음과 같이 하나로 줄일 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">target</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">high</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">pivot</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">pivot</span>
+</code></pre></div></div>
+<p>즉, 구하려는 값의 위치가 피벗과 배열 마지막 원소 사이에 있다면,
+ 우리가 원하는 범위는 피벗의 오른쪽이다. 그게 아니라면, 우리가 원하는
+ 범위는 피벗의 왼쪽이다.</p>
+<p>따라서 이렇게 범위를 좁혀놓고 나면 이분 탐색을 딱 한번만 해줘도
+ 된다. 이 아이디어를 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="nf">find_pivot</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">target</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">high</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">pivot</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="n">pivot</span>
+
+    <span class="n">bi</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_left</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bi</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="ow">and</span> <span class="n">target</span><span class="p">[</span><span class="n">bi</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">bi</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=array ">array</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

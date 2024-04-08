@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Triangle</title>
+<meta property="og:title" content="Triangle" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Triangle">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Triangle"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/triangle.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/triangle/">Triangle</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="triangle"><a href="https://leetcode.com/problems/triangle/">Triangle</a></h1>
+<p>삼각형을 표현한 배열 <code class="language-plaintext highlighter-rouge">triangle</code>이 입력으로 주어졌을 때, 꼭대기에서
+ 바닥까지 가는 경로 중 합이 최소가 되는 값을 구하자.</p>
+<p>각각의 단계에서는 아래 행의 인접한 원소로 움직일 수 있다. 좀더
+ 형식적으로 말하면, 현재 행의 <code class="language-plaintext highlighter-rouge">i</code> 인덱스에 있다면, 한 단계를
+ 움직이려면 그 다음 행의 <code class="language-plaintext highlighter-rouge">i</code> 인덱스 또는 <code class="language-plaintext highlighter-rouge">i+1</code> 인덱스로 갈 수 있다.</p>
+<p>삼각형의 높이(배열의 길이)는 최대 200이고, 항상 유효한 삼각형 모양이
+ 입력으로 들어옴이 보장된다. 따라서 <code class="language-plaintext highlighter-rouge">triangle[0].length == 1</code> 이고
+ <code class="language-plaintext highlighter-rouge">triangle[i].length == triangle[i-1] + 1</code>임이 보장된다. 삼각형 배열
+ 각 원소는 정수형이고 값의 범위는 \(-10^4 \sim 10^4\) 사이이다.</p>
+<h2 id="다이나믹-프로그래밍">다이나믹.. 프로그래밍..</h2>
+<p>꽤 유명한 다이나믹 프로그래밍 문제 중 하나인 것 같다. <a href="../unique-paths">경로
+ 찾기</a>와도 비슷한 문제인데, 여기서는 맵이 격자가
+ 아니라 삼각형인 점, 그리고 원소 합의 최소값을 구해야 한다는 점이
+ 다르다.</p>
+<p>그러면 다이나믹 프로그래밍을 계획해보자. 먼저 탑 다운 방식과 바텀 업
+ 방식 중 어떤 것이 가능할지 가늠해보자. 꼭대기로부터 출발해서 바닥까지
+ 가려면 모든 행을 적어도 한번은 다 살펴봐야 하기 때문에, 탑 다운과
+ 바텀 업 모두 가능해보인다. 보통 점화식을 세우고 이것을 곧바로 코드로
+ 옮기기 쉬운 것은 탑 다운 방식이기 때문에, 점화식을 고민해보자.</p>
+<p><code class="language-plaintext highlighter-rouge">path(r, c)</code>는 <code class="language-plaintext highlighter-rouge">(r, c)</code>로부터 바닥까지 가는 경로 합의 최소라고
+ 하자. 그러면 문제에 나온 “각 단계에 움직일 수 있는 방향”의 정의에
+ 따라 다음 식이 성립한다: <code class="language-plaintext highlighter-rouge">path(r, c) = triangle[r][c] + min(path(r+1,
+ c), path(r+1, c+1))</code>. 즉 <code class="language-plaintext highlighter-rouge">(r, c)</code>에서 한 칸 아래(<code class="language-plaintext highlighter-rouge">r+1</code>)로 갈 때,
+ 가능한 경우는 다음 행의 <code class="language-plaintext highlighter-rouge">c</code> 인덱스 또는 <code class="language-plaintext highlighter-rouge">c+1</code> 인덱스 이고, 이 중 최소
+ 값을 찾아서 경로에 누적하면 된다.</p>
+<p>그러면 이 식을 곧바로 탑 다운 방식으로 구현하고 메모이제이션할 수
+ 있다. 단, 이때 인덱스의 범위에 주의해야 한다. 삼각형의 <em>바닥</em>까지
+ 간다는 뜻은 곧 다음 행 (<code class="language-plaintext highlighter-rouge">r+1</code>)이 삼각형의 높이 안인지 확인하는
+ 것이다. 이 점을 조심하면서 아이디어를 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">minimumTotal</span><span class="p">(</span><span class="n">triangle</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+
+    <span class="nd">@cache</span>
+    <span class="k">def</span> <span class="nf">min_path</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
+        <span class="nf">if </span><span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">triangle</span><span class="p">):</span>
+            <span class="n">p</span> <span class="o">+=</span> <span class="nf">min</span><span class="p">(</span><span class="nf">min_path</span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="nf">path</span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">p</span>
+    <span class="k">return</span> <span class="nf">path</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=dynamic-programming ">dynamic-programming</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

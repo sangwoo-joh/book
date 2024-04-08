@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Binary Search</title>
+<meta property="og:title" content="Binary Search" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Binary Search">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Binary Search"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/theory/binary-search.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/theory/">Theory</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/theory/binary-search/">Binary Search</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="binary-search">Binary Search</h1>
+<h2 id="binary-search-in-rotated-sorted-array">Binary Search in Rotated Sorted Array</h2>
+<p>정렬된 리스트(배열)에서 <code class="language-plaintext highlighter-rouge">k</code> (<code class="language-plaintext highlighter-rouge">0 &lt;= k &lt; len(arr)</code>) 번째 인덱스를
+ 기준으로 회전을 시킨 경우, 어디서 회전되었는지를 찾고 (피벗) 이 값을
+ 이용해서 이분탐색을 하면 <code class="language-plaintext highlighter-rouge">O(log N)</code> 만에 찾을 수 있다.</p>
+<p>참고로, 피벗을 찾은 다음 <code class="language-plaintext highlighter-rouge">sorted_arr = arr[pivot:] + arr[:pivot]</code>
+ 이렇게 정렬된 리스트를 복구해서 검색해도 말은 되지만, 복사 연산자
+ 때문에 <code class="language-plaintext highlighter-rouge">O(N)</code>을 한번 겪게 되어서 사이즈가 커지면 느려진다. 작으면
+ 별로 문제 안됨.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">search_from_rotated</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">tofind</span><span class="p">):</span>
+    <span class="c1"># 1. find pivot index (the smallest value)
+</span>    <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># this is tricky - high is an index here
+</span>
+    <span class="k">while</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># same as (low + high) // 2, but avoid overflow
+</span>        <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">high</span><span class="p">]:</span>
+            <span class="c1"># rotated in somewhere mid..high
+</span>            <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># rotated in somewhere low..mid
+</span>            <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span>
+
+    <span class="n">pivot</span> <span class="o">=</span> <span class="n">low</span>  <span class="c1"># the index of the smallest value
+</span>
+    <span class="c1"># 2. now, binary search with this info
+</span>    <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>  <span class="c1"># here, the range is half open: [low, high)
+</span>
+    <span class="c1"># find correct range
+</span>    <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">tofind</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">high</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># tofind is somewhere pivot..high
+</span>        <span class="n">low</span> <span class="o">=</span> <span class="n">pivot</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># tofind is somewhere low..pivot
+</span>        <span class="n">high</span> <span class="o">=</span> <span class="n">pivot</span>
+
+    <span class="k">while</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">tofind</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mid</span>
+        <span class="k">if</span> <span class="n">tofind</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]:</span>
+            <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+<ul>
+ <li>처음에 피벗 인덱스를 찾을 때는 <code class="language-plaintext highlighter-rouge">high</code> 역시 인덱스로
+쓰였다. <code class="language-plaintext highlighter-rouge">high</code>를 half-open 으로 둬볼려고 했는데, <code class="language-plaintext highlighter-rouge">1</code>씩 빼거나
+더해줘야 되서 코드가 더 복잡해져서 그냥 저렇게 하는게 깔끔하다.
+ <li>피벗을 찾은 이후에는 위 코드처럼 직접 이분 탐색을 구현해도 되고
+(여기서는 half-open 으로 구현), 아니면 아래와 같이 <code class="language-plaintext highlighter-rouge">bisect</code>를
+활용해도 된다.
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">...</span> <span class="c1"># search pivot
+</span>    <span class="c1"># find Lower Bound to find equal value
+</span>    <span class="n">bi</span> <span class="o">=</span> <span class="n">bisect</span><span class="p">.</span><span class="nf">bisect_left</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">tofind</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bi</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">bi</span><span class="p">]</span> <span class="o">==</span> <span class="n">tofind</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">bi</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+</code></pre></div></div>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">bisect</code> 를 활용할 때에는 Lower Bound를 찾는게 편한데, 왜냐하면
+위에서 설명했듯이, 찾고자 하는 값 보다 “크거나 같은 값”이 처음
+나오는 위치를 찾아주기 때문이다. 그래서 <code class="language-plaintext highlighter-rouge">bisect_left</code> 리턴 값을
+곧바로 인덱스로 쓸 수 있다. 만약 Upper Bound로 찾았다면, 이는 “큰
+값”이 처음으로 나오는 위치 이므로, <code class="language-plaintext highlighter-rouge">bisect_right</code> (또는 그냥
+<code class="language-plaintext highlighter-rouge">bisect</code>) 리턴 값에서 1을 빼줘야 정확한 인덱스가 된다.
+ <li>추가로, <code class="language-plaintext highlighter-rouge">bisect</code>는 “값을 적절하게 삽입할 위치”를 찾아주기 때문에,
+실제로 리턴한 인덱스에 정말 찾고자 하는 값이 있는지 한번 더
+확인해야 한다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=theory ">theory</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=binary-search ">binary-search</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 11:49:19 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

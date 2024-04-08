@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Remove Nth Node from End of List</title>
+<meta property="og:title" content="Remove Nth Node from End of List" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Remove Nth Node from End of List">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Remove Nth Node from End of List"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/remove-nth-node-from-end-of-list.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/remove-nth-node-from-end-of-list/">Remove Nth Node from End of List</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="remove-nth-node-from-end-of-list"><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Remove Nth Node from End of List</a></h1>
+<p>링크드 리스트의 헤드 노드가 주어졌을 때, 끝에서 <code class="language-plaintext highlighter-rouge">n</code> 번째 뒤에 있는
+ 노드를 삭제하자.</p>
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</code> 가 주어졌을 때, 끝에서 2번째 노드는
+ <code class="language-plaintext highlighter-rouge">4</code> 이므로 이를 삭제하면 <code class="language-plaintext highlighter-rouge">1 -&gt; 2 -&gt; 3 ---&gt; 5</code>가 된다.</p>
+<p>노드의 개수는 1~30이고, 끝에서 n번째의 n 값은 노드의 개수보다 작거나
+ 같음이 보장된다.</p>
+<h2 id="on---two-pass">O(N) - Two Pass</h2>
+<p>가장 쉬운 방법은 일단 리스트를 전체 다 훑어서 노드의 개수를 모두 센
+ 다음, 여기서 n을 뺀 만큼만 한번 더 가는 것이다. 즉, 끝에서 n번째라는
+ 말은 앞에서 <code class="language-plaintext highlighter-rouge">len(list) - n</code> 번째와 같다는 성질을 이용한다.</p>
+<p>여기서도 센티넬 노드를 활용하면 코드가 깔끔해진다. 어떤 경우냐면,
+ 리스트 크기가 1일때 1번째 노드를 지우는 경우를 생각해볼 수
+ 있다. 센티넬이 없으면, 삭제가 일어난 후에 리스트가 비었는지를 스페셜
+ 케이스로 따로 처리해줘야 한다. 하지만 센티넬이 있으면, 알고리즘을
+ 통해 <code class="language-plaintext highlighter-rouge">sentinel.next</code>에 올바르게 <code class="language-plaintext highlighter-rouge">None</code>이 들어가기 때문에 깔끔해진다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"""</span><span class="s">
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+</span><span class="sh">"""</span>
+<span class="k">def</span> <span class="nf">removeNthFromEnd</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">node</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">node</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">sentinel</span> <span class="o">=</span> <span class="nc">ListNode</span><span class="p">(</span><span class="nb">next</span><span class="o">=</span><span class="n">head</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">sentinel</span>
+    <span class="n">togo</span> <span class="o">=</span> <span class="n">size</span><span class="o">-</span><span class="n">n</span>
+    <span class="k">while</span> <span class="n">togo</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">node</span><span class="p">,</span> <span class="n">togo</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">togo</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">node</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="nb">next</span>
+    <span class="k">return</span> <span class="n">sentinel</span><span class="p">.</span><span class="nb">next</span>
+</code></pre></div></div>
+<ul>
+ <li>리스트 사이즈를 계산한 뒤, 앞에서 부터 얼만큼 가야하는지를 <code class="language-plaintext highlighter-rouge">togo</code>에
+계산해서 한번 더 간다.
+ <li>센티넬 노드는 루트 노드의 이전에 있는 가상의 노드인데, 마침
+여기서는 어떤 노드를 삭제하기 위한 이전 노드를 가리키는데 쓰기에
+최적이다. 즉, 어떤 노드를 삭제한다는 것은 그 이전 노드가 해당
+노드의 다음 노드를 가리키도록 하면 되므로, 우리는 삭제할 노드
+<em>이전</em> 노드를 찾으면 되는데, 센티넬을 통해서 이를 쉽게 구할 수
+있다.
+ <li><code class="language-plaintext highlighter-rouge">n</code>의 값이 항상 리스트 크기보다 작거나 같음이 보장되기 때문에, 두
+번째 반복문을 통해 삭제할 노드 이전 노드를 찾았다면, 해당 노드는
+항상 <code class="language-plaintext highlighter-rouge">node.next</code>가 있음이 보장된다.
+ <li>센티넬 노드 덕분에 최종적으로 <code class="language-plaintext highlighter-rouge">sentinel.next</code>를 리턴하기만 하면,
+노드 삭제 후 리스트가 빈 경우도 잘 처리할 수 있다.
+</ul>
+<h2 id="on---one-pass">O(N) - One Pass</h2>
+<p>첫 번째 방법은 리스트의 크기를 계산하기 위해서 노드 전체를 한번, 그
+ 후 실제 노드 삭제를 위해 한번, 리스트를 총 두 번 훑어야
+ 한다. 리스트를 한번만 훑을 순 없을까?</p>
+<p>여기서 센티넬과는 다른 종류의 새로운 팁, 이른바 <em>개척자 노드</em>를
+ 도입할 수 있다. 개척자 노드는 항상 탐색할 노드보다 일정 부분 앞서
+ 나가도록 하는 노드이다. 여기서는 개척자 노드가 항상 n 만큼 앞서있다고
+ 하자. 그러면, 개척자 노드가 리스트의 끝에 도달했을 시점에, 탐색
+ 노드는 개척자 노드보다 n 만큼 뒤에 있게 되고, 이게 바로 우리가 원하는
+ 삭제 지점이 된다. 즉, 개척자 노드를 통해 리스트를 한번만 훑게 된다.</p>
+<p>이 아이디어를 도입해서 센티넬과 개척자 노드를 모두 활용하여 한번만
+ 훑는 구현은 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">removeNthFromEnd</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">sentinel</span> <span class="o">=</span> <span class="nc">ListNode</span><span class="p">(</span><span class="nb">next</span><span class="o">=</span><span class="n">head</span><span class="p">)</span>
+    <span class="n">pioneer</span> <span class="o">=</span> <span class="n">sentinel</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pioneer</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">pioneer</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">sentinel</span>
+    <span class="k">while</span> <span class="n">pioneer</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">node</span><span class="p">,</span> <span class="n">pioneer</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">pioneer</span><span class="p">.</span><span class="nb">next</span>
+    <span class="n">node</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="nb">next</span>
+    <span class="k">return</span> <span class="n">sentinel</span><span class="p">.</span><span class="nb">next</span>
+</code></pre></div></div>
+<ul>
+ <li>개척자 노드를 끝까지 보낼 때, 리스트의 완전 끝(None)까지 보내버리면
+탐색 노드가 삭제할 노드에 위치해버리므로 우리가 원하는 것이
+아니다. 대신, 리스트의 마지막 노드까지만 탐색하게 하면, 탐색 노드가
+삭제할 노드 바로 직전에 위치할 수 있고, 덕분에 <code class="language-plaintext highlighter-rouge">node.next</code>가 항상
+유효한 값을 갖고 있다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=linked-list ">linked-list</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

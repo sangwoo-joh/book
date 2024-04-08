@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>How OCaml Type Checker Works</title>
+<meta property="og:title" content="How OCaml Type Checker Works" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="How OCaml Type Checker Works">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How OCaml Type Checker Works"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/type/how-ocaml-type-checker-works.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/type/">Type</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/type/how-ocaml-type-checker-works/">How OCaml Type Checker Works</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 class="no_toc" id="how-ocaml-type-checker-works---or-what-polymorphism-and-garbage-collection-have-in-common"><a href="https://okmij.org/ftp/ML/generalization.html">How OCaml Type Checker Works - or What Polymorphism and Garbage Collection Have In Common</a></h1>
+<p>힌들리-밀너 타입 추론에는 알고리즘 W 말고도 좀 더 많은 것이
+ 있다. 1988년에, 디디어 레미(Didier Remy)는 Caml의 타입 추론 속도를
+ 높일려고 하고 있었는데, 타입 일반화(type generalization)를 위한
+ 우아한 방법을 발견했다. 타입 환경(type environment)을 스캐닝하지
+ 않아도 되서 빠를 뿐만이 아니다. 이 방법은 로컬에 선언되었지만
+ 보편적(universal; \(\forall\)) 또는 존재적(existential; \(\exists\)) 양화로 빠져나가는(escape) 타입을 잡을 수 있게 스무스하게
+ 확장된다.</p>
+<p>OCaml 타입 체커의 알고리즘과 구현은 모두 거의 알려져있지 않고 또 거의
+ 문서화되어 있지 않다. 이 페이지는 레미의 알고리즘을 설명하고 널리
+ 알리려 한다. 또, OCaml 타입 체커의 일부를 해석하려는 시도다. 레미의
+ 알고리즘의 역사 또한 보존하고자 한다.</p>
+<p>레미의 알고리즘의 매력은 타입 일반화를 일종의 의존성 추적으로 바라본
+ 통찰력에 있다. 이는 (메모리) 구역과 세대별 가비지 콜렉션과 같은 자동
+ 메모리 관리에서 쓰이는 추적 방법과 같은 종류이다. (타입) 일반화는
+ 노드에는 타입을 어노테이트하고 엣지는 공유된 타입을 나타내도록 표현한
+ AST에서 도미네이터를 찾는 일로 볼 수 있다.</p>
+<h2 id="introduction">Introduction</h2>
+<p>이 페이지는 원래 광범위하고, 복잡하고, 거의 문서화가 안된 OCaml 타입
+ 체커 코드를 이해하기 위해서 작성하던 노트로 시작했다. 코드를 파고
+ 들어가 보니 엄청난 보물이 발견되었다. 그 중 하나인 효율적이고 우아한
+ 타입 일반화 방법을 여기서 소개한다.</p>
+<p>OCaml의 타입 일반화는 이른바 타입의 <em>레벨(levels)</em> 추적
+ 기반이다. 완전히 같은 레벨은 모듈 안에 정의된 타입이 더 넓은 범위로
+ 빠져나가는(escape) 것을 막아준다. 따라서 레벨은 지역적으로 도입된
+ 타입 생성자에게 구역 규율(region discipline)을 강제한다. 일반화와
+ 구역이 아주 균일한 방법으로 처리되는 것은 굉장히 흥미롭다. OCaml 타입
+ 체커에서 레벨은 더 많은 쓰임새가 있는데, 폴리모픽 필드와 존재
+ 양화사(existential)를 가진 레코드에도 쓰인다. MetaOCaml은 미래에 쓰일
+ (future-stage) 바인딩 범위를 추적하기 위해서 레벨에 간접적으로
+ 의존하고 있었다. 이런 모든 어플리케이션에는 공통적인 불평이 있었는데,
+ 의존성을 추적하는 일과 구역 억제 또는 데이터 의존 그래프의
+ 도미네이터를 계산하는 일이었다. 하나는 곧바로 Tofte와 Talpin의 구역
+ 기반의 메모리 관리를 떠올리게 한다. Fluet과 Morrisett이 보여줬듯이,
+ 구역을 위한 Tofte와 Taplin 타입 시스템은 할당된 데이터가 그 구역에서
+ 빠져나가는 것을 정적으로 막기 위해서 보편 양화사에 의존하여 System
+ F에서 인코딩될 수 있다. 이것과 듀얼하게, 레벨 기반 일반화는 타입
+ 변수의 구역을 결정하기 위해서 타입 변수가 빠져나가는 것을 추적하는
+ 것에 의존하고, 따라서 보편 양화사를 위한 장소이다.</p>
+<p>OCaml의 일반화는 1988년에 디디어 레미에 의해 발견된 알고리즘의
+ (부분적인) 구현이다. 이 아이디어는 타입이 명시된 AST 위에서 타입의
+ 공유를 명시적으로 표현하는 것이다. 타입 변수는 오직 그 변수의 모든
+ 발생(all occurrences)을 도미네이트하는 노드에서만 양화될 수
+ 있다. 타입 일반화는 그래프 도미네이터의 증분 계산에 해당한다. 레미의
+ MLF는 이 아이디어의 자연스러운 결과물이다.</p>
+<p>아쉽게도, 레미의 일반화 알고리즘과 그 기저의 아이디어는 거의 알려져
+ 있지 않다. OCaml에 있는 것과 같은 구현은 OCaml 소스 코드에 아주 짧고
+ 헷갈리게 작성된 주석 외에는 전혀 문서화되어 있지 않는 것 같다. 이건
+ 널리 알려져야 한다. 이를 위해서, (1) 알고리즘에 대한 동기 부여와
+ 설명을 해서 그 직관과 뼈대 구현을 드러내고, (2) OCaml 타입 체커를
+ 해석한다.</p>
+<p>이 글의 두 번째 파트는 OCaml 타입 체커의 일부분에 주석을 다는 것이
+ 목적이고, 따라서, 꽤 기술적이다. OCaml 4.00.1 버전의 타입 체킹 코드를
+ 참조하고 있다. <code class="language-plaintext highlighter-rouge">typing/</code> 디렉토리 안에 있다. <code class="language-plaintext highlighter-rouge">typecore.ml</code> 파일이
+ 타입 체커의 핵심이다. AST의 노드를 타입과 타이핑 환경으로
+ 어노테이트한다. 정확히는, <code class="language-plaintext highlighter-rouge">parsing/parsetree.mli</code>에 정의된
+ <code class="language-plaintext highlighter-rouge">Parsetree</code>를 <code class="language-plaintext highlighter-rouge">Typedtree</code>로 변환한다. <code class="language-plaintext highlighter-rouge">ctype.ml</code> 파일은 유니피케이션
+ 알고리즘과 레벨 조작 함수를 구현하고 있다.</p>
+<h2 id="generalization">Generalization</h2>
+<p>이 배경 설명에서는 힌들리 밀너 타입 시스템의 타입 일반화를 설명하고
+ 나이브한 구현의 미묘한 점과 비효율적인 점을 강조한다. 이 비효율은
+ 레미가 레벨 기반 일반화 알고리즘을 발견하는 동기가 되었다.</p>
+<p>타입 환경 <code class="language-plaintext highlighter-rouge">G</code>에 대한 타입 <code class="language-plaintext highlighter-rouge">t</code>의 <em>일반화(generalization)</em> <code class="language-plaintext highlighter-rouge">GEN(G,
+ t)</code>가 <code class="language-plaintext highlighter-rouge">G</code>에서 자유로 나타나지 않는 <code class="language-plaintext highlighter-rouge">t</code>의 자유 타입 변수를 양화하는
+ 것임을 떠올려보자. 즉, <code class="language-plaintext highlighter-rouge">GET(G, t) = </code> \(\forall \alpha_1
+ ... \alpha_n .\) <code class="language-plaintext highlighter-rouge">t</code> where \({ \alpha_1, ..., \alpha_n} =\)
+ <code class="language-plaintext highlighter-rouge">FV(t) - FV(G)</code>. 힌들리 밀너 식으로 얘기하면, 이 양화는 타입을 이른바
+ 타입 스키마(type schema)로 바꾼다. 일반화는 <code class="language-plaintext highlighter-rouge">let</code> 표현식의 타입
+ 체킹에 쓰인다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>G ㅏ e : t     G, (x: GEN(G, t)) ㅏ e2 : t2
+---------------------------------------------
+G ㅏ let x = e in e2 : t2
+</code></pre></div></div>
+<p>즉, <code class="language-plaintext highlighter-rouge">let</code>에 묶인 변수에 추론된 타입은 <code class="language-plaintext highlighter-rouge">let</code> 표현식의 바디를 타입
+ 체킹할 때 일반화된다. ML은 일반화에 조건을 추가하는데, 이른바 값
+ 제약(value restriction)이다. <code class="language-plaintext highlighter-rouge">let</code>에 묶인 표현식 <code class="language-plaintext highlighter-rouge">e</code>는 겉보기에는
+ 반드시 눈에 보이는 사이드 이펙트가 없어야 한다. 기술적으로는, <code class="language-plaintext highlighter-rouge">e</code>는
+ 반드시 <em>비확장성(nonexpansive)</em>이라는 문법 테스트를 통과해야
+ 한다. OCaml은 이 값 제약을 완화하는데, 뒤에서 나온다.</p>
+<p>일반화의 단순한 예시는 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="n">z</span> <span class="k">in</span> <span class="n">y</span>
+<span class="c">(* 'a -&gt; ('b -&gt; 'b) *)</span>
+</code></pre></div></div>
+<p>타입 체커는 <code class="language-plaintext highlighter-rouge">fun z -&gt; z</code>에 대해서 새로운, 그래서 유니크한 타입 변수
+ \(\beta\)를 도입하여 \(\beta \to \beta\) 타입을 추론한다. 표현식
+ <code class="language-plaintext highlighter-rouge">fun z -&gt; z</code>는 문법적으로는 값이고, 일반화가 진행되고, 그래서 <code class="language-plaintext highlighter-rouge">y</code>는
+ 타입 \(\forall \beta. \beta \to \beta\)를 갖는다. 폴리모픽 타입이기
+ 때문에, <code class="language-plaintext highlighter-rouge">y</code>는 다른 타입 문맥에서 등장할 수도 있다. 즉, 다른 타입의
+ 아규먼트에 적용될 수도 있다. 예를 들면 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span>
+  <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="n">z</span> <span class="k">in</span>
+  <span class="p">(</span><span class="n">y</span> <span class="mi">1</span><span class="o">,</span> <span class="n">y</span> <span class="bp">true</span><span class="p">)</span>
+<span class="c">(* 'a -&gt; int * bool *)</span>
+</code></pre></div></div>
+<p>일반화 <code class="language-plaintext highlighter-rouge">GEN(G, t)</code>는 <code class="language-plaintext highlighter-rouge">G</code>에 나타나지 않는 <code class="language-plaintext highlighter-rouge">t</code>의 자유 타입 변수에
+ 대해서<em>만</em> 양화한다. 이 조건은 미묘하지만 아주 중요하다. 이게 없으면,
+ \(\alpha \to \beta\) 같은 불안전한 타입이 다음 함수에 대해서 추론될
+ 수 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="k">in</span> <span class="n">y</span>
+</code></pre></div></div>
+<p>함수 타입을 추론하려면, 먼저 함수의 바디 <code class="language-plaintext highlighter-rouge">let y = x in y</code>의 타입을
+ 새로운 타입 변수 <code class="language-plaintext highlighter-rouge">'a</code>(\(\alpha\))가 도입된 타입 환경 <code class="language-plaintext highlighter-rouge">x:'a</code>에서
+ 추론한다. 위의 <code class="language-plaintext highlighter-rouge">let</code> 규칙에 의해서 <code class="language-plaintext highlighter-rouge">y</code>에 타입이 추론되는데,
+ 결과적으로 타입 <code class="language-plaintext highlighter-rouge">GEN(x:'a, 'a)</code>를 추론한다. 분명히 <code class="language-plaintext highlighter-rouge">'a</code>는 타입 환경
+ <code class="language-plaintext highlighter-rouge">x:'a</code>에서 나타난다. 그럼에도 불구하고 여기에 양화를 해버리면, <code class="language-plaintext highlighter-rouge">y</code>는
+ 폴리모픽 타입 \(\forall \alpha. \alpha\)를 받게 되고, 따라서 어떤
+ 타입으로든 인스턴스화 될 수 있다. 그 결과 함수는 표면적으로
+ 아규먼트를 그 어떤 타입으로 바꿀 수 있게 된다.</p>
+<p>따라서, 양화할 각각의 타입 변수에 대해서 우리는 반드시 <strong>타입 환경에
+ 나타나지 않음</strong>을 확인해야 한다. 나이브하게 생각하면, 그냥 타입
+ 환경을 다 스캔해서 모든 바인딩의 타입을 살펴볼 수 있다. 사실, 원래
+ Caml이 정확히 이걸 구현했었다. 하지만 타입 환경은 엄청나게 커질 수
+ 있다. 일반적으로 ML 함수들은 아주 긴 <code class="language-plaintext highlighter-rouge">let</code> 표현식 시퀀스를 담고
+ 있다. 일반적인 <code class="language-plaintext highlighter-rouge">let</code>은 이전에 나타난 모든 <code class="language-plaintext highlighter-rouge">let</code>들의 바인딩을 타입
+ 환경에 갖고 있다. 재귀적인 <code class="language-plaintext highlighter-rouge">let</code>의 환경은 모든 <code class="language-plaintext highlighter-rouge">let</code> 형제(sibling)의
+ 바인딩을 갖고 있다. 하나의 <code class="language-plaintext highlighter-rouge">let</code>에 대한 일반화의 일부로 이 환경을
+ 스캔하면 함수 크기에 대해 선형 시간이 걸린다. 그러면 전체 프로그램의
+ 타입 체킹은 제곱이 된다. 레미가 회상하기로 비효율적인 일반화는 Caml
+ 컴파일의 느린 속도의 주된 이유 중 하나였다. 컴파일러를
+ 부트스트래핑하면서 패턴과 표현식을 컴파일하기 위해서 두 개의 상호
+ 재귀 함수를 타입 체킹하는 일은 거의 20분 걸렸다.</p>
+<p>타입 환경을 스캔하지 않는 방법이 있어야 한다.</p>
+<h2 id="unsound-generalization-as-memory-mismanagement">Unsound generalization as memory mismanagement</h2>
+<p>여기서는 먼저 레미의 알고리즘 뒤에 있는 아이디어를 구역 기반 메모리
+ 관리와 관련지어 소개한다. 구체성을 위해서 토이 힌들리 밀너 타입
+ 추론기를 쓸 것이다. 여기서 추론기는 타입 환경을 고려하지 않고 타입의
+ 자유 타입 변수를 양화하는 <em>불안전한(unsound)</em> 일반화 함수를 갖고
+ 있다. 세 가지 간단한 예시를 타입 체크할 것이고, 불안전한 타입을
+ 추론하는 일을 수동 메모리 관리에서의 일반적인 문제와 연관지을 것이다:
+ 여전히 사용 중인 메모리를 해제하는 일이다. 불안전한 일반화는 이 다음
+ 섹션에서 수정되는데, 자원의 성급한 해제를 막는 표준적인 방법에서
+ 영감을 얻었다.</p>
+<p>우리의 힌들리 밀너 타입 추론기가 장난감이긴 하지만, 진짜 OCaml 타입
+ 체커의 많은 구현적인 결정(그리고 몇몇 함수 이름)을 공유한다. 이걸
+ 이해하면 나중에 OCaml 내부를 살펴볼 때 많은 도움이 된다.</p>
+<p>우리의 토이 언어는 표준적인 순수 람다 대수에 <code class="language-plaintext highlighter-rouge">let</code>을 추가한 것이다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">exp</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="nc">Var</span> <span class="k">of</span> <span class="n">varname</span>
+    <span class="o">|</span> <span class="nc">App</span> <span class="k">of</span> <span class="n">exp</span> <span class="o">*</span> <span class="n">exp</span>
+    <span class="o">|</span> <span class="nc">Lam</span> <span class="k">of</span> <span class="n">varname</span> <span class="o">*</span> <span class="n">exp</span>
+    <span class="o">|</span> <span class="nc">Let</span> <span class="k">of</span> <span class="n">varname</span> <span class="o">*</span> <span class="n">exp</span> <span class="o">*</span> <span class="n">exp</span>
+</code></pre></div></div>
+<p>타입은 (자유 또는 묶인) 타입 변수, 양화된 타입 변수, 함수 타입으로
+ 구성된다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">qname</span> <span class="o">=</span> <span class="kt">string</span>
+<span class="k">type</span> <span class="n">typ</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="k">of</span> <span class="n">tv</span> <span class="n">ref</span>
+    <span class="o">|</span> <span class="nc">QVar</span> <span class="k">of</span> <span class="n">qname</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="k">of</span> <span class="n">typ</span> <span class="o">*</span> <span class="n">typ</span>
+<span class="ow">and</span> <span class="n">tv</span> <span class="o">=</span> <span class="nc">Unbound</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">|</span> <span class="nc">Link</span> <span class="k">of</span> <span class="n">typ</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">QVar</code> 타입은 타입 스키마이다. 즉, 단순 타입이 아니다. 힌들리 밀너
+ 시스템에서의 타입 스키마, 또는 양화된 타입은 전치형(prenex form), 즉
+ 보편 양화사가 모두 바깥에 붙는데, 그래서 양화사를 명시적으로
+ 표현해주지 않아도 된다.</p>
+<p>프롤로그 언어로부터 내려온 전통에 따라, 타입 변수는 레퍼런스 쎌로
+ 표현된다. 안묶인 변수(자유 변수)는 널 또는 셀프 포인터를 담고
+ 있다. 또는, 우리의 경우, 쉬운 출력을 위해서 변수 이름을 담고
+ 있다. 자유 타입 변수가 다른 타입 <code class="language-plaintext highlighter-rouge">t'</code>과 합쳐질 때(unified), 레퍼런스
+ 쎌은 <code class="language-plaintext highlighter-rouge">t'</code> 포인터로 덮어 써진다. 원형 타입(즉, 불안전한 타입)을 막기
+ 위해서, “나타나는지 체크(occur check)”를 먼저 수행한다. <code class="language-plaintext highlighter-rouge">occurs tv
+ t'</code>는 <code class="language-plaintext highlighter-rouge">t'</code>를 탐색하면서 만약 타입 변수 <code class="language-plaintext highlighter-rouge">tv</code>를 만나면 예외를
+ 발생시킨다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">unify</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">t1</span> <span class="n">t2</span> <span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span> <span class="k">then</span> <span class="bp">()</span>  <span class="c">(* t1 and t2 are physically the same *)</span>
+    <span class="k">else</span> <span class="k">match</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="p">)</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="n">_</span><span class="p">}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">)</span><span class="o">,</span> <span class="n">t'</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">t'</span><span class="o">,</span> <span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="n">_</span><span class="p">}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">))</span> <span class="o">-&gt;</span>
+        <span class="n">occurs</span> <span class="n">tv</span> <span class="n">t'</span> <span class="p">;</span>
+        <span class="n">tv</span> <span class="o">:=</span> <span class="nc">Link</span> <span class="n">t'</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">t1</span><span class="p">}</span><span class="o">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">t2</span><span class="p">})</span> <span class="o">-&gt;</span>
+        <span class="n">unify</span> <span class="n">t1</span> <span class="n">t2</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TArrow</span> <span class="p">(</span><span class="n">tyl1</span><span class="o">,</span> <span class="n">tyl2</span><span class="p">)</span><span class="o">,</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">tyr1</span><span class="o">,</span> <span class="n">tyr2</span><span class="p">))</span> <span class="o">-&gt;</span>
+        <span class="n">unify</span> <span class="n">tyl1</span> <span class="n">tyr1</span> <span class="p">;</span>
+        <span class="n">unify</span> <span class="n">tyl2</span> <span class="n">tyr2</span>
+    <span class="c">(* everything else is error *)</span>
+</code></pre></div></div>
+<p>타입 체커는 완전히 표준적인 구현이다. 타입 환경 <code class="language-plaintext highlighter-rouge">env</code>에서의 표현식
+ <code class="language-plaintext highlighter-rouge">exp</code>의 타입을 추론한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="n">varname</span> <span class="o">*</span> <span class="n">typ</span><span class="p">)</span> <span class="kt">list</span>
+<span class="k">let</span> <span class="k">rec</span> <span class="n">typeof</span> <span class="o">:</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">exp</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">Var</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">inst</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">assoc</span> <span class="n">x</span> <span class="n">env</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">Lam</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty_x</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">ty_e</span> <span class="o">=</span> <span class="n">typeof</span> <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">ty_x</span><span class="p">)</span> <span class="o">::</span> <span class="n">env</span><span class="p">)</span> <span class="n">e</span> <span class="k">in</span>
+        <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_x</span><span class="o">,</span> <span class="n">ty_e</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty_fun</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e1</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">ty_arg</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e2</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">ty_res</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span>
+        <span class="n">unify</span> <span class="n">ty_fun</span> <span class="p">(</span><span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_arg</span><span class="o">,</span> <span class="n">ty_res</span><span class="p">))</span> <span class="p">;</span>
+        <span class="n">ty_res</span>
+    <span class="o">|</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty_e</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e</span> <span class="k">in</span>
+        <span class="n">typeof</span> <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty_e</span><span class="p">)</span> <span class="o">::</span> <span class="n">env</span><span class="p">)</span> <span class="n">e2</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">newvar</code> 함수는 새로운 <code class="language-plaintext highlighter-rouge">TVar</code>를 유니크한 이름으로 할당한다. <code class="language-plaintext highlighter-rouge">inst</code>
+ 함수는 타입 스키마를 인스턴스화하는데, 즉 모든 <code class="language-plaintext highlighter-rouge">QVar</code>를 새로운
+ <code class="language-plaintext highlighter-rouge">TVar</code>로 대체한다. 이것도 표준적 구현이다. 일반화 함수는
+ 불안전(unsound)하다: 타입 환경과 상관없이 타입에 있는 모든 자유
+ 변수를 양화해버린다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">gen</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">function</span> <span class="c">(* unsound! *)</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="n">name</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nc">QVar</span> <span class="n">name</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">ty</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">gen</span> <span class="n">ty</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">ty2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">gen</span> <span class="n">ty1</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty2</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">ty</span> <span class="o">-&gt;</span> <span class="n">ty</span>
+</code></pre></div></div>
+<p>양화는 <code class="language-plaintext highlighter-rouge">TVar</code>를 해당하는 <code class="language-plaintext highlighter-rouge">QVar</code>로 대체한다. 따라서 원래의 <code class="language-plaintext highlighter-rouge">TVar</code>는
+ 암묵적으로 해제(deallocated)된다: 자유 변수가 묶일 때, 말 그대로
+ “사라지고(disappears)”, 바인더를 가리키는 포인터로 대체된다. 즉,</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">TVar</code>를 할당 (<code class="language-plaintext highlighter-rouge">newvar ()</code>) &lt;-&gt; 메모리 할당
+ <li><code class="language-plaintext highlighter-rouge">TVar</code>를 <code class="language-plaintext highlighter-rouge">QVar</code>로 대체 (양화, 즉 일반화) &lt;-&gt; 메모리 해제
+</ul>
+<p>의 비유가 성립한다.</p>
+<p>타입 변수의 관점에서 보면, <code class="language-plaintext highlighter-rouge">typeof</code>는 자유 변수를 할당하고, 이것들을
+ 합친 다음, 양화를 한 다음 다시 해제한다. 자유 타입 변수에 영향을 주는
+ 이 세 가지 메인 연산의 시퀀스를 관찰할 수 있는 단순한 예시를 타입
+ 체크해보자. 첫 번째 예시는 아무 문제가 없어야 하는 예이다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="n">z</span> <span class="k">in</span> <span class="n">y</span>
+</code></pre></div></div>
+<p>타입 체킹의 트레이스에서 타입 변수와 관계된 연산만 보여주면 다음과
+ 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="n">ty_x</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span>         <span class="c">(* fun x -&gt; .... *)</span>
+<span class="mi">2</span>   <span class="n">ty_e</span> <span class="o">=</span>                 <span class="c">(* let y = fun z -&gt; z in y *)</span>
+<span class="mi">3</span>     <span class="n">ty_z</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span><span class="p">;</span>    <span class="c">(* fun z -&gt; ... *)</span>
+<span class="mi">3</span>     <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_z</span><span class="o">,</span> <span class="n">ty_z</span><span class="p">)</span>  <span class="c">(* inferred for: fun z -&gt; z *)</span>
+<span class="mi">2</span>   <span class="n">ty_y</span> <span class="o">=</span> <span class="n">gen</span> <span class="n">ty_e</span>        <span class="c">(* ty_z remains free, and so *)</span>
+<span class="mi">2</span>   <span class="n">deallocate</span> <span class="n">ty_z</span>        <span class="c">(* quantified and disposed of *)</span>
+<span class="mi">1</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_x</span><span class="o">,</span> <span class="n">inst</span> <span class="n">ty_y</span><span class="p">)</span> <span class="c">(* inferred for: fun x -&gt; ...*)</span>
+</code></pre></div></div>
+<p>각 줄에 있는 번호는 <code class="language-plaintext highlighter-rouge">typeof</code> 재귀 함수의 호출 깊이이다. <code class="language-plaintext highlighter-rouge">typeof</code>가
+ AST의 리프가 아닌 각 노드에 대해서 재귀하기 때문에, 재귀 호출의
+ 깊이는 곧 아직 타입 체킹되지 않은 AST 노드의 깊이와 같다. 추론된
+ 타입은 예상대로 <code class="language-plaintext highlighter-rouge">'a -&gt; 'b -&gt; 'b</code> 이다. 아무 문제가 없다.</p>
+<p>두 번째 예시는 앞에서 본 것인데, 불안전한 일반화가 불안전한 타입 <code class="language-plaintext highlighter-rouge">'a
+ -&gt; 'b</code>를 추론하는 것이다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="k">in</span> <span class="n">y</span>
+</code></pre></div></div>
+<p>마찬가지로 <code class="language-plaintext highlighter-rouge">TVar</code> 연산 트레이스를 살펴보면 문제점이 드러난다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="n">ty_x</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span>         <span class="c">(* fun x -&gt; .... *)</span>
+<span class="mi">2</span>   <span class="n">ty_e</span> <span class="o">=</span>                 <span class="c">(* let y = x in y *)</span>
+<span class="mi">3</span>     <span class="n">inst</span> <span class="n">ty_x</span>            <span class="c">(* inferred for x, same as ty_x *)</span>
+<span class="mi">2</span>   <span class="n">ty_y</span> <span class="o">=</span> <span class="n">gen</span> <span class="n">ty_e</span>        <span class="c">(* ty_x remains free, and is *)</span>
+<span class="mi">2</span>   <span class="n">deallocate</span> <span class="n">ty_x</span>        <span class="c">(* quantified and disposed of *)</span>
+<span class="mi">1</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_x</span><span class="o">,</span> <span class="n">inst</span> <span class="n">ty_y</span><span class="p">)</span> <span class="c">(* inferred for: fun x -&gt; ...*)</span>
+</code></pre></div></div>
+<p>타입 변수 <code class="language-plaintext highlighter-rouge">ty_x</code>가 깊이 1에서 쓰였고 리턴 타입의 일부이다. 그런데
+ 양화되고 나서 깊이 2에서 버려진다. 여전히 쓰이고 있는 변수가 버려진
+ 것이다!</p>
+<p>세 번째 예시도 문제가 있다. 불안전한 일반화가 또 불안전한 타입 <code class="language-plaintext highlighter-rouge">('a
+ -&gt; 'b) -&gt; ('c -&gt; 'd)</code>를 추론해버린다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="n">z</span> <span class="k">in</span> <span class="n">y</span>
+</code></pre></div></div>
+<p>이 트레이스는 메모리 관리 문제를 또 보여준다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="n">ty_x</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span>           <span class="c">(* fun x -&gt; .... *)</span>
+<span class="mi">2</span>   <span class="n">ty_e</span> <span class="o">=</span>                   <span class="c">(* let y = ... *)</span>
+<span class="mi">3</span>     <span class="n">ty_z</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span>       <span class="c">(* fun z -&gt; ... *)</span>
+<span class="mi">4</span>       <span class="n">ty_res</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span>   <span class="c">(* typechecking: x z *)</span>
+<span class="mi">4</span>       <span class="n">ty_x</span> <span class="o">:=</span>              <span class="c">(* as the result of unify *)</span>
+<span class="mi">4</span>         <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_z</span><span class="o">,</span> <span class="n">ty_res</span><span class="p">)</span>
+<span class="mi">4</span>       <span class="n">ty_res</span>               <span class="c">(* inferred for: x z *)</span>
+<span class="mi">3</span>     <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_z</span><span class="o">,</span> <span class="n">ty_res</span><span class="p">)</span>  <span class="c">(* inferred for: fun z -&gt; x z*)</span>
+<span class="mi">2</span>   <span class="n">ty_y</span> <span class="o">=</span> <span class="n">gen</span> <span class="n">ty_e</span>          <span class="c">(* ty_z, ty_res remain free *)</span>
+<span class="mi">2</span>   <span class="n">deallocate</span> <span class="n">ty_z</span>          <span class="c">(* quantified and disposed of *)</span>
+<span class="mi">2</span>   <span class="n">deallocate</span> <span class="n">ty_res</span>        <span class="c">(* quantified and disposed of *)</span>
+<span class="mi">1</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_x</span><span class="o">,</span> <span class="n">inst</span> <span class="n">ty_y</span><span class="p">)</span>   <span class="c">(* inferred for: fun x -&gt; ... *)</span>
+</code></pre></div></div>
+<p>타입 변수 <code class="language-plaintext highlighter-rouge">ty_z</code>와 <code class="language-plaintext highlighter-rouge">ty_res</code>가 양화되고 난 후 깊이 2에서 버려지는데,
+ 여전히 <code class="language-plaintext highlighter-rouge">TArrow (ty_z, ty_res)</code> 타입의 일부로 할당되어 있는 채로
+ <code class="language-plaintext highlighter-rouge">ty_x</code>에 할당되고 결과의 일부로 리턴된다.</p>
+<p>모든 불안전한 예시는 여전히 사용 중인 메모리(<code class="language-plaintext highlighter-rouge">TVar</code>)를 해제하는
+ 이른바 “메모리 관리 문제”를 보여준다. 타입 변수가 양화될 때, 나중에
+ 그 어떤 타입이든 간에 이것과 함께 인스턴스화 될 수 있다. 하지만, 타입
+ 환경에 나타나는 타입 변수는 나머지 타입 체킹에 영향을 주지 않고서는
+ 어떤 타입으로도 대체될 수 없다. 비슷하게, 우리가 메모리를 해제할 때,
+ 우리는 런타임에 그 메모리를 재할당해서 임의의 데이터로 덮어쓸 수 있는
+ 권한을 준다. 프로그램의 나머지 부분은 해제된 메모리에 어떤 식으로든
+ 의존해서는 안된다. 마치 정말로 해제된 것처럼 가정해서, 프로그램에서
+ 더 이상 필요하지 않은 것처럼 다뤄야 한다. 사실, “사용하지 않는
+ 메모리”는 프로그램의 나머지 부분에 영향을 미치지 않는 메모리에 대한
+ 임의의 변경으로 정의할 수 있다. 여전히 사용 중인 메모리를 해제하는
+ 것은 프로그램의 나머지 부분에 영향을 미쳐서, 크래시를 내기도
+ 한다. 덧붙여서, 위의 예시에서 추론된 불안전한 타입은 종종 동일한
+ 결과를 초래하기도 한다 (즉, 크래시 난다).</p>
+<h3 id="참조-불안전한-타입-체커-전체-코드">참조: 불안전한 타입 체커 전체 코드</h3>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">varname</span> <span class="o">=</span> <span class="kt">string</span>
+
+<span class="k">type</span> <span class="n">exp</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="nc">Var</span> <span class="k">of</span> <span class="n">varname</span>
+    <span class="o">|</span> <span class="nc">App</span> <span class="k">of</span> <span class="n">exp</span> <span class="o">*</span> <span class="n">exp</span>
+    <span class="o">|</span> <span class="nc">Lam</span> <span class="k">of</span> <span class="n">varname</span> <span class="o">*</span> <span class="n">exp</span>
+    <span class="o">|</span> <span class="nc">Let</span> <span class="k">of</span> <span class="n">varname</span> <span class="o">*</span> <span class="n">exp</span> <span class="o">*</span> <span class="n">exp</span>
+
+<span class="k">type</span> <span class="n">qname</span> <span class="o">=</span> <span class="kt">string</span>
+<span class="k">type</span> <span class="n">typ</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="k">of</span> <span class="n">tv</span> <span class="n">ref</span>
+    <span class="o">|</span> <span class="nc">QVar</span> <span class="k">of</span> <span class="n">qname</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="k">of</span> <span class="n">typ</span> <span class="o">*</span> <span class="n">typ</span>
+<span class="ow">and</span> <span class="n">tv</span> <span class="o">=</span> <span class="nc">Unbound</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">|</span> <span class="nc">Link</span> <span class="k">of</span> <span class="n">typ</span>
+
+<span class="k">let</span> <span class="n">gensym_counter</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">0</span>
+<span class="k">let</span> <span class="n">reset_gensym</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="n">gensym_counter</span> <span class="o">:=</span> <span class="mi">0</span>
+
+<span class="k">let</span> <span class="n">gensym</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="kt">string</span> <span class="o">=</span> <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="o">!</span><span class="n">gensym_counter</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">incr</span> <span class="n">gensym_counter</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">26</span> <span class="k">then</span> <span class="nn">String</span><span class="p">.</span><span class="n">make</span> <span class="mi">1</span> <span class="p">(</span><span class="nn">Char</span><span class="p">.</span><span class="n">chr</span> <span class="p">(</span><span class="nn">Char</span><span class="p">.</span><span class="n">code</span> <span class="k">'</span><span class="n">a'</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">else</span> <span class="s2">"t"</span> <span class="o">^</span> <span class="n">string_of_int</span> <span class="n">n</span>
+
+<span class="k">let</span> <span class="n">newvar</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="nc">TVar</span> <span class="p">(</span><span class="n">ref</span> <span class="p">(</span><span class="nc">Unbound</span> <span class="p">(</span><span class="n">gensym</span> <span class="bp">()</span><span class="p">)))</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">occurs</span> <span class="o">:</span> <span class="n">tv</span> <span class="n">ref</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">tvr</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="n">tvr'</span> <span class="k">when</span> <span class="n">tvr</span> <span class="o">==</span> <span class="n">tvr'</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"occurs check"</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">ty</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">occurs</span> <span class="n">tvr</span> <span class="n">ty</span>
+    <span class="o">|</span> <span class="nc">TTArrow</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="n">occurs</span> <span class="n">tvr</span> <span class="n">t1</span> <span class="p">;</span>
+        <span class="n">occurs</span> <span class="n">tvr</span> <span class="n">t2</span>
+    <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">unify</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">t1</span> <span class="n">t2</span> <span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span> <span class="k">then</span> <span class="bp">()</span>
+    <span class="k">else</span> <span class="k">match</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="p">)</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="n">_</span><span class="p">}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">)</span><span class="o">,</span> <span class="n">t'</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">t'</span><span class="o">,</span> <span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="n">_</span><span class="p">}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">))</span> <span class="o">-&gt;</span>
+        <span class="n">occurs</span> <span class="n">tv</span> <span class="n">t'</span> <span class="p">;</span>
+        <span class="n">tv</span> <span class="o">:=</span> <span class="nc">Link</span> <span class="n">t'</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">t1</span><span class="p">}</span><span class="o">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">t2</span><span class="p">})</span> <span class="o">-&gt;</span> <span class="n">unify</span> <span class="n">t1</span> <span class="n">t2</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TArrow</span> <span class="p">(</span><span class="n">tyl1</span><span class="o">,</span> <span class="n">tyl2</span><span class="p">)</span><span class="o">,</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">tyr1</span><span class="o">,</span> <span class="n">tyr2</span><span class="p">))</span> <span class="o">-&gt;</span>
+        <span class="n">unify</span> <span class="n">tyl1</span> <span class="n">tyr1</span> <span class="p">;</span>
+        <span class="n">unify</span> <span class="n">tyl2</span> <span class="n">tyr2</span>
+    <span class="c">(* everything else is error *)</span>
+
+<span class="k">type</span> <span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="n">varname</span> <span class="o">*</span> <span class="n">typ</span><span class="p">)</span> <span class="kt">list</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">gen</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="n">name</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nc">QVar</span> <span class="n">name</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">ty</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">gen</span> <span class="n">ty</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">ty2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">gen</span> <span class="n">ty1</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty2</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">ty</span> <span class="o">-&gt;</span> <span class="n">ty</span>
+
+<span class="k">let</span> <span class="n">inst</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="k">rec</span> <span class="n">loop</span> <span class="n">subst</span> <span class="o">=</span> <span class="k">function</span>
+        <span class="o">|</span> <span class="nc">QVar</span> <span class="n">name</span> <span class="o">-&gt;</span>
+            <span class="p">(</span><span class="k">try</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">assoc</span> <span class="n">name</span> <span class="n">subst</span><span class="o">,</span> <span class="n">subst</span><span class="p">)</span>
+             <span class="k">with</span> <span class="nc">Not_found</span> <span class="o">-&gt;</span>
+                 <span class="k">let</span> <span class="n">tv</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span>
+                 <span class="p">(</span><span class="n">tv</span><span class="o">,</span> <span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">tv</span><span class="p">)</span> <span class="o">::</span> <span class="n">subst</span><span class="p">))</span>
+        <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">ty</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">loop</span> <span class="n">subst</span> <span class="n">ty</span>
+        <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">ty2</span><span class="p">)</span> <span class="o">-&gt;</span>
+            <span class="k">let</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">subst</span><span class="p">)</span> <span class="o">=</span> <span class="n">loop</span> <span class="n">subst</span> <span class="n">ty1</span> <span class="k">in</span>
+            <span class="k">let</span> <span class="p">(</span><span class="n">ty2</span><span class="o">,</span> <span class="n">subst</span><span class="p">)</span> <span class="o">=</span> <span class="n">loop</span> <span class="n">subst</span> <span class="n">ty2</span> <span class="k">in</span>
+            <span class="p">(</span><span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">ty2</span><span class="p">)</span><span class="o">,</span> <span class="n">subst</span><span class="p">)</span>
+        <span class="o">|</span> <span class="n">ty</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">ty</span><span class="o">,</span> <span class="n">subst</span><span class="p">)</span>
+    <span class="k">in</span>
+    <span class="k">fun</span> <span class="n">ty</span> <span class="o">-&gt;</span> <span class="n">fst</span> <span class="p">(</span><span class="n">loop</span> <span class="bp">[]</span> <span class="n">ty</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">typeof</span> <span class="o">:</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">exp</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">Var</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">inst</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">assoc</span> <span class="n">x</span> <span class="n">env</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">Lam</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty_x</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">ty_e</span> <span class="o">=</span> <span class="n">typeof</span> <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">ty_x</span><span class="p">)</span><span class="o">::</span><span class="n">env</span><span class="p">)</span> <span class="n">e</span> <span class="k">in</span>
+        <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_x</span><span class="o">,</span> <span class="n">ty_e</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">App</span> <span class="p">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty_fun</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e1</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">ty_arg</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e2</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">ty_res</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span>
+        <span class="n">unify</span> <span class="n">ty_fun</span> <span class="p">(</span><span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty_arg</span><span class="o">,</span> <span class="n">ty_res</span><span class="p">))</span> <span class="p">;</span>
+        <span class="n">ty_res</span>
+    <span class="o">|</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty_e</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e</span> <span class="k">in</span>
+        <span class="n">typeof</span> <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty_e</span><span class="p">)</span><span class="o">::</span><span class="n">env</span><span class="p">)</span> <span class="n">e2</span>
+</code></pre></div></div>
+<h2 id="efficient-generalization-with-levels">Efficient generalization with levels</h2>
+<p>여기서는 레미의 알고리즘 뒤에 있는 아이디어를 계속해서 설명한다. 이제
+ 우리는 불안전한 일반화가 아직 사용 중인 메모리를 해제하는 것과 어떻게
+ 관련되는지 보았기 때문에, 성급한 해제에 대한 표준적인 해결책인
+ 소유권(또는 구역; owership or regions) 추적을 적용해서 많은 오버헤드
+ 없이 이를 해결하려고 한다. 레미의 알고리즘의 주요 특징을 포착한
+ 최적의 방법인 <code class="language-plaintext highlighter-rouge">sound_lazy</code>는 다음에 나온다.</p>
+<p>분명히, 메모리를 해제하기 전에 메모리가 여전히 사용 중인지 반드시
+ 확인해야 한다. 나이브하게 구현하면, 우리는 해제 후보의 참조를 찾기
+ 위해서 지금 사용 중인 모든 메모리를 스캔할 수도 있다. 즉, 일종의 GC의
+ 전체 마킹 페이즈를 수행해서 후보가 마킹됐는지 확인할 수 있다. 이런
+ 식으로 하면, 이 확인 방법은 엄청나게 비쌀 것이다. 최소한 우리는
+ 가비지가 쌓일 때까지는 기다려야 한번에 수집할 수 있다. 아, 힌들리
+ 밀너 타입 시스템에서 우리는 양화를 임의로 지연할 수 없는데, 왜냐하면
+ 일반화된 타입은 아마 곧바로 쓰일 수 있기 때문이다.</p>
+<p>좀더 괜찮은 방법은 이른바 소유권(ownership) 추적이다: 할당된 자원을
+ 소유자, 개체, 또는 함수 활성화(activation)과 연결한다. 오직
+ 소유자만이 자원을 해제할 수 있다. 이것과 유사한 전략은 이른바 구역,
+ 즉 <code class="language-plaintext highlighter-rouge">letregion</code> 프리미티브로 사전적 범위로 지정된 힙 메모리의
+ 영역이다(areas of heap memory created by a lexically-scoped so-called
+ <code class="language-plaintext highlighter-rouge">letregion</code> primitive). <code class="language-plaintext highlighter-rouge">letregion</code>이 범위를 벗어나면, 그 전체 영역이
+ 즉시 해제된다. 이 아이디어는 일반화와도 잘 맞는다. 힌들리 밀너
+ 시스템에서 일반화는 항상 <code class="language-plaintext highlighter-rouge">let</code>의 일부이다. <code class="language-plaintext highlighter-rouge">let x = e in e2</code> 에서의
+ <code class="language-plaintext highlighter-rouge">let</code> 표현식은 <code class="language-plaintext highlighter-rouge">e</code>의 타입을 추론할 때 할당되는 모든 타입 변수의
+ 자연스러운 소유자이다. <code class="language-plaintext highlighter-rouge">e</code>의 타입이 발견되면, <code class="language-plaintext highlighter-rouge">let</code> 표현식이 소유하고
+ 있는 모든 자유 타입 변수는 버려질 수 있다. 즉, 양화될 수 있다.</p>
+<p>이러한 직관은 안전하고 효율적인 일반화 알고리즘의 기초가 된다. 먼저
+ <code class="language-plaintext highlighter-rouge">sound_eager</code>를 설명한다. 이 방법의 구현은 이전의 작은 힌들리 밀너
+ 추론기에서 조금만 다르지만, 굉장히 중요하다. 여기서는 이 차이점만
+ 설명한다. 전체 코드는 밑에 있다. 주요한 차이점은 자유 타입 변수가
+ 안묶여있을(자유) 지라도, 이제 소유자에게 소유되어 소유자를 참조한다는
+ 것이다. 소유자는 항상 <code class="language-plaintext highlighter-rouge">let</code> 표현식이고, 이는 <code class="language-plaintext highlighter-rouge">level</code> 이라고 불리는
+ 양의 정수로 식별된다. 이것은 드 브루인(De Bruijin) 레벨 또는 해당
+ <code class="language-plaintext highlighter-rouge">let</code> 표현식의 중첩되는 깊이를 나타낸다. 레벨 1은 암묵적으로 최상위의
+ <code class="language-plaintext highlighter-rouge">let</code>에 해당한다. 참고로, <code class="language-plaintext highlighter-rouge">(let x = e1 in eb1, let y = e2 in eb2)</code>에
+ 있는 두 <code class="language-plaintext highlighter-rouge">let</code>은 모두 레벨 2를 갖지만, 두 <code class="language-plaintext highlighter-rouge">let</code> 모두 서로의 범위에
+ 없으므로 구역이 분리되어 있기 때문에 혼동이 발생할 수 없다. <code class="language-plaintext highlighter-rouge">let</code>
+ 중첩 깊이는 <code class="language-plaintext highlighter-rouge">let</code> 표현식의 타입 체킹 재귀 깊이와 동일하고 이는 하나의
+ 레퍼런스 쎌만 있으면 알아내기 쉽다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">level</span> <span class="o">=</span> <span class="kt">int</span>
+<span class="k">let</span> <span class="n">current_level</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">1</span>
+<span class="k">let</span> <span class="n">enter_level</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">incr</span> <span class="n">current_level</span>
+<span class="k">let</span> <span class="n">leave_level</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">decr</span> <span class="n">current_level</span>
+</code></pre></div></div>
+<p>타입 추론기는 이제 <code class="language-plaintext highlighter-rouge">let</code> 표현식을 타입 체킹할 때 깊이를 유지한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">typeof</span> <span class="o">:</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">exp</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">...</span> <span class="c">(* the other cases are the same as before *)</span>
+    <span class="o">|</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="n">enter_level</span> <span class="bp">()</span> <span class="p">;</span>
+        <span class="k">let</span> <span class="n">ty_e</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e</span> <span class="k">in</span>
+        <span class="n">leave_level</span> <span class="bp">()</span> <span class="p">;</span>
+        <span class="n">typeof</span> <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty_e</span><span class="p">)</span> <span class="o">::</span> <span class="n">env</span><span class="p">)</span> <span class="n">e2</span>
+</code></pre></div></div>
+<p>메인 타입 추론 함수에서 바뀐 점은 <code class="language-plaintext highlighter-rouge">enter_level</code>과 <code class="language-plaintext highlighter-rouge">leave_level</code>
+ 함수를 호출해서 레벨을 추적하는 것 뿐이다. 나머지 부분은 그대로다.</p>
+<p>자유 타입 변수는 이제 그 소유자를 확인할 수 있는 레벨과 같이
+ 간다. 새로 할당된 타입 변수는 <code class="language-plaintext highlighter-rouge">current_level</code>을 통해 가장 최근에 타입
+ 체킹된 <code class="language-plaintext highlighter-rouge">let</code> 표현식, 즉 소유자를 알 수 있다. 구역 기반 메모리
+ 관리에서, 모든 새로운 메모리는 가장 안쪽의 살아있는 구역에 할당되는
+ 것과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">typ</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="k">of</span> <span class="n">tv</span> <span class="n">ref</span>
+    <span class="o">|</span> <span class="nc">QVar</span> <span class="k">of</span> <span class="n">qname</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="k">of</span> <span class="n">typ</span> <span class="o">*</span> <span class="n">typ</span>
+<span class="ow">and</span> <span class="n">tv</span> <span class="o">=</span> <span class="nc">Unbound</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">level</span> <span class="o">|</span> <span class="nc">Link</span> <span class="k">of</span> <span class="n">typ</span>
+
+<span class="k">let</span> <span class="n">newvar</span> <span class="o">=</span> <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span> <span class="nc">TVar</span> <span class="p">(</span><span class="n">ref</span> <span class="p">(</span><span class="nc">Unbound</span> <span class="p">(</span><span class="n">gensym</span> <span class="bp">()</span><span class="o">,</span> <span class="o">!</span><span class="n">current_level</span><span class="p">)))</span>
+</code></pre></div></div>
+<p>대입 연산이 할당된 메모리 조각의 소유자를 바꿀 수 있는 것처럼,
+ 유니피케이션도 자유 타입 변수의 레벨(소유자)을 바꿀 수 있다. 예를
+ 들어, 만약 <code class="language-plaintext highlighter-rouge">ty_x</code> (레벨 1)과 <code class="language-plaintext highlighter-rouge">ty_y</code> (레벨 2)가 둘다 자유 변수이고
+ <code class="language-plaintext highlighter-rouge">ty_x</code>가 <code class="language-plaintext highlighter-rouge">TArrow(ty_y, ty_y)</code>와 합쳐진다면, 이 함수 타입과 그
+ 구성요소는 구역 1로 내보내지고 따라서 <code class="language-plaintext highlighter-rouge">ty_y</code>의 레벨이 1로 바뀐다. 이
+ 유니피케이션이 모든 <code class="language-plaintext highlighter-rouge">ty_x</code>가 나타나는 것을 <code class="language-plaintext highlighter-rouge">TArrow(ty_y, ty_y)</code>로
+ 바꾸는 것이라고 볼 수도 있다. <code class="language-plaintext highlighter-rouge">ty_x</code>가 더 작은 레벨을 가지고 있고
+ 따라서 안쪽 구역인 레벨 2의 <code class="language-plaintext highlighter-rouge">let</code>보다 더 바깥에 나타나기 때문에, 안쪽
+ <code class="language-plaintext highlighter-rouge">let</code> 표현식이 타입 체크되고 난 이후에도 <code class="language-plaintext highlighter-rouge">ty_y</code>는 해제되어서는
+ 안된다. <code class="language-plaintext highlighter-rouge">ty_y</code> 레벨이 업데이트되었다면 그렇지 않다. 대체로, 자유 타입
+ 변수 <code class="language-plaintext highlighter-rouge">ty_x</code>와 <code class="language-plaintext highlighter-rouge">t</code>를 합치려면 각각의 자유 타입 변수 <code class="language-plaintext highlighter-rouge">ty_y</code>의 레벨을
+ <code class="language-plaintext highlighter-rouge">ty_y</code>와 <code class="language-plaintext highlighter-rouge">ty_x</code> 레벨 중 작은 값으로 업데이트해야 한다. 자유 타입
+ 변수를 <code class="language-plaintext highlighter-rouge">t</code>와 합치려면 또한 occurs check도 해야하는데, 이것도 타입
+ 트리를 탐색한다. 이 두 탐색은 합쳐질 수 있다. 새로운 <code class="language-plaintext highlighter-rouge">occurs</code> 함수는
+ occurs check와 레벨 갱신을 동시에 한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">occurs</span> <span class="o">:</span> <span class="n">tv</span> <span class="n">ref</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">tvr</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="n">tvr'</span> <span class="k">when</span> <span class="n">tvr</span> <span class="o">==</span> <span class="n">tvr'</span> <span class="o">-&gt;</span> <span class="n">failwith</span> <span class="s2">"occurs check"</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">l'</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">min_level</span> <span class="o">=</span>
+            <span class="p">(</span><span class="k">match</span> <span class="o">!</span><span class="n">tvr</span> <span class="k">with</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">min</span> <span class="n">l</span> <span class="n">l'</span> <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">l'</span><span class="p">)</span> <span class="k">in</span>
+        <span class="n">tv</span> <span class="o">:=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">min_level</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">ty</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">occurs</span> <span class="n">tvr</span> <span class="n">ty</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">occurs</span> <span class="n">tvr</span> <span class="n">t1</span> <span class="p">;</span> <span class="n">occurs</span> <span class="n">tvr</span> <span class="n">t2</span>
+    <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
+</code></pre></div></div>
+<p>원래의 <code class="language-plaintext highlighter-rouge">occurs</code>와 다른 부분은 두 번째 패턴 매치 부분
+ 뿐이다. 유니피케이션 코드는 수정될 필요가 전혀 없다. 마지막으로,
+ 일반화 함수를 수정해서 안전하게 만들자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">gen</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">l</span><span class="p">)}</span> <span class="k">when</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="o">!</span><span class="n">current_level</span> <span class="o">-&gt;</span> <span class="nc">QVar</span> <span class="n">name</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">{</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Link</span> <span class="n">ty</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">gen</span> <span class="n">ty</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">ty2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">gen</span> <span class="n">ty1</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty2</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">ty</span> <span class="o">-&gt;</span> <span class="n">ty</span>
+</code></pre></div></div>
+<p>아주 작은 수정인 <code class="language-plaintext highlighter-rouge">when l &gt; !current_level</code> 조건만 추가되었다. 새로운
+ <code class="language-plaintext highlighter-rouge">typeof</code> 코드를 다시 떠올려 보자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">typeof</span> <span class="o">:</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="n">exp</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">env</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">...</span>
+    <span class="o">|</span> <span class="nc">Let</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">e</span><span class="o">,</span> <span class="n">e2</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="n">enter_level</span> <span class="bp">()</span> <span class="p">;</span>
+        <span class="k">let</span> <span class="n">ty_e</span> <span class="o">=</span> <span class="n">typeof</span> <span class="n">env</span> <span class="n">e</span> <span class="k">in</span>
+        <span class="n">leave_level</span> <span class="bp">()</span> <span class="p">;</span>
+        <span class="n">typeof</span> <span class="p">((</span><span class="n">x</span><span class="o">,</span> <span class="n">gen</span> <span class="n">ty_e</span><span class="p">)</span> <span class="o">::</span> <span class="n">env</span><span class="p">)</span> <span class="n">e2</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">e</code>의 타입 체킹을 위해서 만든 구역에서 빠져나간 이후에 <code class="language-plaintext highlighter-rouge">gen</code>을
+ 호출하고 있다. 그 구역이 여전히 소유하고 있는 자유 타입 변수는 현재
+ 레벨보다 더 큰 레벨을 가질 것이다. 구역이 이제 죽었기 때문에, 그러한
+ 자유 변수는 해제될 수 있는데, 이는 곧 양화될 수 있다는 뜻이다.</p>
+<p>이게 불안전했던 알고리즘을 수정한 <code class="language-plaintext highlighter-rouge">sound_eager</code>의 전부이다. 이제
+ 불안전한 타입 추론을 해결했다. 이전에 문제가 되었던 예시를 다시
+ 살펴보자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="k">in</span> <span class="n">y</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">TVar</code> 연산과 관련된 흐름을 보면 이제 문제가 없다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="mi">1</span>  <span class="n">ty_x</span><span class="o">/</span><span class="mi">1</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span>           <span class="c">(* fun x -&gt; ... *)</span>
+<span class="mi">2</span>  <span class="mi">2</span>    <span class="n">ty_e</span> <span class="o">=</span>                     <span class="c">(* let y = x in y *)</span>
+<span class="mi">3</span>  <span class="mi">2</span>      <span class="n">inst</span> <span class="n">ty_x</span><span class="o">/</span><span class="mi">1</span>              <span class="c">(* inferred for x, same as ty_x *)</span>
+<span class="mi">2</span>  <span class="mi">1</span>    <span class="n">ty_y</span> <span class="o">=</span> <span class="n">gen</span> <span class="n">ty_e</span>            <span class="c">(* ty_x/1 remains free, but is level = current, can't quantify, can't dispose *)</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="nc">TArrow</span><span class="p">(</span><span class="n">ty_x</span><span class="o">/</span><span class="mi">1</span><span class="o">,</span> <span class="n">inst</span> <span class="n">ty_y</span><span class="p">)</span>    <span class="c">(* inferred for: fun x -&gt; ... *)</span>
+</code></pre></div></div>
+<p>한 가지 정보가 추가되었다. 컬럼의 첫 번째 숫자는 <code class="language-plaintext highlighter-rouge">typeof</code>의 재귀 깊이
+ 또는 아직 타입 체크되지 않은 AST 노드의 깊이를 나타내고, 두 번째
+ 숫자는 <code class="language-plaintext highlighter-rouge">current_level</code>, 즉 <code class="language-plaintext highlighter-rouge">let</code> 중첩 깊이를 나타낸다. 자유 타입
+ 변수의 레벨은 <code class="language-plaintext highlighter-rouge">ty_x/1</code>와 같이 슬래쉬 뒤에 표시한다. <code class="language-plaintext highlighter-rouge">ty_x/1</code>이 현재
+ 레벨, 즉 여전히 살아있는 구역 1에 속하기 때문에, 해당 변수는 더 이상
+ 깊이 2(레벨 1)의 <code class="language-plaintext highlighter-rouge">gen</code>에 의해 양화되지 않는다. 따라서, 추론된 타입은
+ 예상대로 <code class="language-plaintext highlighter-rouge">'a -&gt; 'a</code>가 된다.</p>
+<p>좀더 복잡한 예시를 살펴보면</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="k">in</span> <span class="n">y</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">x</code>의 타입을 위한 타입 변수 <code class="language-plaintext highlighter-rouge">ty_x</code>는 레벨 1에서 할당되는 반면,
+ <code class="language-plaintext highlighter-rouge">ty_z</code>는 레벨 2에서 할당된다. 안쪽의 구역 2인 <code class="language-plaintext highlighter-rouge">let</code>이 끝난 이후에,
+ <code class="language-plaintext highlighter-rouge">ty_z/2</code>는 양화되어 버려지지만, <code class="language-plaintext highlighter-rouge">ty_x/1</code>는 아니다. 따라서 추론된
+ 타입은 <code class="language-plaintext highlighter-rouge">'a -&gt; 'b -&gt; 'a</code>가 된다. 다이어그램을 그려보면 이게 안전하게
+ 추론된 타입이라는 것을 알 수 있다.</p>
+<p>레벨 추적은 레퍼런스 카운팅과 비슷하게 생겼을 수도 있다. 하지만, 자유
+ 타입 변수의 모든 사용자 수를 세는 것이 아니라, 우리는 딱 한명의
+ 유저만 추적하는데, 바로 가장 넓은 범위이다. 레벨 추적은 따라서 세대간
+ 가비지 콜렉션과 더 많이 닮아 있다: 메모리는 마이너 세대에서 할당되고,
+ 다른 부모가 할당되거나 스택이 참조하지 않는 이상 마이너 콜렉션에서
+ 한번에 버려진다. 메이저 세대는 새로운 세대에 대한 참조를 스캔할
+ 필요가 없는데, 왜냐하면 메이저 데이터 구조의 필드를 가리키는 마이너
+ 값(또는 이에 대한 포인터)의 대입 연산이 없는 이상 그런 참조는 없을
+ 것으로 예상되기 때문이다. OCaml GC와 같은 세대간 가비지 콜렉터는
+ 마이너 세대에서 메이저 세대로의 대입 연산을 추적한다. 마이너
+ 콜렉션에서, 메이저 데이터에서 참조된 마이너 데이터가 메이저 세대로
+ 승격된다. 타입 일반화는 실제로 마이너 GC와 매우 유사하다.</p>
+<h2 id="even-more-efficient-level-based-generalization">Even more efficient level-based generalization</h2>
+<p>여기서는 레미의 알고리즘의 핵심 아이디어를 계속해서 살펴보고
+ <code class="language-plaintext highlighter-rouge">sound_lazy</code>를 설명한다. 이는 이전 섹션에서 살펴본 <code class="language-plaintext highlighter-rouge">sound_eager</code>의
+ 최적화된 버전이다. <code class="language-plaintext highlighter-rouge">sound_lazy</code> 알고리즘은 유니피케이션, 일반화,
+ 인스턴스화 도중 발생하는 반복되는 불필요한 타입 탐색을 피하고,
+ 일반화하거나 인스턴스화 하기 위해 변수를 포함하지 않는 부분을
+ 복사하는 것을 피해서 데이터 공유를 개선한다. 이 알고리즘은 occurs
+ check과 레벨 갱신을 늦춰서 자유 타입 변수와의 유니피케이션이 상수
+ 시간이 걸리도록 한다. 레벨은 점진적으로 필요할 때에만
+ 갱신된다. <code class="language-plaintext highlighter-rouge">sound_lazy</code>는 레미의 알고리즘의 핵심 아이디어를 구현하고
+ 있다. 이 중 일부는 실제 OCaml 타입 체커에 구현되어 있다.</p>
+<p>최적화를 위해서 먼저 타입의 문법을 수정해야 한다. <code class="language-plaintext highlighter-rouge">sound_eager</code>에서는
+ 타입이 자유(<code class="language-plaintext highlighter-rouge">Unbound</code>) 또는 묶인(<code class="language-plaintext highlighter-rouge">Link</code>) 타입 변수 <code class="language-plaintext highlighter-rouge">TVar</code>,
+ (암묵적으로 보편적) 양화된 타입 변수 <code class="language-plaintext highlighter-rouge">QVar</code>, 그리고 함수 타입
+ <code class="language-plaintext highlighter-rouge">TArrow</code>로 구성되었던 것을 기억하자. 먼저, 겉보기에는 무의미한
+ 수정인데, <code class="language-plaintext highlighter-rouge">QVar</code>를 제거해서 별개의 대안인 아주 큰 양의 정수
+ <code class="language-plaintext highlighter-rouge">generic_level</code>을 도입하는데, 이는 접근할 수 없는 서수 \(\omega\)를
+ 의미한다. <code class="language-plaintext highlighter-rouge">generic_level</code>에 있는 자유 타입 변수 <code class="language-plaintext highlighter-rouge">TVar</code> 양화된 타입
+ 변수로 간주된다. 그리고, 이제 자유 타입 변수뿐만 아니라 모든 타입이
+ 레벨을 갖는다. 복합 타입(우리의 경우 <code class="language-plaintext highlighter-rouge">TArrow</code>)의 레벨은, 반드시
+ 정확하지는 않지만, 그 구성 요소의 레벨의 상한(Upper Bound)이
+ 된다. 즉, 만약 타입이 살아있는 구역에 속해있다면, 그 구성 요소도 모두
+ 살아있어야 한다. 따라서 (복합) 타입이 <code class="language-plaintext highlighter-rouge">generic_level</code>에 있으면, 이는
+ 양화된 타입 변수를 포함할 수 있다. 반대로, 만약 타입이
+ <code class="language-plaintext highlighter-rouge">generic_level</code>에 없으면, 어떤 양화된 변수도 포함하지 않는다. 따라서,
+ 이런 타입을 인스턴스화 하면 타입을 탐색하지 않고 그대로 리턴해야
+ 한다. 마찬가지로, 타입의 레벨이 현재 레벨보다 더 크면, 일반화할 자유
+ 타입 변수를 포함하고 있을 수 있다. 반면에, 일반화 함수는 레벨이 현재
+ 레벨보다 작거나 같은 타입을 탐색해서는 안된다. 이것이 바로 레벨이
+ 어떻게 과도한 탐색과 타입의 재구축을 제거해서 공유를 개선하는데
+ 도움이 되는 첫 번째 예시이다.</p>
+<p>타입을 자유 타입 변수와 합칠 때는 타입의 레벨을 타입 변수의 레벨이 더
+ 작으면 해당 레벨로 업데이트해야 한다. 합성 타입에 대해서는 이런
+ 업데이트가 곧 타입의 모든 구성요소의 레벨을 재귀적으로 업데이트해야
+ 한다는 뜻이다. 이런 비싼 탐색을 늦추기 위해서, 우리는 합성 타입에 두
+ 개의 레벨을 저장해 둔다: <code class="language-plaintext highlighter-rouge">level_old</code>는 타입의 구성요소의 레벨에 대한
+ 상한이고; <code class="language-plaintext highlighter-rouge">level_new</code>는 <code class="language-plaintext highlighter-rouge">level_old</code>보다 작거나 같은 값으로 타입이
+ 업데이트 이후에 가져야하는 레벨 값이다. 만약 <code class="language-plaintext highlighter-rouge">level_new &lt; level_old</code>
+ 라면, 타입은 보류 중인 레벨 갱신이 있다. <code class="language-plaintext highlighter-rouge">sound_lazy</code>의 타입 문법은
+ 따라서:</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">level</span> <span class="o">=</span> <span class="kt">int</span>
+<span class="k">let</span> <span class="n">generic_level</span> <span class="o">=</span> <span class="mi">100_000_000</span>  <span class="c">(* as in OCaml typing/btype.ml *)</span>
+<span class="k">let</span> <span class="n">marked_level</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c">(* for marking a node, to check for cycles *)</span>
+
+<span class="n">lype</span> <span class="n">typ</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="k">of</span> <span class="n">tv</span> <span class="n">ref</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="k">of</span> <span class="n">typ</span> <span class="o">*</span> <span class="n">typ</span> <span class="o">*</span> <span class="n">levels</span>
+<span class="ow">and</span> <span class="n">tv</span> <span class="o">=</span> <span class="nc">Unbound</span> <span class="k">of</span> <span class="kt">string</span> <span class="o">*</span> <span class="n">level</span> <span class="o">|</span> <span class="nc">Link</span> <span class="k">of</span> <span class="n">typ</span>
+<span class="ow">and</span> <span class="n">levels</span> <span class="o">=</span> <span class="p">{</span><span class="k">mutable</span> <span class="n">level_old</span><span class="o">:</span> <span class="n">level</span><span class="p">;</span> <span class="k">mutable</span> <span class="n">level_new</span><span class="o">:</span> <span class="n">level</span><span class="p">}</span>
+</code></pre></div></div>
+<p>아직 <code class="language-plaintext highlighter-rouge">marked_level</code>은 설명하지 않았다. 각각의 자유 타입 변수와의
+ 유니피케이션에서 occurs check는 비싼 연산이라서 유니피케이션과 타입
+ 체킹 알고리즘의 복잡도를 올린다. 우리는 이제 이 체크를 전체 표현식이
+ 타입 체크될 때까지 늦출 것이다. 그러는 동안, 유니피케이션이 타입에서
+ 싸이클을 만들 수 있다. 타입 탐색은 이 싸이클을 탐색해야
+ 한다. <code class="language-plaintext highlighter-rouge">marked_level</code>은 임시로 합성 타입의 <code class="language-plaintext highlighter-rouge">level_new</code>로 할당되어
+ 타입이 탐색 중이라는 것을 알린다. 탐색 도중 <code class="language-plaintext highlighter-rouge">marked_level</code>을 만난다는
+ 것은 싸이클을 발견했다는 뜻이고, occurs check는 에러를
+ 알린다. 덧붙여서, OCaml 타입은 일반적으로 싸이클릭하다: 오브젝트와
+ 폴리모픽 배리언트를 타입 체킹할 때 재귀적인 타입이 발생하고,
+ <code class="language-plaintext highlighter-rouge">-rectypes</code> 컴파일러 옵션이 켜져있으면 된다. OCaml 타입 체커는
+ <code class="language-plaintext highlighter-rouge">marked_level</code>과 비슷한 트릭을 이용해서 싸이클을 찾아서 에러를
+ 막는다.</p>
+<p><code class="language-plaintext highlighter-rouge">sound_lazy</code>의 유니피케이션은 몇 가지 중요한 차이점이 있다:</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="k">rec</span> <span class="n">unify</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">t1</span> <span class="n">t2</span> <span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="n">t1</span> <span class="o">==</span> <span class="n">t2</span> <span class="k">then</span> <span class="bp">()</span>
+    <span class="k">else</span> <span class="k">match</span> <span class="p">(</span><span class="n">repr</span> <span class="n">t1</span><span class="o">,</span> <span class="n">repr</span> <span class="n">t2</span><span class="p">)</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">l1</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tv1</span><span class="p">)</span> <span class="k">as</span> <span class="n">t1</span><span class="o">,</span>
+      <span class="p">(</span><span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">l2</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tv2</span><span class="p">)</span> <span class="k">as</span> <span class="n">t2</span><span class="p">))</span> <span class="o">-&gt;</span>
+          <span class="c">(* unify two free vars *)</span>
+          <span class="k">if</span> <span class="n">l1</span> <span class="o">&gt;</span> <span class="n">l2</span> <span class="k">then</span> <span class="n">tv1</span> <span class="o">:=</span> <span class="nc">Link</span> <span class="n">t2</span> <span class="k">else</span> <span class="n">tv2</span> <span class="o">:=</span> <span class="nc">Link</span> <span class="n">t1</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">l</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">)</span><span class="o">,</span> <span class="n">t'</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">t'</span><span class="o">,</span> <span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">l</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tv</span><span class="p">))</span> <span class="o">-&gt;</span>
+        <span class="n">update_level</span> <span class="n">l</span> <span class="n">t'</span> <span class="p">;</span>
+        <span class="n">tv</span> <span class="o">:=</span> <span class="nc">Link</span> <span class="n">t'</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nc">TArrow</span> <span class="p">(</span><span class="n">tyl1</span><span class="o">,</span> <span class="n">tyl2</span><span class="o">,</span> <span class="n">ll</span><span class="p">)</span><span class="o">,</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">tyr1</span><span class="o">,</span> <span class="n">tyr2</span><span class="o">,</span> <span class="n">lr</span><span class="p">))</span> <span class="o">-&gt;</span>
+        <span class="k">if</span> <span class="n">ll</span><span class="o">.</span><span class="n">level_new</span> <span class="o">=</span> <span class="n">marked_level</span> <span class="o">||</span> <span class="n">lr</span><span class="o">.</span><span class="n">level_new</span> <span class="o">=</span> <span class="n">marked_level</span> <span class="k">then</span>
+            <span class="n">failwith</span> <span class="s2">"cycle: occurs check"</span> <span class="p">;</span>
+        <span class="k">let</span> <span class="n">min_level</span> <span class="o">=</span> <span class="n">min</span> <span class="n">ll</span><span class="o">.</span><span class="n">level_new</span> <span class="n">lr</span><span class="o">.</span><span class="n">level_new</span> <span class="k">in</span>
+        <span class="n">ll</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&lt;-</span> <span class="n">marked_level</span> <span class="p">;</span>
+        <span class="n">lr</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&lt;-</span> <span class="n">marked_level</span> <span class="p">;</span>
+        <span class="n">unify_lev</span> <span class="n">min_level</span> <span class="n">tyl1</span> <span class="n">tyr1</span> <span class="p">;</span>
+        <span class="n">unify_lev</span> <span class="n">min_level</span> <span class="n">tyl2</span> <span class="n">tyr2</span> <span class="p">;</span>
+        <span class="n">ll</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&lt;-</span> <span class="n">min_level</span> <span class="p">;</span>
+        <span class="n">lr</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&lt;-</span> <span class="n">min_level</span> <span class="p">;</span>
+<span class="ow">and</span> <span class="n">unify_lev</span> <span class="n">l</span> <span class="n">ty1</span> <span class="n">ty2</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="n">ty1</span> <span class="o">=</span> <span class="n">repr</span> <span class="n">ty1</span> <span class="k">in</span>
+    <span class="n">update_level</span> <span class="n">l</span> <span class="n">ty1</span> <span class="p">;</span>
+    <span class="n">unify</span> <span class="n">ty1</span> <span class="n">ty2</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">repr</code>은 OCaml의 <code class="language-plaintext highlighter-rouge">Btype.repr</code>과 비슷하게 자유 변수 또는 생성된
+ 타입을 리턴하는 묶인 변수의 링크를 따라간다. OCaml과 다르게, 우리는
+ 경로 압축(유니온 파인드의 최적화 방법)을 적용한다. 유니피케이션
+ 함수는 더 이상 occurs check을 하지 않는다. 따라서, 우연히 만들어진
+ 싸이클을 찾도록 노력해야 한다. 자유 변수를 합치는 일은 이제 얕은
+ <code class="language-plaintext highlighter-rouge">update_level</code> 이후에 변수를 바인드하여 상수 시간이 걸린다.</p>
+<p><code class="language-plaintext highlighter-rouge">update_level</code> 함수는 최적화 알고리즘의 핵심 부분 중 하나이다. 이것은
+ 그저 타입의 레벨을 주어진 레벨로 업데이트할 것을 약속한다. 이것은
+ 상수 시간에 동작하고 타입 레벨이 오직 감소하기만 할 수 있는 불변식을
+ 유지한다. 타입 변수의 레벨은 즉각 갱신된다. 합성 타입에 대해서는
+ <code class="language-plaintext highlighter-rouge">level_new</code>가 필요한 새로운 (더 작은) 레벨로 업데이트된다. 추가로,
+ 만약 이전의 <code class="language-plaintext highlighter-rouge">level_new</code>와 <code class="language-plaintext highlighter-rouge">level_old</code>가 같다면, 타입은
+ <code class="language-plaintext highlighter-rouge">to_be_level_adjusted</code> 큐에 추가되어 구성 요소의 레벨을 나중에
+ 업데이트한다. 이런 작업 큐는 세대간 가비지 콜렉터의 마이너 세대로부터
+ 메이저 세대로의 대입 연산의 리스트와 닮아있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">to_be_level_adjusted</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span>
+
+<span class="k">let</span> <span class="n">update_level</span> <span class="o">:</span> <span class="n">level</span> <span class="o">-&gt;</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">n</span><span class="o">,</span> <span class="n">l'</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tvr</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">not</span> <span class="p">(</span><span class="n">l'</span> <span class="o">=</span> <span class="n">generic_level</span><span class="p">))</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">l'</span> <span class="k">then</span> <span class="n">tvr</span> <span class="o">:=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">n</span><span class="o">,</span> <span class="n">l</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">ls</span><span class="p">)</span> <span class="k">as</span> <span class="n">ty</span> <span class="o">-&gt;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">not</span> <span class="p">(</span><span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="o">=</span> <span class="n">generic_level</span><span class="p">))</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="o">=</span> <span class="n">marked_level</span> <span class="k">then</span> <span class="n">failwith</span> <span class="s2">"occurs check"</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="k">then</span> <span class="p">(</span>
+            <span class="k">if</span> <span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="o">=</span> <span class="n">ls</span><span class="o">.</span><span class="n">level_old</span> <span class="k">then</span>
+                <span class="n">to_be_level_adujsted</span> <span class="o">:=</span> <span class="n">ty</span> <span class="o">::</span> <span class="o">!</span><span class="n">to_be_level_adjusted</span> <span class="p">;</span>
+            <span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&lt;-</span> <span class="n">l</span>
+        <span class="p">)</span>
+    <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="k">assert</span> <span class="bp">false</span>
+</code></pre></div></div>
+<p>보류 중인 레벨 갱신은 반드시 일반화 이전에 수행되어야 한다. 결국 보류
+ 중인 갱신은 타입 변수의 레벨을 감소시킬 수 있는데, 즉 더 넓은
+ 구역으로 승격되어서 양화로부터 구해준다. 하지만 모든 보류 중인
+ 업데이트가 강제될 필요는 없다. 오직 <code class="language-plaintext highlighter-rouge">level_old &gt; current_level</code> 인
+ 타입만 하면 된다. 그렇지 않으면, 타입은 현재 시점에서 일반화 가능한
+ 변수가 없게 되고, 레벨 갱신이 더 늦춰질 수 있다. 이런 강제된
+ 알고리즘은 <code class="language-plaintext highlighter-rouge">force_delayed_adjustments</code>에 구현되어 있다. 덧붙여, 만약
+ 합성 타입의 레벨 업데이트가 정말로 수행된다면, 타입은 탐색되어야
+ 한다. 두 <code class="language-plaintext highlighter-rouge">TArrow</code> 타입의 유니피케이션은 또한 이들을 탐색해야
+ 한다. 따라서, 유니피케이션은 원칙적으로는 그 과정에서 레벨을
+ 업데이트할 수도 있다. 하지만 해당 최적화는 구현되어 있지 않다.</p>
+<p>일반화 함수는 죽은 구역에 속한 (즉, 레벨이 현재 레벨보다 큰) 자유
+ <code class="language-plaintext highlighter-rouge">TVar</code>를 찾고 그들의 레벨을 <code class="language-plaintext highlighter-rouge">generic_level</code>로 설정해서 변수를
+ 양화한다. 함수는 오직 타입이 일반화 해야할 타입 변수를 담고 있을 수
+ 있는 부분만 탐색한다. 만약 타입이 (새로운) 현재 레벨 <code class="language-plaintext highlighter-rouge">current_level</code>
+ 또는 이보다 작은 레벨을 갖고 있다면, 그 타입의 모든 구성요소는
+ 살아있는 구역에 속해있고 따라서 일반화할 게 없다. 일반화가 끝난 뒤에
+ 만약 양화된 타입 변수를 담고 있으면 합성 타입은 <code class="language-plaintext highlighter-rouge">generic_level</code>을
+ 받는다. 나중에 인스턴스화 함수는 따라서 레벨이 <code class="language-plaintext highlighter-rouge">generic_level</code>인
+ 타입만 살펴보면 된다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">gen</span> <span class="o">:</span> <span class="n">typ</span> <span class="o">-&gt;</span> <span class="kt">unit</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">ty</span> <span class="o">-&gt;</span>
+    <span class="n">force_delayed_adjustments</span> <span class="bp">()</span> <span class="p">;</span>
+    <span class="k">let</span> <span class="k">rec</span> <span class="n">loop</span> <span class="n">ty</span> <span class="o">=</span>
+        <span class="k">match</span> <span class="n">repr</span> <span class="n">ty</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="nc">TVar</span> <span class="p">({</span><span class="n">contents</span><span class="o">=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">l</span><span class="p">)}</span> <span class="k">as</span> <span class="n">tvr</span><span class="p">)</span> <span class="k">when</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="o">!</span><span class="n">current_level</span> <span class="o">-&gt;</span>
+            <span class="n">tvr</span> <span class="o">:=</span> <span class="nc">Unbound</span> <span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">generic_level</span><span class="p">)</span>
+        <span class="o">|</span> <span class="nc">TArrow</span> <span class="p">(</span><span class="n">ty1</span><span class="o">,</span> <span class="n">ty2</span><span class="o">,</span> <span class="n">ls</span><span class="p">)</span> <span class="k">when</span> <span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&gt;</span> <span class="o">!</span><span class="n">current_level</span> <span class="o">-&gt;</span>
+            <span class="k">let</span> <span class="n">ty1</span> <span class="o">=</span> <span class="n">repr</span> <span class="n">ty1</span> <span class="ow">and</span> <span class="n">ty2</span> <span class="o">=</span> <span class="n">repr</span> <span class="n">ty2</span> <span class="k">in</span>
+            <span class="n">loop</span> <span class="n">ty1</span> <span class="p">;</span>
+            <span class="n">loop</span> <span class="n">ty2</span> <span class="p">;</span>
+            <span class="k">let</span> <span class="n">l</span> <span class="o">=</span> <span class="n">max</span> <span class="p">(</span><span class="n">get_level</span> <span class="n">ty1</span><span class="p">)</span> <span class="p">(</span><span class="n">get_level</span> <span class="n">ty2</span><span class="p">)</span> <span class="k">in</span>
+            <span class="c">(* set the exact level upper bound *)</span>
+            <span class="n">ls</span><span class="o">.</span><span class="n">level_old</span> <span class="o">&lt;-</span> <span class="n">l</span> <span class="p">;</span>
+            <span class="n">ls</span><span class="o">.</span><span class="n">level_new</span> <span class="o">&lt;-</span> <span class="n">l</span>
+        <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
+    <span class="k">in</span> <span class="n">loop</span> <span class="n">ty</span>
+</code></pre></div></div>
+<p>테입 체커의 <code class="language-plaintext highlighter-rouge">typeof</code>는 수정하지 않아도 된다. 여전히 <code class="language-plaintext highlighter-rouge">let</code> 표현식을
+ 타입 체킹할 때 새로운 구역에 들어가야 한다.</p>
+<p>여기까지, 최적화된 <code class="language-plaintext highlighter-rouge">sound_lazy</code> 타입 일반화 알고리즘을 통해
+ 일반화마다 타입 환경 전체를 스캐닝 하지 않아도 될 뿐만 아니라 각각의
+ 자유 타입 변수와의 유니피케이션에서 occurs check도 피할 수
+ 있었다. 결과적으로 유니피케이션에 상수 시간이 소요된다. 알고리즘은
+ 불필요한 타입 탐색과 복사를 줄여서 시간과 공간을 절약했다. 자유 타입
+ 변수를 위한 타입 레벨 외에도 두 개의 아이디어가 최적화의 뿌리가
+ 된다. 하나는 합성 타입의 레벨을 배치해서 타입을 살펴보지 않고도
+ 타입이 무엇을 담고 있을지를 확인하는 것이다. 다른 하나는 비싼 연산인
+ 타입 탐색을 늦춰서 나중에 다른 작업이랑 같이 하는 것이다. 즉, 문제를
+ 해결하는 일이 충분히 미뤄진다면, 어쩌면 사라질 수도 있다: 미루는 것이
+ 때로는 도움이 된다.</p>
+<h2 id="inside-the-ocaml-type-checker">Inside the OCaml Type Checker</h2>
+<h3 id="generalization-with-levels-in-ocaml">Generalization with levels in OCaml</h3>
+<p>여기서는 OCaml 타입 체커의 타입 레벨 구현과 효율적인 일반화에 대한
+ 적용을 설명한다.</p>
+<p>OCaml의 타입 일반화 뒤에 있는 아이디어는 이전에 설명한
+ <code class="language-plaintext highlighter-rouge">sound_eager</code>와 <code class="language-plaintext highlighter-rouge">sound_lazy</code>와 같다. 이 코드들은 일부러 OCaml의 타입
+ 체커와 닮도록 구현했었다. OCaml 타입 체커는 <code class="language-plaintext highlighter-rouge">sound_eager</code> 알고리즘을
+ 구현했고 <code class="language-plaintext highlighter-rouge">sound_lazy</code> 에서 약간의 최적화를 적용했다. OCaml은 훨씬 더
+ 복잡하다: 토이 코드에서의 유니피케이션은 몇 줄 안되었지만, OCaml의
+ 유니피케이션 코드 (<code class="language-plaintext highlighter-rouge">ctype.ml</code>)는 1,634 줄이다. 그럼에도 불구하고 앞의
+ 핵심 아이디어를 이해하는 것은 OCaml 타입 체커를 해석하는데 도움이
+ 된다.</p>
+<p><code class="language-plaintext highlighter-rouge">sound_eager</code> 알고리즘과 마찬가지로 OCaml 타입 체커는 occurs check와
+ 레벨 업데이트를 각각의 자유 변수와의 유니피케이션에서
+ 수행한다. <code class="language-plaintext highlighter-rouge">Ctype.unify_var</code> 코드에서 확인할 수 있다. 반면에,
+ <code class="language-plaintext highlighter-rouge">sound_lazy</code>에서 했던 것처럼, OCaml 타입 체커는 모든 타입에 레벨을
+ 할당한다. <code class="language-plaintext highlighter-rouge">types.mli</code>의 <code class="language-plaintext highlighter-rouge">type_expr</code>에서 볼 수 있다. 이러는 이유는
+ 로컬 타입 생성자가 지역을 벗어나는 것을 감지하기 위함이다. 또
+ <code class="language-plaintext highlighter-rouge">sound_lazy</code>처럼, <code class="language-plaintext highlighter-rouge">generic_level</code>이 양화된 타입 변수와 양화된 변수를
+ 담고 있을 수 있는 타입을 구분한다. 즉, 이른바 제네릭 타입이라고
+ 불리는 녀석이다. 따라서, 스키마 인스턴스화 함수인 <code class="language-plaintext highlighter-rouge">Ctype.instance</code>와
+ <code class="language-plaintext highlighter-rouge">Ctype.copy</code>는 타입의 제네릭이 아닌 부분을 탐색하거나 복사하지 않고,
+ 그대로 리턴하여 공유를 개선한다. <code class="language-plaintext highlighter-rouge">generic_level</code>에 있는 타입 변수는
+ <code class="language-plaintext highlighter-rouge">'a</code>와 같이 출력된다. 다른 레벨은 <code class="language-plaintext highlighter-rouge">'_a</code>와 같이 출력된다. 우리의 토이
+ 알고리즘에서 봤듯이, 가변 글로벌 <code class="language-plaintext highlighter-rouge">Ctype.current_level</code>이 현재 레벨을
+ 추적하고 새롭게 생성된 타입이나 타입 변수에 할당된다. <code class="language-plaintext highlighter-rouge">Ctype.newty</code>와
+ <code class="language-plaintext highlighter-rouge">Ctype.newvar</code>에서 볼 수 있다. <code class="language-plaintext highlighter-rouge">current_level</code>은 <code class="language-plaintext highlighter-rouge">enter_def()</code> 함수로
+ 증가되고 <code class="language-plaintext highlighter-rouge">end_def()</code> 함수로 감소된다. <code class="language-plaintext highlighter-rouge">current_level</code> 외에도
+ <code class="language-plaintext highlighter-rouge">nongen_level</code>이라는 게 있는데, 클래스 정의를 타입 체킹할 때
+ 쓰인다. <code class="language-plaintext highlighter-rouge">global_level</code>은 타입 선언에 있는 타입 변수에 쓰인다.</p>
+<p><code class="language-plaintext highlighter-rouge">let x = e in body</code> 표현식을 타입 체킹하는 아주 단순화된 코드는
+ 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">e_typed</span> <span class="o">=</span>
+    <span class="n">enter_def</span> <span class="bp">()</span> <span class="p">;</span>
+    <span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">type_check</span> <span class="n">env</span> <span class="n">e_source</span> <span class="k">in</span>
+    <span class="n">end_def</span> <span class="bp">()</span> <span class="p">;</span>
+    <span class="n">r</span>
+<span class="k">in</span>
+<span class="n">generalize</span> <span class="n">e_typed</span><span class="o">.</span><span class="n">exp_type</span> <span class="p">;</span>
+<span class="k">let</span> <span class="n">new_env</span> <span class="o">=</span> <span class="n">bind</span> <span class="n">env</span> <span class="n">x</span> <span class="n">e_typed</span><span class="o">.</span><span class="n">exp_type</span> <span class="k">in</span>
+<span class="n">type_check</span> <span class="n">new_env</span> <span class="n">body_source</span>
+</code></pre></div></div>
+<p>여기서 <code class="language-plaintext highlighter-rouge">e_source</code>는 AST 또는 <code class="language-plaintext highlighter-rouge">Parsetree.expression</code>인데 <code class="language-plaintext highlighter-rouge">e</code>를 위한
+ 표현식이다. <code class="language-plaintext highlighter-rouge">e_typed</code>는 <code class="language-plaintext highlighter-rouge">Typedtree.expression</code>으로 <code class="language-plaintext highlighter-rouge">exp_type</code> 필드로
+ 추론된 타입을 각 노드에 어노테이트하고 있는 AST이다.</p>
+<p>따라서, OCaml 타입 체커에서 자주 보이는 전체적인 타입 일반화 패턴은
+ 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">ty</span> <span class="o">=</span>
+    <span class="n">enter_def</span> <span class="bp">()</span> <span class="p">;</span>
+    <span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="o">...</span> <span class="k">let</span> <span class="n">tv</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span> <span class="o">...</span> <span class="p">(</span> <span class="o">...</span><span class="n">tv</span> <span class="o">...</span> <span class="p">)</span>
+    <span class="n">end_def</span> <span class="bp">()</span> <span class="p">;</span>
+    <span class="n">r</span> <span class="k">in</span>
+<span class="n">generalize</span> <span class="n">ty</span>
+</code></pre></div></div>
+<p>만약 <code class="language-plaintext highlighter-rouge">tv</code>가 <code class="language-plaintext highlighter-rouge">enter_def()</code> 이전에 타입 환경에 존재하는 다른 것과
+ 합쳐지지 않는다면, 변수는 일반화 될 것이다. 이 코드는 우리의 토이
+ 코드와 매우 닮았다.</p>
+<p>흥미롭게도, 레벨은 다른 용법이 있는데, 로컬 타입 선언을 위한 구역
+ 규칙을 강제하는 것이다.</p>
+<h3 id="type-regions">Type Regions</h3>
+<p>OCaml 타입 체커는 또한 타입이 선언되기 전에 쓰이지 않고 지역적으로
+ 도입된 타입이 더 넓은 범위로 빠져나가지 않도록 확인하기 위해서 타입
+ 레벨에 의존하고 있다. 대입 연산과 비슷하게, 유니피케이션은 두 가지를
+ 모두 용이하게 한다. 우리는 타입 레벨이 구역 기반 메모리 관리와 어떻게
+ 관계되어 있는지를 봤다. 그래서 레벨이 유니피케이션을 억제하는데
+ 도움이 되어서 자원의 잘못된 관리를 막는 것은 놀랍지 않다. 이번에는,
+ 타입 변수가 아니라 타입 상수일 뿐이다.</p>
+<p>SML과 다르게 OCaml 에서는 로컬 모듈 또는 로컬 범위에 정의된 모듈을
+ 지원한다. 문법은 <code class="language-plaintext highlighter-rouge">let module</code> 형태이다. 로컬 모듈은 타입을 선언하거나
+ 심지어는 이 타입을 이스케이프하게 하기도 한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">y</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="k">struct</span>
+        <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">Foo</span>
+        <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">Foo</span>
+    <span class="k">end</span>
+<span class="k">in</span> <span class="nn">M</span><span class="p">.</span><span class="n">x</span>
+   <span class="o">^^^</span>
+<span class="nc">Error</span><span class="o">:</span> <span class="nc">This</span> <span class="n">expression</span> <span class="n">has</span> <span class="k">type</span> <span class="nn">M</span><span class="p">.</span><span class="n">t</span> <span class="n">but</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">was</span> <span class="n">expected</span> <span class="k">of</span> <span class="k">type</span> <span class="k">'</span><span class="n">a</span>
+       <span class="nc">The</span> <span class="k">type</span> <span class="n">constructor</span> <span class="nn">M</span><span class="p">.</span><span class="n">t</span> <span class="n">would</span> <span class="n">escape</span> <span class="n">its</span> <span class="n">scope</span>
+</code></pre></div></div>
+<p>이런 이스케이프는 에러다. 그렇지 않으면 <code class="language-plaintext highlighter-rouge">y</code>는 <code class="language-plaintext highlighter-rouge">M.t</code> 타입을 받게
+ 되는데 <code class="language-plaintext highlighter-rouge">M.t</code>와 심지어 <code class="language-plaintext highlighter-rouge">M</code> 마저도 <code class="language-plaintext highlighter-rouge">y</code>의 범위에 있지 않게 된다. 이
+ 문제는 마치 C 함수에서 자동 지역 변수의 주소를 리턴하는 것과
+ 비슷하다.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span> <span class="nf">esc_res</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">str</span> <span class="p">[]</span> <span class="o">=</span> <span class="s">"local string"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>지역적으로 선언된 타입은 결과 타입 뿐만 아니라 존재하는 타입 변수와의
+ 유니피케이션을 통해서도 빠져나갈 수 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fun</span> <span class="n">y</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="k">struct</span>
+        <span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">Foo</span>
+        <span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">y</span> <span class="nc">Foo</span>
+    <span class="k">end</span>
+<span class="k">in</span> <span class="bp">()</span>
+                  <span class="o">^^^</span>
+<span class="nc">Error</span><span class="o">:</span> <span class="nc">This</span> <span class="n">expression</span> <span class="n">has</span> <span class="k">type</span> <span class="n">t</span> <span class="n">but</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">was</span> <span class="n">expected</span> <span class="k">of</span> <span class="k">type</span> <span class="k">'</span><span class="n">a</span>
+       <span class="nc">The</span> <span class="k">type</span> <span class="n">constructor</span> <span class="n">t</span> <span class="n">would</span> <span class="n">escape</span> <span class="n">its</span> <span class="n">scope</span>
+</code></pre></div></div>
+<p>이런 종류의 에러는 C 프로그래머에게는 익숙할지도 모르겠다.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">esc_ext</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">str</span> <span class="p">[]</span> <span class="o">=</span> <span class="s">"local string"</span><span class="p">;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>심지어 탑 레벨의 모듈도 타입이 빠져나가는 문제가 생길 수 있다. 다음
+ 예시는 OCaml 타입 체커 코드의 코멘트에서 가져왔다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span>
+<span class="k">module</span> <span class="nc">M</span> <span class="o">=</span> <span class="k">struct</span>
+    <span class="k">type</span> <span class="n">t</span>
+    <span class="k">let</span> <span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">:</span> <span class="n">t</span> <span class="kt">list</span> <span class="n">ref</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>변수 <code class="language-plaintext highlighter-rouge">x</code>는 제네릭이 아닌 타입 <code class="language-plaintext highlighter-rouge">'_a list ref</code>를 가지고 있다. 모듈
+ <code class="language-plaintext highlighter-rouge">M</code>은 로컬 타입 <code class="language-plaintext highlighter-rouge">t</code>를 정의한다. 타입 속성은 <code class="language-plaintext highlighter-rouge">t</code> 이전에 정의된 <code class="language-plaintext highlighter-rouge">x</code>를
+ 타입 <code class="language-plaintext highlighter-rouge">x : t list ref</code>를 갖게 만든다. <code class="language-plaintext highlighter-rouge">t</code>가 정의되기 전에 쓰인 것처럼
+ 보인다. 이런 타입 이스케이핑 문제는 심지어 모듈이 아니어도 발생할 수
+ 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span>
+<span class="k">type</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">Foo</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">r</span> <span class="o">:=</span> <span class="p">[</span><span class="nc">Foo</span><span class="p">]</span>
+               <span class="o">^^^</span>
+<span class="nc">Error</span><span class="o">:</span> <span class="nc">This</span> <span class="n">expression</span> <span class="n">has</span> <span class="k">type</span> <span class="n">t</span> <span class="n">but</span> <span class="n">an</span> <span class="n">expression</span> <span class="n">was</span> <span class="n">expected</span> <span class="k">of</span> <span class="k">type</span> <span class="k">'</span><span class="n">weak1</span>
+       <span class="nc">The</span> <span class="k">type</span> <span class="n">constructor</span> <span class="n">t</span> <span class="n">would</span> <span class="n">escape</span> <span class="n">its</span> <span class="n">scope</span>
+</code></pre></div></div>
+<p>OCaml은 이런 탈출을 그대로 내버려둘 수가 없다. 어떤 경우에도 타입
+ 생성자는 선언된 범위 밖에서 사용될 수 없다. 타입 레벨은 이런 구역
+ 같은 원칙을 타입 생성자에 강제한다.</p>
+<p>OCaml 타입 체커는 이미 타입 일반화를 위해서 구역을 지원하는데,
+ <code class="language-plaintext highlighter-rouge">begin_def</code>로 새 구역에 진입하고 <code class="language-plaintext highlighter-rouge">end_def</code>로 새 구역을
+ 벗어난다(파괴한다). 그리고 구역의 소유자에게 타입을 연결해서
+ 유니피케이션이 수행되는 동안 소유권의 변경을 추적한다. 남은 것은 타입
+ 선언이 새 구역에 들어가고 선언된 타입 생성자가 이 구역과 연결하는
+ 것이다. 이 타입 생성자가 나타나는 모든 구역은 타입 선언 구역 내의
+ 구역에 속해야 한다. 타입 생성자의 선언은 모든 사용 이전에 나타나야
+ 한다(dominate).</p>
+<p>이전에 설명했듯이, 타입 구역은 양의 정수인 타입 레벨로 식별된다. 이는
+ 구역의 중첩된 깊이이다. 각각의 타입은 <code class="language-plaintext highlighter-rouge">level</code> 필드가 있어서 소유된
+ 구역의 레벨을 알 수 있다. 타입 생성자는 이거랑 비슷한 레벨
+ 어노테이션이 필요하다. OCaml의 다른 기능이 정확히 이 목적을
+ 제공한다는 것이 밝혀졌다. 타입 생성자, 데이터 생성자, 텀 변수는 OCaml
+ 프로그램 안에서 재정의 될 수 있다. 타입은 재선언될 수 있고, 변수는
+ 여러 번 다시 묶일 수 있다. OCaml은 <em>식별자(identifier)</em>
+ (<code class="language-plaintext highlighter-rouge">ident.ml</code>)에 의존하는데, 이를 통해 같은 이름으로 나타나지만
+ 실제로는 다르게 선언되거나 묶인 것들을 구별할 수 있다. 식별자는
+ 이름과 양의 정수인 타임 스탬프를 갖고 있다. 글로벌 가변
+ <code class="language-plaintext highlighter-rouge">Ident.currentstamp</code>는 현재 시간을 추적하고 새로운 식별자가 선언 또는
+ 바인딩으로 생성되면 이를 증가시킨다. 식별자의 타임스탬프는 따라서
+ 그게 바인딩 타임(binding time; 묶인 시간)이다. 바인딩 타임은 식별자를
+ 타입 구역에 연결하는 자연스러운 방법이다. 만약 현재 시간이 현재
+ 레벨로 설정되어 있다면, 새로운 식별자는 현재 레벨보다 더 작은 바인딩
+ 타임을 가질 수 없다. 이들은 현재 타입 구역에 소유된 것으로
+ 간주된다. 빠져나가지 않는다는 것(non-escaping)은 곧 타입의 레벨이
+ 타입 안에 있는 각각의 타입 생성자의 바인딩 타임보다 작지 않다는 것을
+ 뜻한다.</p>
+<p>유니피케이션, 구체적으로는 자유 타입 변수와의 유니피케이션은 할당과도
+ 비슷한데, 타입의 소유자를 바꿀 수 있어서 이에 따라 타입 레벨을
+ 업데이트 해줘야 한다. 동시에 이는 빠져나가지 않는 성질(non-escaping
+ property)가 여전히 유효한지 검사한다. <code class="language-plaintext highlighter-rouge">Ctype.update_level</code>에서 볼 수
+ 있다.</p>
+<p>이제 우리는 로컬 모듈, 즉 <code class="language-plaintext highlighter-rouge">let module name = modl in body</code> 표현식을
+ 타입 체킹하기 위한 OCaml 코드를 이해할 수 있다. <code class="language-plaintext highlighter-rouge">typecore.ml</code>에서
+ 발췌했다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">|</span> <span class="nc">Pexp_letmodule</span><span class="p">(</span><span class="n">name</span><span class="o">,</span> <span class="n">smodl</span><span class="o">,</span> <span class="n">sbody</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">ty</span> <span class="o">=</span> <span class="n">newvar</span> <span class="bp">()</span> <span class="k">in</span>
+        <span class="c">(* remember the original level *)</span>
+        <span class="n">begin_def</span> <span class="bp">()</span> <span class="p">;</span>
+        <span class="nn">Ident</span><span class="p">.</span><span class="n">set_current_time</span> <span class="n">ty</span><span class="o">.</span><span class="n">level</span> <span class="p">;</span>
+        <span class="k">let</span> <span class="n">context</span> <span class="o">=</span> <span class="nn">Typetexp</span><span class="p">.</span><span class="n">narrow</span> <span class="bp">()</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">modl</span> <span class="o">=</span> <span class="o">!</span><span class="n">type_module</span> <span class="n">env</span> <span class="n">smodl</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="p">(</span><span class="n">id</span><span class="o">,</span> <span class="n">new_env</span><span class="p">)</span> <span class="o">=</span> <span class="nn">Env</span><span class="p">.</span><span class="n">enter_module</span> <span class="n">name</span><span class="o">.</span><span class="n">txt</span> <span class="n">modl</span><span class="o">.</span><span class="n">mod_type</span> <span class="n">env</span> <span class="k">in</span>
+        <span class="nn">Ctype</span><span class="p">.</span><span class="n">init_def</span> <span class="p">(</span><span class="nn">Ident</span><span class="p">.</span><span class="n">current_time</span><span class="bp">()</span><span class="p">)</span> <span class="p">;</span>
+        <span class="nn">Typetexp</span><span class="p">.</span><span class="n">widen</span> <span class="n">context</span> <span class="p">;</span>
+        <span class="k">let</span> <span class="n">body</span> <span class="o">=</span> <span class="n">type_expect</span> <span class="n">new_env</span> <span class="n">sbody</span> <span class="n">ty_expected</span> <span class="k">in</span>
+        <span class="c">(* go back to original level *)</span>
+        <span class="n">end_def</span> <span class="bp">()</span> <span class="p">;</span>
+        <span class="c">(* Check that the local types declared in modl don't escape
+           through the return type of body *)</span>
+        <span class="k">begin</span> <span class="k">try</span>
+            <span class="nn">Ctype</span><span class="p">.</span><span class="n">unify_var</span> <span class="n">new_env</span> <span class="n">ty</span> <span class="n">body</span><span class="o">.</span><span class="n">exp_type</span>
+        <span class="k">with</span> <span class="nc">Unify</span> <span class="n">_</span> <span class="o">-&gt;</span>
+            <span class="k">raise</span> <span class="p">(</span><span class="nc">Error</span> <span class="p">(</span><span class="n">loc</span><span class="o">,</span> <span class="nc">Scoping_let_module</span> <span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">txt</span><span class="o">,</span> <span class="n">body</span><span class="o">.</span><span class="n">exp_type</span><span class="p">)))</span>
+        <span class="k">end</span> <span class="p">;</span>
+        <span class="n">re</span> <span class="p">{</span>
+            <span class="n">exp_desc</span> <span class="o">=</span> <span class="nc">Texp_letmodule</span> <span class="p">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">modl</span><span class="o">,</span> <span class="n">body</span><span class="p">)</span> <span class="p">;</span>
+            <span class="n">exp_loc</span> <span class="o">=</span> <span class="n">loc</span> <span class="p">;</span>
+            <span class="n">exp_extra</span> <span class="o">=</span> <span class="bp">[]</span> <span class="p">;</span>
+            <span class="n">exp_type</span> <span class="o">=</span> <span class="n">ty</span> <span class="p">;</span>
+            <span class="n">exp_env</span> <span class="o">=</span> <span class="n">env</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>타입 변수 <code class="language-plaintext highlighter-rouge">ty</code>는 표현식의 추론된 타입을 받기 위해서 생성된다. 변수는
+ 현재 구역에서 생성된다. 그러고 나면 <code class="language-plaintext highlighter-rouge">begin_def()</code>로 새로운 타입
+ 구역에 들어가게 되고 식별자 타임스탬프 클럭이 새로운
+ <code class="language-plaintext highlighter-rouge">current_level</code>로 지정된다.</p>
+<h3 id="discovery-of-levels">Discovery of levels</h3>
+<h3 id="creating-fresh-type-variables">Creating fresh type variables</h3>
+<h3 id="true-complexity-of-generalization">True complexity of generalization</h3>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 11:47:13 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

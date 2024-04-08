@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>1. Exploratory Data Analysis</title>
+<meta property="og:title" content="1. Exploratory Data Analysis" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="1. Exploratory Data Analysis">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="1. Exploratory Data Analysis"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/practical-statistics/1-exploratory-data-analysis.org" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/practical-statistics/">Practical statistics</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/practical-statistics/1-exploratory-data-analysis/">1. Exploratory Data Analysis</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	      <h1 id="eda">EDA</h1>
+<ul>
+ <li>추론(Inference): 적은 표본(샘플)을 가지고 더 큰 <i>모집단</i> 에 대한 <b>결론</b> 을
+    도출하기 위한 일련의 복잡한 과정
+   <ul>
+     <li>표본과 샘플, 표본추출과 샘플링, 모형과 모델, 임의와 랜덤 등은 혼용함
+   </ul>
+</ul>
+<h2 id="eda--------------">정형화된 데이터의 요소</h2>
+<p>왜 데이터를 구분할까?</p>
+<ul>
+ <li>그래프를 그리거나 모델을 피팅하는 등의 통계분석을 수행하는 방식을 결정하는데
+    큰 도움을 준다.
+ <li>범주형 데이터라는 결국 <code>enum</code> 이다.
+</ul>
+<h3 id="eda-----------------------">수치형 데이터</h3>
+<p>말 그대로 숫자로 표현된다.</p>
+<table>
+ <tr><th>데이터<th>설명<th>예시
+ <tr><td>연속형 데이터<td>어떤 범위 안에서 어떤 값이든 가질 수 있는 데이터로, 구간형 또는 실수형 이라고도 한다.<td>속도, 지속시간 등
+ <tr><td>이산형 데이터<td>셀 수 있는 값을 갖는 데이터<td>횟수, 사건의 발생 빈도 등
+</table>
+<h3 id="eda-----------------------">범주형 데이터</h3>
+<p>카테고리로 나눌 수 있는 데이터로, 제품 종류나 도시 이름 같이 어떤 범위 안에서의
+  이산형 데이터로 볼 수도 있다.</p>
+<table>
+ <tr><th>데이터<th>설명<th>예시
+ <tr><td>이진 데이터<td>둘 중 하나<td>참/거짓, 예/아니오 등
+ <tr><td>순서형 데이터<td>범위 안에서 서로 order가 정의되는 데이터<td>평점 등
+</table>
+<h2 id="eda---------">테이블 데이터</h2>
+<table>
+ <tr><th>용어<th>설명<th>유의어
+ <tr><td>데이터 프레임<td>스프레드시트와 같은 테이블 형태의 데이터<td>-
+ <tr><td>피쳐 (Feature)<td>테이블의 각 <b>열</b><td>특징, 속성(Attribute), 입력, 예측 변수(Predictor), 변수
+ <tr><td>결과 (Outcome)<td>프로젝트의 목표. 결과를 <b>예측</b> 하기 위해서 피쳐를 사용한다.<td>종속변수, 응답, 목표, 출력
+ <tr><td>레코드 (Record)<td>테이블의 각 <b>행</b><td>기록값, 사건(Case), 사례, 예제(Example), 관측값, 패턴, 샘플
+</table>
+<ul>
+ <li>통계: <b>응답변수</b> (또는 <b>종속변수</b>)를 예측하는 모델에서 <b>예측변수</b> 를 사용한다
+ <li>데이터 과학: <b>목표</b> 를 예측하는데 <b>피쳐</b> 를 사용한다
+</ul>
+<h2 id="eda-------">위치 추정</h2>
+<p>데이터가 주어졌을 때 데이터를 살펴보는 가장 <i>기초적인</i> 단계는 각 피쳐(변수)의
+  &#8220;대표값(Typical Value)&#8221;을 구해서 -&gt; <i>대부분의 값</i> 이 어디쯤에 위치하는지를
+  추정해본다.</p>
+<table>
+ <tr><th>용어<th>설명<th>유의어
+ <tr><td>평균 (Mean)<td>-<td>Average
+ <tr><td>가중평균(Weighted Mean)<td>가중치를 곱한 값의 총합을 가중치의 총합으로 나눈 값<td>
+ <tr><td>중간값 (Median)<td>-<td>50번째 백분위수 (Percentile)
+ <tr><td>백분위수<td>전체 데이터의 P%를 아래에 두는 값<td>분위수(Quantile)
+ <tr><td>절사평균 (Trimmed Mean)<td>정해진 개수의 극단값을 제외한 나머지 값들의 평균<td>절단평균 (Truncated Mean)
+ <tr><td>로버스트(Robust)<td>극단값들에 민감하지 않은 상태<td>저항성 (Resistant)
+ <tr><td>특잇값 (Outlier)<td>대부분의 값과 매우 다른 데이터 값<td>극단값(Extreme Value)
+</table>
+<ul>
+ <li>통계: 데이터로부터 계산된 값들에 보통 <b>추정값(estimate)</b> 이라고 부른다. &#8211;&gt;
+    불확실성을 이해하기 위한 학문이다. 그래서 <i>추정</i> 한다.
+ <li>데이터 과학: 데이터로부터 계산된 값을 <b>측정 지표(metric)</b> 라고 부른다. &#8211;&gt;
+    구체적인 비즈니스 또는 조직의 목표치에 관심을 둔다. 그래서 <i>측정</i> 한다.
+</ul>
+<h3 id="eda-------------">가중평균</h3>
+<ul>
+ <li>어떤 값이 다른 값에 비해 <i>큰 변화량</i> 을 가질 때, 이를 작은 가중치를 둬서 영향을
+    줄일 수 있다. 예를 들면, 여러 개의 센서 중 특정 센서의 정확도가 떨어지면 이
+    센서에는 가중치를 낮게 준다.
+ <li>데이터를 수집할 때 우리가 관심있는 서로 다른 대조군에 대해서 정확히 같은
+    비율을 맞추기란 불가능에 가깝다. 이를 보정하기 위해서 데이터가 부족한 소수
+    그룹에 더 높은 가중치를 적용할 수도 있다.
+</ul>
+<h3 id="eda-----------------">로버스트한 추정</h3>
+<ul>
+ <li>많은 경우 데이터에 매우 민감한 평균보다는 중간값이 위치 추정에 더 유리하다.
+    예를 들어 가계소득 등. 왜냐하면 결과를 왜곡할 수도 있는 <b>특잇값(극단값)</b> 의
+    영향을 받지 않으므로 <b>로버스트</b> 하다고 여겨진다.
+ <li>절사평균도 괜찮다. 예를 들어 상하위 10%를 잘라내는 방법은 데이터가 너무
+    적지만 않다면 특잇값으로부터 데이터를 보호할 수 있다. 이는 평균과 중간값의
+    절충안이라고 볼 수도 있다.
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">wquantiles</span>
+
+<span class="c1"># load data - check out https://github.com/gedeck/practical-statistics-for-data-scientists/tree/master/data</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;state.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 평균, 절사평균(10%), 중간값</span>
+<span class="n">state</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">trim_mean</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">state</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+
+<span class="c1"># 미국 전체의 평균 살인율 계산 - 인구를 가중치로</span>
+<span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;Murder.Rate&#39;</span><span class="p">],</span> <span class="n">weights</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+<span class="c1"># 가중 중간값 - wquantiles 패키지</span>
+<span class="n">wquantiles</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;Murder.Rate&#39;</span><span class="p">],</span> <span class="n">weights</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">])</span>
+</pre></div>
+<h2 id="eda-------">변이 추정</h2>
+<p>변이(Variability)는 데이터 값들이 얼마나 <i>밀집</i> 혹은 <i>퍼져</i> 있는지를 나타내는
+  <b>산포도(Dispersion)</b> 를 나타낸다.</p>
+<p>변이를 측정하고, 줄이고, 변이와 랜덤값을 구분하고, 변이의 다양한 요인들을
+  살펴보고, 변이가 상황에서 어떻게 결정을 내리는지 등 통계의 핵심이다.</p>
+<table>
+ <tr><th>용어<th>설명<th>유의어
+ <tr><td>편차 (Deviation)<td>관측값과 위치 추정값 사이의 차이<td>오차, 잔차(Residual)
+ <tr><td>분산 (Variance)<td>평균과 편차의 제곱의 합을 (n-1)로 나눈 값<td>평균제곱오차
+ <tr><td>표준편차 (Standard Deviation)<td>분산의 제곱근<td>
+ <tr><td>평균절대편차 (Mean Absolute Deviation)<td>평균과 편차의 절대값의 평균<td>L1 노름, 맨해튼 노름
+ <tr><td>중간값의 중위절대편차(MAD; Median Absolute Deviation from the median)<td>중간값과의 편차의 절대값의 중간값<td>
+ <tr><td>범위<td>최대값 - 최소값<td>
+ <tr><td>순서통계량 (Order Statistics)<td>최소~최대로 정렬된 데이터 값에 따른 계량형<td>순위
+ <tr><td>백분위수 (Percentile)<td>어떤 값들의 P 퍼센트가 이 값 이하의 값을 갖고, (100 - P) 퍼센트가 이 값 이상을 갖도록 하는 값<td>분위수
+ <tr><td>사분위범위 (IQR; InterQuantile Range)<td>75번째 백분위수와 25번째 백분위수의 차이<td>
+</table>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=statistics ">statistics</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=note ">note</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-05-08 06:40:24 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

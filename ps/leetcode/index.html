@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>LeetCode</title>
+<meta property="og:title" content="LeetCode" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="LeetCode">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LeetCode"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/">LeetCode</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 class="no_toc" id="leetcode">Leetcode</h1>
+<h3 class="no_toc text-delta" id="omakase">Omakase</h3>
+<div class="omakase"></div>
+<script>
+  $(document).ready( () => {
+    const problems = document.getElementsByClassName("task-list-item");
+    const omakase = document.getElementsByClassName("omakase")[0];
+    const sampled = problems[Math.floor(Math.random() * problems.length)];
+    omakase.appendChild(sampled.children[1]);
+    console.log(sampled.children[1]);
+  });
+</script>
+<h2 id="language">Language</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="basic-calculator">Basic Calculator</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="evaluate-reverse-polish-notation">Evaluate Reverse Polish Notation</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="parsing-a-boolean-expression">Parsing A Boolean Expression</a>
+</ul>
+<h2 id="array">Array</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="3sum">3Sum</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="best-time-to-buy-and-sell-stock">Best Time to Buy and Sell Stock</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="candy">Candy</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="container-with-most-water">Container With Most Water</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-minimum-in-rotated-sorted-array">Find Minimum in Rotated Sorted Array</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-consecutive-sequence">Longest Consecutive Sequence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts">Maximum Area of a Piece of Cake After Horizontal and Vertical Cuts</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-erasure-value">Maximum Erasure Value</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-points-you-can-obtain-from-cards">Maximum Points You Can Obtain from Cards</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-product-subarray">Maximum Product Subarray</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-size-subarray-sum-equals-k">Maximum Size Subarray Sum Equals k</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-subarray">Maximum Subarray</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-difference-between-largest-and-smallest-value-in-three-moves">Minimum Difference Between Largest and Smallest Value in Three Moves</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-moves-to-equal-array-elements-ii">Minimum Moves to Equal Array Elements II</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-operations-to-reduce-x-to-zero">Minimum Operations to Reduce X to Zero</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-size-subarray-sum">Minimum Size Subarray Sum</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="monotonic-array">Monotonic Array</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="non-decreasing-array">Non-decreasing Array</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="pairs-of-songs-with-total-durations-divisible-by-60">Pairs of Songs with Total Durations Divisible by 60</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="prison-cells-after-n-days">Prison Cells after N Days</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="product-of-array-except-self">Product of Array Except Self</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="queue-reconstruction-by-height">Queue Reconstruction by Height</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="remove-duplicates-from-sorted-array">Remove Duplicates from Sorted Array</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="search-in-rotated-sorted-array">Search in Rotated Sorted Array</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="shortest-unsorted-continuous-subarray">Shortest Unsorted Continuous Subarray</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="snapshot-array">Snapshot Array</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="two-sum">Two Sum</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="walking-robot-simulation">Walking Robot Simulation</a>
+</ul>
+<h2 id="sorting">Sorting</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="sort-an-array">Sort an Array</a>
+</ul>
+<h2 id="interval">Interval</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="count-odd-numbers-in-an-interval-range">Count Odd Numbers in an Interval Range</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="insert-interval">Insert Interval</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="meeting-rooms#meeting-rooms-ii">Meeting Rooms II</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="meeting-rooms">Meeting Rooms</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="merge-intervals">Merge Intervals</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="non-overlapping-intervals">Non-overlapping Intervals</a>
+</ul>
+<h2 id="linked-list">Linked List</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="lru-cache">LRU Cache</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="linked-list-cycle">Linked List Cycle</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="merge-k-sorted-lists">Merge K Sorted Lists</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="merge-two-sorted-lists">Merge Two Sorted Lists</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="middle-of-the-linked-list">Middle of the Linked List</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="palindrome-linked-list">Palindrome Linked List</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="partition-list">Partition List</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="remove-nth-node-from-end-of-list">Remove Nth Node From End Of List</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="reorder-list">Reorder List</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="reverse-linked-list#reverse-linked-list-ii">Reverse Linked List II</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="reverse-linked-list">Reverse Linked List</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="split-linked-list-in-parts">Split Linked List In Parts</a>
+</ul>
+<h2 id="string">String</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="encode-and-decode-strings">Encode and Decode Strings</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="group-anagrams">Group Anagrams</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-palindromic-substring">Longest Palindromic Substring</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="valid-palindrome">Valid Palindrome</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="count-common-words-with-one-occurrence">Count Common Words With One Occurrence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="delete-operation-for-two-strings">Delete Operation for Two Strings</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="design-add-and-search-words-data-structure">Design Add and Search Words Data Structure</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="design-search-autocomplete-system">Design Search Autocomplete System</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-all-anagrams-in-a-string">Find All Anagrams In A String</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-and-replace-pattern">Find and Replace Pattern</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-common-subsequence">Longest Common Subsequence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-repeating-character-replacement">Longest Repeating Character Replacement</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-substring-without-repeating-characters">Longest Substring Without Repeating Characters</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-window-substring">Minimum Window Substring</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="optimal-partition-of-string">Optimal Partition Of String</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="palindromic-substrings">Palindromic Substrings</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="roman-to-integer">Roman to Integer</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="search-suggestions-system">Search Suggestions System</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="short-encoding-of-words">Short Encoding of Words</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="string-compression">String Compression</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="text-justification">Text Justification</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="valid-anagram">Valid Anagram</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="valid-parentheses">Valid Parentheses</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-and-replace-in-string">Find And Replace in String</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-palindrome-by-concatenating-two-letter-words">Longest Palindrome by Concatenating Two Letter Words</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="zigzag-conversion">Zigzag Conversion</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="valid-word-abbreviation">Valid Word Abbreviation</a>
+</ul>
+<h2 id="graph">Graph</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="alien-dictionary">Alien Dictionary</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="as-far-from-land-as-possible">As Far From Land As Possible</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="the-most-similar-path-in-a-graph">The Most Similar Path in a Graph</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="clone-graph">Clone Graph</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="course-schedule">Course Schedule</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="critical-connections-in-a-network">Critical Connections in a Network</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-closest-node-to-given-two-nodes">Find Closest Node To Given Two Nodes</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="graph-valid-tree">Graph Valid Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="is-graph-bipartite">Is Graph Bipartite?</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="longest-cycle-in-a-graph">Longest Cycle In A Graph</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="number-of-connected-components-in-an-undirected-graph">Number of Connected Components in an Undirected Graph</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="number-of-islands">Number of Islands</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="number-of-distinct-islands">Number of Distinct Islands</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="number-of-provinces">Number of Provinces</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="pacific-atlantic-water-flow">Pacific Atlantic Water Flow</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="rotting-oranges">Rotting Oranges</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-genetic-mutation">Minimum Genetic Mutation</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="shortest-path-with-alternating-colors">Shortest Path With Alternating Colors</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="reorder-routes-to-make-all-paths-lead-to-the-city-zero">Reorder Routes To Make All Paths Lead To The City Zero</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="web-crawler">Web Crawler</a>
+</ul>
+<h2 id="tree">Tree</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-leaves-of-binary-tree">Find Leaves of Binary Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="step-by-step-directions-from-a-binary-tree-node-to-another">Step-By-Step Directions From a Binary Tree Node to Another</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="binary-tree-cameras">Binary Tree Cameras</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="binary-tree-level-order-traversal">Binary Tree Level Order Traversal</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="binary-tree-maximum-path-sum">Binary Tree Maximum Path Sum</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="check-completeness-of-a-binary-tree">Check Completeness Of A Binary Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="construct-binary-tree-from-preorder-and-inorder-traversal">Construct Binary Tree from Preorder and Inorder Traversal</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="convert-sorted-list-to-bst">Convert Sorted List to BST</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="implement-trie">Implement Trie</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="invert-flip-binary-tree">Invert/Flip Binary Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="kth-smallest-element-in-a-bst">Kth Smallest Element in a BST</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="lowest-common-ancestor-of-a-binary-search-tree">Lowest Common Ancestor of a Binary Search Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-depth-of-binary-tree">Maximum Depth of Binary Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="same-tree">Same Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="serialize-and-deserialize-binary-tree">Serialize and Deserialize Binary Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="stream-of-characters">Stream of Characters</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="subtree-of-another-tree">Subtree of Another Tree</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="validate-binary-search-tree">Validate Binary Search Tree</a>
+</ul>
+<h2 id="disjoint-set">Disjoint Set</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="data-stream-as-disjoint-intervals">Data Stream As Disjoint Intervals</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="count-unreachable-pairs-of-nodes-in-an-undirected-graph">Count Unreachable Pairs Of Nodes In An Undirected Graph</a>
+</ul>
+<h2 id="heap">Heap</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="find-median-from-data-stream">Find Median from Data Stream</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="maximum-units-on-a-truck">Maximum Units on a Truck</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="merge-k-sorted-lists">Merge K Sorted Lists</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-deletions-to-make-character-frequencies-unique">Minimum Deletions to Make Character Frequencies Unique</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="top-k-frequent-elements">Top K Frequent Elements</a>
+</ul>
+<h2 id="matrix">Matrix</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="set-matrix-zeroes">Set Matrix Zeroes</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="shortest-path-in-a-grid-with-obstacles-elimination">Shortest Path in a Grid with Obstacles Elimination</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="spiral-matrix">Spiral Matrix</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="rotate-image">Rotate Image</a>
+</ul>
+<h2 id="search">Search</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="expression-add-operators">Expression Add Operators</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="guess-the-word">Guess the Word</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="combination-sum">Combination Sum</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="powx-n">Pow(x, n)</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="sqrtx">Sqrt(x)</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="word-search#word-search-ii">Word Search II</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="word-search">Word Search</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="contains-duplicate">Contains Duplicate</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="campus-bikes">Campus Bikes</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="can-place-flowers">Can Place Flowers</a>
+</ul>
+<h2 id="dp">DP</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="minimum-window-subsequence">Minimum Window Subsequence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="house-robber-ii">House Robber II</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="house-robber">House Robber</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="jump-game">Jump Game</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="longest-common-subsequence">Longest Common Subsequence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="race-car">Race Car</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="word-break-problem">Word Break Problem</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="climbing-stairs">Climbing Stairs</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="coin-change">Coin Change</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="decode-ways">Decode Ways</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="interleaving-string">Interleaving String</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-increasing-subsequence">Longest Increasing Subsequence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="longest-string-chain">Longest String Chain</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="matchsticks-to-square">Matchsticks to Square</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="minimum-difficulty-of-a-job-schedule">Minimum Difficulty of a Job Schedule</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="paint-house#paint-house-iii">Paint House III</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="paint-house#paint-house-ii">Paint House II</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="paint-house">Paint House</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="partition-equal-subset-sum">Partition Equal Subset Sum</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="pascals-triangle">Pascal’s Triangle</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="range-sum-query-2d-immutable">Range Sum Query 2D Immutable</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="triangle">Triangle</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="unique-paths">Unique Paths</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="wiggle-subsequence">Wiggle Subsequence</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="wildcard-matching">Wildcard Matching</a>
+</ul>
+<h2 id="bitwise-operation">Bitwise Operation</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="counting-bits">Counting Bits</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="missing-number">Missing Number</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="number-of-1-bits">Number of 1 Bits</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="reverse-bits">Reverse Bits</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="sum-of-two-integers">Sum of Two Integers</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="single-number">Single Number</a>
+</ul>
+<h2 id="math">Math</h2>
+<ul class="task-list">
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="power-of-three">Power of Three</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="rle-iterator">RLE Iterator</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="rectangle-area">Rectangle Area</a>
+ <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><a href="ugly-number">Ugly Number</a>
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-11-08 05:18:42 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

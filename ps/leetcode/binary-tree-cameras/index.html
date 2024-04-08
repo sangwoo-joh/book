@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Binary Tree Cameras</title>
+<meta property="og:title" content="Binary Tree Cameras" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Binary Tree Cameras">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Binary Tree Cameras"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/binary-tree-cameras.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/binary-tree-cameras/">Binary Tree Cameras</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="binary-tree-cameras"><a href="https://leetcode.com/problems/binary-tree-cameras/">Binary Tree Cameras</a></h1>
+<p>이진 트리의 루트 노드가 주어진다. 트리의 노드에 카메라를 설치해서
+ 노드 자신과 부모, 그리고 자식 노드를 관찰하려고 한다.</p>
+<p>트리의 모든 노드를 관찰하기 위해서 필요한 최소 카메라의 수를 구하자.</p>
+<p>노드 수는 최대 1,000 이고 모든 노드의 값은 0이다.</p>
+<p>예를 들어 아래와 같은 트리는, 카메라를 1개만 설치하면 모든 노드를 다
+ 관찰할 수 있다.</p>
+<p><img src="https://assets.leetcode.com/uploads/2018/12/29/bst_cameras_01.png" alt="tree1" /></p>
+<h2 id="음">음..?</h2>
+<p>이걸 무슨 알고리즘이라고 불러야될지 모르겠다. 솔루션에는 DP라고
+ 나와있는데 DP가 아니어도 풀 수 있는 것 같고, 그리디도 아닌것 같고..</p>
+<p>트리를 리프 노드부터 훑어서 루트 노드까지 올라올 때, 각 노드가 가질
+ 수 있는 상태는 총 세 가지이다:</p>
+<ol>
+ <li>카메라가 설치됨
+ <li>카메라가 설치되지 않았지만, 인접한 노드에 의해서 관찰됨
+ <li>카메라가 설치되지도 않았고 인접한 노드에도 없어서 관찰도 안됨
+</ol>
+<p>그러면 자식 노드의 상태에 따라서, 지금 노드의 상태를 알 수 있고, 이때
+ 카메라를 설치해야 하는 노드도 알 수 있다. 즉,</p>
+<ul>
+ <li>null 노드는 2번 상태라고 볼 수 있다. null이기 때문에 카메라를
+설치할 수는 없지만, null이라서 특별히 관찰하지 않아도 관찰되고 있기
+때문이다.
+ <li>현재 노드의 자식 노드에 따라서 현재 노드의 상태가 나눠진다. 즉,
+   <ul>
+     <li>자식 노드 중 하나라도 카메라도 없고 관찰되고 있지도 않으면, 지금
+노드에 카메라를 설치해야 한다.
+     <li>자식 노드 중 하나라도 카메라가 있다면, 지금 노드는 관찰되고 있는
+상태이다.
+     <li>위의 두 경우가 아니라면 카메라도 없고 관찰되고 있지도 않은
+상태이다.
+   </ul>
+</ul>
+<p>이 중 카메라를 설치해야 하는 경우에 카메라 개수를 늘리면 된다.</p>
+<p>다만, 이때 한 가지 코너 케이스가 있는데, 바로 루트 노드에 카메라도
+ 없고 관찰되지도 않는 경우이다. 이때는 추가적으로 루트 노드에 카메라를
+ 설치해줘야 한다. 예를 들어, 루트 노드 하나만 있는 경우이거나, 혹은
+ 아래와 같이 Skewed Tree일 때 이런 케이스가 생긴다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">^</span>  <span class="n">O</span> <span class="o">-------------&gt;</span> <span class="ow">not</span> <span class="n">monitored</span> <span class="err">!</span> <span class="o">-&gt;</span> <span class="n">need</span> <span class="n">to</span> <span class="n">install</span> <span class="n">camera</span>
+<span class="o">|</span>   \
+<span class="o">|</span>    <span class="n">O</span> <span class="o">-----------&gt;</span> <span class="n">monitored</span>
+<span class="o">|</span>     \
+<span class="o">|</span>      <span class="n">O</span>  <span class="o">--------&gt;</span> <span class="n">camera</span>
+<span class="o">|</span>       \
+<span class="o">|</span>        <span class="n">O</span>    <span class="o">----&gt;</span> <span class="ow">not</span> <span class="n">monitored</span>
+<span class="o">|</span>
+<span class="n">see</span> <span class="n">upward</span>
+</code></pre></div></div>
+<p>따라서 아래와 같이 구현할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">minCameraCover</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="n">CAMERA</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">MONITORED</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">NOT_MONITORED</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="n">camera_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">camera_count</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">MONITORED</span>
+
+        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">),</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">NOT_MONITORED</span> <span class="ow">in</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+            <span class="n">camera_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">CAMERA</span>
+        <span class="k">elif</span> <span class="n">CAMERA</span> <span class="ow">in</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">MONITORED</span>
+        <span class="k">return</span> <span class="n">NOT_MONITORED</span>
+
+    <span class="k">if</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="o">==</span> <span class="n">NOT_MONITORED</span><span class="p">:</span>
+        <span class="c1"># corner case
+</span>        <span class="n">camera_count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">camera_count</span>
+</code></pre></div></div>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=tree ">tree</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

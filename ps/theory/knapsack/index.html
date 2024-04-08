@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Knapsack</title>
+<meta property="og:title" content="Knapsack" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Knapsack">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Knapsack"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/theory/knapsack.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/theory/">Theory</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/theory/knapsack/">Knapsack</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="knapsack-problem">Knapsack Problem</h1>
+<p>조합 최적화 문제 중 가장 유명한 문제 중 하나인 배낭 문제, 혹은 냅색
+ 문제를 알아보자.</p>
+<p>기본적인 문제 세팅은 다음과 같다.</p>
+<blockquote>
+ <p>최대 <code class="language-plaintext highlighter-rouge">W</code> 만큼의 무게를 담을 수 있는 배낭이 있다. 여기에 각각 가치와
+무게가 다른 <code class="language-plaintext highlighter-rouge">N</code>개의 보석이 있다. 보석 <code class="language-plaintext highlighter-rouge">i</code>는 무게 <code class="language-plaintext highlighter-rouge">w_i</code>와 가치
+<code class="language-plaintext highlighter-rouge">v_i</code>를 갖는다. 이때 <strong>가치의 합이 최대</strong>가 되도록 배낭에 보석을
+담는 방법을 찾자.</p>
+</blockquote>
+<p>보석을 쪼갤 수 있는 경우를 Fractional Knapsack 문제라고 하는데, 이
+ 경우는 <code class="language-plaintext highlighter-rouge">가치/무게</code>가 높은 보석부터 골라서 넣는 탐욕법으로 쉽게
+ 풀린다.</p>
+<h2 id="0-1-knapsack">0-1 Knapsack</h2>
+<p>우리가 관심있는 <em>다이나믹 프로그래밍</em>의 단골 주제는 보석을 쪼갤 수
+ 없는, 이른바 0-1 Knapsack 문제라고 한다. 이 문제를 수식으로 표현하면
+ 다음 최적화 문제가 된다.</p>
+<p>다음을 만족하는 \(x_1, x_2, ..., x_N\) 을 찾아야 한다:</p>
+\[\begin{equation}
+\begin{cases}
+    \text{maximize: } &amp; \sum_{i=1} ^{N} v_i x_i \\
+    \text{subject to:} &amp; \sum{i=1} ^{N} w_i x_i \leq W \\
+        &amp; x_i \in \{0, 1\}, 1 \leq i \leq N \\
+\end{cases}
+\end{equation}\]
+<h3 id="naive-approach">Naive Approach</h3>
+<p>가장 나이브한 접근은 모든 경우의 수를 다 나열해보면서 가치의 합이
+ 최대가 되는 조합을 찾는 방법이다. 보석이 <code class="language-plaintext highlighter-rouge">N</code>개이고, 각각의 보석에
+ 대해서 배낭에 넣거나(1) 빼거나(0) 둘 중 하나이므로 가능한 모든 경우의
+ 수는 \(2^N\) 이 된다. 복잡도 \(O(2^N)\)은 터진다.</p>
+<h3 id="dynamic-programming">Dynamic Programming</h3>
+<p>다이나믹 프로그래밍이 동작하려면 두 가지 성질을 만족해야
+ 한다.</p>
+<p>첫 번째는 Optimal Substructure 이다. 최적 부분 구조… 라고도 말하는
+ 것 같은데, 다음과 같이 정의한다.</p>
+<blockquote>
+ <p>부분 문제의 최적해로부터 전체 문제의 최적해를 만들 수 있을 때, 그
+문제는 <em>최적 부분 구조</em>를 갖는다고 말한다. 즉, 어떤 문제의 최적해가
+부분 문제의 최적해를 항상 포함한다.</p>
+</blockquote>
+<p>두 번째는 Overlapping Subproblems, 부분 문제가 중복되어야 한다는
+ 것이다. 다이나믹 프로그래밍은 결국 메모아이제이션, 캐싱이 핵심인데
+ 이게 잘 동작하려면 당연히 같은 부분 문제를 여러 번 재활용할 수 있어야
+ 한다.</p>
+<p>이제 냅색 문제가 이 성질을 만족하는지 살펴보자. 어떤 해집합 <code class="language-plaintext highlighter-rouge">A</code>가
+ 순서대로 <code class="language-plaintext highlighter-rouge">k</code>개의 보석을 가지고 만든 최적해라고 하자.</p>
+<ol>
+ <li><code class="language-plaintext highlighter-rouge">A</code>가 <code class="language-plaintext highlighter-rouge">k</code> 번째 보석을 포함하지 않는다면, <code class="language-plaintext highlighter-rouge">A</code>는 나머지 <code class="language-plaintext highlighter-rouge">k-1</code>개의
+보석들로 만든 최적해와 같을 것이다.
+ <li><code class="language-plaintext highlighter-rouge">A</code>가 <code class="language-plaintext highlighter-rouge">k</code> 번째 보석을 포함한다면, <code class="language-plaintext highlighter-rouge">A</code>는 <code class="language-plaintext highlighter-rouge">k-1</code>개의 보석들로 만든
+최적해에 <code class="language-plaintext highlighter-rouge">k</code> 번째 보석을 추가한 것이다. 단, 이때 <code class="language-plaintext highlighter-rouge">k</code> 번째 보석을
+넣을 수 있어야 한다.
+</ol>
+<p>그러므로 Optimal Substructure와 Overlapping Subproblems 두 성질을
+ 모두 만족한다는 것을 알 수 있다. 이를 이용해서 첫 번째 보석부터 <code class="language-plaintext highlighter-rouge">N</code>
+ 번째 보석까지 순서대로 해를 구해나가면 마지막에 구한 해집합이 곧
+ 최적해가 된다.</p>
+<p>이 내용을 수식으로 표현하면 다음과 같다. 먼저 <a href="#0-1-knapsack">여기</a>서
+ 정의된 문제를 \(\mathsf{Knapsack}(1, N, W)\) 라고 하자. 즉, 배낭의
+ 무게 한도 <code class="language-plaintext highlighter-rouge">W</code> 내에서 최대의 가치가 되도록 <code class="language-plaintext highlighter-rouge">N</code> 개의 보석 중에서 고르는
+ 문제이다. 최적해는 <code class="language-plaintext highlighter-rouge">i</code> 번째 보석을 고르거나 고르지 않도록 하는 변수의
+ 튜플 \((x_1, x_2, ..., x_N)\) 이고 \(x_i \in \{0, 1\}, 1 \leq i
+ \leq n\) 이다. 그러면,</p>
+<ol>
+ <li>만약 \(x_N = 0\), 즉 <code class="language-plaintext highlighter-rouge">N</code> 번째 보석을 고르지 않는다면, trivial
+하게 \((x_1, x_2, ..., x_{N-1})\) 만으로도 최적해가 되고 이는 곧
+\(\mathsf{Knapsak}(1, N-1, M)\)의 최적해와 같다.
+ <li>만약 \(x_N = 1\), 즉 <code class="language-plaintext highlighter-rouge">N</code> 번째 보석을 고른다면, \((x_1, x_2,
+..., x_{N-1})\) 는 \(\mathsf{Knapsak}(1, N-1, M - w_N)\)의
+최적해와 같다.
+</ol>
+<p>이전의 “<code class="language-plaintext highlighter-rouge">k</code> 번째 보석을 넣을 수 있어야 한다”는 조건을 어떻게 수식에
+ 표현했는지 눈여겨 보자 (\(M - w_N\)).</p>
+<p>Optimal Substructure에 근거해서, 이 최적해를 다음과 같이 쪼개서
+ 표현할 수 있다. 먼저 \(\mathsf{Knapsak}(1, N-1, M - w_N)\)의 최적해
+ \((x_1, x_2, ..., x_N)\) 를 \(\mathsf{Opt}(N, M)\) 이라고
+ 하자. 그러면 이는 다음과 같다.</p>
+\[\begin{equation}
+\begin{split}
+\mathsf{Opt}(N, M) &amp; =  \mathtt{max}(\text{Case 1의 가치}, \text{Case 2의 가치}) \\
+    &amp; =  \mathtt{max}(\mathsf{Opt}(N-1, M), \mathsf{Opt}(N-1, M-w_N) + v_N) \\
+\end{split}
+\end{equation}\]
+<h4 id="조합-찾기">조합 찾기</h4>
+<p>근데 이렇게 다이나믹 프로그래밍으로 풀면, 최적해가 만드는 <em>가치의
+ 합</em>만을 알 수 있다. 최적해를 만드는 <strong>보석의 조합</strong>, 즉 \((x_1, x_2,
+ ..., x_N)\) 의 맵핑은 어떻게 알 수 있을까?</p>
+<p>최적해가 만드는 가치의 합인 \(\mathsf{Opt}(i, k)\) 을
+ 생각해보자. 그러면 앞의 두 성질(로 부터 끌어낸 점화식)에 의해서,</p>
+<ul>
+ <li>\(\mathsf{Opt}(i, k) \neq \mathsf{Opt}(i - 1, k)\) 이라면, <code class="language-plaintext highlighter-rouge">i</code>
+번째 보석이 <strong>포함되었다는</strong> 뜻이다 (by Case 2). 따라서 <code class="language-plaintext highlighter-rouge">i</code> 번째
+보석을 포함했다고 기록하고 다음 보석을 찾기 위해서 \(i \mapsto i -
+1, k \mapsto k - w_i\) 로 다음 것을 계산한다.
+ <li>\(\mathsf{Opt}(i, k) = \mathsf{Opt}(i - 1, k)\) 라면 이는 곧
+<code class="language-plaintext highlighter-rouge">i</code> 번째 보삭이 <strong>포함되지 않았다는</strong> 뜻이다 (by Case 1). 따라서
+<code class="language-plaintext highlighter-rouge">i</code> 번째 보석을 포함하지 않았다고 기록하고, 다음 보석을 찾기 위해서
+\(i \mapsto i - 1\) 로 진행하면 된다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=theory ">theory</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=dynamic-programming ">dynamic-programming</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

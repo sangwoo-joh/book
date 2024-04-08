@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Minimum Difference Between Largest and Smallest Value in Three Moves</title>
+<meta property="og:title" content="Minimum Difference Between Largest and Smallest Value in Three Moves" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Minimum Difference Between Largest and Smallest Value in Three Moves">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Minimum Difference Between Largest and Smallest Value in Three Moves"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/minimum-difference-between-largest-and-smallest-value-in-three-moves.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/minimum-difference-between-largest-and-smallest-value-in-three-moves/">Minimum Difference Between Largest and Smallest Value in Three Moves</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="minimum-difference-between-largest-and-smallest-value-in-three-moves"><a href="https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/">Minimum Difference Between Largest and Smallest Value in Three Moves</a></h1>
+<p>정수 배열 <code class="language-plaintext highlighter-rouge">nums</code>가 주어진다. 한 번의 행동으로 아무 원소 하나를 골라서
+ 아무런 값으로 바꿀 수 있다. 이때, 최대 세 번 행동한 이후에 배열에서
+ 가장 큰 값과 가장 작은 값의 차이 값의 최소값을 구하자.</p>
+<p>배열의 길이는 1 ~ 100,000, 값은 \(-10^9 \sim 10^9\)이다.</p>
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">[5,3,2,4]</code>에 대해서는 <code class="language-plaintext highlighter-rouge">[2, 2, 2, 2]</code>로 바꾸면 최대값과
+ 최소값이 같아져서 차이값은 0이 된다.</p>
+<h2 id="단계-별로-생각하기">단계 별로 생각하기</h2>
+<p>일단 가장 작은 값과 가장 큰 값을 알아야 하니까 정렬은 필수적이다. 그
+ 다음은 어떻게 접근해야 할까?</p>
+<p>처음에 든 생각은, 중위값을 기준으로 가장 큰 값과 가장 작은 값을
+ 비교해가면서 더 큰 차이가 나는 쪽을 중위값으로 바꾸면 되지 않을까?
+ 였는데, 곧바로 반례를 찾을 수 있었다.</p>
+<p>올바른 접근은 차근차근 단계 별로 생각하는 것이다. 문제의 조건인
+ <strong>최대 3번의 행동</strong>을 단계로 쪼개자.</p>
+<p>만약 0번의 행동, 즉 한 번도 움직일 수 없다면, 가장 큰 값과 가장 작은
+ 값의 차이 값의 최소 값은 그냥 최대 값에서 최소 값을 뺀 값이다. 파이썬
+ 인덱스를 이용해서 표현하면 (정렬된 배열을 기준으로) <code class="language-plaintext highlighter-rouge">diff(0, -1)</code>이
+ 된다.</p>
+<p>만약 1번의 행동만 할 수 있다면? 딱 하나를 아무 값으로 바꿀 수
+ 있으니까, 다음 중 더 작은 값일 것이다:</p>
+<ul>
+ <li>두 번째로 큰 값과 최소 값의 차이. 이를 파이썬 인덱스를 이용해서
+<code class="language-plaintext highlighter-rouge">diff(0, -2)</code>으로 표기하자.
+ <li>두 번째로 작은 값과 최대 값의 차이. 역시 이는 <code class="language-plaintext highlighter-rouge">diff(1, -1)</code>이 된다.
+</ul>
+<p>즉, 정렬된 배열을 기준으로 하나, 최대값을 빼던가 아니면 최소값을
+ 빼던가 했을 때의 차이 중 더 작은 것이 답이 된다. 여기서 <em>아무 값</em>
+ 으로 바꿀 수 있기 때문에 그냥 단순히 배열에서 삭제하는 걸로 이해해도
+ 무방하다.</p>
+<p>만약 2번의 행동이 가능하다면? 다음 중 최소일 것이다.</p>
+<ul>
+ <li>세 번째로 큰 값과 최소 값의 차이, 즉 <code class="language-plaintext highlighter-rouge">diff(0, -3)</code>
+ <li>세 번째로 작은 값과 최대 값의 차이, 즉 <code class="language-plaintext highlighter-rouge">diff(2, -1)</code>
+ <li>두 번째로 큰 값과 두 번째로 작은 값의 차이, 즉 <code class="language-plaintext highlighter-rouge">diff(1, -2)</code>
+</ul>
+<p>따라서, 문제의 조건인 3번의 행동이 가능하다면, 다음 값 중 최소일
+ 것이다:</p>
+<ul>
+ <li>네 번째로 큰 값과 최소 값의 차이, <code class="language-plaintext highlighter-rouge">diff(0, -4)</code>
+ <li>세 번째로 큰 값과 두 번째로 작은 값의 차이, <code class="language-plaintext highlighter-rouge">diff(1, -3)</code>
+ <li>두 번째로 큰 값과 세 번째로 작은 값의 차이, <code class="language-plaintext highlighter-rouge">diff(2, -2)</code>
+ <li>최대 값과 네 번째로 작은 값의 차이, <code class="language-plaintext highlighter-rouge">diff(3, -1)</code>
+</ul>
+<p>따라서, 위의 값 차이 중 가장 작은 값을 구하면 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">minDifference</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="nf">min</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+ <li>정렬 후 최대 4개의 인덱스를 봐야 하기 때문에, 길이가 4보다 작은
+경우는 오버플로우가 발생할 수 있다. 만약 길이가 4보다 작거나
+같다면, 3번의 행동 안에 모든 값을 다 같게 만들 수 있으므로 답은 0이
+된다. 따라서 이 경우를 먼저 처리해줄 수 있다.
+ <li>나머지는 차근차근 문제의 조건에 맞는 후보 값을 구해서 최소 값을
+구한다.
+</ul>
+<hr />
+<p>여기서 좀더 파이써닉하게 풀면 다음과 같이 할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">minDifference</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">min</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">nums</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]))</span>
+</code></pre></div></div>
+<p>파이썬의 <code class="language-plaintext highlighter-rouge">zip</code> 연산과 슬라이싱 연산을 이용한다. <code class="language-plaintext highlighter-rouge">nums[:4]</code>는
+ <code class="language-plaintext highlighter-rouge">nums[0]</code>부터 <code class="language-plaintext highlighter-rouge">nums[3]</code>까지, <code class="language-plaintext highlighter-rouge">nums[-4:]</code>는 <code class="language-plaintext highlighter-rouge">nums[-4]</code>부터
+ <code class="language-plaintext highlighter-rouge">nums[-1]</code>까지이다. 따라서 이들을 순서대로 <code class="language-plaintext highlighter-rouge">zip</code>으로 묶어버리면
+ 우리가 원하는 후보자와 정확히 일치한다. 또한 슬라이싱 연산자는 배열
+ 크기를 넘어버리는 경우도 알아서 처리해주기 때문에 (짤림), 이 경우에는
+ 입력 배열의 길이를 미리 쳐낼 필요가 없다. 어차피 길이가 4보다 작거나
+ 같은 경우는 <code class="language-plaintext highlighter-rouge">nums[:4]</code>도 <code class="language-plaintext highlighter-rouge">nums[-4:]</code>도 배열 전체가 될 것이고 그러면
+ 자연스럽게 최소 차이 값인 0을 얻을 수 있다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=array ">array</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

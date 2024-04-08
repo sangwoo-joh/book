@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>2. Combinator parsers</title>
+<meta property="og:title" content="2. Combinator parsers" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="2. Combinator parsers">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2. Combinator parsers"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/wip/monadic-parser-combinators/02-combinator-parsers.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/">Wip</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/wip/monadic-parser-combinators/">Monadic parser combinators</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/wip/monadic-parser-combinators/02-combinator-parsers/">2. Combinator parsers</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="2-컴비네이터-파서">2. 컴비네이터 파서</h1>
+<p>먼저 옛 현인들의 컴비네이터 파싱에 대한 기본 아이디어를 리뷰하는
+ 것부터 시작하자. 구체적으로는 일단 파서와 세 개의 원시 파서, 더 큰
+ 파서를 만들기 위한 두 개의 원시 컴비네이터에 대한 타입부터 정의한다.</p>
+<h2 id="21-파서의-타입">2.1. 파서의 타입</h2>
+<p>먼저 “파서”란 문자열을 입력으로 받아서 어떤 종류의 트리를 결과로
+ 내놓는 함수로 생각하는 것부터 시작하자. 트리는 문자열의 문법적 구조를
+ 명시적으로 드러낸다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">parser</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="n">tree</span>
+</code></pre></div></div>
+<p>첫 번째 아이디어는 바로 파서가 입력 문자열을 전부 소모(consume)하지
+ 않을 수도 있다는 것이다. 그러므로, 결과 트리만 리턴하기 보다는 입력
+ 문자열에서 <strong>아직 소모되지 않은 접두사 부분</strong>을 같이 리턴할 수
+ 있다. 따라서 파서의 타입은 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">parser</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">string</span> <span class="o">*</span> <span class="n">tree</span><span class="p">)</span>
+</code></pre></div></div>
+<p>두 번째 아이디어는 바로 파서가 어떤 입력 문자열에 대해서는 <em>실패</em>할
+ 수도 있다는 것이다. 이럴 때 런타임 에러를 던지는 것보다는, 파서가
+ 어느 부분에서 왜 실패했는지를 알려주면 디버깅에 유용할
+ 것이다. <code class="language-plaintext highlighter-rouge">Result</code> 타입을 이용하면 좋을 것 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">parser</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="kt">string</span> <span class="o">*</span> <span class="p">(</span><span class="n">tree</span><span class="o">,</span> <span class="kt">string</span><span class="p">)</span> <span class="n">result</span>
+</code></pre></div></div>
+<p>명시적인 <em>실패</em> 표현을 가지며 입력 문자열에서 <em>소모되지 않은 부분</em>을
+ 리턴하는 일은 작은 파서로부터 더 큰 파서를 만들기 위한 컴비네이터를
+ 정의할 수 있게 해준다.</p>
+<p>서로 다른 파서는 서로 다른 종류의 트리를 리턴하기 마련인데, 따라서
+ 구체적인 트리의 타입을 추상화해서 파서의 타입을 파라미터화 하는 것이
+ 좋다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="kt">string</span> <span class="o">*</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="kt">string</span><span class="p">)</span> <span class="n">result</span>
+</code></pre></div></div>
+<p>입력을 좀더 세분화해서 “어디까지”를 같이 기록하면 좋을 것 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">input</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">text</span> <span class="o">:</span> <span class="kt">string</span>
+  <span class="p">;</span> <span class="n">pos</span> <span class="o">:</span> <span class="kt">int</span>
+  <span class="p">}</span>
+
+<span class="k">let</span> <span class="n">make_input</span> <span class="p">(</span><span class="n">s</span><span class="o">:</span> <span class="kt">string</span><span class="p">)</span> <span class="o">:</span> <span class="n">input</span> <span class="o">=</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>마지막으로, 우리는 파서가 항상 클로저를 갖고 있길 원한다. 따라서
+ 최종적인 우리의 파서 타입은 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">run</span> <span class="o">:</span> <span class="n">input</span> <span class="o">-&gt;</span> <span class="n">input</span> <span class="o">*</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span><span class="o">,</span> <span class="kt">string</span><span class="p">)</span> <span class="n">result</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<h2 id="22-원시primitive-파서">2.2. 원시(Primitive) 파서</h2>
+<p>컴비네이터 파싱의 기본 구성 요소인 네 개의 원시 파서를 볼 것이다.</p>
+<p>첫 번째 파서는 <code class="language-plaintext highlighter-rouge">return v</code>로 입력 문자열을 아무것도 소모하지 않고
+ 성공하고 하나의 결과 <code class="language-plaintext highlighter-rouge">v</code>를 리턴한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">return</span> <span class="p">(</span><span class="n">v</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">{</span> <span class="n">run</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Ok</span> <span class="n">v</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>두 번째 파서는 항상 실패하는 <code class="language-plaintext highlighter-rouge">fail</code>이다. 디버깅을 위한 에러 메시지를
+ 함께 받는다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">fail</span> <span class="p">(</span><span class="n">err</span><span class="o">:</span> <span class="kt">string</span><span class="p">)</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">{</span> <span class="n">run</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Error</span> <span class="n">err</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>세 번째 프리미티브는 <code class="language-plaintext highlighter-rouge">any_char</code>으로, 입력 문자열에 대해서 첫 번째
+ 글자를 항상 소모하거나, 문자열이 비어있으면 실패하는 함수이다. 우리의
+ 입력 타입인 <code class="language-plaintext highlighter-rouge">input</code>을 좀더 손쉽게 다루기 위해서 먼저 입력에서 일부만
+ 소모하는 함수 <code class="language-plaintext highlighter-rouge">consume_input</code>을 만들자. <code class="language-plaintext highlighter-rouge">consume_input input pos
+ len</code>은 주어진 입력 <code class="language-plaintext highlighter-rouge">input</code>의 <code class="language-plaintext highlighter-rouge">text</code>의 <code class="language-plaintext highlighter-rouge">pos</code>부터 <code class="language-plaintext highlighter-rouge">len</code>만큼의 문자를
+ 소모하고 남은 입력을 리턴한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">consume_input</span> <span class="p">(</span><span class="n">input</span><span class="o">:</span> <span class="n">input</span><span class="p">)</span> <span class="p">(</span><span class="n">pos</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="n">len</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">:</span> <span class="n">input</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="nn">String</span><span class="p">.</span><span class="n">sub</span> <span class="p">(</span><span class="n">input</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="n">pos</span> <span class="n">len</span>
+  <span class="p">;</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">pos</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>이를 이용해 <code class="language-plaintext highlighter-rouge">any_char</code>를 구현할 수 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">any_char</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">run</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">input</span><span class="o">.</span><span class="n">text</span> <span class="k">in</span>
+    <span class="k">try</span>
+      <span class="n">consume_input</span> <span class="mi">1</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Ok</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">get</span> <span class="n">input</span><span class="o">.</span><span class="n">text</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nc">Invalid_argument</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Error</span> <span class="s2">"expected any character"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>마지막으로, 입력을 직접 소모하지 않고 글자를 하나만 살펴보는 이른바
+ 룩어헤드(Lookahead) 파서인 <code class="language-plaintext highlighter-rouge">peek_char</code>가 있다. <code class="language-plaintext highlighter-rouge">any_char</code>와는 달리
+ 조건부 파싱에 쓰일 수 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">peek_char</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">run</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span>
+    <span class="k">try</span>
+      <span class="n">input</span><span class="o">,</span> <span class="nc">Ok</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">get</span> <span class="n">input</span><span class="o">.</span><span class="n">text</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nc">Invalid_argument</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Error</span> <span class="s2">"empty input"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="23-파서-컴비네이터">2.3. 파서 컴비네이터</h2>
+<p>앞서 정의한 원시 파서들은 그 자체로는 그다지 쓸모있지는
+ 않다. 여기서는 더 유용한 파서를 만들기 위해서 이 파서를 어떻게 이어
+ 붙일 수 있는지(glue)를 살펴본다. 특히, 고차 함수(=컴비네이터)를
+ 이용해서 코드를 깔끔하고 읽기 쉽게 만들 수 있다. 함수 적용과 유사한
+ <em>시퀀싱(sequencing; 여러 개의 함수를 연달아 적용)</em> 컴비네이터,
+ <em>선택(choice; 여러 개의 함수 중 성공한 것을 적용)</em> 컴비네이터, 앞
+ 쪽을 버리는 컴비네이터, 뒷 쪽을 버리는 컴비네이터 등을 살펴볼
+ 것이다. 이렇게 정의된 컴비네이터들은 실제 BNF 문법의 구조와 거의
+ 유사한 구조로 파서를 합치는 것을 도와준다.</p>
+<p>모나드 방식이 아닌 초창기의 컴비네이터 파싱에서, 파서의 시퀀싱 연산은
+ 보통 다음 타입을 가졌었다:</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">seq</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">b</span> <span class="n">parser</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">b</span><span class="p">)</span> <span class="n">parser</span>
+</code></pre></div></div>
+<p>즉, 두 파서를 번갈아 적용해서 두 파서의 결과를 튜플로 묶는
+ 연산이다. 얼핏 보기에 <code class="language-plaintext highlighter-rouge">seq</code> 컴비네이터는 자연스러운 합성 연산으로
+ 보인다. 하지만 실제로는 <code class="language-plaintext highlighter-rouge">seq</code>을 계속 사용하다 보면 그 결과로 엄청나게
+ 중첩된 튜플을 갖게 되는데, 이를 다루는 것은 굉장히 지저분한 일이다.</p>
+<p>중첩된 튜플 문제는 <em>모나드식</em> 시퀀싱 컴비네이터를 적용해서 피할 수
+ 있다. 흔히 <code class="language-plaintext highlighter-rouge">바인드(bind)</code> 연산으로 알려진 것으로, 한 파서의 결과 값을
+ 처리해서 파서들을 시퀀싱하여 합치는 방식이다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">bind</span> <span class="p">(</span><span class="n">p</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span><span class="p">)</span> <span class="p">(</span><span class="n">f</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">b</span> <span class="n">parser</span><span class="p">)</span> <span class="o">:</span> <span class="k">'</span><span class="n">b</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">run</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span>
+      <span class="k">match</span> <span class="n">p</span><span class="o">.</span><span class="n">run</span> <span class="n">input</span> <span class="k">with</span>
+      <span class="o">|</span> <span class="n">input'</span><span class="o">,</span> <span class="nc">Ok</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">f</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">run</span> <span class="n">input'</span>
+      <span class="o">|</span> <span class="n">input'</span><span class="o">,</span> <span class="nc">Error</span> <span class="n">err</span> <span class="o">-&gt;</span> <span class="n">input'</span><span class="o">,</span> <span class="nc">Error</span> <span class="n">err</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">bind</code>의 정의는 다음과 같이 이해할 수 있다. 먼저, 파서 <code class="language-plaintext highlighter-rouge">p</code>를 입력
+ 문자열에 적용해서 결과로 소모되지 않은 입력과 결과 값을
+ 가져온다. 만약 실패했다면 (<code class="language-plaintext highlighter-rouge">match</code>의 <code class="language-plaintext highlighter-rouge">Error err</code> 케이스), 실패를
+ 그대로 리턴한다. 성공했다면 <code class="language-plaintext highlighter-rouge">'a</code> 타입의 값을 얻을텐데 (<code class="language-plaintext highlighter-rouge">match</code>의 <code class="language-plaintext highlighter-rouge">Ok
+ x</code> 케이스), <code class="language-plaintext highlighter-rouge">f</code>가 <code class="language-plaintext highlighter-rouge">'a</code> 타입의 값을 받아 <code class="language-plaintext highlighter-rouge">'b</code> 타입의 파서를 리턴하는
+ 함수이므로 이제 <code class="language-plaintext highlighter-rouge">x</code>에 <code class="language-plaintext highlighter-rouge">f</code>를 적용해서 새로운 파서를 만들 수 있다. 이때
+ 남은 입력에 대해서 적용해야 함을 잊지말자.</p>
+<p>참고로 <code class="language-plaintext highlighter-rouge">bind</code> 컴비네이터는 <code class="language-plaintext highlighter-rouge">bind</code> 라는 함수 그 자체로 호출되기 보다는
+ 주로 다음과 같이 중위 연산자로 재정의 되어 쓰이는 것이 일반적이다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="p">(</span><span class="o">&gt;&gt;=</span><span class="p">)</span> <span class="o">=</span> <span class="n">bind</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">bind</code> 컴비네이터는 결과의 중첩된 튜플 문제를 피하게 해준다. 왜냐하면
+ 첫 번째 파서의 결과가 나중에 처리될 결과와 튜플로 묶이지 않고 곧바로
+ 두 번째 파서에 의해서 처리될 수 있기 때문이다.</p>
+<p><code class="language-plaintext highlighter-rouge">bind</code> 컴비네이터 (중위 연산자)를 이용한 아주 전형적인 예시를 하나
+ 살펴보자. 두 파서를 튜플로 묶는 <code class="language-plaintext highlighter-rouge">pair</code>를 <code class="language-plaintext highlighter-rouge">bind</code>로 구현하면 다음과
+ 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">pair</span> <span class="p">(</span><span class="n">p</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span><span class="p">)</span> <span class="p">(</span><span class="n">q</span><span class="o">:</span> <span class="k">'</span><span class="n">b</span> <span class="n">parser</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">b</span><span class="p">)</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="n">p</span> <span class="o">&gt;&gt;=</span> <span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span>
+  <span class="n">q</span> <span class="o">&gt;&gt;=</span> <span class="k">fun</span> <span class="n">y</span> <span class="o">-&gt;</span>
+  <span class="n">return</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이걸 해석하면 이렇다. 우리는 파서 <code class="language-plaintext highlighter-rouge">p</code>와 파서 <code class="language-plaintext highlighter-rouge">q</code>를 합쳐서 다음과 같은
+ 동작을 하는 파서를 만들 것이다: 먼저 파서 <code class="language-plaintext highlighter-rouge">p</code>를 적용한다. 성공한
+ 경우에는 결과 값 <code class="language-plaintext highlighter-rouge">x</code>를 사용할 수 있다(<code class="language-plaintext highlighter-rouge">fun x -&gt; ..</code>).  그 다음 파서
+ <code class="language-plaintext highlighter-rouge">q</code>를 나머지 입력에 대해서 적용한다. 역시 성공한 경우 결과 값 <code class="language-plaintext highlighter-rouge">y</code>를
+ 곧바로 사용할 수 있다(<code class="language-plaintext highlighter-rouge">fun y -&gt; ..</code>). 최종적으로 두 결과를 튜플로
+ 리턴하는 <strong>파서를 리턴한다(<code class="language-plaintext highlighter-rouge">return (x, y)</code>)</strong>. <code class="language-plaintext highlighter-rouge">p</code>, <code class="language-plaintext highlighter-rouge">q</code> 둘 중 어느
+ 파서든 파싱에 실패할 경우 곧바로 해당 에러를 리턴한다. 모나드식 접근
+ 덕분에 코드가 아름답고 이해가 잘 된다.</p>
+<p><code class="language-plaintext highlighter-rouge">bind</code> 컴비네이터를 이용하면 간단하지만 유용한 파서들을 정의할 수
+ 있다. 예를 들어, <code class="language-plaintext highlighter-rouge">any_char</code> 파서는 하나의 글자를 <em>무조건적</em>으로
+ 파싱했는데, 실제 상황에서는 보통 “특정 글자”에만 관심있기
+ 마련이다. 따라서 룩어헤드를 위한 <code class="language-plaintext highlighter-rouge">peek_char</code>와 <code class="language-plaintext highlighter-rouge">any_char</code>를 이용해서
+ 새로운 컴비네이터 <code class="language-plaintext highlighter-rouge">satisfy</code>를 만들 수 있다. 이 컴비네이터는 조건
+ 함수(predicate)를 받아서 해당 조건을 만족하는 글자만 파싱하고 그렇지
+ 않으면 실패한다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">satisfy</span> <span class="p">(</span><span class="n">f</span><span class="o">:</span> <span class="kt">char</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="n">peek_char</span> <span class="o">&gt;&gt;=</span> <span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">if</span> <span class="n">f</span> <span class="n">x</span> <span class="k">then</span> <span class="n">any_char</span> <span class="k">else</span> <span class="n">fail</span> <span class="s2">"Predicate not satisfied."</span>
+</code></pre></div></div>
+<p>이제 <code class="language-plaintext highlighter-rouge">satisfy</code>를 이용해서 특정 글자, 숫자, 소문자, 대문자 등을 파싱할
+ 수 있다:</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="kt">char</span> <span class="p">(</span><span class="n">c</span><span class="o">:</span> <span class="kt">char</span><span class="p">)</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">c</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="n">digit</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="mi">0</span><span class="k">'</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="k">'</span><span class="mi">9</span><span class="k">'</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="n">lower</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="n">a'</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="k">'</span><span class="n">z'</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="n">upper</span> <span class="o">:</span> <span class="kt">char</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="k">'</span><span class="nc">A'</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="k">'</span><span class="nc">Z'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">upper</code> 파서를 입력 문자열 <code class="language-plaintext highlighter-rouge">"Hello"</code>에 적용하면 다음과 같은
+ 결과를 리턴하며 성공할 것이다:</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">upper</span><span class="o">.</span><span class="n">run</span> <span class="p">(</span><span class="n">make_input</span> <span class="s2">"Hello"</span><span class="p">)</span> <span class="p">;;</span>
+<span class="o">-</span> <span class="o">:</span> <span class="n">input</span> <span class="o">*</span> <span class="p">(</span><span class="kt">char</span><span class="o">,</span> <span class="kt">string</span><span class="p">)</span> <span class="n">result</span> <span class="o">=</span> <span class="p">({</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"ello"</span><span class="p">;</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">1</span><span class="p">}</span><span class="o">,</span> <span class="nc">Ok</span> <span class="k">'</span><span class="nc">H'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>즉 첫글자 대문자 <code class="language-plaintext highlighter-rouge">H</code>를 성공적으로 파싱한 결과 <code class="language-plaintext highlighter-rouge">Ok 'H'</code>와, 입력
+ 문자열에서 아직 소모되지 않은 나머지 부분에 대한 정보를 잘 갖고 있다.</p>
+<p>만약 <code class="language-plaintext highlighter-rouge">digit</code> 파서를 입력 문자열 <code class="language-plaintext highlighter-rouge">"Hello"</code>에 적용한다면, 파싱에
+ 실패하게 되고 다음과 같이 입력 문자열을 하나도 소모하지 않는다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">digit</span><span class="o">.</span><span class="n">run</span> <span class="p">(</span><span class="n">make_input</span> <span class="s2">"Hello"</span><span class="p">)</span> <span class="p">;;</span>
+<span class="o">-</span> <span class="o">:</span> <span class="n">input</span> <span class="o">*</span> <span class="p">(</span><span class="kt">char</span><span class="o">,</span> <span class="kt">string</span><span class="p">)</span> <span class="n">result</span> <span class="o">=</span>
+<span class="p">({</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"Hello"</span><span class="p">;</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">}</span><span class="o">,</span> <span class="nc">Error</span> <span class="s2">"predicate not satisfy"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이제 위에서 만든 파서를 가지고 더 강력한 파서를 만들 수 있는
+ 선택(choice) 컴비네이터를 살펴보자. 예를 들어, 우리는 소문자 파서
+ <code class="language-plaintext highlighter-rouge">lower</code>와 대문자 파서 <code class="language-plaintext highlighter-rouge">upper</code> 중 어느 것을 만족해도 상관없는 글자를
+ 파싱하는 <code class="language-plaintext highlighter-rouge">letter</code> 파서를 정의할 수 있다. 이를 위해서, 우리는 다음과
+ 같은 선택 컴비네이터가 필요하다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">choice</span> <span class="p">(</span><span class="n">p1</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span><span class="p">)</span> <span class="p">(</span><span class="n">p2</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span><span class="p">)</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">run</span> <span class="o">=</span>
+      <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">input'</span><span class="o">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">run</span> <span class="n">input</span> <span class="k">in</span>
+        <span class="k">match</span> <span class="n">result</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="nc">Ok</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">input'</span><span class="o">,</span> <span class="nc">Ok</span> <span class="n">x</span>
+        <span class="o">|</span> <span class="nc">Error</span> <span class="n">err</span> <span class="o">-&gt;</span> <span class="n">p2</span><span class="o">.</span><span class="n">run</span> <span class="n">input</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>즉, <code class="language-plaintext highlighter-rouge">choice</code> 컴비네이터는 먼저 첫 번째 파서를 입력 문자열에
+ 적용해보고 성공한 경우 남은 입력과 그 결과를 리턴한다. 실패한 경우 두
+ 번째 파서를 마저 적용해본다. 둘 중 어느 것이든 만족하면 그만인
+ 것이다. 참고로 선택 컴비네이터는 파서가 <em>실패</em>했을 때 뭔가를 더
+ 해야하므로 <code class="language-plaintext highlighter-rouge">bind</code> 컴비네이터로는 구현할 수 없다.</p>
+<p>보통 <code class="language-plaintext highlighter-rouge">choice</code> 컴비네이터도 다음과 같이 중위 연산자로 정의해서 쓰는
+ 것이 편리하다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="p">(</span><span class="o">&lt;|&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">choice</span>
+</code></pre></div></div>
+<p>그러면 우리는 다음과 같이 대/소문자 글자를 파싱하는 파서 <code class="language-plaintext highlighter-rouge">letter</code>와,
+ 알파벳과 숫자를 파싱하는 파서 <code class="language-plaintext highlighter-rouge">alphanum</code>을 정의할 수 있다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">lower</span> <span class="o">&lt;|&gt;</span> <span class="n">upper</span>
+
+<span class="k">let</span> <span class="n">alphanum</span> <span class="o">=</span> <span class="n">letter</span> <span class="o">&lt;|&gt;</span> <span class="n">digit</span>
+</code></pre></div></div>
+<p>마지막으로 조건을 만족하는 <em>단어</em>를 파싱하는 파서를 만들어보자. 크게
+ 두 종류의 컴비네이터를 사용해볼 수 있는데,</p>
+<ul>
+ <li>조건(predicate)을 만족하는 동안 계속 파싱하는 컴비네이터,
+ <li>파서가 파싱에 성공하는 동안 계속 파싱하는 컴비네이터,
+</ul>
+<p>두 가지를 모두 살펴볼 것이다.</p>
+<p>먼저 조건을 만족하는 동안 계속 파싱하는 컴비네이터 <code class="language-plaintext highlighter-rouge">take_while</code>은
+ <code class="language-plaintext highlighter-rouge">satisfy</code>와 유사하다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">take_while</span> <span class="p">(</span><span class="n">f</span><span class="o">:</span> <span class="kt">char</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">run</span> <span class="o">=</span>
+      <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">input</span><span class="o">.</span><span class="n">text</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">i</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">0</span> <span class="k">in</span>
+        <span class="k">while</span> <span class="o">!</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="nn">String</span><span class="p">.</span><span class="n">get</span> <span class="n">input</span><span class="o">.</span><span class="n">text</span> <span class="o">!</span><span class="n">i</span> <span class="o">|&gt;</span> <span class="n">f</span> <span class="k">do</span>
+          <span class="n">incr</span> <span class="n">i</span>
+        <span class="k">done</span> <span class="p">;</span>
+        <span class="n">consume_input</span> <span class="o">!</span><span class="n">i</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="o">!</span><span class="n">i</span><span class="p">)</span> <span class="n">input</span><span class="o">,</span> <span class="nc">Ok</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">sub</span> <span class="n">input</span><span class="o">.</span><span class="n">text</span> <span class="mi">0</span> <span class="o">!</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>문자 그대로 주어진 조건 <code class="language-plaintext highlighter-rouge">f</code>를 만족하는 동안 계속 입력 문자열을
+ 소모하여 최종 파싱 결과를 리턴한다. 이 컴비네이터를 이용해서 단어를
+ 파싱하는 파서를 만들면 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">word</span> <span class="o">:</span> <span class="kt">string</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">take_while</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="k">'</span><span class="n">a'</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="k">'</span><span class="n">z'</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="k">'</span><span class="nc">A'</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="k">'</span><span class="nc">Z'</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="k">'</span><span class="mi">0</span><span class="k">'</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="k">'</span><span class="mi">9</span><span class="k">'</span><span class="p">))</span>
+</code></pre></div></div>
+<p>즉, 앞의 <code class="language-plaintext highlighter-rouge">lower</code>, <code class="language-plaintext highlighter-rouge">upper</code>, <code class="language-plaintext highlighter-rouge">digit</code>의 조건식으로 들어갔던 함수를
+ 합쳐서 전달해주면 된다.</p>
+<p>두 번째 방법은 <code class="language-plaintext highlighter-rouge">letter</code>, <code class="language-plaintext highlighter-rouge">upper</code>, <code class="language-plaintext highlighter-rouge">digit</code>과 같은 미리 만들어둔 파서를
+ 조합할 수 있는 방식이다. 먼저 마찬가지로 파서가 파싱 가능한 만큼
+ 파싱하고 그 결과를 리스트(어떤 값일지 모르기 때문에 곧바로 문자열로
+ 바꾸기는 어렵다)로 모아주는 컴비네이터 <code class="language-plaintext highlighter-rouge">many</code>를 정의하자.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">many</span> <span class="p">(</span><span class="n">p</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span><span class="p">)</span> <span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="kt">list</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="p">{</span> <span class="n">run</span> <span class="o">=</span>
+      <span class="k">fun</span> <span class="n">input</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="k">rec</span> <span class="n">loop</span> <span class="n">input</span> <span class="o">=</span>
+          <span class="k">let</span> <span class="n">input'</span><span class="o">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">run</span> <span class="n">input</span> <span class="k">in</span>
+          <span class="k">match</span> <span class="n">result</span> <span class="k">with</span>
+          <span class="o">|</span> <span class="nc">Ok</span> <span class="n">x</span> <span class="o">-&gt;</span>
+            <span class="n">acc</span> <span class="o">:=</span> <span class="n">x</span> <span class="o">::</span> <span class="o">!</span><span class="n">acc</span> <span class="p">;</span>
+            <span class="n">loop</span> <span class="n">input'</span>
+          <span class="o">|</span> <span class="nc">Error</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">input</span>
+        <span class="k">in</span>
+        <span class="k">let</span> <span class="n">input'</span> <span class="o">=</span> <span class="n">loop</span> <span class="n">input</span> <span class="k">in</span>
+        <span class="n">input'</span><span class="o">,</span> <span class="nc">Ok</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">rev</span> <span class="o">!</span><span class="n">acc</span><span class="p">)</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>입력으로 받은 파서 <code class="language-plaintext highlighter-rouge">p</code>를 실패할 때까지 계속 적용하면서 결과를
+ 리스트에 쌓아뒀다가 최종적으로 파서가 파싱한 값의 리스트를 돌려주는
+ 컴비네이터이다. 이 친구를 이용해서 단어 파서를 만들면 다음과 같다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="kt">string</span> <span class="o">:</span> <span class="kt">string</span> <span class="n">parser</span> <span class="o">=</span>
+  <span class="n">many</span> <span class="p">(</span><span class="n">lower</span> <span class="o">&lt;|&gt;</span> <span class="n">upper</span> <span class="o">&lt;|&gt;</span> <span class="n">digit</span><span class="p">)</span> <span class="o">&gt;&gt;=</span>
+  <span class="k">fun</span> <span class="n">chars</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="nn">String</span><span class="p">.</span><span class="n">of_seq</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">to_seq</span> <span class="n">chars</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">return</span> <span class="n">s</span>
+</code></pre></div></div>
+<p>즉, <code class="language-plaintext highlighter-rouge">lower</code> 또는 <code class="language-plaintext highlighter-rouge">upper</code> 또는 <code class="language-plaintext highlighter-rouge">digit</code> 파서를 이용해서 입력을 계속
+ 파싱하여 결과를 리스트에 모아두고, 최종적으로 이 (글자의) 리스트를
+ 문자열로 합쳐서 돌려주는 파서다.</p>
+<p>그 외에 유용한 컴비네이터로는 앞쪽의 결과를 버리는 컴비네이터 <code class="language-plaintext highlighter-rouge">*&gt;</code>가
+ 있다. 예를 들어 문법에서 공백이나 중괄호를 무시하고 싶을 때 사용할 수
+ 있다. 이 친구는 <code class="language-plaintext highlighter-rouge">bind</code>를 이용해서 깔끔하게 구현 가능하다.</p>
+<div class="language-ocaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="p">(</span> <span class="o">*&gt;</span> <span class="p">)</span> <span class="p">(</span><span class="n">p1</span><span class="o">:</span> <span class="k">'</span><span class="n">a</span> <span class="n">parser</span><span class="p">)</span> <span class="p">(</span><span class="n">p2</span><span class="o">:</span> <span class="k">'</span><span class="n">b</span> <span class="n">parser</span><span class="p">)</span> <span class="o">:</span> <span class="k">'</span><span class="n">b</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">&gt;&gt;=</span> <span class="k">fun</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">p2</span>
+</code></pre></div></div>
+<p>즉 첫 번째 파서의 결과 값은 버리고, 남은 입력만을 취하는 것이다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

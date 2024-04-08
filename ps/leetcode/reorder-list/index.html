@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Reorder List</title>
+<meta property="og:title" content="Reorder List" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Reorder List">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reorder List"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/reorder-list.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/reorder-list/">Reorder List</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="reorder-list"><a href="https://leetcode.com/problems/reorder-list/">Reorder List</a></h1>
+<p>링크드 리스트가 주어졌을 때, 다음과 같이 표현할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">...</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
+<p>이걸 다음과 같은 형식으로 재정렬하자. 이때, <strong>값을 바꾸면 안되고</strong>,
+ 노드의 포인터만 바꿔야 한다. 리스트를 새로 만들어서도 안되고, 원래의
+ 리스트를 제자리에서(in-place) 수정해야 한다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Node</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">...</span>
+</code></pre></div></div>
+<h2 id="리스트를-요리조리">리스트를 요리조리</h2>
+<p>문제를 잘 읽어야 한다. <del>처음에는 짝수/홀수 번째 리스트 노드를
+ 교차하는 건줄 알았는데 그게 아니었다.</del> 잘 보면 논리적으로 다음
+ 스텝을 밟는다는 것을 알 수 있다:</p>
+<ol>
+ <li><a href="../middle-of-the-linked-list">리스트의 중간 지점을 찾는다.</a>
+ <li><a href="../reverse-linked-list">중간부터 끝까지를 뒤집는다.</a>
+ <li>처음~중간까지의 리스트와 중간~끝까지 뒤집힌 <a href="../merge-two-sorted-lists">리스트를 합친다.</a>
+</ol>
+<p>각각이 이미 이전에 나온 문제들이다. 따라서 이전 방법들을 조합해서 풀
+ 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reorderList</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="c1"># find middle
+</span>    <span class="n">slow</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="n">head</span>
+    <span class="k">while</span> <span class="n">fast</span> <span class="ow">and</span> <span class="n">fast</span><span class="p">.</span><span class="nb">next</span><span class="p">:</span>
+        <span class="n">slow</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">slow</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">fast</span><span class="p">.</span><span class="nb">next</span><span class="p">.</span><span class="nb">next</span>
+
+    <span class="c1"># reverse from middle to end
+</span>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">slow</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span>
+    <span class="n">sentinel</span> <span class="o">=</span> <span class="nc">ListNode</span><span class="p">()</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">sentinel</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="n">node</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nb">next</span>
+    <span class="n">reversed_list</span> <span class="o">=</span> <span class="n">sentinel</span><span class="p">.</span><span class="nb">next</span>
+
+    <span class="c1"># should unlink in the middle!
+</span>    <span class="n">slow</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1"># merge them
+</span>    <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="n">reversed_list</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nc">ListNode</span><span class="p">()</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">while</span> <span class="n">n1</span> <span class="ow">and</span> <span class="n">n2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+            <span class="n">n</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">n1</span>
+            <span class="n">n1</span> <span class="o">=</span> <span class="n">n1</span><span class="p">.</span><span class="nb">next</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">n</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">n2</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="n">n2</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">^</span> <span class="bp">True</span>
+</code></pre></div></div>
+<ul>
+ <li>새로운 루트 노드를 찾는게 아니더라도 중간을 찾는거 빼고
+나머지에서는 센티넬 노드를 활용하는게 좋다.
+ <li>주의할 점은, 중간을 찾아서 중간부터 끝까지 리스트를 뒤집고 나면
+<strong>반드시 중간 부분에서 리스트를 끊어줘야 한다는 것이다</strong>. 안그러면
+리스트에 싸이클이 생겨서 두 리스트를 병합할 때 무한 루프에 빠진다.
+ <li>정방향 리스트와 역방향 리스트 모두 마지막 노드는 중간 노드가
+된다. 즉, 아래 그림과 같다. 따라서, 두 리스트를 합칠 때 둘 다
+남아있을 동안만 합치면 된다. 어차피 마지막은 둘다 중간 노드이기
+때문이다.
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">홀수</span><span class="p">)</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">4</span> <span class="o">-&gt;</span> <span class="mi">5</span>
+<span class="n">n1</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+<span class="n">n2</span><span class="p">:</span> <span class="mi">5</span> <span class="o">-&gt;</span> <span class="mi">4</span> <span class="o">-&gt;</span> <span class="mi">3</span>
+
+<span class="p">(</span><span class="n">짝수</span><span class="p">)</span>
+<span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">4</span> <span class="o">-&gt;</span> <span class="mi">5</span> <span class="o">-&gt;</span> <span class="mi">6</span>
+<span class="n">n1</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">4</span>
+<span class="n">n2</span><span class="p">:</span> <span class="mi">6</span> <span class="o">-&gt;</span> <span class="mi">5</span> <span class="o">-&gt;</span> <span class="mi">4</span>
+</code></pre></div></div>
+<ul>
+ <li>두 노드를 합칠 때 여기서는 특별히 값의 비교가 필요하지 않다. 대신
+어떤 노드를 합칠 것인지를 정해야하는데, 여기서는 단순한 플래그를
+둬서 참일 때에는 정방향을 합치고 거짓일 때에는 역방향을 합치도록
+했다. 플래그는 XOR의 성질을 이용해서 참과 XOR 해줘서 매번
+뒤집도록(flip) 했다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=linked-list ">linked-list</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-05 09:46:45 AM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

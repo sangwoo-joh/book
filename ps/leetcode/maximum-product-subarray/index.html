@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Maximum Product Subarray</title>
+<meta property="og:title" content="Maximum Product Subarray" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Maximum Product Subarray">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maximum Product Subarray"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/maximum-product-subarray.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/maximum-product-subarray/">Maximum Product Subarray</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="maximum-product-subarray"><a href="https://leetcode.com/problems/maximum-product-subarray/">Maximum Product Subarray</a></h1>
+<p>정수 배열이 주어졌을 때, 공집합이 아닌 부분 배열의 곱이 최대가 되는
+ 부분 배열을 찾고 그 곱을 구하자.</p>
+<p>모든 곱은 32비트 정수로 표현되는 것이 보장된다.</p>
+<p>부분 배열이란 배열에서 연속되는 부분 시퀀스를 뜻한다.</p>
+<p>배열의 길이는 최대 \(2 \times 10^4\) 이고 각 값은 -10~10이다.</p>
+<h2 id="on2---타임아웃">O(N^2) - 타임아웃</h2>
+<p><a href="../maximum-subarray">부분 배열의 최대 합</a>랑 비슷한 문제다. 역시
+ 비슷하게 Brute Force를 생각해볼 수 있는데, 역시나 타임아웃이 난다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxProduct</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">maxp</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">-inf</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+        <span class="n">curp</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">curp</span> <span class="o">*=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">maxp</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">maxp</span><span class="p">,</span> <span class="n">curp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">maxp</span>
+</code></pre></div></div>
+<ul>
+ <li>합과는 다르게 곱의 초기값은 1이 되어야 정상적으로 누적되는 것만
+주의하면 된다.
+</ul>
+<h2 id="on---two-pass">O(N) - Two Pass</h2>
+<p>대관절 어떻게 하면 좋을까?? 이 문제를 처음 봤을 때에는 Brute Force
+ 말고는 다른 방법이 도저히 떠오르질 않더라. 그래서 여러가지 힌트를
+ 살펴보았고 접근 방법을 정리해보려고 한다.</p>
+<p>일단 부분합과는 다른 부분곱만의 특이한 점을 관찰하면 다음과 같다:</p>
+<ul>
+ <li>기존 방법처럼 인덱스 <code class="language-plaintext highlighter-rouge">i</code> 이전까지의 부분 배열로 곱을 만들려고 하면
+0이 발을 붙잡고 넘어진다. 원소가 0이면 이때까지 쌓아온 모든 값이
+초기화되기 때문이다. 곱에서 초기화란 곧 1로 초기화되는 것과
+같다. 즉, 일종의 구분자로 생각해도 된다.
+ <li>음수의 경우도 특이하다. 음수를 홀수번 곱하면 음수이고, 짝수번
+곱하면 양수가 된다. 따라서, 합과는 다르게, 부분 배열에 음수가 몇 개
+있는지가 최대 곱에 영향을 미친다.
+</ul>
+<p>좀더 구체적인 예제를 가지고 생각을 해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+<p>음수가 하나인 경우를 생각해보자. 왼쪽에서부터 누적 곱을 구해 나가면
+ <code class="language-plaintext highlighter-rouge">[2, 6, -24, -120]</code>가 되고, 오른쪽에서부터 가면 <code class="language-plaintext highlighter-rouge">[5, -20, -60,
+ -120]</code>가 된다. 즉, 음수 -3이 배열을 반으로 나눠버린다는 것을 알 수
+ 있다. 따라서 이 중 최대값은 왼쪽에서부터 음수 직전까지를 곱한 <code class="language-plaintext highlighter-rouge">6</code>이
+ 된다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+<p>이번에는 음수가 두개인 경우를 생각해보자. 앞에서 음수를 두 번 곱하면
+ 양수가 된다고 했는데, 이게 어떤 영향을 미치는지 눈으로 확인할 수
+ 있다. 마찬가지로 앞에서부터 곱을 누적하면 <code class="language-plaintext highlighter-rouge">[2, -6, 24, 120]</code>이 되고,
+ 뒤에서부터 곱을 누적하면 <code class="language-plaintext highlighter-rouge">[5, -20, 60, 120]</code>이 되어 앞에서 곱하나
+ 뒤에서 곱하나 최대 값은 <code class="language-plaintext highlighter-rouge">120</code>이 된다.</p>
+<p>결국 중요한 케이스는 음수가 세 개 이상이면서 홀수인 경우다. 그리고 그
+ 경우에는 앞에서 곱을 누적한 것과 뒤에서 곱을 누적한 것 중에 최대값이
+ 있다.</p>
+<p>이 성질을 이용해서 다음과 같이 구현할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxProduct</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">maxp</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">-inf</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">curp</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">:</span>
+        <span class="n">curp</span> <span class="o">*=</span> <span class="n">n</span>
+        <span class="n">maxp</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">maxp</span><span class="p">,</span> <span class="n">curp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">curp</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">curp</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nf">reversed</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+        <span class="n">curp</span> <span class="o">*=</span> <span class="n">n</span>
+        <span class="n">maxp</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">maxp</span><span class="p">,</span> <span class="n">curp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">curp</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">maxp</span>
+</code></pre></div></div>
+<ul>
+ <li>먼저 정방향으로 훑으면서 누적 곱을 계산해서 최대 값을
+갱신한다. 이때, 지금 값이 <code class="language-plaintext highlighter-rouge">0</code>이라면, 이후의 곱을 위해서 누적 곱을
+<code class="language-plaintext highlighter-rouge">1</code>로 초기화한다. 이를 통해 누적 곱 <code class="language-plaintext highlighter-rouge">curp</code>의 값이 인덱스 <code class="language-plaintext highlighter-rouge">i</code>까지의
+부분 배열 중에서 값이 0이 아닌 가장 나중의 위치부터 <code class="language-plaintext highlighter-rouge">i</code>까지의 누적
+곱이 담기도록 보장할 수 있다.
+ <li>그 후 역방향으로 훑으면서 똑같이 최대 값을 갱신한다. 이렇게 두 번
+훑으면 최대 값에는 누적 곱의 최대 값이 담긴다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=array ">array</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-05 09:46:25 AM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

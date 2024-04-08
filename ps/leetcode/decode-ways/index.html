@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Decode Ways</title>
+<meta property="og:title" content="Decode Ways" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Decode Ways">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Decode Ways"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/decode-ways.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/decode-ways/">Decode Ways</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="decode-ways"><a href="https://leetcode.com/problems/decode-ways/">Decode Ways</a></h1>
+<p><code class="language-plaintext highlighter-rouge">A-Z</code>를 담은 메시지는 다음과 같은 규칙에 의해서 숫자로 인코딩할 수
+ 있다:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">'</span><span class="s">A</span><span class="sh">'</span> <span class="o">-&gt;</span> <span class="sh">"</span><span class="s">1</span><span class="sh">"</span>
+<span class="sh">'</span><span class="s">B</span><span class="sh">'</span> <span class="o">-&gt;</span> <span class="sh">"</span><span class="s">2</span><span class="sh">"</span>
+<span class="bp">...</span>
+<span class="sh">'</span><span class="s">Z</span><span class="sh">'</span> <span class="o">-&gt;</span> <span class="sh">"</span><span class="s">26</span><span class="sh">"</span>
+</code></pre></div></div>
+<p>이렇게 인코딩된 메시지를 디코딩하려면, 이 맵핑을 거꾸로 적용해서
+ 숫자들을 묶어야 한다. 그러면 가능한 경우가 여러 개일 수 있다. 예를
+ 들면, “11106”은:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">10</span> <span class="mi">6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="sh">"</span><span class="s">AAJF</span><span class="sh">"</span>
+<span class="p">(</span><span class="mi">11</span> <span class="mi">10</span> <span class="mi">6</span><span class="p">)</span>  <span class="o">-&gt;</span> <span class="sh">"</span><span class="s">KJF</span><span class="sh">"</span>
+</code></pre></div></div>
+<p>이때 <code class="language-plaintext highlighter-rouge">(1 11 06)</code> 으로 묶는 것은 불가능하다. 왜냐하면 <code class="language-plaintext highlighter-rouge">6</code>과 <code class="language-plaintext highlighter-rouge">06</code>은
+ 다르기 때문이다.</p>
+<p>숫자가 담긴, 즉 인코딩된 메시지가 주어졌을 때, 이걸 디코딩할 수 있는
+ 방법의 개수를 구하자. 이 개수는 32 비트 정수 범위 안임이 보장된다.</p>
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p>내가 좋아하지 않는 토픽 두 가지가 섞인 문제다: 문자열 &amp; 다이나믹
+ 프로그래밍. 문자열 문제는 대부분 수수께끼 같고, 다이나믹 프로그래밍은
+ 점화식을 끌어내기가 어렵기 때문에 별로 선호하지 않는다. 그래도 피할
+ 수 없으니 어쩌겠나. 되도록 즐기려고 노력할 수 밖에.</p>
+<p>주어진 숫자 문자열을 순서대로 가면서, 그 다음 가능한 선택지가 뭘지
+ 판별해 나가보자. 이때, 중복되는 부분이 있을까? “2326” 문자열을 가지고
+ 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"</span><span class="s">2326</span><span class="sh">"</span>
+<span class="sh">"</span><span class="s">2</span><span class="sh">"</span> <span class="o">-&gt;</span> <span class="sh">"</span><span class="s">3</span><span class="sh">"</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">)</span>
+<span class="sh">"</span><span class="s">23</span><span class="sh">"</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">26</span><span class="p">)</span>
+</code></pre></div></div>
+<p>즉, “2”로 디코딩한 경우, 그 다음은 “3”만 디코딩 가능하니까 (<code class="language-plaintext highlighter-rouge">32 &gt;
+ 26</code>) 남은 2, 6으로 가능한 경우는 두 가지 뿐이다. 그 다음 “23”을
+ 디코딩한 경우, 역시 또 2, 6이 남고 이때 개수는 기존에 계산한 결과와
+ 같다. 즉, 이 문제는 부분 문제로 쪼갤 수 있고, 부분 문제 중에서
+ 중복되는 부분이 존재한다.</p>
+<p>그럼 어떻게 계산할 수 있을까? 인덱스를 기준으로 0부터 재귀적으로
+ 시작해서, 가능한 경우에 따라 문자 1개 (<code class="language-plaintext highlighter-rouge">i + 1</code>) 또는 2개 (<code class="language-plaintext highlighter-rouge">i + 2</code>) 씩
+ 확인한다고 해보자. 먼저 base case는 뭘까? 당연히 떠오르는 것 중
+ 하나는 지금 위치의 문자가 <code class="language-plaintext highlighter-rouge">0</code>이면 가능한 개수도 <code class="language-plaintext highlighter-rouge">0</code>이다. 왜냐하면
+ 인코딩이 <code class="language-plaintext highlighter-rouge">1</code>부터 시작하기 때문이다.</p>
+<p>또, 이렇게 하나 또는 둘 씩 가능한 경우를 확인하면서 문자열의 끝에
+ 도달한 경우에는 최종적으로 가능한 1개를 찾은 것이다. 그런데 여기서
+ 문자 1개 또는 2개를 확인하기 때문에 고려해야 할 사항이 있다. 예를
+ 들어 “26”을 디코딩한다고 해보자. 그러면 가능한 경우는 아래와 같다.</p>
+<ol>
+ <li><code class="language-plaintext highlighter-rouge">i=0</code>이고 1개를 확인(2) -&gt; 그 다음 <code class="language-plaintext highlighter-rouge">i=1</code>이고 1개를 확인(6) -&gt;
+<code class="language-plaintext highlighter-rouge">i=1</code> 이고 끝에 도달했으므로 1개 리턴
+ <li><code class="language-plaintext highlighter-rouge">i=0</code>이고 2개를 확인(26) -&gt; <code class="language-plaintext highlighter-rouge">i=2</code> 이고 끝에 도달했으므로 1개 리턴
+</ol>
+<p>둘 다 끝에 도달한 건 맞지만 이때 1번과 2번의 경우 인덱스의 값이
+ 다르다. 첫번째 경우는 <code class="language-plaintext highlighter-rouge">i=1</code>일 때 끝나는데 이는 곧 <code class="language-plaintext highlighter-rouge">len - 1</code>이다. 반면
+ 두 번째 경우는 한번에 두 글자를 확인했기 때문에 <code class="language-plaintext highlighter-rouge">i=2</code>가 되고 이때는
+ <code class="language-plaintext highlighter-rouge">len</code>과 같다. 따라서, “끝에 도달함”은 이 두 가지를 모두 고려해야
+ 한다.</p>
+<p>그런데 여기서 또 하나 tricky한 부분이 있다. <code class="language-plaintext highlighter-rouge">len - 1</code>, 즉 한 글자의
+ 유효함을 확인하기 전에, 현재 인덱스의 문자가 유효한지를 확인해야
+ 한다. 즉, 지금 인덱스의 문자가 <code class="language-plaintext highlighter-rouge">0</code>인지 아닌지를 확인해야
+ 한다. 왜냐하면, 이전까지 하나 또는 두개씩 잘 확인해오다가 갑자기
+ 마지막에 <code class="language-plaintext highlighter-rouge">0</code>이 나와버리면, 디코딩 가능한 경우가 없기 때문이다.</p>
+<p>횡설수설 말이 많았는데, 아직 내가 핵심을 간결하게 설명하지 못하는 것
+ 같다. 일단 코드로 작성해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+<span class="k">def</span> <span class="nf">num_decoding</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+
+    <span class="nd">@cache</span>
+    <span class="k">def</span> <span class="nf">count_valid</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+        <span class="c1"># base 1: end of 2-char check
+</span>        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="c1"># base 2: impossible
+</span>        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">0</span><span class="sh">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># base 3: end of 1-char check
+</span>        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="c1"># accum 1-char
+</span>        <span class="n">answer</span> <span class="o">=</span> <span class="nf">count_valid</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># accum 2-char
+</span>        <span class="k">if</span> <span class="nf">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">26</span><span class="p">:</span>
+            <span class="n">answer</span> <span class="o">+=</span> <span class="nf">count_valid</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">answer</span>
+
+    <span class="k">return</span> <span class="nf">count_valid</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+ <li>앞서 말했듯 중복되는 부분이 있을 수 있기 때문에 (거의 무조건 있다고
+보면 된다) 기존 계산 결과를 메모아이제이션 하기 위해서 <code class="language-plaintext highlighter-rouge">@cache</code>
+어노테이션을 붙여준다.
+ <li>제일 먼저 <code class="language-plaintext highlighter-rouge">len(s)</code>인 경우를 확인해준다. 이건 마지막 직전에서 문자
+두 개를 확인할 때 가능한 케이스인데, 이걸 먼저 해줘야 이후 로직에서
+인덱스가 아웃 바운드 되지 않는다.
+ <li>그 다음은 먼저 지금 인덱스가 <code class="language-plaintext highlighter-rouge">0</code>인지 확인한다. 이럼 가능한 경우가
+없기 때문이다.
+ <li>그리고 최종적으로 끝에 도달했으면, 1개가 가능하다고 리턴한다.
+ <li>개수를 셀 때에도 먼저 1개 문자가 가능한지를 누적하고, 그 다음 2개가
+가능하다면(<code class="language-plaintext highlighter-rouge">&lt;= 26</code>) 2개를 누적한다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=dynamic-programming ">dynamic-programming</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=string ">string</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

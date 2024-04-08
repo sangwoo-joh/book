@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Minimum Size Subarray Sum</title>
+<meta property="og:title" content="Minimum Size Subarray Sum" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Minimum Size Subarray Sum">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Minimum Size Subarray Sum"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/minimum-size-subarray-sum.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/minimum-size-subarray-sum/">Minimum Size Subarray Sum</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="minimum-size-subarray-sum"><a href="https://leetcode.com/problems/minimum-size-subarray-sum/">Minimum Size Subarray Sum</a></h1>
+<p><em>양수</em>만 담은 배열 <code class="language-plaintext highlighter-rouge">nums</code>와 양수 <code class="language-plaintext highlighter-rouge">target</code>이 주어졌을 때, 합이
+ <code class="language-plaintext highlighter-rouge">target</code>보다 크거나 같게 되는 <strong>연속되는 부분 배열</strong> <code class="language-plaintext highlighter-rouge">[nums_(l),
+ nums_(l+1), ..., nums_(r)]</code>의 최소 길이를 구하는 문제이다. 없으면
+ <code class="language-plaintext highlighter-rouge">0</code>을 리턴.</p>
+<h2 id="접근">접근</h2>
+<ul>
+ <li>가변 길이 슬라이딩 윈도우를 활용할 수 있는 문제
+   <ul>
+     <li><strong>양수</strong>만 담고 있어서 가능함: 윈도우 크기를 늘리면 값이 커지고,
+윈도우 크기를 줄이면 값이 작아질 수 밖에 없음
+   </ul>
+ <li>윈도우의 시작과 끝 인덱스 <code class="language-plaintext highlighter-rouge">(start, end)</code>를 유지
+   <ul>
+     <li>현재 상태가 목표(<code class="language-plaintext highlighter-rouge">target</code>)가 아니라면, 다음 상태는 어디로
+가야할까? -&gt; <code class="language-plaintext highlighter-rouge">end</code> 포인터를 움직여서 윈도우 크기를 늘림
+     <li>현재 상태보다 더 잘 할 수 있나(Can we do better)? -&gt; 부분 배열의
+<strong>최소</strong> 길이를 구해야 하므로, <code class="language-plaintext highlighter-rouge">start</code> 포인터를 움직여서 윈도우
+크기를 줄임
+   </ul>
+ <li>그 외 엣지 케이스를 고려해야 함:
+   <ul>
+     <li>길이 초기 값은 무한대(혹은 아주 큰 정수)여야 최소 길이를 구할 수
+있음
+     <li><code class="language-plaintext highlighter-rouge">(start, end)</code> 모두 인덱스이므로 길이 계산에 유의
+     <li><code class="language-plaintext highlighter-rouge">start</code> 포인터를 움직일 때 누적 합에서 값을 빼줘야 함
+     <li>최종적으로 길이가 초기 값에서 변하지 않았다면 가능한 경우가 없는
+것임
+   </ul>
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">min_sub_array_sum</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">min_len</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">inf</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">cur_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">cur_sum</span> <span class="o">+=</span> <span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]</span>
+
+        <span class="c1"># Can I do better?
+</span>        <span class="k">while</span> <span class="n">cur_sum</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">min_len</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_len</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">cur_sum</span> <span class="o">-=</span> <span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">min_len</span> <span class="k">if</span> <span class="n">min_len</span> <span class="o">!=</span> <span class="nf">float</span><span class="p">(</span><span class="sh">'</span><span class="s">inf</span><span class="sh">'</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+</code></pre></div></div>
+<h1 id="번외-dual">번외: Dual</h1>
+<p>이 문제와 Dual이 되는 문제도 생각해볼 수 있다: “<code class="language-plaintext highlighter-rouge">nums</code>와 <code class="language-plaintext highlighter-rouge">target</code>에
+ 대해서, 합이 <code class="language-plaintext highlighter-rouge">target</code>보다 작거나 같게되는 부분 배열의 최대 길이를
+ 구하라”.</p>
+<p>이 경우는 위의 투 포인터를 조금 변형하면 다음과 같이 구현할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">max_sub_array_sum</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">max_len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cur_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="nf">if </span><span class="p">(</span><span class="n">cur_sum</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="p">:</span>
+            <span class="c1"># Can I do better?
+</span>            <span class="n">cur_sum</span> <span class="o">+=</span> <span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]</span>
+            <span class="n">max_len</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Constraint not satisfied. move to the next.
+</span>            <span class="n">cur_sum</span> <span class="o">=</span> <span class="n">cur_sum</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">max_len</span>
+</code></pre></div></div>
+<ul>
+ <li>최대 값을 구해야 하므로 최대 길이 값을 <code class="language-plaintext highlighter-rouge">0</code>으로 초기화 한다.
+ <li>마찬가지로 <code class="language-plaintext highlighter-rouge">start</code>와 <code class="language-plaintext highlighter-rouge">end</code>를 이용하여 가변 길이 윈도우의 투
+포인터를 활용한다.
+ <li>단, 이전처럼 곧바로 <code class="language-plaintext highlighter-rouge">cur_sum</code>을 누적하지 않는다. 예전에는 최소
+만족해야 하는 값이 <code class="language-plaintext highlighter-rouge">target</code>이었지만, 여기서는 <em>아무리 커봤자</em>
+<code class="language-plaintext highlighter-rouge">target</code>과 같아야 하므로, 루프 안에서 업데이트 하기 전에 미리
+계산하고 만족한 경우에만 업데이트 한다.
+ <li>또한, <em>최대 길이</em>를 구해야 하므로, 위 조건을 만족할 때에만
+<code class="language-plaintext highlighter-rouge">max_len</code>을 업데이트 할 수 있다. 길이를 <code class="language-plaintext highlighter-rouge">end - start + 1</code>로 구할 수
+있는 부분은 동일하다.
+ <li>만약 값이 <code class="language-plaintext highlighter-rouge">target</code> 보다 큰 경우, “그 다음”으로 진행하는 로직이 살짝
+다른데,
+   <ul>
+     <li>최소 길이가 아니라 최대의 길이를 구하는 문제이므로, 이전처럼
+<code class="language-plaintext highlighter-rouge">while</code> 루프를 돌면 <strong>안된다</strong>. 대신, 윈도우 사이즈를 <strong>하나씩</strong>
+<em>앞에서 부터</em> 줄여나갈 수 있다.
+     <li><code class="language-plaintext highlighter-rouge">cur_sum</code>을 업데이트 하는 방식이 다르다. <code class="language-plaintext highlighter-rouge">start</code>를 하나 증가하게
+되면 당연히 <code class="language-plaintext highlighter-rouge">cur_sum</code>에서 <code class="language-plaintext highlighter-rouge">nums[start]</code>를 빼야 한다. 추가로
+여기서는 <code class="language-plaintext highlighter-rouge">target</code>과 비교하기 전에 <code class="language-plaintext highlighter-rouge">nums[end]</code>값을 <code class="language-plaintext highlighter-rouge">cur_sum</code>에
+누적하지 않았으므로, <code class="language-plaintext highlighter-rouge">start</code>를 움직이는 부분에서 이 값까지
+고려해줘야 한다.
+   </ul>
+</ul>
+<h1 id="번외-2-합이-아니라-곱이면">번외 2: 합이 아니라 곱이면?</h1>
+<p>이런 문제도 생각해볼 수 있다: “합이 아니라, <code class="language-plaintext highlighter-rouge">nums</code>의 부분 배열의
+ <strong>곱</strong>이 <code class="language-plaintext highlighter-rouge">target</code>보다 작은 부분 배열의 <strong>개수</strong>는 몇개일까?”</p>
+<p>여기서 tricky한 부분은 (1) 합이 아니라 <em>곱</em>이고 (2) 최대/최소 길이가
+ 아니라 전체 <strong>개수</strong>를 구해야 한다는 점이다.</p>
+<p>다음과 같은 경우를 생각해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">target</span> <span class="o">=</span> <span class="mi">100</span>
+</code></pre></div></div>
+<p>이때 부분 배열의 곱이 <code class="language-plaintext highlighter-rouge">100</code>보다 작은 개수를, <strong>윈도우</strong> 안에서
+ 생각해보자. 만약 윈도우가 <code class="language-plaintext highlighter-rouge">[10, 5]</code> 라고 하면, 곱이 <code class="language-plaintext highlighter-rouge">100</code>보다 작은
+ 부분 배열의 개수는: <code class="language-plaintext highlighter-rouge">[10]</code>, <code class="language-plaintext highlighter-rouge">[5]</code>, <code class="language-plaintext highlighter-rouge">[10, 5]</code>로 총 3개이다. 그런데 잘
+ 살펴보면 이 개수는 윈도우가 <code class="language-plaintext highlighter-rouge">[10]</code>일 때의 개수도 포함하고 있다. 즉,
+ <code class="language-plaintext highlighter-rouge">[10, 5]</code> 윈도우 안에서 가능한 개수만 센다면 <code class="language-plaintext highlighter-rouge">[10, 5]</code>와 <code class="language-plaintext highlighter-rouge">[5]</code>가
+ 되고, 이는 곧 <strong>윈도우 크기</strong>와 일치한다.</p>
+<p>그렇다면 이전의 가변 길이 투 포인터 접근을 조금 변형해서 아래와 같이
+ 구현할 수 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">num_sub_array_prod</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">target</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cur_prod</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">cur_prod</span> <span class="o">*=</span> <span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]</span>
+
+        <span class="c1"># find minimum window
+</span>        <span class="k">while</span> <span class="n">cur_prod</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">cur_prod</span> <span class="o">/=</span> <span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">count</span> <span class="o">+=</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">count</span>
+</code></pre></div></div>
+<ul>
+ <li>Base Case를 잘 생각해야 한다. 조건이 <code class="language-plaintext highlighter-rouge">target</code>보다 <strong>작아야</strong> 하기
+때문에, <code class="language-plaintext highlighter-rouge">target</code>이 <code class="language-plaintext highlighter-rouge">1</code> 또는 <code class="language-plaintext highlighter-rouge">0</code>이면 어떤 양수를 곱해도 이 값보다
+작을 수 없기 때문에 답은 <code class="language-plaintext highlighter-rouge">0</code>개 이다.
+ <li>누적 합이 아니라 누적 곱이므로 <code class="language-plaintext highlighter-rouge">cur_prod</code>의 초기값은 <code class="language-plaintext highlighter-rouge">1</code>이다.
+ <li>최소 부분 배열과 유사하게, 조건을 만족하는 최소 크기의 윈도우를
+구한다. 그러고 나면 이때 가능한 부분 배열의 개수가 곧 윈도우의 크기
+이므로, 이를 누적하면 된다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=two-pointers ">two-pointers</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

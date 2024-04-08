@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Lowest Common Ancestor of a Binary Search Tree</title>
+<meta property="og:title" content="Lowest Common Ancestor of a Binary Search Tree" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Lowest Common Ancestor of a Binary Search Tree">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lowest Common Ancestor of a Binary Search Tree"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/lowest-common-ancestor-of-a-binary-search-tree.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/lowest-common-ancestor-of-a-binary-search-tree/">Lowest Common Ancestor of a Binary Search Tree</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="lowest-common-ancestor-of-a-binary-search-tree"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">Lowest Common Ancestor of a Binary Search Tree</a></h1>
+<p>이진 탐색 트리의 루트 노드와 두 개의 노드가 주어진다. 두 노드는
+ BST안에 반드시 존재하는 노드이다. 이때 두 노드의 LCA(Lowest Common
+ Ancestor)를 구하자.</p>
+<p>LCA의 정의는 위키피디아에 따르면 다음과 같다: 두 노드 <code class="language-plaintext highlighter-rouge">p</code>와 <code class="language-plaintext highlighter-rouge">q</code>의
+ LCA는 <code class="language-plaintext highlighter-rouge">p</code>와 <code class="language-plaintext highlighter-rouge">q</code>를 자손으로 가지면서 트리의 가장 낮은 위치에 있는
+ 노드이다. 이때, 노드는 그 자신의 자손이다.</p>
+<p>예를 들어서, 다음과 같은 BST 있을 때</p>
+<p><img src="https://assets.leetcode.com/uploads/2018/12/14/binarysearchtree_improved.png" alt="BST" /></p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">2</code>와 <code class="language-plaintext highlighter-rouge">8</code>의 LCA는 루트인 <code class="language-plaintext highlighter-rouge">6</code>
+ <li><code class="language-plaintext highlighter-rouge">3</code>과 <code class="language-plaintext highlighter-rouge">5</code>의 LCA는 <code class="language-plaintext highlighter-rouge">4</code>
+ <li><code class="language-plaintext highlighter-rouge">0</code>과 <code class="language-plaintext highlighter-rouge">2</code>의 LCA는 <code class="language-plaintext highlighter-rouge">2</code>
+ <li><code class="language-plaintext highlighter-rouge">0</code>과 <code class="language-plaintext highlighter-rouge">5</code>의 LCA는 <code class="language-plaintext highlighter-rouge">2</code>
+</ul>
+<p>가 된다.</p>
+<p>노드의 수는 2~100,000이고 모든 노드의 값은 유니크하다. <code class="language-plaintext highlighter-rouge">p</code>와 <code class="language-plaintext highlighter-rouge">q</code>는
+ 서로 다르며 반드시 BST 안에 있음이 보장된다.</p>
+<h2 id="general-approach">General Approach</h2>
+<p>일반적인 트리에서 LCA를 구하는 가장 직관적인 방법은 다음과 같다.</p>
+<ol>
+ <li>일단 트리의 모든 노드의 레벨(또는 높이)를 구한다. 여기서는
+레벨이라고 하자.
+ <li>노드에 부모 포인터가 없다면 부모로 가는 정보도 구해둔다.
+ <li>두 노드의 레벨을 같도록 맞춘다. 레벨이 더 큰 쪽의 노드가 작은 쪽과
+같아질 때까지 부모를 따라 거슬러 올라간다.
+ <li>두 노드가 같은 레벨에 있게 되면, 두 노드가 같아질 때까지 함께
+부모를 거슬러 올라간다.
+ <li>두 노드가 같아지면 종료. 이 노드가 LCA이다.
+</ol>
+<p>이 방법은 일종의 Bottom-Up 방법이다. 일단 두 노드가 같은 레벨에
+ 있도록 맞춘 다음, 서로 만날 때까지 부모를 거슬러 올라간다. 아주
+ 직관적인 방법이다. 이 아이디어를 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">set_levels</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">lv</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">levels</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">lv</span>
+        <span class="nf">set_levels</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">lv</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nf">set_levels</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">lv</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nf">set_levels</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">parents</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">set_parent</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">:</span>
+            <span class="n">parents</span><span class="p">[</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">:</span>
+            <span class="n">parents</span><span class="p">[</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="nf">set_parent</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="nf">set_parent</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="nf">set_parent</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">levels</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">levels</span><span class="p">[</span><span class="n">q</span><span class="p">]:</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="p">,</span> <span class="n">p</span>
+    <span class="c1"># now levels(p) &gt;= levels(q)
+</span>    <span class="k">while</span> <span class="n">levels</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">!=</span> <span class="n">levels</span><span class="p">[</span><span class="n">q</span><span class="p">]:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">q</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">parents</span><span class="p">[</span><span class="n">q</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">q</span>
+</code></pre></div></div>
+<p>BST의 균형에 대한 조건은 언급되어 있지 않기 때문에, 트리 노드의
+ 개수를 N이라고 하면 O(N)의 시간 및 공간 복잡도를 얻는다.</p>
+<h2 id="use-search-property">Use Search Property</h2>
+<p>그런데 문제에서 트리가 그냥 트리가 아니라 BST라고 했다. BST는 Search
+ Property라고 불리는 다음 성질을 만족하는데:</p>
+<ul>
+ <li>모든 노드에 대해서, 노드의 값은 왼쪽 서브트리의 모든 값보다 크고
+오른쪽 서브트리의 모든 값보다 작다.
+</ul>
+<p>이 성질을 이용할 수는 없을까?</p>
+<ol>
+ <li>일단 루트 노드에서 출발한다.
+ <li>두 노드의 값이 루트 노드보다 <strong>작다면</strong>, 두 노드는 반드시 루트의
+왼쪽 서브트리에 있다.
+ <li>두 노드의 값이 루트 노드보다 <strong>크다면</strong>, 두 노드는 반드시 루트의
+오른쪽 서브트리에 있다.
+ <li>만약 둘다 아니라면, 이 뜻은 <strong>처음으로</strong> 두 노드 사이에 있는
+노드에 도달했다는 뜻이다. 그리고 이게 바로 LCA이다.
+</ol>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">root</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">node</span><span class="p">.</span><span class="n">val</span> <span class="ow">and</span> <span class="n">q</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">node</span><span class="p">.</span><span class="n">val</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">left</span>
+        <span class="k">elif</span> <span class="n">p</span><span class="p">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">node</span><span class="p">.</span><span class="n">val</span> <span class="ow">and</span> <span class="n">q</span><span class="p">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">node</span><span class="p">.</span><span class="n">val</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">right</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span>
+</code></pre></div></div>
+<p>아무런 저장 공간을 소모하지 않으므로 O(1)의 공간 복잡도를 소모한다.</p>
+<h1 id="lowest-common-ancestor-of-a-binary-tree"><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">Lowest Common Ancestor of a Binary Tree</a></h1>
+<p>이 문제는 위의 문제에서 입력이 BST가 아닌 일반 트리로 바뀐 것
+ 뿐이다. 따라서, 위의 첫 번째 솔루션을 그대로 활용할 수 있다. 여기서는
+ 추가로 재귀적인 솔루션을 살펴보려고 한다.</p>
+<ol>
+ <li>루트부터 시작해서 재귀적으로 탐색해 나아간다.
+ <li>null 노드이거나, 찾고자 하는 LCA의 대상 노드 중 하나라면, 곧바로
+리턴한다. 이는 곧 LCA가 되거나 또는 <code class="language-plaintext highlighter-rouge">p</code>, <code class="language-plaintext highlighter-rouge">q</code> 둘 중 하나의 조상노드
+중 하나가 된다.
+ <li>양쪽 서브트리에서 재귀적으로 가능한 LCA 또는 <code class="language-plaintext highlighter-rouge">p</code>, <code class="language-plaintext highlighter-rouge">q</code>의 조상
+노드가 될 수 있는 노드를 찾는다. 만약 양쪽에서 모두 null이 아닌
+노드를 발견한다면, 지금 있는 루트노드가 곧 LCA가 된다. 그게
+아니라면, 둘 중 null이 아닌 노드가 LCA이다.
+</ol>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">root</span>
+
+    <span class="n">left</span> <span class="o">=</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">left</span> <span class="ow">and</span> <span class="n">right</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">root</span>
+    <span class="k">return</span> <span class="n">left</span> <span class="ow">or</span> <span class="n">right</span>
+</code></pre></div></div>
+<ul>
+ <li>마지막의 <code class="language-plaintext highlighter-rouge">return left or right</code>는 파이썬의 트릭 중 하나로, C에서
+<code class="language-plaintext highlighter-rouge">return left != null ? left : right;</code>와 같은 의미이다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=tree ">tree</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

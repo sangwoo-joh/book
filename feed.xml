@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Book</title>
+        <description>Engineering Book</description>
+        <link>/book/</link>
+        <atom:link href="/book/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Mon, 08 Apr 2024 13:07:14 +0000</pubDate>
+        <lastBuildDate>Mon, 08 Apr 2024 13:07:14 +0000</lastBuildDate>
+        <generator>Jekyll v4.3.3</generator>
+        
+        
+        <item>
+            <title>1. Introduction</title>
+            <description>&lt;h1 id=&quot;1-소개&quot;&gt;1. 소개&lt;/h1&gt;
+
+&lt;p&gt;함수형 프로그래밍에서 재귀 하향식 파서를 만드는 대중적인 방법은
+ 파서를 &lt;em&gt;함수&lt;/em&gt;로 모델링하고, 고차 함수(또는 &lt;em&gt;컴비네이터&lt;/em&gt;)를 정의해서
+ 시퀀싱, 선택, 반복을 제공하는 문법을 구성하는 것이다. 기본 아이디어는
+ 최소 Burge의 “재귀적인 프로그래밍 기술(1975)”에서 찾아야 하고, Wadler
+ (1985), Hutton (1992), Fokker (1995) 그 외 많은 이들에 의해 저술된
+ 함수형 프로그래밍에 의해 유명해졌다. 컴비네이터는 함수형 파서를
+ 만드는 빠르고 쉬운 방법을 제공한다. 게다가, 이 방법은 다른 함수형
+ 파서 생성기, 예를 들어 Ratatosk (Mogensen, 1993)과 Happy (Gill &amp;amp;
+ Marlow, 1995)보다 좋다.&lt;/p&gt;
+
+&lt;p&gt;파서가 &lt;em&gt;모나드&lt;/em&gt;의 한 인스턴스라는 것은 일찍이 알려졌는데, 모나드란
+ 수학에서 수많은 계산 문제를 해결하는데 유용한 것으로 증명된 대수적
+ 구조이다. 수학적 관점에서 흥미로울 뿐만 아니라, 파서의 모나드적
+ 천성을 인식하는 일은 실질적인 이득이 있다. 예를 들어, 파서를 만들 때
+ 모나드식 시퀀싱 컴비네이터를 이용하면 중첩된 이전 작업 결과의 튜플을
+ 다루는 지저분한 작업을 피할 수 있다 (바인드). 게다가, &lt;em&gt;모나드
+ 컴프리헨션&lt;/em&gt; 표기를 이용하면 파서를 더욱 컴팩트하게 만들 수 있고 읽기
+ 쉬워진다.&lt;/p&gt;
+
+&lt;p&gt;모나드식 접근을 더 취하면, 파서의 모나드는 두 개의 더 간단한 모나드를
+ 통해 모듈 방식으로 표현할 수 있다. 이를 통한 즉각적인 이득은 기본적인
+ 파서 컴비네이터가 더 이상 명시적으로 정의될 필요가 없다는
+ 것이다. 대신, 이들은 기본 모나드 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt;으로부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt;을 파라미터화 한 다른
+ 모나드를 리프팅해서 모나드 연산을 만드는 과정에서 자동으로 하나의
+ 특수한 경우가 된다. 이는 또한 우리가 기본 모나드를 수정해서 (예를
+ 들어 파서를 제한해서 최대 하나의 결과만 내게 하는) 파서의 천성을
+ 바꾸면 이 수정된 파서 모나드를 위한 새로운 컴비네이터 역시 구성을
+ 리프팅함으로써 자동으로 만들어진다는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;이 글의 목적은 함수형 파서를 만들기 위한 모나드식 접근을 단계 별로
+ 설명하기 위한 튜토리얼을 제공하기 위함이며, 모나드를 적극 활용했을
+ 때의 장점을 설명하기도 한다. 대부분의 내용은 이미 알려진
+ 것들이다. 기여점은 &lt;em&gt;튜토리얼&lt;/em&gt;을 제공한다는 점이다. 렉서를 따로 두지
+ 않고 렉싱을 다루는 새로운 컴비네이터를 소개하고, 모나드의 사용법에
+ 영향을 받아 오프사이드 규칙을 구현하는 새로운 접근도 소개한다.&lt;/p&gt;
+</description>
+            <pubDate></pubDate>
+            <link>/book/wip/monadic-parser-combinators/01-intro/</link>
+            <guid isPermaLink="true">/book/wip/monadic-parser-combinators/01-intro/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>2. Combinator parsers</title>
+            <description>&lt;h1 id=&quot;2-컴비네이터-파서&quot;&gt;2. 컴비네이터 파서&lt;/h1&gt;
+&lt;p&gt;먼저 옛 현인들의 컴비네이터 파싱에 대한 기본 아이디어를 리뷰하는
+ 것부터 시작하자. 구체적으로는 일단 파서와 세 개의 원시 파서, 더 큰
+ 파서를 만들기 위한 두 개의 원시 컴비네이터에 대한 타입부터 정의한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;21-파서의-타입&quot;&gt;2.1. 파서의 타입&lt;/h2&gt;
+&lt;p&gt;먼저 “파서”란 문자열을 입력으로 받아서 어떤 종류의 트리를 결과로
+ 내놓는 함수로 생각하는 것부터 시작하자. 트리는 문자열의 문법적 구조를
+ 명시적으로 드러낸다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;첫 번째 아이디어는 바로 파서가 입력 문자열을 전부 소모(consume)하지
+ 않을 수도 있다는 것이다. 그러므로, 결과 트리만 리턴하기 보다는 입력
+ 문자열에서 &lt;strong&gt;아직 소모되지 않은 접두사 부분&lt;/strong&gt;을 같이 리턴할 수
+ 있다. 따라서 파서의 타입은 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;두 번째 아이디어는 바로 파서가 어떤 입력 문자열에 대해서는 &lt;em&gt;실패&lt;/em&gt;할
+ 수도 있다는 것이다. 이럴 때 런타임 에러를 던지는 것보다는, 파서가
+ 어느 부분에서 왜 실패했는지를 알려주면 디버깅에 유용할
+ 것이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Result&lt;/code&gt; 타입을 이용하면 좋을 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;명시적인 &lt;em&gt;실패&lt;/em&gt; 표현을 가지며 입력 문자열에서 &lt;em&gt;소모되지 않은 부분&lt;/em&gt;을
+ 리턴하는 일은 작은 파서로부터 더 큰 파서를 만들기 위한 컴비네이터를
+ 정의할 수 있게 해준다.&lt;/p&gt;
+
+&lt;p&gt;서로 다른 파서는 서로 다른 종류의 트리를 리턴하기 마련인데, 따라서
+ 구체적인 트리의 타입을 추상화해서 파서의 타입을 파라미터화 하는 것이
+ 좋다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;입력을 좀더 세분화해서 “어디까지”를 같이 기록하면 좋을 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_input&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;마지막으로, 우리는 파서가 항상 클로저를 갖고 있길 원한다. 따라서
+ 최종적인 우리의 파서 타입은 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;22-원시primitive-파서&quot;&gt;2.2. 원시(Primitive) 파서&lt;/h2&gt;
+&lt;p&gt;컴비네이터 파싱의 기본 구성 요소인 네 개의 원시 파서를 볼 것이다.&lt;/p&gt;
+
+&lt;p&gt;첫 번째 파서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;return v&lt;/code&gt;로 입력 문자열을 아무것도 소모하지 않고
+ 성공하고 하나의 결과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt;를 리턴한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;두 번째 파서는 항상 실패하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fail&lt;/code&gt;이다. 디버깅을 위한 에러 메시지를
+ 함께 받는다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fail&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;세 번째 프리미티브는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any_char&lt;/code&gt;으로, 입력 문자열에 대해서 첫 번째
+ 글자를 항상 소모하거나, 문자열이 비어있으면 실패하는 함수이다. 우리의
+ 입력 타입인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;input&lt;/code&gt;을 좀더 손쉽게 다루기 위해서 먼저 입력에서 일부만
+ 소모하는 함수 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;consume_input&lt;/code&gt;을 만들자. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;consume_input input pos
+ len&lt;/code&gt;은 주어진 입력 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;input&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;text&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pos&lt;/code&gt;부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;len&lt;/code&gt;만큼의 문자를
+ 소모하고 남은 입력을 리턴한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consume_input&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이를 이용해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any_char&lt;/code&gt;를 구현할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;any_char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;consume_input&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Invalid_argument&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;expected any character&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;마지막으로, 입력을 직접 소모하지 않고 글자를 하나만 살펴보는 이른바
+ 룩어헤드(Lookahead) 파서인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;peek_char&lt;/code&gt;가 있다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any_char&lt;/code&gt;와는 달리
+ 조건부 파싱에 쓰일 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peek_char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Invalid_argument&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;empty input&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;23-파서-컴비네이터&quot;&gt;2.3. 파서 컴비네이터&lt;/h2&gt;
+&lt;p&gt;앞서 정의한 원시 파서들은 그 자체로는 그다지 쓸모있지는
+ 않다. 여기서는 더 유용한 파서를 만들기 위해서 이 파서를 어떻게 이어
+ 붙일 수 있는지(glue)를 살펴본다. 특히, 고차 함수(=컴비네이터)를
+ 이용해서 코드를 깔끔하고 읽기 쉽게 만들 수 있다. 함수 적용과 유사한
+ &lt;em&gt;시퀀싱(sequencing; 여러 개의 함수를 연달아 적용)&lt;/em&gt; 컴비네이터,
+ &lt;em&gt;선택(choice; 여러 개의 함수 중 성공한 것을 적용)&lt;/em&gt; 컴비네이터, 앞
+ 쪽을 버리는 컴비네이터, 뒷 쪽을 버리는 컴비네이터 등을 살펴볼
+ 것이다. 이렇게 정의된 컴비네이터들은 실제 BNF 문법의 구조와 거의
+ 유사한 구조로 파서를 합치는 것을 도와준다.&lt;/p&gt;
+
+&lt;p&gt;모나드 방식이 아닌 초창기의 컴비네이터 파싱에서, 파서의 시퀀싱 연산은
+ 보통 다음 타입을 가졌었다:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉, 두 파서를 번갈아 적용해서 두 파서의 결과를 튜플로 묶는
+ 연산이다. 얼핏 보기에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;seq&lt;/code&gt; 컴비네이터는 자연스러운 합성 연산으로
+ 보인다. 하지만 실제로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;seq&lt;/code&gt;을 계속 사용하다 보면 그 결과로 엄청나게
+ 중첩된 튜플을 갖게 되는데, 이를 다루는 것은 굉장히 지저분한 일이다.&lt;/p&gt;
+
+&lt;p&gt;중첩된 튜플 문제는 &lt;em&gt;모나드식&lt;/em&gt; 시퀀싱 컴비네이터를 적용해서 피할 수
+ 있다. 흔히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;바인드(bind)&lt;/code&gt; 연산으로 알려진 것으로, 한 파서의 결과 값을
+ 처리해서 파서들을 시퀀싱하여 합치는 방식이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt;의 정의는 다음과 같이 이해할 수 있다. 먼저, 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt;를 입력
+ 문자열에 적용해서 결과로 소모되지 않은 입력과 결과 값을
+ 가져온다. 만약 실패했다면 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Error err&lt;/code&gt; 케이스), 실패를
+ 그대로 리턴한다. 성공했다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'a&lt;/code&gt; 타입의 값을 얻을텐데 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ok
+ x&lt;/code&gt; 케이스), &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;f&lt;/code&gt;가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'a&lt;/code&gt; 타입의 값을 받아 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'b&lt;/code&gt; 타입의 파서를 리턴하는
+ 함수이므로 이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;f&lt;/code&gt;를 적용해서 새로운 파서를 만들 수 있다. 이때
+ 남은 입력에 대해서 적용해야 함을 잊지말자.&lt;/p&gt;
+
+&lt;p&gt;참고로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt; 컴비네이터는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt; 라는 함수 그 자체로 호출되기 보다는
+ 주로 다음과 같이 중위 연산자로 재정의 되어 쓰이는 것이 일반적이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt; 컴비네이터는 결과의 중첩된 튜플 문제를 피하게 해준다. 왜냐하면
+ 첫 번째 파서의 결과가 나중에 처리될 결과와 튜플로 묶이지 않고 곧바로
+ 두 번째 파서에 의해서 처리될 수 있기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt; 컴비네이터 (중위 연산자)를 이용한 아주 전형적인 예시를 하나
+ 살펴보자. 두 파서를 튜플로 묶는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pair&lt;/code&gt;를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt;로 구현하면 다음과
+ 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이걸 해석하면 이렇다. 우리는 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt;와 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt;를 합쳐서 다음과 같은
+ 동작을 하는 파서를 만들 것이다: 먼저 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt;를 적용한다. 성공한
+ 경우에는 결과 값 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;를 사용할 수 있다(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fun x -&amp;gt; ..&lt;/code&gt;).  그 다음 파서
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt;를 나머지 입력에 대해서 적용한다. 역시 성공한 경우 결과 값 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt;를
+ 곧바로 사용할 수 있다(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fun y -&amp;gt; ..&lt;/code&gt;). 최종적으로 두 결과를 튜플로
+ 리턴하는 &lt;strong&gt;파서를 리턴한다(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;return (x, y)&lt;/code&gt;)&lt;/strong&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt; 둘 중 어느
+ 파서든 파싱에 실패할 경우 곧바로 해당 에러를 리턴한다. 모나드식 접근
+ 덕분에 코드가 아름답고 이해가 잘 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt; 컴비네이터를 이용하면 간단하지만 유용한 파서들을 정의할 수
+ 있다. 예를 들어, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any_char&lt;/code&gt; 파서는 하나의 글자를 &lt;em&gt;무조건적&lt;/em&gt;으로
+ 파싱했는데, 실제 상황에서는 보통 “특정 글자”에만 관심있기
+ 마련이다. 따라서 룩어헤드를 위한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;peek_char&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any_char&lt;/code&gt;를 이용해서
+ 새로운 컴비네이터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;satisfy&lt;/code&gt;를 만들 수 있다. 이 컴비네이터는 조건
+ 함수(predicate)를 받아서 해당 조건을 만족하는 글자만 파싱하고 그렇지
+ 않으면 실패한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;satisfy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;peek_char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;any_char&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fail&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Predicate not satisfied.&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;satisfy&lt;/code&gt;를 이용해서 특정 글자, 숫자, 소문자, 대문자 등을 파싱할
+ 수 있다:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;satisfy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;satisfy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;satisfy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;satisfy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;A'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upper&lt;/code&gt; 파서를 입력 문자열 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;Hello&quot;&lt;/code&gt;에 적용하면 다음과 같은
+ 결과를 리턴하며 성공할 것이다:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_input&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;H'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉 첫글자 대문자 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;H&lt;/code&gt;를 성공적으로 파싱한 결과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ok 'H'&lt;/code&gt;와, 입력
+ 문자열에서 아직 소모되지 않은 나머지 부분에 대한 정보를 잘 갖고 있다.&lt;/p&gt;
+
+&lt;p&gt;만약 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;digit&lt;/code&gt; 파서를 입력 문자열 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;Hello&quot;&lt;/code&gt;에 적용한다면, 파싱에
+ 실패하게 되고 다음과 같이 입력 문자열을 하나도 소모하지 않는다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_input&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;predicate not satisfy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 위에서 만든 파서를 가지고 더 강력한 파서를 만들 수 있는
+ 선택(choice) 컴비네이터를 살펴보자. 예를 들어, 우리는 소문자 파서
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lower&lt;/code&gt;와 대문자 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upper&lt;/code&gt; 중 어느 것을 만족해도 상관없는 글자를
+ 파싱하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letter&lt;/code&gt; 파서를 정의할 수 있다. 이를 위해서, 우리는 다음과
+ 같은 선택 컴비네이터가 필요하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choice&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;choice&lt;/code&gt; 컴비네이터는 먼저 첫 번째 파서를 입력 문자열에
+ 적용해보고 성공한 경우 남은 입력과 그 결과를 리턴한다. 실패한 경우 두
+ 번째 파서를 마저 적용해본다. 둘 중 어느 것이든 만족하면 그만인
+ 것이다. 참고로 선택 컴비네이터는 파서가 &lt;em&gt;실패&lt;/em&gt;했을 때 뭔가를 더
+ 해야하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt; 컴비네이터로는 구현할 수 없다.&lt;/p&gt;
+
+&lt;p&gt;보통 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;choice&lt;/code&gt; 컴비네이터도 다음과 같이 중위 연산자로 정의해서 쓰는
+ 것이 편리하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;|&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;choice&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그러면 우리는 다음과 같이 대/소문자 글자를 파싱하는 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letter&lt;/code&gt;와,
+ 알파벳과 숫자를 파싱하는 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;alphanum&lt;/code&gt;을 정의할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alphanum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;마지막으로 조건을 만족하는 &lt;em&gt;단어&lt;/em&gt;를 파싱하는 파서를 만들어보자. 크게
+ 두 종류의 컴비네이터를 사용해볼 수 있는데,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;조건(predicate)을 만족하는 동안 계속 파싱하는 컴비네이터,&lt;/li&gt;
+  &lt;li&gt;파서가 파싱에 성공하는 동안 계속 파싱하는 컴비네이터,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;두 가지를 모두 살펴볼 것이다.&lt;/p&gt;
+
+&lt;p&gt;먼저 조건을 만족하는 동안 계속 파싱하는 컴비네이터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;take_while&lt;/code&gt;은
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;satisfy&lt;/code&gt;와 유사하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;take_while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;incr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;consume_input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;문자 그대로 주어진 조건 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;f&lt;/code&gt;를 만족하는 동안 계속 입력 문자열을
+ 소모하여 최종 파싱 결과를 리턴한다. 이 컴비네이터를 이용해서 단어를
+ 파싱하는 파서를 만들면 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;take_while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;A'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Z'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉, 앞의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lower&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upper&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;digit&lt;/code&gt;의 조건식으로 들어갔던 함수를
+ 합쳐서 전달해주면 된다.&lt;/p&gt;
+
+&lt;p&gt;두 번째 방법은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letter&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upper&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;digit&lt;/code&gt;과 같은 미리 만들어둔 파서를
+ 조합할 수 있는 방식이다. 먼저 마찬가지로 파서가 파싱 가능한 만큼
+ 파싱하고 그 결과를 리스트(어떤 값일지 모르기 때문에 곧바로 문자열로
+ 바꾸기는 어렵다)로 모아주는 컴비네이터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;many&lt;/code&gt;를 정의하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;many&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loop&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;input'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ok&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;입력으로 받은 파서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt;를 실패할 때까지 계속 적용하면서 결과를
+ 리스트에 쌓아뒀다가 최종적으로 파서가 파싱한 값의 리스트를 돌려주는
+ 컴비네이터이다. 이 친구를 이용해서 단어 파서를 만들면 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;many&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chars&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;of_seq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_seq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lower&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upper&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;digit&lt;/code&gt; 파서를 이용해서 입력을 계속
+ 파싱하여 결과를 리스트에 모아두고, 최종적으로 이 (글자의) 리스트를
+ 문자열로 합쳐서 돌려주는 파서다.&lt;/p&gt;
+
+&lt;p&gt;그 외에 유용한 컴비네이터로는 앞쪽의 결과를 버리는 컴비네이터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&amp;gt;&lt;/code&gt;가
+ 있다. 예를 들어 문법에서 공백이나 중괄호를 무시하고 싶을 때 사용할 수
+ 있다. 이 친구는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt;를 이용해서 깔끔하게 구현 가능하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉 첫 번째 파서의 결과 값은 버리고, 남은 입력만을 취하는 것이다.&lt;/p&gt;
+</description>
+            <pubDate></pubDate>
+            <link>/book/wip/monadic-parser-combinators/02-combinator-parsers/</link>
+            <guid isPermaLink="true">/book/wip/monadic-parser-combinators/02-combinator-parsers/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>1. Exploratory Data Analysis</title>
+            <description> &lt;h1 id=&quot;eda&quot;&gt;EDA&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;추론(Inference): 적은 표본(샘플)을 가지고 더 큰 &lt;i&gt;모집단&lt;/i&gt; 에 대한 &lt;b&gt;결론&lt;/b&gt; 을
+    도출하기 위한 일련의 복잡한 과정
+    &lt;ul&gt;
+      &lt;li&gt;표본과 샘플, 표본추출과 샘플링, 모형과 모델, 임의와 랜덤 등은 혼용함&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;eda--------------&quot;&gt;정형화된 데이터의 요소&lt;/h2&gt;
+&lt;p&gt;왜 데이터를 구분할까?&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;그래프를 그리거나 모델을 피팅하는 등의 통계분석을 수행하는 방식을 결정하는데
+    큰 도움을 준다.&lt;/li&gt;
+  &lt;li&gt;범주형 데이터라는 결국 &lt;code&gt;enum&lt;/code&gt; 이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;eda-----------------------&quot;&gt;수치형 데이터&lt;/h3&gt;
+&lt;p&gt;말 그대로 숫자로 표현된다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;데이터&lt;/th&gt;&lt;th&gt;설명&lt;/th&gt;&lt;th&gt;예시&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;연속형 데이터&lt;/td&gt;&lt;td&gt;어떤 범위 안에서 어떤 값이든 가질 수 있는 데이터로, 구간형 또는 실수형 이라고도 한다.&lt;/td&gt;&lt;td&gt;속도, 지속시간 등&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;이산형 데이터&lt;/td&gt;&lt;td&gt;셀 수 있는 값을 갖는 데이터&lt;/td&gt;&lt;td&gt;횟수, 사건의 발생 빈도 등&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;eda-----------------------&quot;&gt;범주형 데이터&lt;/h3&gt;
+&lt;p&gt;카테고리로 나눌 수 있는 데이터로, 제품 종류나 도시 이름 같이 어떤 범위 안에서의
+  이산형 데이터로 볼 수도 있다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;데이터&lt;/th&gt;&lt;th&gt;설명&lt;/th&gt;&lt;th&gt;예시&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;이진 데이터&lt;/td&gt;&lt;td&gt;둘 중 하나&lt;/td&gt;&lt;td&gt;참/거짓, 예/아니오 등&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;순서형 데이터&lt;/td&gt;&lt;td&gt;범위 안에서 서로 order가 정의되는 데이터&lt;/td&gt;&lt;td&gt;평점 등&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;eda---------&quot;&gt;테이블 데이터&lt;/h2&gt;
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;용어&lt;/th&gt;&lt;th&gt;설명&lt;/th&gt;&lt;th&gt;유의어&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;데이터 프레임&lt;/td&gt;&lt;td&gt;스프레드시트와 같은 테이블 형태의 데이터&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;피쳐 (Feature)&lt;/td&gt;&lt;td&gt;테이블의 각 &lt;b&gt;열&lt;/b&gt;&lt;/td&gt;&lt;td&gt;특징, 속성(Attribute), 입력, 예측 변수(Predictor), 변수&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;결과 (Outcome)&lt;/td&gt;&lt;td&gt;프로젝트의 목표. 결과를 &lt;b&gt;예측&lt;/b&gt; 하기 위해서 피쳐를 사용한다.&lt;/td&gt;&lt;td&gt;종속변수, 응답, 목표, 출력&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;레코드 (Record)&lt;/td&gt;&lt;td&gt;테이블의 각 &lt;b&gt;행&lt;/b&gt;&lt;/td&gt;&lt;td&gt;기록값, 사건(Case), 사례, 예제(Example), 관측값, 패턴, 샘플&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+  &lt;li&gt;통계: &lt;b&gt;응답변수&lt;/b&gt; (또는 &lt;b&gt;종속변수&lt;/b&gt;)를 예측하는 모델에서 &lt;b&gt;예측변수&lt;/b&gt; 를 사용한다&lt;/li&gt;
+  &lt;li&gt;데이터 과학: &lt;b&gt;목표&lt;/b&gt; 를 예측하는데 &lt;b&gt;피쳐&lt;/b&gt; 를 사용한다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;eda-------&quot;&gt;위치 추정&lt;/h2&gt;
+&lt;p&gt;데이터가 주어졌을 때 데이터를 살펴보는 가장 &lt;i&gt;기초적인&lt;/i&gt; 단계는 각 피쳐(변수)의
+  &amp;#8220;대표값(Typical Value)&amp;#8221;을 구해서 -&amp;gt; &lt;i&gt;대부분의 값&lt;/i&gt; 이 어디쯤에 위치하는지를
+  추정해본다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;용어&lt;/th&gt;&lt;th&gt;설명&lt;/th&gt;&lt;th&gt;유의어&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;평균 (Mean)&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;Average&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;가중평균(Weighted Mean)&lt;/td&gt;&lt;td&gt;가중치를 곱한 값의 총합을 가중치의 총합으로 나눈 값&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;중간값 (Median)&lt;/td&gt;&lt;td&gt;-&lt;/td&gt;&lt;td&gt;50번째 백분위수 (Percentile)&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;백분위수&lt;/td&gt;&lt;td&gt;전체 데이터의 P%를 아래에 두는 값&lt;/td&gt;&lt;td&gt;분위수(Quantile)&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;절사평균 (Trimmed Mean)&lt;/td&gt;&lt;td&gt;정해진 개수의 극단값을 제외한 나머지 값들의 평균&lt;/td&gt;&lt;td&gt;절단평균 (Truncated Mean)&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;로버스트(Robust)&lt;/td&gt;&lt;td&gt;극단값들에 민감하지 않은 상태&lt;/td&gt;&lt;td&gt;저항성 (Resistant)&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;특잇값 (Outlier)&lt;/td&gt;&lt;td&gt;대부분의 값과 매우 다른 데이터 값&lt;/td&gt;&lt;td&gt;극단값(Extreme Value)&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+  &lt;li&gt;통계: 데이터로부터 계산된 값들에 보통 &lt;b&gt;추정값(estimate)&lt;/b&gt; 이라고 부른다. &amp;#8211;&amp;gt;
+    불확실성을 이해하기 위한 학문이다. 그래서 &lt;i&gt;추정&lt;/i&gt; 한다.&lt;/li&gt;
+  &lt;li&gt;데이터 과학: 데이터로부터 계산된 값을 &lt;b&gt;측정 지표(metric)&lt;/b&gt; 라고 부른다. &amp;#8211;&amp;gt;
+    구체적인 비즈니스 또는 조직의 목표치에 관심을 둔다. 그래서 &lt;i&gt;측정&lt;/i&gt; 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;eda-------------&quot;&gt;가중평균&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;어떤 값이 다른 값에 비해 &lt;i&gt;큰 변화량&lt;/i&gt; 을 가질 때, 이를 작은 가중치를 둬서 영향을
+    줄일 수 있다. 예를 들면, 여러 개의 센서 중 특정 센서의 정확도가 떨어지면 이
+    센서에는 가중치를 낮게 준다.&lt;/li&gt;
+  &lt;li&gt;데이터를 수집할 때 우리가 관심있는 서로 다른 대조군에 대해서 정확히 같은
+    비율을 맞추기란 불가능에 가깝다. 이를 보정하기 위해서 데이터가 부족한 소수
+    그룹에 더 높은 가중치를 적용할 수도 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;eda-----------------&quot;&gt;로버스트한 추정&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;많은 경우 데이터에 매우 민감한 평균보다는 중간값이 위치 추정에 더 유리하다.
+    예를 들어 가계소득 등. 왜냐하면 결과를 왜곡할 수도 있는 &lt;b&gt;특잇값(극단값)&lt;/b&gt; 의
+    영향을 받지 않으므로 &lt;b&gt;로버스트&lt;/b&gt; 하다고 여겨진다.&lt;/li&gt;
+  &lt;li&gt;절사평균도 괜찮다. 예를 들어 상하위 10%를 잘라내는 방법은 데이터가 너무
+    적지만 않다면 특잇값으로부터 데이터를 보호할 수 있다. 이는 평균과 중간값의
+    절충안이라고 볼 수도 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;scipy&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;wquantiles&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# load data - check out https://github.com/gedeck/practical-statistics-for-data-scientists/tree/master/data&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;state.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 평균, 절사평균(10%), 중간값&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Population&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scipy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trim_mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Population&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Population&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 미국 전체의 평균 살인율 계산 - 인구를 가중치로&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;average&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Murder.Rate&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weights&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Population&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 가중 중간값 - wquantiles 패키지&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;wquantiles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Murder.Rate&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weights&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Population&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;eda-------&quot;&gt;변이 추정&lt;/h2&gt;
+&lt;p&gt;변이(Variability)는 데이터 값들이 얼마나 &lt;i&gt;밀집&lt;/i&gt; 혹은 &lt;i&gt;퍼져&lt;/i&gt; 있는지를 나타내는
+  &lt;b&gt;산포도(Dispersion)&lt;/b&gt; 를 나타낸다.&lt;/p&gt;
+&lt;p&gt;변이를 측정하고, 줄이고, 변이와 랜덤값을 구분하고, 변이의 다양한 요인들을
+  살펴보고, 변이가 상황에서 어떻게 결정을 내리는지 등 통계의 핵심이다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;용어&lt;/th&gt;&lt;th&gt;설명&lt;/th&gt;&lt;th&gt;유의어&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;편차 (Deviation)&lt;/td&gt;&lt;td&gt;관측값과 위치 추정값 사이의 차이&lt;/td&gt;&lt;td&gt;오차, 잔차(Residual)&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;분산 (Variance)&lt;/td&gt;&lt;td&gt;평균과 편차의 제곱의 합을 (n-1)로 나눈 값&lt;/td&gt;&lt;td&gt;평균제곱오차&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;표준편차 (Standard Deviation)&lt;/td&gt;&lt;td&gt;분산의 제곱근&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;평균절대편차 (Mean Absolute Deviation)&lt;/td&gt;&lt;td&gt;평균과 편차의 절대값의 평균&lt;/td&gt;&lt;td&gt;L1 노름, 맨해튼 노름&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;중간값의 중위절대편차(MAD; Median Absolute Deviation from the median)&lt;/td&gt;&lt;td&gt;중간값과의 편차의 절대값의 중간값&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;범위&lt;/td&gt;&lt;td&gt;최대값 - 최소값&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;순서통계량 (Order Statistics)&lt;/td&gt;&lt;td&gt;최소~최대로 정렬된 데이터 값에 따른 계량형&lt;/td&gt;&lt;td&gt;순위&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;백분위수 (Percentile)&lt;/td&gt;&lt;td&gt;어떤 값들의 P 퍼센트가 이 값 이하의 값을 갖고, (100 - P) 퍼센트가 이 값 이상을 갖도록 하는 값&lt;/td&gt;&lt;td&gt;분위수&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;사분위범위 (IQR; InterQuantile Range)&lt;/td&gt;&lt;td&gt;75번째 백분위수와 25번째 백분위수의 차이&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+ </description>
+            <pubDate></pubDate>
+            <link>/book/wip/practical-statistics/1-exploratory-data-analysis/</link>
+            <guid isPermaLink="true">/book/wip/practical-statistics/1-exploratory-data-analysis/</guid>
+            
+            <category>statistics</category>
+            
+            <category>note</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>2. Data and Sampling Distributions</title>
+            <description> &lt;h1 id=&quot;data-and-sampling-distributions&quot;&gt;Data and Sampling Distributions&lt;/h1&gt;
+ </description>
+            <pubDate></pubDate>
+            <link>/book/wip/practical-statistics/2-data-and-sampling-distributions/</link>
+            <guid isPermaLink="true">/book/wip/practical-statistics/2-data-and-sampling-distributions/</guid>
+            
+            <category>statistics</category>
+            
+            <category>note</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>3. Statistical Experiments and Significance Testing</title>
+            <description> &lt;h1 id=&quot;statistical-experiments-and-significance-testing&quot;&gt;Statistical Experiments and Significance Testing&lt;/h1&gt;
+ </description>
+            <pubDate></pubDate>
+            <link>/book/wip/practical-statistics/3-statistical-experiments-and-significance-testing/</link>
+            <guid isPermaLink="true">/book/wip/practical-statistics/3-statistical-experiments-and-significance-testing/</guid>
+            
+            <category>statistics</category>
+            
+            <category>note</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>3Sum</title>
+            <description>&lt;h1 id=&quot;3sum&quot;&gt;&lt;a href=&quot;https://leetcode.com/problems/3sum/&quot;&gt;3Sum&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;정수 배열이 주어졌을 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[i] + nums[j] + nums[k] == 0&lt;/code&gt;이 되는
+ 모든 정수 세 쌍의 집합을 구하자. 이때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i != j &amp;amp;&amp;amp; i != k &amp;amp;&amp;amp; j != k&lt;/code&gt;를
+ 만족해야 한다.&lt;/p&gt;
+
+&lt;p&gt;정답 배열은 중복되는 수를 담으면 안된다.&lt;/p&gt;
+
+&lt;p&gt;배열의 길이는 0~3,000 사이이고 배열의 값은 -100,000~100,000 사이이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;투-포인터&quot;&gt;투 포인터&lt;/h2&gt;
+
+&lt;p&gt;두 수의 합은 해시 셋으로 금방 풀렸다. 세 수의 합은 어떻게 할 수
+ 있을까? Brute Force를 생각해보면 O(N^3)의 솔루션을 떠올릴 수
+ 있겠지만, 배열 최대 크기가 3000이라서 시간 초과가 날 것이다. N^3보다
+ 작은 솔루션은 없을까?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../two-sum/#two-sum-ii---input-array-is-sorted&quot;&gt;Two Sum II&lt;/a&gt;의 접근을
+ 활용해야 한다: 배열이 정렬되어 있을 때, 투 포인터를 이용해 합이
+ 원하는 값보다 작으면 더 작은 값의 포인터를 더 큰 값을 갖도록
+ 이동하였고, 합이 더 크다면 더 큰 값의 포인터를 더 작은 값을 갖도록
+ 이동하였다. 세 수의 합을 구하려면, 정수 하나는 배열 전체를 루프하도록
+ 하면서, 다른 두 정수는 투 포인터를 이용해서 O(N)만에 구하도록 한다면,
+ 총 복잡도 O(N^2)을 얻을 수 있을 것 같다. 그리고 이때 문제의 조건에
+ 따라 (1) 세 정수의 &lt;strong&gt;인덱스&lt;/strong&gt;는 유니크해야 하고 (2) 세 정수의
+ &lt;strong&gt;각각의 값&lt;/strong&gt;도 유니크해야 한다.&lt;/p&gt;
+
+&lt;p&gt;입력으로 들어오는 수가 정렬되어 있다는 말이 없기 때문에, 투 포인터를
+ 사용하려면 정렬을 해야한다. 여기에 O(NlogN)의 복잡도가 소요되긴
+ 하지만, 실제로 루프를 O(N^2)만큼 돌아야 하므로 이 부분은 괜찮다.&lt;/p&gt;
+
+&lt;p&gt;이 아이디어를 구현해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;threeSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i &amp;lt; left &amp;lt; right&lt;/code&gt;인 세 인덱스를 잘 고르려고 한다. 따라서, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;는
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-3&lt;/code&gt;까지 가능하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;range(n-2)&lt;/code&gt;까지 루프를 돈다. 이렇게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;를
+일단 고른다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 다음부터, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;는 항상 마지막 수부터
+검사한다. 그리고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;를 가지고 투 포인터로 범위를
+좁혀가며 합이 0이 될 때 정답에 추가한다.&lt;/li&gt;
+  &lt;li&gt;정답의 정수 튜플은 중복되면 안되기 때문에, 최종적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set()&lt;/code&gt;
+연산으로 중복을 없앤다. 이때 튜플은 항상 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(i, left, right)&lt;/code&gt; 순으로
+넣어야 올바르게 중복을 제거할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이렇게하면 대략 2초정도 걸리는 솔루션이 나온다. 더 빠르게 할 수 있는
+ 방법은 없을까?&lt;/p&gt;
+
+&lt;h3 id=&quot;small-optimization---빨리감기&quot;&gt;Small Optimization - 빨리감기&lt;/h3&gt;
+
+&lt;p&gt;위의 솔루션에서 시간을 꽤 잡아먹는 부분은, 중복되는 튜플을 무지성으로
+ 다 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;answer&lt;/code&gt;에 집어넣고 마지막에 이를 해싱해서 중복을 제거하는
+ 부분이다. 이 부분을 더 똑똑하게 해보자.&lt;/p&gt;
+
+&lt;p&gt;일단 떠올리기 쉬운 부분은 투 포인터를 진행하는 부분이다. 우리가
+ 원하는 합이 되었을 때 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s == 0&lt;/code&gt;), 두 포인터를 한 칸씩만 움직이고
+ 있는데, 배열이 정렬되어 있기 때문에, 이 조건을 만족하는 동안 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;와
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;의 값이 같으면 전부 스킵해도 된다. 따라서 다음과 같이 바꿀 수
+ 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;threeSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;는 왼쪽에서 오른쪽 방향으로 진행하기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left +
+ 1&lt;/code&gt;의 값이 같으면 싹 땡긴다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;는 반대로 오른쪽에서 왼쪽으로
+ 진행하기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right - 1&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;의 값이 같으면 싹 땡긴다. 이렇게
+ 두 개의 반복문으로 빨리감기를 진행하고 나면, 그 위치는 합 조건을
+ 만족하는 같은 값을 가진 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt; 의 마지막 부분에 위치하게
+ 되고, 최종적으로 그 다음 탐색을 위해서 한 칸씩 더 이동해주면 된다.&lt;/p&gt;
+
+&lt;p&gt;이렇게하고 마지막의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set()&lt;/code&gt; 연산을 풀면 답을 얻을 수 있지 않을까?
+ 놀랍게도 다음 반례를 발견하게 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Expected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;중복을 다 제거한줄 알았는데 중복이 나왔다. 어디서 놓친 것일까? 위의
+ 입력을 하나씩 따라가보자. 먼저 입력을 정렬하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[-4,-1,-1,0,1,2]&lt;/code&gt;를
+ 얻는다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i = 1&lt;/code&gt;일 때의 상황을 살펴보자. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(left, right) = (2, 5)&lt;/code&gt;에서
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(-1, -1, 2)&lt;/code&gt;의 해답 하나를 얻는다. 그 다음 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;는 같은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-1&lt;/code&gt;을 가진
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt;을 거쳐 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt;가 되고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt;가 되어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(-1, 0, 1)&lt;/code&gt;의 해답을
+ 얻는다. 여기까진 좋다. 그런데 그 다음 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i = 2&lt;/code&gt;가 되었을 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(left,
+ right) = (3, 4)&lt;/code&gt;에서 똑같은 해답인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(-1, 0, 1)&lt;/code&gt;을 얻게 된다!&lt;/p&gt;
+
+&lt;p&gt;앞서 우리는 두 개의 포인터, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt;에서만 중복을 스킵했지,
+ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;에 대해서는 중복을 스킵하지 않은 것이 문제다. 그럼 무엇을
+ 해야할까? &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;와 마찬가지로 왼쪽에서 오른쪽으로 진행하기
+ 때문에, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[i] == nums[i+1]&lt;/code&gt;일 때 다 스킵하면 되지 않을까? 위의
+ 예시를 생각해보자. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i = 1&lt;/code&gt;일 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i+1&lt;/code&gt;과 같기 때문에 이를 스킵하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i
+ = 2&lt;/code&gt;로 곧장 넘어가버린다. 그런데 우리는 위에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i = 1&lt;/code&gt; 일 때 정답
+ 튜플 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(-1, -1, 2)&lt;/code&gt;를 구한 것을 보았다. 따라서 정답을 하나 놓친
+ 것이다. 그러므로, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;를 스킵할 때에는 일단 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;에 대해서 먼저 투
+ 포인터로 가능한 공간을 전부 탐색해본 뒤에, 그 다음 또 같은 값을
+ 만났을 때 이를 스킵해야 하는 것이다. 따라서, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[i-1] == nums[i]&lt;/code&gt;일
+ 때 스킵해야 한다.&lt;/p&gt;
+
+&lt;p&gt;이 최적화를 다 적용한 코드는 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;threeSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;투 포인터에서의 빨리감기와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;의 빨리감기를 모두 적용하였기 때문에,
+ 마지막의 해싱 연산은 더 이상 필요하지 않다. 이렇게 1초 미만의
+ 솔루션을 얻을 수 있다.&lt;/p&gt;
+</description>
+            <pubDate></pubDate>
+            <link>/book/ps/leetcode/3sum/</link>
+            <guid isPermaLink="true">/book/ps/leetcode/3sum/</guid>
+            
+            <category>problem-solving</category>
+            
+            <category>leetcode</category>
+            
+            <category>python</category>
+            
+            <category>array</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>4. Regression and Prediction</title>
+            <description> &lt;h1 id=&quot;regression-and-prediction&quot;&gt;Regression and Prediction&lt;/h1&gt;
+ </description>
+            <pubDate></pubDate>
+            <link>/book/wip/practical-statistics/4-regression-and-prediction/</link>
+            <guid isPermaLink="true">/book/wip/practical-statistics/4-regression-and-prediction/</guid>
+            
+            <category>statistics</category>
+            
+            <category>note</category>
+            
+            
+        </item>
+        
+        <item>
+            <title></title>
+            <description>&lt;h1 id=&quot;page-not-found&quot;&gt;Page Not Found&lt;/h1&gt;
+
+&lt;p&gt;Unfortunately we were unable to find the page you requested. It could be the page doesn’t exist or only exists for a specific version of these documents so please use the search feature to see if you are able to locate the information you were after.&lt;/p&gt;
+</description>
+            <pubDate></pubDate>
+            <link>/book/404.html</link>
+            <guid isPermaLink="true">/book/404.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>5. Classification</title>
+            <description> &lt;h1 id=&quot;classification&quot;&gt;Classification&lt;/h1&gt;
+ </description>
+            <pubDate></pubDate>
+            <link>/book/wip/practical-statistics/5-classification/</link>
+            <guid isPermaLink="true">/book/wip/practical-statistics/5-classification/</guid>
+            
+            <category>statistics</category>
+            
+            <category>note</category>
+            
+            
+        </item>
+        
+        <item>
+            <title>6. Statistical Machine Learning</title>
+            <description> &lt;h1 id=&quot;statistical-machine-learning&quot;&gt;Statistical Machine Learning&lt;/h1&gt;
+ </description>
+            <pubDate></pubDate>
+            <link>/book/wip/practical-statistics/6-statistical-machine-learning/</link>
+            <guid isPermaLink="true">/book/wip/practical-statistics/6-statistical-machine-learning/</guid>
+            
+            <category>statistics</category>
+            
+            <category>note</category>
+            
+            
+        </item>
+        
+        
+
+
+    </channel>
+</rss>

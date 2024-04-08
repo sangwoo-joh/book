@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Stack</title>
+<meta property="og:title" content="Stack" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Stack">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Stack"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/boj/stack.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/boj/">Boj</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/boj/stack/">Stack</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="stack">Stack</h1>
+<p>파이썬 리스트는 내부적으로는 가변 길이 배열로 되어 있고, <code class="language-plaintext highlighter-rouge">-1</code>로
+ 배열을 거꾸로 인덱싱하는 기능을 제공해줘서 스택으로 활용하기 좋다.</p>
+<h2 id="스택-응용-문제---괄호-쌍">스택 응용 문제 - 괄호 쌍</h2>
+<p>올바른 괄호 쌍을 판단하는 문제는 스택을 응용한 아주 기초적인
+ 문제이다. 우리는 스택에 <em>여는 괄호</em>를 추가하고, <em>닫는 괄호</em>를
+ 만난다면 아래 세 가지 중 하나를 수행한다:</p>
+<ul>
+ <li>스택이 비어있는 경우: 짝이 맞지 않는 경우
+ <li>스택의 꼭대기와 짝이 맞지 않는 경우: 짝이 맞지 않는 경우
+ <li>스택의 꼭대기와 짝이 맞는 경우: pop
+</ul>
+<p>이렇게 하고 난 후 스택에 괄호가 남아있으면 짝이 맞지 않는 경우이고,
+ 스택이 비어있는 경우에만 모든 괄호 쌍이 올바른 경우이다.</p>
+<p>이 사실은 다음과 같은 예시로부터 확인할 수 있다.</p>
+<h3 id="짝이-맞지-않는-경우-1">짝이 맞지 않는 경우 1</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>({)}
+
+stack: ({
+</code></pre></div></div>
+<p>스택에 앞의 두 여는 괄호가 추가된 상태에서, 세 번째 원소인 <code class="language-plaintext highlighter-rouge">)</code>를
+ 만나면 스택의 꼭대기인 <code class="language-plaintext highlighter-rouge">{</code>과 짝이 맞지 않으므로 틀린 경우임을 알 수
+ 있다.</p>
+<h3 id="짝이-맞지-않는-경우-2">짝이 맞지 않는 경우 2</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{()
+
+stack: {
+</code></pre></div></div>
+<p>처음부터 끝까지 다 훑고 나면 스택에는 <code class="language-plaintext highlighter-rouge">{</code> 하나가 남는다. 입력을 다
+ 처리했는데 스택에 남는 여는 괄호랑 짝이 맞는 닫는 괄호가 없으므로
+ 틀린 경우임을 알 수 있다.</p>
+<h3 id="짝이-맞지-않는-경우-3">짝이 맞지 않는 경우 3</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>()}
+
+stack: (empty)
+</code></pre></div></div>
+<p>앞의 두 괄호는 짝이 맞으므로 스택에 <code class="language-plaintext highlighter-rouge">(</code>가 들어갔다가 <code class="language-plaintext highlighter-rouge">)</code>를 만나
+ 스택이 비어버린다. 이때 닫는 괄호 <code class="language-plaintext highlighter-rouge">}</code>를 만난다면 우리가 이때까지 만난
+ 여는 괄호가 없기 때문에 틀린 경우임을 알 수 있다.</p>
+<hr />
+<p>따라서, 이런 코너 케이스를 잘 처리하면서 스택의 성질을 응용하면 된다.</p>
+<h3 id="4949-균형잡힌-세상"><a href="https://www.acmicpc.net/problem/4949">4949: 균형잡힌 세상</a></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">[</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">]</span><span class="sh">'</span><span class="p">}</span>  <span class="c1"># matching parentheses infor
+</span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">:</span>  <span class="c1"># fast scanner
+</span>    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="nf">rstrip</span><span class="p">()</span>  <span class="c1"># strip out right-most newline
+</span>    <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="sh">'</span><span class="s">.</span><span class="sh">'</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">stack</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="p">[],</span> <span class="bp">True</span>
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>  <span class="c1"># must consider characters only!!
+</span>        <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">m</span><span class="p">.</span><span class="nf">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">char</span> <span class="o">!=</span> <span class="n">m</span><span class="p">[</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]:</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">break</span>
+            <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">yes</span><span class="sh">'</span> <span class="k">if</span> <span class="n">valid</span> <span class="k">else</span> <span class="sh">'</span><span class="s">no</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<h3 id="10799-쇠막대기"><a href="https://www.acmicpc.net/problem/10799">10799: 쇠막대기</a></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="n">stack</span><span class="p">,</span> <span class="n">laserable</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="p">[],</span> <span class="bp">False</span><span class="p">,</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">laserable</span><span class="p">:</span>
+            <span class="n">laserable</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="nf">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="k">if</span> <span class="n">laserable</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">laserable</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+ <li>레이저는 오직 <code class="language-plaintext highlighter-rouge">()</code>에서만 발사된다는 사실을 고려해야 한다.
+ <li>레이저가 발사되면, 그 순간 스택에 쌓여있는 <code class="language-plaintext highlighter-rouge">(</code>의 개수만큼 막대기가
+짤린다.
+ <li>레이저가 발사될 수 있는 구간이 아닌데 <code class="language-plaintext highlighter-rouge">)</code>를 만나면 이는 곧 막대기
+하나가 끝났다는 뜻으로 다르게 말해 막대기가 하나 짤렸다는 것과
+동치이다. 따라서 이를 고려해서 카운트를 세면 된다.
+</ul>
+<h3 id="2504-괄호의-값"><a href="https://www.acmicpc.net/problem/2504">2504: 괄호의 값</a></h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="n">stack</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">answer</span> <span class="o">=</span> <span class="p">[],</span> <span class="bp">True</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="nf">readline</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">line</span><span class="p">)):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">*=</span> <span class="mi">2</span>
+        <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">p</span> <span class="o">==</span> <span class="sh">'</span><span class="s">[</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">*=</span> <span class="mi">3</span>
+        <span class="n">stack</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">p</span> <span class="o">==</span> <span class="sh">'</span><span class="s">)</span><span class="sh">'</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">break</span>
+        <span class="c1"># accumulate answer iff exact previous matching
+</span>        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">(</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">answer</span> <span class="o">+=</span> <span class="n">temp</span>
+        <span class="c1"># restore temp
+</span>        <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+        <span class="n">temp</span> <span class="o">//=</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">p</span> <span class="o">==</span> <span class="sh">'</span><span class="s">]</span><span class="sh">'</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="sh">'</span><span class="s">[</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">[</span><span class="sh">'</span><span class="p">:</span>
+            <span class="n">answer</span> <span class="o">+=</span> <span class="n">temp</span>
+        <span class="n">stack</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+        <span class="n">temp</span> <span class="o">//=</span> <span class="mi">3</span>
+
+<span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">answer</span> <span class="k">if</span> <span class="n">valid</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+<p>전체적인 구조는 괄호 균형 체크하는 문제랑 거의 같다. 다만 점수를
+ 계산하는 방법을 떠올리는 게 좀 까다로웠다.</p>
+<p>예시를 보면 <code class="language-plaintext highlighter-rouge">(()[[]])</code>의 점수를 계산할 때 <code class="language-plaintext highlighter-rouge">(2 + 3*3)*2</code> 와 같이
+ 계산했는데, 이렇게 계산하는 순서는 괄호를 제일 안쪽부터 세어나가는
+ 방법과 같아서 비효율적이다. 따라서 이걸 풀어서 생각해보면 <code class="language-plaintext highlighter-rouge">2*2 +
+ 2*3*3</code>이 되는데, 즉 분배법칙이 적용됨을 알 수 있다. 이 아이디어에
+ 착안해서 다음과 같이 할 수 있다.</p>
+<ul>
+ <li>정답을 누적할 <code class="language-plaintext highlighter-rouge">answer</code>와 중간 임시값 <code class="language-plaintext highlighter-rouge">temp</code>를 유지한다.
+ <li>스택에 여는 괄호를 쌓을 때, 괄호의 종류에 따라 <code class="language-plaintext highlighter-rouge">temp</code>에 <code class="language-plaintext highlighter-rouge">2</code> 또는
+<code class="language-plaintext highlighter-rouge">3</code>을 곱한다.
+ <li>닫힌 괄호를 만났을 때, <strong>입력의 바로 직전과 짝이 맞을 때에만</strong>
+<code class="language-plaintext highlighter-rouge">answer</code>에 <code class="language-plaintext highlighter-rouge">temp</code>를 누적한다. 그 후 스택을 팝함과 동시에 <code class="language-plaintext highlighter-rouge">temp</code>
+값을 원복한다.
+</ul>
+<p>즉, <code class="language-plaintext highlighter-rouge">(()[[]])</code>에서 처음 <code class="language-plaintext highlighter-rouge">((</code>를 지나면 <code class="language-plaintext highlighter-rouge">temp</code>는 <code class="language-plaintext highlighter-rouge">2*2</code>가 되고, 이 값은
+ 제일 첫 <code class="language-plaintext highlighter-rouge">()</code>일 때에만 누적하도록 한다. 이후 <code class="language-plaintext highlighter-rouge">[[]]</code>를 만날 때에는
+ <code class="language-plaintext highlighter-rouge">temp = 2 * 3 * 3</code>이 되고 제일 안쪽 <code class="language-plaintext highlighter-rouge">]</code>을 만날 때에만 이 값이
+ 누적된다. 이렇게 분배법칙만을 고려하면 닫힌 괄호일 때 복잡한 점수
+ 계산을 하지 않아도 된다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=boj ">boj</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=stack ">stack</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-01-25 11:47:24 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

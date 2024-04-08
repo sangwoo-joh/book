@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Topological Ordering</title>
+<meta property="og:title" content="Topological Ordering" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Topological Ordering">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Topological Ordering"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/theory/topological-ordering.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/theory/">Theory</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/theory/topological-ordering/">Topological Ordering</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="topological-ordering">Topological Ordering</h1>
+<p>위상 정렬은 방향성 있는 비순환 그래프, 흔히 DAG(Directed Acyclic Graph)라고
+ 불리는 그래프의 노드들을 선형 순서로 정렬하는 방법이다. 이 선형 순서는 모든
+ 엣지의 소스와 싱크를 고려한다. 즉, 엣지 <code class="language-plaintext highlighter-rouge">(src, snk)</code>에 대해서 노드 <code class="language-plaintext highlighter-rouge">src</code>는
+ 반드시 <code class="language-plaintext highlighter-rouge">snk</code>보다 앞 쪽에 위치하도록 정렬한다.</p>
+<p>위상 정렬은 주로 <em>의존성</em>이 있는 상황에서 순서를 결정할 때 사용된다. 예를 들어
+ 스케쥴링, 컴파일 시에 빌드 의존성 처리, 대학교에서 선행 과목을 고려해서
+ 시간표짜기 등이 있다.</p>
+<p>하나의 DAG에 대해서는 (노드의 선형 순서만 지켜진다면) 여러 개의 위상 정렬이
+ 가능하다.</p>
+<p>위상 정렬을 구현하는 방법은 크게 두 가지가 있다. 하나는 노드에 진입하는
+ 엣지(In-degree Edge) 정보를 이용하는 방법이고, 다른 하나는 DFS를 이용하는
+ 방법이다.</p>
+<h2 id="칸의-알고리즘">칸의 알고리즘</h2>
+<p>In-degree 엣지 정보를 이용하는 알고리즘은 칸의 알고리즘(Kahn’s
+ Algorithm)이라고도 한다. 노드마다 진입하는 엣지의 수를 유지하면서, 엣지 수가
+ 0인 노드부터 하나 씩 그래프에서 제거하고 동시에 진입 엣지 수를 업데이트 하면서
+ 남은 노드가 없을 때까지 반복하는 방법이다.</p>
+<p>알고리즘의 순서는 다음과 같다.</p>
+<ol>
+ <li>in-degree가 0인 노드를 선택. 여러 개일 경우 어떤 걸 선택해도 무방하다.
+ <li>선택한 노드 선형 순서에 추가하고, 동시에 이 노드와 연결된 이웃 노드의 엣지
+수를 업데이트한다.
+ <li>만약 업데이트한 이웃 노드의 진입 엣지 수가 0이면 큐에 추가한다.
+ <li>1~3을 반복해서 모든 노드가 삭제되면 종료한다.
+</ol>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">topologicalSort</span><span class="p">(</span><span class="n">nodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">edges</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nf">set</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+    <span class="n">indegree</span> <span class="o">=</span> <span class="nc">Counter</span><span class="p">({</span><span class="n">c</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">})</span>
+
+    <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">snk</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="n">graph</span><span class="p">[</span><span class="n">src</span><span class="p">].</span><span class="nf">add</span><span class="p">(</span><span class="n">snk</span><span class="p">)</span>
+        <span class="n">indegree</span><span class="p">[</span><span class="n">snk</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">ordering</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">indegree</span> <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+        <span class="n">ordering</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">indegree</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">q</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ordering</span>
+</code></pre></div></div>
+<p>이 알고리즘의 특징은 다음과 같다.</p>
+<ol>
+ <li>그래프에 싸이클이 있으면 제대로 된 위상 정렬을 해내지 못한다. 정확히 말하면
+싸이클에 속한 모든 노드는 무슨 짓을 해도 in-degree가 0이 될 수 없으므로
+싸이클의 노드를 <strong>아예 만나지 못한다</strong>. 참고로 이런 성질을 이용해서 아예
+싸이클만 남긴 다음 SCC를 수집하는 방법도 있다.
+ <li>위상 정렬이 존재한다면, 알고리즘이 in-degree가 0인 노드부터 방문하도록
+동작하기 때문에 항상 <strong>위상 정렬의 순서대로</strong> 그래프를 탐색하게 된다.
+바꿔말하면 정렬 결과를 뒤집지 않아도 된다.
+</ol>
+<h2 id="toplogical-ordering-with-dfs">Toplogical Ordering with DFS</h2>
+<p>DFS로도 위상 정렬을 할 수 있는데, 이때는 다음과 같은 싸이클 조건을 이용해서
+ 싸이클인지 아닌지도 같이 판별할 수 있다.</p>
+<table>
+<thead>
+   <tr>
+     <th> 
+     <th><code class="language-plaintext highlighter-rouge">visiting = False</code>
+     <th><code class="language-plaintext highlighter-rouge">visiting = True</code>
+ <tbody>
+   <tr>
+     <td><code class="language-plaintext highlighter-rouge">visited = False</code>
+     <td>아직 방문하지 않음
+     <td><strong>싸이클</strong>
+   <tr>
+     <td><code class="language-plaintext highlighter-rouge">visited = True</code>
+     <td>불가능한 경우
+     <td>탐색이 끝남
+</table>
+<p>DFS에서 노드에 대한 방문을 <strong>완료</strong> 했다는 의미는 즉 이 친구는 Topological
+ Ordering 에서 제일 나중에 방문해야 한다는 뜻이다. 따라서 방문을 완료한 순서대로
+ 리스트든 큐든 스택이든 차례로 넣으면 이게 곧 거꾸로 된 Topological Ordering
+ 이다. 그러므로,</p>
+<ul>
+ <li>간선 방향을 거꾸로한 그래프 (이걸 Transposed Graph 라고 하더라) 를 따로
+만들거나,
+ <li>리턴하기 직전에 뒤집어주면 된다.
+</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">node_map</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">node_set</span> <span class="o">=</span> <span class="nf">set</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>  <span class="c1"># edge가 없는 노드가 있을 수 있음
+</span>
+    <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">snk</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">node_set</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">node_set</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">snk</span><span class="p">)</span>
+        <span class="n">sef</span><span class="p">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">src</span><span class="p">].</span><span class="nf">add</span><span class="p">(</span><span class="n">snk</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">topological_ordering</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">visiting</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>  <span class="c1"># node_set 이 entry 이므로 진입하자마자 visited 체크를 해줘야 한다.
+</span>                <span class="k">return</span>
+
+            <span class="n">visiting</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">succ</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">succ</span> <span class="ow">in</span> <span class="n">visiting</span><span class="p">:</span>  <span class="c1"># 정확히 싸이클 케이스
+</span>                    <span class="k">raise</span> <span class="nc">TypeError</span><span class="p">(</span><span class="sh">"</span><span class="s">has cycle</span><span class="sh">"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">succ</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>  <span class="c1"># 아직 방문 완료가 아닐 때에만 추가로 탐색한다
+</span>                    <span class="nf">dfs</span><span class="p">(</span><span class="n">succ</span><span class="p">)</span>
+
+            <span class="c1"># node 에 대한 방문을 완료했으므로, visiting/visited 처리를 완료하고 order에 넣는다.
+</span>            <span class="n">visiting</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">visited</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">order</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">node_set</span><span class="p">:</span>
+                <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">order</span><span class="p">.</span><span class="nf">reverse</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">order</span>
+</code></pre></div></div>
+<h2 id="참고-floyds-cycle-finding-algorithm-or-the-tortoise-and-the-hare-algorithm">참고) Floyd’s Cycle Finding Algorithm, or The Tortoise and The Hare Algorithm</h2>
+<p>단순히 싸이클의 유무만 판별하기 위한 유명한 알고리즘이다. 시간 복잡도는
+ O(n)으로 동일하지만 공간 복잡도가 O(1)인 알고리즘이다.</p>
+<p>플로이드의 이 알고리즘의 다른 이름은 거북이와 토끼 알고리즘이다. 속도가 두 배
+ 차이나는 포인터 두 개를 이용해서 리스트를 동시에 탐색하기 때문에 이런 이름이
+ 붙었다. 알고리즘은 다음과 같다. 거북이는 한번에 1개씩, 토끼는 한번에 2개씩
+ 리스트를 탐색한다. 만약 싸이클이 존재한다면, 거북이와 토끼는 <strong>반드시</strong> 만나게
+ 된다. 싸이클이 없으면 토끼가 먼저 리스트의 끝에 도달한다. 깔끔하게 구현할 수
+ 있다.</p>
+<p>여기서 궁금한 점은 싸이클이 있을 때 왜 거북이와 토끼는 항상 반드시 만날까? 하는
+ 점이다. 이걸 증명해보자.
+ (<a href="https://www.quora.com/How-do-I-prove-that-the-tortoise-and-hare-in-Floyd-s-cycle-detection-algorithm-definitely-meet-if-a-cycle-exists-How-do-I-determine-the-starting-point-of-a-cycle-in-a-linked-list">참조</a>)</p>
+<p>싸이클이 없는 경우는 의미 없으니, 싸이클이 있는 경우만 고려하자. 거북이가
+ 엉금엉금 기어서 싸이클의 시작점에 진입하게 되면, 이제 거북이는 그 싸이클을 계속
+ 돌게 된다. 토끼는 이미 거북이보다 두 배 빠른 속도로 싸이클에 진입해서 뛰고
+ 있다. 관건은 그래서 이 둘이 항상 만나는 지점이 있는지?, 있다면 어디서 만나는지?
+ 이다.</p>
+<p>싸이클에 진입하기 까지의 경로 길이를 <code class="language-plaintext highlighter-rouge">x</code>, 싸이클의 총 길이를 <code class="language-plaintext highlighter-rouge">L</code>이라고 하자.
+ 그리고 만나는 지점이 있다고 가정하면 이 지점을 기준으로 싸이클을 쪼갤 수
+ 있는데, 이를 <code class="language-plaintext highlighter-rouge">L = y + z</code>라고 하자. 그러면 거북이와 토끼가 만났을 때 거북이와
+ 토끼가 각각 움직인 총 거리는 다음과 같다:</p>
+<ul>
+ <li>거북이: <code class="language-plaintext highlighter-rouge">x + y + T*L</code> (<code class="language-plaintext highlighter-rouge">T</code>: 거북이가 싸이클을 돈 총 횟수)
+ <li>토끼: <code class="language-plaintext highlighter-rouge">x + y + H*L</code>(<code class="language-plaintext highlighter-rouge">H</code>: 토끼가 싸이클을 돈 총 횟수)
+</ul>
+<p>토끼가 거북이보다 두 배 빠르게 움직이기 때문에, 아래 등식이 성립한다:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      (x + y + T*L) / 2 = (x + y + H*L)
+&lt;--&gt;  x + y = L *(T - 2H)
+</code></pre></div></div>
+<p>이때 <code class="language-plaintext highlighter-rouge">(T - 2H)</code>를 어떤 상수 <code class="language-plaintext highlighter-rouge">k (&gt;= 0)</code>라고 해보자. 그러면 <code class="language-plaintext highlighter-rouge">x + y = K*L</code>이
+ 성립하고, 따라서 <code class="language-plaintext highlighter-rouge">x = K*L - y</code>가 된다. 이 말은 곧 거북이랑 토끼가 두 배
+ 차이나는 속도로 싸이클이 있는 리스트에서 출발하면, <em>거북이가 딱 싸이클에 진입할
+ 때</em> 둘이 만난다는 뜻이다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=theory ">theory</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=graph ">graph</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=cycle ">cycle</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+    <span class="last-update" style="font-style: italic;">Last Update: 2023-04-09 11:53:46 PM</span>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

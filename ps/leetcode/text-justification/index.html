@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Text Justification</title>
+<meta property="og:title" content="Text Justification" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Text Justification">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Text Justification"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/text-justification.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/text-justification/">Text Justification</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="text-justification"><a href="https://leetcode.com/problems/text-justification/">Text Justification</a></h1>
+<p>(뱀발: justify 뜻 중에 “인쇄되는 텍스트의 행 끝을 나란히 맞추다”라는
+ 뜻이 있더라…)</p>
+<p>단어의 리스트랑 <code class="language-plaintext highlighter-rouge">maxWidth</code>가 주어졌을 때, 이 단어를 잘 나열해서 각
+ 라인이 정확하게 <code class="language-plaintext highlighter-rouge">maxWidth</code> 길이 만큼이 되게끔 <em>완전히</em> (즉,
+ 양방향으로) 나란히 맞추자.</p>
+<p>여러 단어를 한 줄에 맞출 때 그리디하게 접근해야 한다. 즉, 각 줄에는
+ 최대한 많은 단어를 우겨 넣어야 한다. 그리고 필요하다면 추가적인 공백
+ <code class="language-plaintext highlighter-rouge">' '</code>을 추가해서 각 라인이 정확하게 <code class="language-plaintext highlighter-rouge">maxWidth</code> 길이를 갖도록 해야
+ 한다.</p>
+<p>단어 사이의 추가적인 공백은 <strong>최대한</strong> 균등하게 퍼져야 한다. 만약
+ 단어 사이의 공백 수를 균등하게 맞출 수 없다면, 왼쪽부터 채워 나간다.</p>
+<p>제일 마지막 줄은 왼쪽 정렬을 한다. 즉, 단어 사이의 추가적인 공백이
+ 없어야 한다.</p>
+<ul>
+ <li>단어에는 공백이 없다.
+ <li><code class="language-plaintext highlighter-rouge">0 &lt; word.length &lt;= maxWidth</code>
+ <li>단어 리스트에는 최소 1개의 단어는 있다.
+</ul>
+<h2 id="대체-뭘-어쩌란-건지">대체 뭘 어쩌란 건지</h2>
+<p>아주 드러운 문제다. 설명이 장황하면 보통 엄청 어려운 알고리즘이
+ 필요하거나 코너 케이스가 많거나 둘 중 하나더라.</p>
+<p>일단 문제부터 이해해보자. 그래서 대체 뭘 어쩌란 걸까? 이건 예시를
+ 봐야 좀 이해가 된다.</p>
+<h3 id="예시">예시</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">This</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">is</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">an</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">example</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">of</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">justification.</span><span class="sh">"</span><span class="p">]</span>
+<span class="n">maxWidth</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">output</span><span class="p">:</span>
+<span class="p">[</span>
+  <span class="sh">"</span><span class="s">This    is    an</span><span class="sh">"</span><span class="p">,</span>
+  <span class="sh">"</span><span class="s">example  of text</span><span class="sh">"</span><span class="p">,</span>
+  <span class="sh">"</span><span class="s">justification.  </span><span class="sh">"</span>
+<span class="p">]</span>
+</code></pre></div></div>
+<ul>
+ <li>각 줄 길이를 16에 맞추기 위해서 첫 번째 줄 단어 사이에 각각 4개의
+공백이 들어갔다. ㅇㅋ. 균등하다.
+ <li>두번째 줄에는 균등하게 공백을 못 맞추기 때문에, 왼쪽에 공백이 1개
+더 추가됐다. ㅇㅋ. 균등하지 않으면 왼쪽부터 채워 나간다.
+ <li>마지막 줄은 왼쪽 정렬을 한다. 즉, 최대 길이를 맞추기 위해서 뒤에
+공백을 쫙 깔아준다.
+</ul>
+<p>예시를 보니 조금 이해가 되는 것 같다. 근데 마지막 줄에 만약 단어가
+ 여러 개 이면 어떨까? 마침 예시가 하나 더 있다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">What</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">must</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">be</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">acknowledgement</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">shall</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">be</span><span class="sh">"</span><span class="p">]</span>
+<span class="n">maxWidth</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">output</span><span class="p">:</span>
+<span class="p">[</span>
+  <span class="sh">"</span><span class="s">What   must   be</span><span class="sh">"</span><span class="p">,</span>
+  <span class="sh">"</span><span class="s">acknowledgment  </span><span class="sh">"</span><span class="p">,</span>
+  <span class="sh">"</span><span class="s">shall be        </span><span class="sh">"</span>
+<span class="p">]</span>
+</code></pre></div></div>
+<p>이제 첫줄은 이해된다. 둘째줄은 단어 두개를 놓으면 최대 길이를 넘기
+ 때문에 단어를 하나만 해야하고, 그래서 오른쪽에만 공백이 채워졌는데,
+ 이게 바로 코너 케이스다. 그리고 마지막줄을 보면 오른쪽이 전부
+ 공백이다. 즉, 만약 단어가 여러 개라면, 단어 사이에는 1개의 공백만을
+ 갖게 하고 나머지 길이만큼 오른쪽을 전부 공백으로 채우면 된다.</p>
+<h2 id="round-robin">Round Robin</h2>
+<p>사실 이 글은 리트코드 디스커션에서 아주 똑똑한 솔루션(댓글: “smart
+ ass”)을 보고 감명 받아서 작성한다.</p>
+<p>요지는 문제에서 설명하는, “단어 사이의 공백은 최대한 균등하게 맞추고
+ 왼쪽부터 채워나간다”는 <strong>라운드 로빈</strong> 스케쥴링을 말하는 아주 길고
+ 이상한 방식이라는 것이다.</p>
+<p>라운드 로빈은 간단하다. 작업 사이에 우선순위를 두지 않고 그냥
+ 순서대로 작업을 할당하는 것이다. 즉, 여기서도 단어 사이에 우선순위를
+ 두지 않고, 그냥 왼쪽부터 시작해서 단어 사이에 공백을 하나씩
+ 채워나가면 된다. 라운드 로빈 그 자체다.</p>
+<p>그럼 어떻게 하면 될까? 전체적인 틀은 다음과 같다.</p>
+<ol>
+ <li>“현재 줄” (단어 리스트) 정보를 유지한다.
+ <li>각 단어에 대해서, “지금 단어를 현재 줄에 추가하면 <code class="language-plaintext highlighter-rouge">maxWidth</code>를
+넘는가?”를 체크한다.
+ <li>넘으면, 코너 케이스를 잘 생각해서, 라운드 로빈 방식으로 각 단어
+사이에 공백을 추가한다. 그리고 현재 줄 정보를 <strong>초기화한다</strong>.
+ <li>안넘으면, 현재 줄에 단어를 추가한다.
+ <li>마지막 단어까지 훑었는데 현재 줄에 단어가 남아있으면, 현재 줄의
+단어를 공백 하나 띄우고 합친 다음에 남는 길이만큼 오른쪽에 공백을
+채운다.
+</ol>
+<p>참고로, 파이썬에는 <code class="language-plaintext highlighter-rouge">str.ljust(width)</code>와 <code class="language-plaintext highlighter-rouge">str.rjust(width)</code> 함수가
+ 있어서 이걸 활용하면 좀더 쉽게 할 수 있다. <code class="language-plaintext highlighter-rouge">ljust(width)</code>는 단어를
+ <code class="language-plaintext highlighter-rouge">width</code> 길이에 맞추되, 왼쪽에 단어를 배치하고 나머지 길이만큼은
+ 공백으로 채우는 함수다. 그럼 <code class="language-plaintext highlighter-rouge">rjust(width)</code>는 뻔하다. 그러므로 우리가
+ 활용해야 할 건 <code class="language-plaintext highlighter-rouge">ljust</code>다.</p>
+<p>그럼 이걸 차근차근 코드로 구현해보자.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">text_justification</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">maxWidth</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># current line that contains word
+</span>    <span class="n">letters</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># length of accumulated words in the current line
+</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">letters</span> <span class="o">+</span> <span class="nf">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">maxWidth</span><span class="p">:</span>
+            <span class="c1"># len(line) - 1: the minimum number of spaces required.
+</span>            <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># edge case: when only a single word exists in the line
+</span>                <span class="n">answer</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">ljust</span><span class="p">(</span><span class="n">maxWidth</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># do round-robin, except for the last word
+</span>                <span class="n">spaces</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">maxWidth</span> <span class="o">-</span> <span class="n">letters</span><span class="p">):</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># skip the last word
+</span>                    <span class="n">spaces</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">line</span><span class="p">)):</span>
+                    <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span> <span class="o">*</span> <span class="n">spaces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+                <span class="n">answer</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+
+            <span class="c1"># clear
+</span>            <span class="n">line</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">letters</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">line</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="n">letters</span> <span class="o">+=</span> <span class="nf">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+        <span class="c1"># use ljust to left-justify
+</span>        <span class="n">answer</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">line</span><span class="p">).</span><span class="nf">ljust</span><span class="p">(</span><span class="n">maxWidth</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+<ul>
+ <li>현재 라인뿐만 아니라 편의를 위해서 현재 라인에 속한 단어 길이의
+누적 합 <code class="language-plaintext highlighter-rouge">letters</code>도 유지한다.
+ <li>“지금 단어를 현재 라인에 추가하면 오버플로우나나요?”를 체크하기
+위한 로직을 잘 보자. <code class="language-plaintext highlighter-rouge">letters</code>는 앞서 말했던 현재 라인에 속한 단어
+길이의 합이다. <code class="language-plaintext highlighter-rouge">len(word)</code>는 지금 단어의 길이다. 여기까진
+자명하다. 그럼 <code class="language-plaintext highlighter-rouge">len(line) - 1</code>은 뭘까? 단어 사이사이에 최소한
+공백이 1개는 필요하다는 것은 곧 현재 줄의 단어 개수에서 1개를 뺀
+값이 필요한 공백의 최소 개수와 같다는 것을 뜻한다. 따라서, 이 세
+값의 합이 <code class="language-plaintext highlighter-rouge">maxWidth</code>를 넘는지 확인하면, 언제 라운드 로빈을
+시작해야할 지 알 수 있다.
+ <li>위의 두 번째 예시의 두 번째 줄에서 본 코너 케이스를 처리한다. 현재
+줄에 놓을 수 있는 단어가 1개 뿐이면, 그냥 단어를 left-justification
+하면 된다. 파이썬의 <code class="language-plaintext highlighter-rouge">ljust</code>를 이용하면 쉽게 공백을 채울 수 있다.
+ <li>라운드 로빈을 어떻게 하는지 생각해보자. 여기서는, 현재 줄에 있는
+단어 중 마지막 단어를 제외한 나머지 단어의 뒤에 공백을 균등하게
+추가하는 접근을 했다. 먼저 단어 사이의 공백 개수를 0으로
+초기화한다. 추가할 수 있는 공백 개수는 총 <code class="language-plaintext highlighter-rouge">maxWidth - letters</code>
+개다. 제일 마지막 단어를 제외한 나머지 단어의 뒤에 공백을 붙일
+것이므로 총 <code class="language-plaintext highlighter-rouge">len(line) - 1</code> 개의 단어를 훑을 것이다. 이때, 왼쪽부터
+균등하게 한다는 것은 곧 인덱스 <code class="language-plaintext highlighter-rouge">0</code>부터 순환적으로 추가하면 되므로,
+모듈러 연산을 활용할 수 있다. 이렇게 필요한 공백의 수를 세고 나면
+Pythonic하게 문자열 곱셈으로 공백 개수를 맞추면 된다.
+ <li>라인 수를 넘어서 라운드로빈을 하고 나면, 현재 라인 정보와 누적 단어
+길이를 초기화하는 것을 잊으면 안된다.
+ <li>이렇게 모든 단어를 훑고 나서 <code class="language-plaintext highlighter-rouge">line</code>이 남아 있으면, 남은 단어를 모두
+공백 1개 기준으로 합친 후에 <code class="language-plaintext highlighter-rouge">maxWidth</code> 만큼 나머지 오른쪽을
+공백으로 채우면 된다.
+</ul>
+<p>안틀리고 한번에 잘 구현하기 꽤 어려운 문제다.</p>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=string ">string</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=simulation ">simulation</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  

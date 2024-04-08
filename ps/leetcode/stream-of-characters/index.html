@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+ <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.55.6" />
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+<link rel="alternate" type="application/rss&#43;xml" href="/docs/index.xml">
+<link rel="shortcut icon" href="/book/assets/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/book/assets/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/book/assets/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-96x196.png" sizes="96x196">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/book/assets/favicons/android-icon-192x192.png"sizes="192x192">
+<title>Stream of Characters</title>
+<meta property="og:title" content="Stream of Characters" />
+<meta property="og:description" content="Engineering Book" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<meta property="og:site_name" content="" />
+<meta itemprop="name" content="Stream of Characters">
+<meta itemprop="description" content="Engineering Book">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Stream of Characters"/>
+<meta name="twitter:description" content="Engineering Book"/>
+<link rel="stylesheet" href="/book/assets/css/main.css">
+<link rel="stylesheet" href="/book/assets/css/palette.css">
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-63ZZVFHP73', 'auto');
+	ga('send', 'pageview');
+}
+</script>
+ <body class="td-section">
+  <header>
+ <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/book/">
+      <span class="navbar-logo"></span>
+      <img src="/book/assets/img/logo.png" width="50">
+      <span class="text-uppercase font-weight-bold">Book</span>
+	  </a>
+	 <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		 <ul class="navbar-nav mt-2 mt-lg-0">
+			 <li class="nav-item mr-4 mb-2 mb-lg-0">
+		 </ul>
+	 </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+   </div>
+	 <div class="navbar-nav d-none d-lg-block">
+      <a class="gh-source" data-gh-source="github" href="https://github.com/sangwoo-joh/book" title="Go to repository" data-md-state="done">
+       <div class="gh-source__repository">
+          <i class="fab fa fa-github fa-2x" style='padding-right:20px; float:left; margin-top:5px'></i>
+          sangwoo-joh/book
+         <ul class="gh-source__facts"><li class="gh-source__fact" id='stars'><li id="forks" class="gh-source__fact"></ul></div></a>
+   </div>
+   </div>
+ </nav>
+</header>
+<script>
+ $(document).ready(function() {
+   var url = "https://api.github.com/search/repositories?q=sangwoo-joh/book";
+   fetch(url, {
+     headers: {"Accept":"application/vnd.github.preview"}
+   }).then(function(e) {
+     return e.json()
+   }).then(function(r) {
+     console.log(r.items[0])
+     stars = r.items[0]['stargazers_count']
+     forks = r.items[0]['forks_count']
+     $('#stars').text(stars + " Stars")
+     $('#forks').text(forks + " Forks")
+   });
+ });
+</script>
+   <div class="container-fluid td-outer">
+     <div class="td-main">
+       <div class="row flex-xl-nowrap">
+         <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+         <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input type="search" class="form-control td-search-input" placeholder="&#xf002 Search this site…" aria-label="Search this site…" autocomplete="off">
+      <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+      </button>
+  </form>  
+ <nav class="collapse td-sidebar-nav pt-2 pl-4" id="td-section-nav">
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book//" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Book</a>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/ps" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Problem Solving</a>
+         <ul>
+           <li class="collapse show" id="problem-solving">
+             <ul class="td-sidebar-nav__section pr-md-3">
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/theory
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Theory
+                    </a>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/leetcode
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">Leetcode
+                    </a>
+                   <ul>
+                     <li class="collapse show" id="">
+                   </ul>
+                 <li class="td-sidebar-nav__section-title">
+                    <a href="
+                                /book/ps/cpp
+                             " 
+                       class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section ">C++
+                    </a>
+             </ul>
+         </ul>
+     </ul>
+     <ul class="td-sidebar-nav__section pr-md-3">
+       <li class="td-sidebar-nav__section-title">
+          <a  href="/book/wip" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Work in Progress</a>
+     </ul>
+ </nav>
+</div>
+         </div>
+         <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+             <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+                  <a href="https://github.com/sangwoo-joh/book/edit/master/ps/leetcode/stream-of-characters.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+             </div>
+             <nav id="TableOfContents"><ul>
+             <li><ul id="TOC">
+             </ul>
+             </ul></nav>
+         </div>
+         <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+           <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	     <ol class="breadcrumb spb-1">
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/">Ps</a>
+                     <li class="breadcrumb-item">
+                        <a href="/book/ps/leetcode/">Leetcode</a>
+                   <li class="breadcrumb-item active" aria-current="page">
+                      <a href="/book/ps/leetcode/stream-of-characters/">Stream of Characters</a>
+	     </ol>
+          </nav>
+          <div class="td-content">        
+	     <h1 id="stream-of-characters"><a href="https://leetcode.com/problems/stream-of-characters/">Stream of Characters</a></h1>
+<p>먼저 단어 목록 <code class="language-plaintext highlighter-rouge">words</code>가 주어진다. 그 후 문자의 스트림이
+ 들어온다. 이때, 문자 스트림의 접미사가 이 단어 목록 중 하나의 단어와
+ 일치하는지를 판단하자.</p>
+<p>예를 들어, 단어 목록이 <code class="language-plaintext highlighter-rouge">[abc, xyz]</code>이고 스트림이 <code class="language-plaintext highlighter-rouge">a, x, y, z</code> 라면,
+ <code class="language-plaintext highlighter-rouge">xyz</code> 접미사가 단어 목록에 존재함을 알 수 있다.</p>
+<p><code class="language-plaintext highlighter-rouge">StreamChecker</code>의 두 가지 함수를 구현해야 한다.</p>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">StreamChecker(String[] words)</code>: 단어 목록을 가지고 초기화
+ <li><code class="language-plaintext highlighter-rouge">boolean query(char letter)</code>: 새로운 문자를 입력 받는다. 이전까지
+입력받은 스트림까지 포함해서, 단어 목록 중 하나가 접미사가 된다면
+<code class="language-plaintext highlighter-rouge">True</code>를 리턴한다.
+</ul>
+<p>각 단어의 길이는 1~2,000 이고 단어 목록의 크기는 1~2,000 이다. 단어와
+ 스트림은 모두 영문 소문자만 포함한다. 최대 \(4 \times 10^4\) 번의
+ <code class="language-plaintext highlighter-rouge">query</code> 함수가 호출된다.</p>
+<h2 id="트라이">트라이</h2>
+<p>접미사가 아니라 접두사라면, 이 문제는 <a href="../../theory/trie">트라이</a>를
+ 이용해서 쉽게 풀 수 있다. 하지만 <em>접미사</em>인 점이 까다롭다.</p>
+<p>더 큰 문제는, 우리가 탐색해야 할 공간이 고정된 길이의 문자가 아니라
+ 지속적으로 입력이 들어오는 <em>스트림</em> 이라는 점이다. 그럼 어떻게
+ 해야할까?</p>
+<p>한 가지 관찰은, 단어 목록의 <strong>끝 문자</strong>와 항상 매칭이 되어야 한다는
+ 점이다. 즉, 우리는 <strong>접미사</strong>를 찾아야 한다. 이 관찰로부터, 뭔가
+ 트라이와 스트림에서 <strong>거꾸로</strong> 연산을 적용하는 아이디어를 얻을 수
+ 있다.</p>
+<p>먼저, 트라이 사전을 만들 때, 단어를 <strong>뒤집어서</strong> 만들어둔다. 그러면
+ 어떤 단어가 들어왔을 때, 그 단어의 끝에서부터 트라이를 매치한다면
+ 단어의 접미사가 트라이 사전에 있는지 확인할 수 있을 것이다. 따라서,
+ <strong>스트림 역시 뒤집어서</strong> 관리하면 가능해 보인다.</p>
+<p>이 알고리즘을 구현하면 다음과 같다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Trie</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">child</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">26</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">-</span><span class="nf">ord</span><span class="p">(</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">)]</span>
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="nf">ord</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">-</span><span class="nf">ord</span><span class="p">(</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nf">bool</span><span class="p">(</span><span class="n">self</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">def</span> <span class="nf">is_word</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">end</span>
+
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="k">class</span> <span class="nc">StreamChecker</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">words</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">sentinel</span> <span class="o">=</span> <span class="nc">Trie</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">stream</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">sentinel</span>
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="nf">reversed</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">char</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="p">:</span>
+                <span class="n">node</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Trie</span><span class="p">()</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="n">char</span><span class="p">]</span>
+        <span class="n">node</span><span class="p">.</span><span class="nf">done</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">letter</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">stream</span><span class="p">.</span><span class="nf">appendleft</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">sentinel</span>
+
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">stream</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="n">char</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="nf">is_word</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+<ul>
+ <li><code class="language-plaintext highlighter-rouge">StreamChecker</code>에 <code class="language-plaintext highlighter-rouge">add()</code> 함수를 추가해서 단어를 하나씩 트라이
+사전에 넣도록 했다. 이때, 단어를 뒤집어서 넣는다.
+ <li><code class="language-plaintext highlighter-rouge">query</code> 에서는 먼저 <code class="language-plaintext highlighter-rouge">letter</code>를 <code class="language-plaintext highlighter-rouge">stream</code>의 앞쪽에 넣는다. 즉,
+스트림을 거꾸로 유지한다. 그 후 스트림을 훑으면서 접미사 검사를
+거꾸로 수행한다. 중간에 하나라도 노드가 없다면 거짓이다. 중간
+노드가 단어의 끝(즉, 뒤집은 접미사의 끝 == 올바른 접두사의
+시작)이라면, 참이다. 스트림 문자의 체크는 무조건 이 둘 중 하나의
+조건에 걸리기 때문에, 항상 루프 안에서 리턴된다.
+ <li>여기서는 스트림을 거꾸로 유지하는데 큐를 썼지만, 그냥 리스트에 때려
+박고 거꾸로 루프를 순회해도 된다.
+</ul>
+<script
+  src="/book/assets/js/jquery-3.3.1/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8= sha256-T+aPohYXbm0fRYDpJLr+zJ9RmYTswGsahAoIsNiMld4="
+  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    var toc = $('#TOC');
+    // Select each header
+    sections = $('.td-content h1');
+        $.each(sections, function(idx, v) {
+            section = $(v);
+            var div_id = $(section).attr('id');
+            var div_text = section.text().split('¶')[0];
+            var parent = $("#" + div_id)
+            var content = '<li id="link_' + div_id + '" class="md-nav__item"><a class="md-nav__link" href="#' + div_id + '" title="' + div_text +'">' + div_text +'</a>';
+            $(toc).append(content);
+            // Add section code to subnavigation
+            var children = $('<nav class="md-nav"><ul class="md-nav__list"></nav></ul>')
+            var contenders = $("#" + div_id).nextUntil("h1");
+            $.each(contenders, function(idx, contender){
+               if($(contender).is('h2') || $(contender).is('h3')) {
+                   var contender_id = $(contender).attr('id');
+                   var contender_text = $(contender).text().split('¶')[0];
+                   var content = '<li class="md-nav__item"><a class="md-nav__link" href="#' + contender_id + '" title="' + contender_text +'">' + contender_text +'</a>';
+                   children.append(content);
+                }
+             })
+             $("#link_" + div_id).append(children);
+        });
+    });
+</script>
+<script>
+var headers = ["h1", "h2", "h3", "h4"]
+var colors = ["red", "orange", "green", "blue"]
+$.each(headers, function(i, header){
+    var color = colors[i];
+    $(header).each(function () {
+        var href=$(this).attr("id");
+        $(this).append('<a class="headerlink" style="color:' + color + '" href="#' + href + '" title="Permanent link">¶</a>')
+    });
+})
+</script>
+<script>
+$('h1').first().append('<div><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=problem-solving ">problem-solving</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=leetcode ">leetcode</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=python ">python</a></span><span style="font-size:12px" class="badge badge-primary"><a style="cursor:pointer; color:white" href="/book/tags?tag=trie ">trie</a></span></div>')</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+ MathJax.Hub.Config({
+     jax: ["input/TeX", "output/HTML-CSS"],
+     displayAlign: "left"
+ });
+</script>
+<hr />
+<div>
+    <script src="https://giscus.app/client.js"
+            data-repo="sangwoo-joh/reactions"
+            data-repo-id="R_kgDOJFNVQw"
+            data-category="Comments"
+            data-category-id="DIC_kwDOJFNVQ84CUox9"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light_protanopia"
+            data-lang="ko"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+              <br/>
+          </div>
+         </main>
+       </div>
+     </div>
+     <footer class="bg-dark py-5 row d-print-none">
+ <div class="container-fluid mx-sm-5">
+   <div class="row">
+     <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+       <ul class="list-inline mb-0">  
+       </ul>
+     </div>
+     <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+       <ul class="list-inline mb-0">  
+         <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="" aria-label="GitHub" data-original-title="GitHub">
+            <a class="text-white" target="_blank" href="https://github.com/sangwoo-joh/book">
+              <i class="fab fa-github"></i>
+            </a>
+       </ul>
+     </div>
+     <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">© 2024 Sangwoo Joh All Rights Reserved</small>
+     </div>
+     <div class="col-12 text-center">
+        <small class="text-white">Icons & favicons by <a href="https://icons8.com">icons8.com</a></small>
+     </div>
+   </div>
+ </div>
+</footer>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="/book/assets/js/main.js"></script>
+  
