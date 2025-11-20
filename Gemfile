@@ -24,8 +24,4 @@ ruby RUBY_VERSION
 # end
 gem "jekyll", ">= 3.9"
 gem "kramdown-parser-gfm", "~> 1.0"
-gem "jekyll-org", git: 'https://github.com/sangwoo-joh/jekyll-org.git', branch: 'master'
-gem "org-ruby", git: 'https://github.com/sangwoo-joh/org-ruby.git', branch: 'generate-heading-id'
-
-
 gem "pygments.rb", "~> 2.3"
