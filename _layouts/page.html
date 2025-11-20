@@ -8,11 +8,21 @@ layout: default
 {% include permalinks.html %}
 {% include tags.html %}
 
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
- MathJax.Hub.Config({
-     jax: ["input/TeX", "output/HTML-CSS"],
-     displayAlign: "left"
- });
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+<script>
+  MathJax = {
+      tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      chtml: {
+          displayAlign: 'center',
+          displayIndent: '0'
+      },
+      svg: {
+          displayAlign: 'center',
+          displayIndent: '0'
+      }
+  };
 </script>
 
 {% if page.last_update %}
