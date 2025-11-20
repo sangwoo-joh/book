@@ -1,0 +1,83 @@
+---
+layout: page
+title: prove
+---
+
+# Prove
+
+## Loop Invariant
+
+알고리즘은 대부분 반복적인 요소를 갖기 때문에 귀납법으로 증명할 수 있다. 이때 반복문 불변식(Loop Invariant)를 이용하면 유용하다.
+
+1.  반복문 진입 때 불변식을 만족함을 보인다.
+2.  반복문 바디를 실행해도 불변식이 깨지지 않음을 보인다. 즉, 반복문을 매 단계 실행해도 계속 불변식이 성립함을 보인다.
+3.  반복문을 빠져나와도 불변식을 만족하면 항상 정답을 구함을 보인다.
+
+### 이진 탐색 증명 1
+
+이진 탐색 코드로 증명의 예시를 살펴보자. 종만북에서는 양 시작점이 exclusive 한 범위인데, 이걸 내가 자주 쓰는 half-inclusive로 바꿔서 증명하려면 아직 어떻게 해야하는지는 잘 모르겠다.
+
+```c++
+    int binary_search(const vector<int>& arr, int x) {
+      // to find: return the index such that arr[i - 1] < x <= arr[i] (lower bound)
+      int low = -1, high = arr.size();
+      while (low + 1 < high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] < x)
+          low = mid;
+        else:
+          high = mid;
+      }
+      return high;
+    }
+```
+
+위의 알고리즘은 두 개의 불변식을 유지한다.
+
+1.  `low < high`
+2.  `arr[low] < x <= arr[high]`
+
+이 불변식이 반복문을 끝내고 마지막 줄에 올 때까지 계속 만족했다고 가정하자. 그러면 다음 두 가지 사실을 알 수 있다.
+
+1.  `low + 1 == high`: 반복문이 종료했으니 `not (low + 1 < high) <-> low + 1 >= high` 인데, 불변식 1에 따라 `low < high` 이고 `low`, `high` 는 정수 인덱스이므로 `low + 1 = high` 일 수 밖에 없다.
+2.  `arr[low] < x <= arr[high]`: 가정에 따라 성립한다.
+
+찾고자 하는 인덱스 값 `i` 는 `arr[i - 1] < x <= arr[i]` 를 만족해야 하므로, 위의 두 가지 사실에 의해 `i = high` 임을 알 수 있다. 따라서, 반복문이 끝나도 불변식이 항상 만족함을 보이면 알고리즘을 증명한 것이다.
+
+1.  초기 조건: 초기값에 따라 불변식 1이 성립한다. `arr[-1] = -oo` 이고 `arr[n] = oo` 라고 가정하면 불변식 2가 성립한다.
+2.  유지 조건: 반복문 내부가 불변식을 깨지 않음을 보인다.
+    1.  반복문의 조건과 두 변수의 타입에 따라 `low` 와 `high` 의 차이는 항상 2 이상이다. 따라서 `mid` 값은 항상 두 값 사이에 위치한다. 따라서 `mid` 를 `low` 에 대입하건 `high` 에 대입하건 항상 불변식 1은 만족한다.
+    2.  `arr[mid] < x` 인 경우, 반복문을 시작할 때 `x <= arr[high]` 이고 따라서 `arr[mid] < x <= arr[high]` 이므로, `low` 에 대입해도 불변식 2를 만족한다.
+    3.  `x <= arr[mid]` 인 경우, 반복문을 시작할 때 `arr[low] < x` 이고 따라서 `arr[low] < x <= arr[mid]` 이므로, `high` 에 대입해도 불변식 2를 만족한다.
+
+따라서 반복문을 다 거쳐도 불변식을 모두 만족한다.
+
+### 이진 탐색 증명 2
+
+위의 증명을 [Bisect](../../theory/bisect) 코드에도 해보자.
+
+```c++
+int bisect_left(const vector<int>& arr, int x) {
+  int low = 0, high = arr.size();
+
+  while (low < high) {
+    mid = (low + high) / 2;
+    if (x <= arr[mid])
+      high = mid;
+    else
+      low = mid + 1;
+  }
+  return low;
+}
+```
+
+불변식은 다음과 같다.
+
+1.  `low <= high`
+2.  `arr[low] < x <= arr[high]`
+
+반복문 마지막에서는 다음을 알 수 있다.
+
+1.  `low == high`: 반복문이 종료했으니 `not (low < high) <-> low >= high` 인데, 불변식 1에 따라 `low <= high` 이고 따라서 `low = high` 일 수 밖에 없다.
+2.  `arr[low] < x <= arr[high]`: 가정에 따라 성립한다.
+

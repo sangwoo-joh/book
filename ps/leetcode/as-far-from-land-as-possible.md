@@ -1,17 +1,14 @@
-#+title: As Far From Land As Possible
-#+last_update: 2023-02-11 13:06:36
-#+layout: page
-#+tags: problem-solving leetcode python graph
+---
+layout: page
+title: As Far From Land As Possible
+---
+# [As Far From Land As Possible](https://leetcode.com/problems/as-far-from-land-as-possible/)
 
+-   맨하탄 거리를 재야한다.
+-   이른바 &ldquo;멀티 소스 BFS&rdquo;를 수행해야 한다. 각 턴마다 같은 턴에 있는 노드들을 한 칸씩 움직인다고 생각하면 된다.
+-   일단 땅을 전부 초기 큐에 넣은 다음에 물로 갈 수 있는 친구들만 계속 움직인다.
 
-* [[https://leetcode.com/problems/as-far-from-land-as-possible/][As Far From Land As Possible]]
-
-+ 맨하탄 거리를 재야한다.
-+ 이른바 "멀티 소스 BFS"를 수행해야 한다. 각 턴마다 같은 턴에 있는 노드들을 한
-  칸씩 움직인다고 생각하면 된다.
-+ 일단 땅을 전부 초기 큐에 넣은 다음에 물로 갈 수 있는 친구들만 계속 움직인다.
-
-  #+begin_src python
+```python
 def maxDistance(grid: List[List[int]]) -> int:
     q, visited, n = deque(), set(), len(grid)
     for y in range(n):
@@ -36,4 +33,4 @@ def maxDistance(grid: List[List[int]]) -> int:
                 visited.add((ny, nx))
         farthest += 1
     return farthest if farthest else -1
-  #+end_src
+```

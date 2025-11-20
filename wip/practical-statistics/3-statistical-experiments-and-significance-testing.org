@@ -1,6 +1,0 @@
-#+title: 3. Statistical Experiments and Significance Testing
-#+last_update: 2023-05-08 15:42:07
-#+layout: page
-#+tags: statistics note
-
-* Statistical Experiments and Significance Testing

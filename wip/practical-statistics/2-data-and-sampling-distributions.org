@@ -1,6 +1,0 @@
-#+title: 2. Data and Sampling Distributions
-#+last_update: 2023-05-08 15:41:29
-#+layout: page
-#+tags: statistics note
-
-* Data and Sampling Distributions

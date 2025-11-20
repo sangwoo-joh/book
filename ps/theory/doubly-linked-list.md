@@ -1,0 +1,143 @@
+---
+layout: page
+title: Doubly Linked List
+---
+
+# Doubly Linked List
+
+싱글 링크드 리스트는 구현하긴 편하지만 써먹을 수 있는 곳이 한정되어 있다. 반면 더블 링크드 리스트는 구현이 좀 까다롭지만 한번 구현해두면 써먹을 수 있는 곳이 많다. 여기서는 특히 센티넬 노드를 이용해서 더블 링크드 리스트의 구현을 좀더 쉽게 처리할 수 있는 방법을 정리하고 나아가 이걸 어디서 써먹을 수 있는지 정리한다.
+
+## Sentinel Node
+
+[센티넬 노드](https://en.wikipedia.org/wiki/Sentinel_node)란 트리나 리스트에서 데이터를 담진 않지만 검색이나 연산의 구현을 편하게 하기 위해서 쓰이는 특별한 노드를 뜻한다. 예를 들어 리스트에서 원소를 추가/삭제할 때마다 리스트가 빈 경우에 특별한 처리를 하지 않고 일반적인 경우와 마찬가지로 구현할 수 있게 해준다.
+
+파이썬으로 구현하면 다음과 같다.
+
+```python
+    class Node:
+        def __init__(self, data=None):
+            self.data = data  # hold any data
+            self.prev = None
+            self.next = None
+
+    class DoublyLinkedList:
+        def __init__(self):
+            self.sentinel = Node()
+            # initialize - sentinel's prev, next are sentinel
+            self.sentinel.prev = self.sentinel.next = self.sentinel
+            self.size = 0
+
+        def append_after(self, node, after=None):
+            """
+            append node after certain node.
+            if after is None, then append at the end of the list
+            """
+            if after is None:
+                after = self.sentinel.prev  # append to the end
+
+            # the order of updating the prev/next link matters!
+            # if the order is broken, then nodes are invalidated.
+            after.next.prev = node
+            node.next = after.next
+            after.next = node
+            node.prev = after
+            self.size += 1
+
+        def append_before(self, node, before=None):
+            """
+            append node before certain node.
+            if before is None, then append at the beginning.
+            """
+            if before is None:
+                before = self.sentinel.next
+
+            # again, the order matters.
+            before.prev.next = node
+            node.prev = before.prev
+            before.prev = node
+            node.next = before
+            self.size += 1
+
+        def pop(self, node=None, last=True):
+            """
+            One of pros of doubly linked list is that it can directly drop certain node. O(1).
+            if node is None, then drop the last one, and if first is true then drop the first one.
+            """
+            if self.size == 0:
+                return
+
+            if node is None:
+                node = self.sentinel.prev if last else self.sentinel.next
+
+            node.prev.next = node.next
+            node.next.prev = node.prev
+            self.size -= 1
+
+            return node
+```
+
+노드의 `prev`, `next` 링크를 업데이트하는 *순서* 에 주의하면서 구현하면 쉽다. 순서가 틀리면 특정 노드가 먼저 invalidate 되면서 리스트가 깨진다.
+
+더블 링크드 리스트의 장점 중 하나는 바로 대상 노드만 알면 노드의 삽입과 삭제를 원하는 위치에다 할 수 있다는 것이다. 위의 구현에서 그것을 볼 수 있다. 예를 들어 `append_after` 는 특정 노드 뒤(after)에다가 노드를 곧바로 삽입할 수 있다. 그리고 `pop` 의 경우도 특정 노드를 곧바로 삭제할 수 있다.
+
+이는 만약 어떤 키 값에 해당하는 *노드* 정보를 곧바로 찾을 수 있다면, 더블 링크드 리스트에서의 삽입과 삭제 연산을 `O(1)` 만에 할 수 있다는 의미이기도 하다. 그래서 **순서** 를 유지하는 데이터 구조의 경우, 즉 LRU 캐시 또는 LFU 캐시를 구현하기 위한 순서 있는 데이터 구조의 경우 내부 구현이 더블 링크드 리스트와 키 값에서 이 리스트의 노드로 가는 맵핑으로 구현되어 있다. 즉, 파이썬의 `OrderedDict` 구현은 다음과 같다.
+
+```python
+    class OrderedDict(dict):
+        def __init__(self):
+            self._order = DoublyLinkedList()  # contains order
+            self._map = {}  # random access to the node of d-list
+
+        def __setitem__(self, key, value):
+            if key not in self:
+                self._map[key] = node = Node(key)  # node contains key
+                self._order.append_before(node)
+            dict.__setitem__(self, key, value)
+
+        def __delitem__(self, key):
+            dict.__delitem__(self, key)
+            node = self._map.pop(key)
+            self._order.pop(node)
+
+        def __iter__(self):
+            """
+            Traverse in order
+            """
+            node = self._order.sentinel.next
+            while node is not self._order.sentinel:
+                yield node.data
+                node = node.next
+
+        def __reversed__(self):
+            """
+            Traverse in reverse order
+            """
+            node = self._order.sentinel.next
+            while node is not self._order.sentinel:
+                yield node.data
+                node = node.prev
+
+        def popitem(self, last=True):
+            """
+            Remove and return a (key, value) pair from the dictionary.
+            Pairs are returned in LIFO order if last is true, or FIFO order otherwise.
+            """
+            if not self:
+                raise KeyError('dictionary is empty')
+            node = self._order.pop(last=last)
+            key = node.data
+            del self._map[key]
+            value = dict.pop(self, key)
+            return key, value
+
+        def move_to_end(self, key, last=True):
+            """
+            Move an existing element to the end (or beginning if last is false).
+            """
+            node = self._map[key]
+            self._order.pop(node)
+            if last:
+                self._order.append_after(node)
+            else:
+                self._order.append_before(node)
+```

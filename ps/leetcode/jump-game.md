@@ -1,20 +1,18 @@
-#+title: Jump Game
-#+last_update: 2023-02-11 15:24:09
-#+layout: page
-#+tags: problem-solving leetcode python dynamic-programming
+---
+layout: page
+title: Jump Game
+tags: [problem-solving, leetcode, python, dynamic-programming]
+---
 
+# [Jump Game](https://leetcode.com/problems/jump-game/)
 
-* [[https://leetcode.com/problems/jump-game/][Jump Game]]
+쉽지 않다.. 딱 원소 값 만큼만 점프할 수 있는게 아니라 최대 그 값 만큼 점프할 수 있는 거라서 경우의 수가 매우 많다.
 
- 쉽지 않다.. 딱 원소 값 만큼만 점프할 수 있는게 아니라 최대 그 값 만큼 점프할 수
- 있는 거라서 경우의 수가 매우 많다.
+## 백트래킹
 
+일단은 타임아웃 나더라도 정직하게 모든 경우를 추적하는 백 트래킹 구현은 다음과 같다.
 
-** 백트래킹
- 일단은 타임아웃 나더라도 정직하게 모든 경우를 추적하는 백 트래킹 구현은 다음과
- 같다.
-
- #+begin_src python
+```python
 def canJump(nums: List[int]) -> bool:
     def backtrack_from(pos):
         if pos == len(nums) - 1:
@@ -25,14 +23,13 @@ def canJump(nums: List[int]) -> bool:
                 return True
         return False
     return backtrack_from(0)
- #+end_src
+```
 
-**  탑 다운 다이나믹 프로그래밍
+## 탑 다운 다이나믹 프로그래밍
 
- 원소 값의 모든 경우를 다 따져보기 전까지는 그 원소 값이 좋은지 안좋은지 모르기
- 때문에, 각 경우를 다음 세 가지로 나눈다: =아직 모름=, =좋음=, =나쁨=.
+원소 값의 모든 경우를 다 따져보기 전까지는 그 원소 값이 좋은지 안좋은지 모르기 때문에, 각 경우를 다음 세 가지로 나눈다: `아직 모름`, `좋음`, `나쁨`.
 
- #+begin_src python
+```python
 def canJump(nums: List[int]) -> bool:
     GOOD, BAD, UNKNOWN = 0, 1, 2
     memo = [UNKNOWN] * len(nums)
@@ -47,16 +44,16 @@ def canJump(nums: List[int]) -> bool:
         # cannot reach from pos
         memo[pos] = BAD
         return False
-
+    
     memo[len(nums) - 1] = GOOD  # the goal is good
     return can_jump_from(0)
- #+end_src
+```
 
-** 바텀 업 다이나믹 프로그래밍
+## 바텀 업 다이나믹 프로그래밍
 
 비슷한 방법으로 태뷸레이션을 채워갈 수도 있다.
 
-#+begin_src python
+```python
 def canJump(nums: List[int]) -> bool:
     n = len(nums)
     GOOD, BAD, UNKNOWN = 0, 1, 2
@@ -69,18 +66,15 @@ def canJump(nums: List[int]) -> bool:
                 memo[i] = GOOD
                 break
     return memo[0] == GOOD
-#+end_src
+```
 
-** 그리디
+## 그리디
 
- 이 문제는 탐욕법으로도 풀린다. 바텀 업 다이나믹 프로그래밍 알고리즘을 잘 보면,
- 어떤 주어진 위치로부터 =GOOD= 위치를 찾아야 하는데, 이는 그 중에서 /가장 왼쪽/
- (=break=) 이다. 즉, 가장 왼쪽의 =GOOD= 위치들만 모아두면 될 것 같다.
+이 문제는 탐욕법으로도 풀린다. 바텀 업 다이나믹 프로그래밍 알고리즘을 잘 보면, 어떤 주어진 위치로부터 `GOOD` 위치를 찾아야 하는데, 이는 그 중에서 *가장 왼쪽* (`break`) 이다. 즉, 가장 왼쪽의 `GOOD` 위치들만 모아두면 될 것 같다.
 
- 따라서 오른쪽에서 왼쪽으로 거꾸로 훑어가면서, 각각의 위치에서 /좋은/ 위치로
- 점프가 가능한지를 확인하면 된다.
+따라서 오른쪽에서 왼쪽으로 거꾸로 훑어가면서, 각각의 위치에서 *좋은* 위치로 점프가 가능한지를 확인하면 된다.
 
- #+begin_src python
+```python
 def canJump(nums: List[int]) -> bool:
     n = len(nums)
     last = n - 1
@@ -88,4 +82,4 @@ def canJump(nums: List[int]) -> bool:
         if i + nums[i] >= last:
             last = i
     return last == 0
- #+end_src
+```

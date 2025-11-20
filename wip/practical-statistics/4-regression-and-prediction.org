@@ -1,6 +1,0 @@
-#+title: 4. Regression and Prediction
-#+last_update: 2023-05-08 15:42:35
-#+layout: page
-#+tags: statistics note
-
-* Regression and Prediction
