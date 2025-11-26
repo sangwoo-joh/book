@@ -1,6 +1,6 @@
-# Book :book:
+# The Book :book:
 
- Engineering book built on top of [Docsy](https://github.com/vsoch/docsy-jekyll)
+ The engineering book built on top of [Docsy](https://github.com/vsoch/docsy-jekyll)
 
 ## DISCLAIMER
  
