@@ -8,10 +8,6 @@ github_user: "sangwoo-joh"
 github_repo: "the-book"
 github_branch: "master"
 
-plugins:
-  - jekyll-org
-
-
 version_params:
   allow_search: true
   search_versions:
